@@ -20,8 +20,8 @@
       alpha-blending = "linear-corrected";
 
       # ─── CURSOR ──────────────────────────────────────
-      cursor-style = "block";
-      cursor-style-blink = false;
+      cursor-style = "bar";
+      cursor-style-blink = true;
       cursor-color = "cell-foreground";
       cursor-text = "cell-background";
 
@@ -39,7 +39,7 @@
 
       # ─── SHELL ────────────────────────────────────────
       shell-integration = "detect";
-      shell-integration-features = "sudo,title";
+      shell-integration-features = "sudo,title,no-cursor";
 
       # ─── MISC ─────────────────────────────────────────
       mouse-hide-while-typing = true;
