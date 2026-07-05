@@ -1,11 +1,6 @@
 { config, pkgs, ... }:
 
 {
-	imports = [
-		./zsh.nix
-		./tmux.nix
-	];
-
 	home.packages = with pkgs; [
 		btop
 		yazi
