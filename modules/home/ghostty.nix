@@ -47,6 +47,7 @@
       scrollback-limit = 10000;
       clipboard-read = "allow";
       clipboard-write = "allow";
+      copy-on-select = false;
 
       # ─── KEYBINDS: FONT SIZE ──────────────────────────
       keybind = [
