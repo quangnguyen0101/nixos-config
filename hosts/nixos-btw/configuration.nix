@@ -12,6 +12,7 @@
       ../../modules/system/fonts.nix
       ../../modules/system/greeter.nix
       ../../modules/system/hyprland.nix
+      ../../modules/system/bluetooth.nix
       ../../modules/system/networking.nix
       ../../modules/system/systemPackages.nix
     ];
