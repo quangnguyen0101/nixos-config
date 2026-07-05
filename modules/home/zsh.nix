@@ -8,7 +8,7 @@
   		syntaxHighlighting.enable = true;
 
   		shellAliases = {
-    			tr = "tree -a";
+    			tr = "tree";
 			clr = "clear";
     			update = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw";
   		};
