@@ -38,6 +38,9 @@
   # Enable nix-command and flake
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
+  # Enable install unfree application
+  nixpkgs.config.allowUnfree = true;
+
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";

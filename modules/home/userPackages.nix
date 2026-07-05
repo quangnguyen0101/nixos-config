@@ -23,6 +23,7 @@
 		zsh
 		oh-my-zsh
 		fastfetch
+		vscode
 	];
 			
 	# Config fastfetch
