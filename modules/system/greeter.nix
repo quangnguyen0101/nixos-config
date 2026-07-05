@@ -51,7 +51,6 @@
     font-family: "JetBrainsMono Nerd Font";
   }
 
-  /* Khung chứa form login */
   box.background {
     background-color: alpha(@surface, 0.75);
     border-radius: 20px;
@@ -59,13 +58,11 @@
     padding: 32px;
   }
 
-  /* Label chữ (username, session...) */
   label {
     color: @subtle;
     font-weight: 500;
   }
 
-  /* Ô nhập username/password */
   entry {
     background-color: @overlay;
     color: @text;
@@ -81,58 +78,73 @@
     box-shadow: 0 0 0 3px alpha(@iris, 0.2);
   }
 
-  /* Nút Login/Reboot/Shutdown */
+  /* ===== Nút thường (mặc định) — viền rõ ===== */
   button {
     background-color: @overlay;
     color: @text;
     border-radius: 12px;
-    border: 1px solid alpha(@muted, 0.25);
+    border: 2px solid @muted;
     padding: 8px 20px;
     transition: all 150ms ease;
   }
 
   button:hover {
     background-color: @pine;
+    border-color: @foam;
     color: @base;
   }
 
   button:active {
     background-color: @foam;
+    border-color: @foam;
   }
 
-  /* Nút Login chính, nổi bật hơn nút phụ */
+  /* ===== Nút Login (chính) — viền màu iris ===== */
   button.suggested-action {
     background-color: @iris;
     color: @base;
     font-weight: 700;
+    border: 2px solid @iris;
   }
 
   button.suggested-action:hover {
     background-color: @rose;
+    border-color: @rose;
   }
 
-  /* Dropdown chọn session/user */
+  /* ===== Nút Reboot/Power off — viền màu love (đỏ hồng), nổi bật cảnh báo ===== */
+  button.destructive-action {
+    background-color: @overlay;
+    color: @love;
+    font-weight: 600;
+    border: 2px solid @love;
+  }
+
+  button.destructive-action:hover {
+    background-color: @love;
+    color: @base;
+    border-color: @love;
+  }
+
   dropdown, combobox {
     background-color: @overlay;
     color: @text;
     border-radius: 12px;
-    border: 1px solid alpha(@muted, 0.3);
+    border: 2px solid @muted;
   }
 
-  /* Thông báo lỗi (sai password...) */
   .error {
     color: @love;
     font-weight: 600;
   }
 
-  /* Đồng hồ/ngày giờ nếu có */
   .clock {
     color: @gold;
     font-size: 32px;
     font-weight: 300;
   }
-'';
-	};
+'';	
+};
 
 	services.greetd = {
 		enable = true;
