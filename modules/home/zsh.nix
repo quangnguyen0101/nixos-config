@@ -10,6 +10,7 @@
   		shellAliases = {
     			tr = "tree";
 			clr = "clear";
+			shut = "shutdown -h now";
     			update = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw";
   		};
 
