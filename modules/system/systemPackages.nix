@@ -14,5 +14,6 @@
         gnumake
         gcc
         nodejs_22
+        steam
 	];
 }

@@ -20,7 +20,6 @@
 		fastfetch
 		vscode
         ollama
-        steam
 	];
 			
 	# Config fastfetch

@@ -21,6 +21,24 @@ return {
             },
         },
     },
+    {
+        "WhoIsSethDaniel/mason-tool-installer.nvim",
+        lazy = false,
+        opts = {
+            ensure_installed = {
+                "prettierd",             -- formatter JS/TS/HTML/CSS/JSON/YAML/Markdown
+                "shfmt",                 -- formatter Bash
+                "nixfmt",                -- formatter Nix
+                "latexindent",           -- formatter LaTeX
+                "shellcheck",            -- linter Bash
+                --"yamllint",              -- linter YAML
+                "hadolint",              -- linter Dockerfile
+                "markdownlint-cli2",     -- linter Markdown
+                "bash-debug-adapter",    -- DAP Bash
+                "netcoredbg",            -- DAP C#
+            },
+        },
+    },
     -- Formatter
     {
         "stevearc/conform.nvim",
@@ -31,6 +49,27 @@ return {
                     c      = { "clang_format" },
                     cpp    = { "clang_format" },
                     rust   = { "rustfmt" },
+                    -- JS/TS/Web
+                    javascript = { "prettierd" },
+                    typescript = { "prettierd" },
+                    javascriptreact = { "prettierd" },
+                    typescriptreact = { "prettierd" },
+                    html   = { "prettierd" },
+                    css    = { "prettierd" },
+                    json   = { "prettierd" },
+                    yaml   = { "prettierd" },
+                    markdown = { "prettierd" },
+                    svelte = { "prettierd" },
+                    -- Scripts
+                    bash = { "shfmt" },
+                    sh   = { "shfmt" },
+                    zsh  = { "shfmt" },
+                    -- Others
+                    nix   = { "nixfmt" },
+                    tex   = { "latexindent" },
+                    latex = { "latexindent" },
+                    zig   = { "zigfmt" },
+                    proto = { "buf" },
                 },
                 format_on_save = {
                     timeout_ms = 500,
@@ -47,6 +86,16 @@ return {
                 python = { "pylint" },
                 c      = { "cpplint" },
                 cpp    = { "cpplint" },
+                rust   = { "clippy" },
+                javascript = { "eslint_d" },
+                typescript = { "eslint_d" },
+                javascriptreact = { "eslint_d" },
+                typescriptreact = { "eslint_d" },
+                bash = { "shellcheck" },
+                sh   = { "shellcheck" },
+                yaml = { "yamllint" },
+                dockerfile = { "hadolint" },
+                markdown = { "markdownlint_cli2" },
             }
             -- Tự động lint khi lưu file
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -108,6 +157,53 @@ return {
             }
             dap.configurations.cpp = dap.configurations.c
             dap.configurations.rust = dap.configurations.c
+
+            -- Bash
+            dap.adapters.bash = {
+                type = "server",
+                port = "${port}",
+                executable = {
+                    command = vim.fn.stdpath("data") .. "/mason/bin/bash-debug-adapter",
+                    args = { "--port", "${port}" },
+                },
+            }
+            dap.configurations.sh = {
+                {
+                    name = "Launch",
+                    type = "bash",
+                    request = "launch",
+                    program = function()
+                        return vim.fn.input("Path to script: ", vim.fn.getcwd() .. "/", "file")
+                    end,
+                    cwd = "${workspaceFolder}",
+                },
+            }
+            dap.configurations.bash = dap.configurations.sh
+            dap.configurations.zsh = dap.configurations.sh
+
+            -- C#
+            dap.adapters.netcoredbg = {
+                type = "server",
+                host = "127.0.0.1",
+                port = "${port}",
+                executable = {
+                    command = vim.fn.stdpath("data") .. "/mason/bin/netcoredbg",
+                    args = { "--interpreter=vscode" },
+                },
+            }
+            dap.configurations.cs = {
+                {
+                    name = "Launch .NET",
+                    type = "netcoredbg",
+                    request = "launch",
+                    preLaunchTask = "build",
+                    program = function()
+                        return vim.fn.input("Path to DLL: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
+                    end,
+                    cwd = "${workspaceFolder}",
+                    stopOnEntry = false,
+                },
+            }
 
             -- DAP Keymaps (in keymaps.lua)
         end,
