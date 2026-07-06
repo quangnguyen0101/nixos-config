@@ -19,9 +19,7 @@
 		oh-my-zsh
 		fastfetch
 		vscode
-        gnumake
-        gcc
-        nodejs_22
+        ollama
 	];
 			
 	# Config fastfetch

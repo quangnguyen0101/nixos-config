@@ -11,5 +11,8 @@
 		unzip
 		fastfetch
 		efibootmgr
+        gnumake
+        gcc
+        nodejs_22
 	];
 }

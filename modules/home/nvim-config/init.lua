@@ -126,8 +126,8 @@ require('Comment').setup(
     }
 )
 -- Auto Neotree at the beginning
-vim.api.nvim_create_autocmd("VimEnter", {
-    callback = function()
-        vim.cmd("Neotree show")
-    end,
-})
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--     callback = function()
+--         vim.cmd("Neotree show")
+--     end,
+-- })
