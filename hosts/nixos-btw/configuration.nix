@@ -34,6 +34,9 @@
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
+  # Disable IPv6
+  networking.enableIPv6 = false;
+
   # Enable zsh
   users.users.sh4d0wph4nt0m.shell = pkgs.zsh;
   programs.zsh.enable = true;
