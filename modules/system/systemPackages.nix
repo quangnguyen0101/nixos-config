@@ -10,5 +10,6 @@
 		curl
 		unzip
 		fastfetch
+		efibootmgr
 	];
 }
