@@ -2,21 +2,27 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ../../modules/system/gc.nix
-      ../../modules/system/i18n.nix
-      ../../modules/system/fonts.nix
-      ../../modules/system/greeter.nix
-      ../../modules/system/hyprland.nix
-      ../../modules/system/bluetooth.nix
-      ../../modules/system/networking.nix
-      ../../modules/system/systemPackages.nix
-    ];
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ../../modules/system/gc.nix
+    ../../modules/system/i18n.nix
+    ../../modules/system/fonts.nix
+    ../../modules/system/steam.nix
+    ../../modules/system/greeter.nix
+    ../../modules/system/hyprland.nix
+    ../../modules/system/bluetooth.nix
+    ../../modules/system/networking.nix
+    ../../modules/system/systemPackages.nix
+  ];
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -30,7 +36,7 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-	
+
   # Enable the X11 windowing system.
   # services.xserver.enable = true;
 
@@ -42,7 +48,10 @@
   programs.zsh.enable = true;
 
   # Enable nix-command and flake
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Enable install unfree application
   nixpkgs.config.allowUnfree = true;
@@ -71,7 +80,10 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sh4d0wph4nt0m = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ]; # Enable ‘sudo’ for the user.
   };
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -118,4 +130,3 @@
   system.stateVersion = "26.05"; # Did you read the comment?
 
 }
-

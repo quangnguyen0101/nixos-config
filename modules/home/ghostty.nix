@@ -4,6 +4,7 @@
   programs.ghostty = {
     enable = true;
     settings = {
+
       # ─── FONT ────────────────────────────────────────
       font-family = "0xProto Nerd Font";
       font-family-bold = "0xProto Nerd Font";

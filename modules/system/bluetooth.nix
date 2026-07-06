@@ -1,10 +1,10 @@
 { config, pkgs, ... }:
 
 {
-	hardware.bluetooth = {
-    		enable = true;
-    		#powerOnBoot = true;
-  	};
+  hardware.bluetooth = {
+    enable = true;
+    #powerOnBoot = true;
+  };
 
-  	services.blueman.enable = true;
+  services.blueman.enable = true;
 }
