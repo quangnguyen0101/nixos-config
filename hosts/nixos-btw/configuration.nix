@@ -8,6 +8,7 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ../../modules/system/gc.nix
       ../../modules/system/i18n.nix
       ../../modules/system/fonts.nix
       ../../modules/system/greeter.nix
