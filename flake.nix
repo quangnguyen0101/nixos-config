@@ -1,6 +1,8 @@
 {
   description = "NixOS configuration";
 
+  inputs.self.submodules = true; # submodule in self flake
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
     home-manager.url = "github:nix-community/home-manager";
