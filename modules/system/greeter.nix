@@ -30,6 +30,13 @@
     iconTheme.package = pkgs.adwaita-icon-theme;
     iconTheme.name = "Adwaita";
 
+    # settings = {
+    #   background = {
+    #     path = "${./wallpapers/login-bg.jpg}";
+    #     fit = "Cover";
+    #   };
+    # };
+
     extraCss = ''
       /* ===== Rosé Pine Palette ===== */
       @define-color base #191724;
