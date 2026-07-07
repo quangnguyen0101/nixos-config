@@ -24,6 +24,7 @@
       self,
       nixpkgs,
       home-manager,
+      lanzaboote,
       ...
     }:
     {
@@ -41,11 +42,6 @@
 
           lanzaboote.nixosModules.lanzaboote
           ({ pkgs, lib, ... }: {
-            environment.systemPackages = [
-              # For debugging and troubleshooting Secure Boot.
-              pkgs.sbctl
-            ];
-
             # Lanzaboote currently replaces the systemd-boot module.
             # This setting is usually set to true in configuration.nix
             # generated at installation time. So we force it to false

@@ -15,5 +15,6 @@
     gcc
     nodejs_22
     steam
+    sbctl
   ];
 }
