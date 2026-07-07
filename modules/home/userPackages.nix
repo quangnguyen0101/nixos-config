@@ -20,6 +20,7 @@
     fastfetch
     vscode
     ollama
+    qimgv
   ];
 
   # Config fastfetch
