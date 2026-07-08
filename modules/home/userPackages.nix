@@ -21,6 +21,7 @@
     vscode
     ollama
     qimgv
+    bibata-cursors
   ];
 
   # Config fastfetch

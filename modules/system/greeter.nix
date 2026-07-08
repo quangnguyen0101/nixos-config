@@ -3,12 +3,6 @@
 {
   programs.regreet = {
     enable = true;
-    #theme.name = "Adwaita";
-    #font = {
-    #	name = "Cantarell";
-    #	size = 16;
-    #};
-    #cursorTheme.name = "Adwaita";
 
     cageArgs = [
       "-s"
@@ -24,8 +18,10 @@
     font.name = "JetBrainsMono Nerd Font";
     font.size = 14;
 
-    cursorTheme.package = pkgs.adwaita-icon-theme;
-    cursorTheme.name = "Adwaita";
+    cursorTheme = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Modern-Ice";
+    };
 
     iconTheme.package = pkgs.adwaita-icon-theme;
     iconTheme.name = "Adwaita";
