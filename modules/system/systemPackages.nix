@@ -16,5 +16,6 @@
     nodejs_22
     steam
     sbctl
+    usbutils
   ];
 }
