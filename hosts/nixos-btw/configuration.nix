@@ -21,6 +21,7 @@
     ../../modules/system/hyprland.nix
     ../../modules/system/bluetooth.nix
     ../../modules/system/networking.nix
+    ../../modules/system/fcitx5-lotus.nix
     ../../modules/system/systemPackages.nix
   ];
 

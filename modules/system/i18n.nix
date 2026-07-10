@@ -14,9 +14,9 @@
     enable = true;
     fcitx5 = {
       waylandFrontend = true;
-      addons = with pkgs; [
-        fcitx5-bamboo
-      ];
+      # addons = with pkgs; [
+      #   fcitx5-bamboo
+      # ];
     };
   };
 }

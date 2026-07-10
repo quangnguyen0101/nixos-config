@@ -22,6 +22,11 @@
     };
 
     hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
+
+    fcitx5-lotus = {
+      url = "github:LotusInputMethod/fcitx5-lotus";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -31,6 +36,7 @@
       home-manager,
       lanzaboote,
       hyprdynamicmonitors,
+      fcitx5-lotus,
       ...
     }:
     {
@@ -39,6 +45,9 @@
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/nixos-btw/configuration.nix
+
+          fcitx5-lotus.nixosModules.fcitx5-lotus
+
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
