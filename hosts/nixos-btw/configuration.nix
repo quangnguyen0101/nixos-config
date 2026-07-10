@@ -60,6 +60,9 @@
   # Enable UPower
   services.upower.enable = true;
 
+  # Enable power-profiles-daemon
+  services.power-profiles-daemon.enable = true;
+
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";

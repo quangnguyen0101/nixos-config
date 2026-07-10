@@ -9,8 +9,13 @@
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
-    caelestia-shell = {
-      url = "github:caelestia-dots/shell";
+    # caelestia-shell = {
+    #   url = "github:caelestia-dots/shell";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
+
+    noctalia = {
+      url = "github:noctalia-dev/noctalia/legacy-v4";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -34,6 +39,7 @@
       home-manager,
       lanzaboote,
       fcitx5-lotus,
+      noctalia,
       ...
     }:
     {
@@ -51,6 +57,9 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.sh4d0wph4nt0m = ./home/sh4d0wph4nt0m/home.nix;
+            home-manager.sharedModules = [
+              noctalia.homeModules.default
+            ];
           }
 
           lanzaboote.nixosModules.lanzaboote
