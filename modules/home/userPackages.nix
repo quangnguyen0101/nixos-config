@@ -14,7 +14,6 @@
     wl-clipboard
     cliphist
     vlc
-    hyprmon
     zsh
     oh-my-zsh
     fastfetch
@@ -22,6 +21,7 @@
     ollama
     qimgv
     bibata-cursors
+    hyprdynamicmonitors
   ];
 
   # Config fastfetch

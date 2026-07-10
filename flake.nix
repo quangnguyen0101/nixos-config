@@ -5,6 +5,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixpkgs-unstable";
+
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
 
@@ -19,6 +20,8 @@
       # Optional but recommended to limit the size of your system closure.
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
   };
 
   outputs =
@@ -27,11 +30,13 @@
       nixpkgs,
       home-manager,
       lanzaboote,
+      hyprdynamicmonitors,
       ...
     }:
     {
       nixosConfigurations.nixos-btw = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
         modules = [
           ./hosts/nixos-btw/configuration.nix
           home-manager.nixosModules.home-manager
@@ -40,6 +45,7 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.sh4d0wph4nt0m = ./home/sh4d0wph4nt0m/home.nix;
+            home-manager.sharedModules = [ hyprdynamicmonitors.homeManagerModules.default ];
           }
 
           lanzaboote.nixosModules.lanzaboote
