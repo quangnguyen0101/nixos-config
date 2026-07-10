@@ -21,8 +21,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    hyprdynamicmonitors.url = "github:fiffeek/hyprdynamicmonitors";
-
     fcitx5-lotus = {
       url = "github:LotusInputMethod/fcitx5-lotus";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -35,7 +33,6 @@
       nixpkgs,
       home-manager,
       lanzaboote,
-      hyprdynamicmonitors,
       fcitx5-lotus,
       ...
     }:
@@ -54,7 +51,6 @@
             home-manager.useUserPackages = true;
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.sh4d0wph4nt0m = ./home/sh4d0wph4nt0m/home.nix;
-            home-manager.sharedModules = [ hyprdynamicmonitors.homeManagerModules.default ];
           }
 
           lanzaboote.nixosModules.lanzaboote

@@ -21,7 +21,6 @@
     ollama
     qimgv
     bibata-cursors
-    hyprdynamicmonitors
   ];
 
   # Config fastfetch
