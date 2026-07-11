@@ -3,10 +3,11 @@
 {
   imports = [
     ../../modules/home/zsh.nix
+    ../../modules/home/dms.nix
     ../../modules/home/tmux.nix
     ../../modules/home/nvim.nix
     ../../modules/home/ghostty.nix
-    ../../modules/home/noctalia.nix
+    # ../../modules/home/noctalia.nix
     # ../../modules/home/caelestia.nix
     ../../modules/home/userPackages.nix
   ];
