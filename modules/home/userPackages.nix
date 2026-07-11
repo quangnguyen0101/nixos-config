@@ -21,6 +21,7 @@
     ollama
     qimgv
     bibata-cursors
+    rnote
   ];
 
   # Config fastfetch
