@@ -17,7 +17,6 @@
     ../../modules/system/i18n.nix
     ../../modules/system/fonts.nix
     ../../modules/system/steam.nix
-    ../../modules/system/xppen.nix
     ../../modules/system/greeter.nix
     ../../modules/system/hyprland.nix
     ../../modules/system/bluetooth.nix
@@ -96,6 +95,8 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "input"
+      "uinput"
     ]; # Enable ‘sudo’ for the user.
   };
 

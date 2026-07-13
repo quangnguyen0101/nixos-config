@@ -22,6 +22,9 @@
     qimgv
     bibata-cursors
     rnote
+    hyprmon
+    proton-vpn
+    obsidian
   ];
 
   # Config fastfetch
