@@ -63,13 +63,16 @@
   # Enable power-profiles-daemon
   services.power-profiles-daemon.enable = true;
 
-  # Enable binary cache for noctalia
-  nix.settings = {
-    extra-substituters = [ "https://noctalia.cachix.org" ];
-    extra-trusted-public-keys = [
-      "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
-    ];
-  };
+  # # Enable binary cache for noctalia
+  # nix.settings = {
+  #   extra-substituters = [ "https://noctalia.cachix.org" ];
+  #   extra-trusted-public-keys = [
+  #     "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+  #   ];
+  # };
+
+  # Docker configuration
+  virtualisation.docker.enable = true;
 
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
@@ -97,6 +100,7 @@
       "networkmanager"
       "input"
       "uinput"
+      "docker"
     ]; # Enable ‘sudo’ for the user.
   };
 

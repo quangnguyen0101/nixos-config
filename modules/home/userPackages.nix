@@ -25,6 +25,7 @@
     hyprmon
     proton-vpn
     obsidian
+    spek
   ];
 
   # Config fastfetch
