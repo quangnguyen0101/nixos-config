@@ -27,6 +27,7 @@
     obsidian
     spek
     rmpc
+    cava
     (python314.withPackages (
       ps: with ps; [
         pip
