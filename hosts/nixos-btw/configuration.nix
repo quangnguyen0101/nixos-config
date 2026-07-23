@@ -63,6 +63,9 @@
   # Enable power-profiles-daemon
   services.power-profiles-daemon.enable = true;
 
+  # Enable pipewire
+  services.pipewire.enable = true;
+
   # # Enable binary cache for noctalia
   # nix.settings = {
   #   extra-substituters = [ "https://noctalia.cachix.org" ];

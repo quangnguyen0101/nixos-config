@@ -26,6 +26,15 @@
     proton-vpn
     obsidian
     spek
+    rmpc
+    (python314.withPackages (
+      ps: with ps; [
+        pip
+        numpy
+        requests
+        pandas
+      ]
+    ))
   ];
 
   # Config fastfetch
