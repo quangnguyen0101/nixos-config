@@ -31,6 +31,7 @@
     jq
     megasync
     ffmpeg
+    cava
     (python314.withPackages (
       ps: with ps; [
         pip
