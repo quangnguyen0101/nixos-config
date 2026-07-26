@@ -11,6 +11,7 @@
     # ../../modules/home/noctalia.nix
     ../../modules/home/caelestia.nix
     ../../modules/home/userPackages.nix
+    ../../modules/home/rmpc-config/rmpc.nix
   ];
 
   home.username = "sh4d0wph4nt0m";
