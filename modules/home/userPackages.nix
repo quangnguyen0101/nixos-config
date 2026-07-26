@@ -27,6 +27,10 @@
     obsidian
     spek
     rmpc
+    flac
+    jq
+    megasync
+    ffmpeg
     (python314.withPackages (
       ps: with ps; [
         pip
