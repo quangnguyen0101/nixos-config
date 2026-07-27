@@ -34,8 +34,9 @@
 
       # Zsh Function để update rmpc nhanh
       ru() {
-        echo "🎵 Đang cập nhật kho nhạc..."
         rmpc update
+        echo "🎵 Kho nhạc đã được cập nhật thành công!"
+        sleep 3
         rmpc
       }
     '';
