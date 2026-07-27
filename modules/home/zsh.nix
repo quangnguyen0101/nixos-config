@@ -16,7 +16,7 @@
 
     oh-my-zsh = {
       enable = true;
-      theme = "robbyrussell"; # theme mặc định, đổi tên khác nếu muốn
+      theme = "robbyrussell";
       plugins = [
         "git"
         "sudo"
@@ -25,11 +25,19 @@
       ];
     };
 
+    # Thêm Zsh function và script khởi động vào đây
     initContent = ''
-        			if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
-          			exec tmux new-session -A -s main
-        			fi
-      		'';
+      # Tự động chạy TMUX
+      if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
+        exec tmux new-session -A -s main
+      fi
 
+      # Zsh Function để update rmpc nhanh
+      ru() {
+        echo "🎵 Đang cập nhật kho nhạc..."
+        rmpc update
+        rmpc
+      }
+    '';
   };
 }
