@@ -19,6 +19,7 @@
     ../../modules/system/steam.nix
     ../../modules/system/greeter.nix
     ../../modules/system/hyprland.nix
+    ../../modules/system/printing.nix
     ../../modules/system/bluetooth.nix
     ../../modules/system/networking.nix
     ../../modules/system/fcitx5-lotus.nix
@@ -104,6 +105,8 @@
       "input"
       "uinput"
       "docker"
+      "lp"
+      "scanner"
     ]; # Enable ‘sudo’ for the user.
   };
 
