@@ -2,6 +2,7 @@
 #![enable(unwrap_newtypes)]
 #![enable(unwrap_variant_newtypes)]
 (
+    // cache_dir: "~/.cache/rmpc",
     address: "127.0.0.1:6600",
     password: None,
     theme: "nord",
@@ -63,10 +64,10 @@
             "3":          SwitchToTab("Directories"),
             "4":          SwitchToTab("Artists"),
             "5":          SwitchToTab("Albums"),
-            "6":          SwitchToTab("Album Artists"),
             // "6":          SwitchToTab("Composer"),
+            "6":          SwitchToTab("Search"),
             // "7":          SwitchToTab("Cava"),
-            "7":          SwitchToTab("Search"),
+
             "<C-u>":      Update,
             "<C-U>":      Rescan,
             "R":          AddRandom,
@@ -192,8 +193,8 @@
             pane: Pane(Artists)),
         (name: "Albums", borders: "ALL", border_symbols: Rounded,
             pane: Pane(Albums)),
-        (name: "Album Artists", borders: "ALL", border_symbols: Rounded,
-            pane: Pane(AlbumArtists)),
+        // (name: "Album Artists", borders: "ALL", border_symbols: Rounded,
+        //     pane: Pane(AlbumArtists)),
         // (name: "Composer", borders: "ALL", border_symbols: Rounded,
         //     pane: Pane(Browser(root_tag: "composer"))),
         // (name: "Cava",pane: Split(direction: Vertical, panes: [
