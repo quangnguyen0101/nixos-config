@@ -7,6 +7,7 @@
     ../../modules/home/tmux.nix
     ../../modules/home/nvim.nix
     ../../modules/home/cava.nix
+    ../../modules/home/python.nix
     ../../modules/home/ghostty.nix
     # ../../modules/home/noctalia.nix
     ../../modules/home/caelestia.nix
