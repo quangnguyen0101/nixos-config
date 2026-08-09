@@ -34,6 +34,7 @@
     cava
     telegram-desktop
     antigravity
+    slack
   ];
 
   # Config fastfetch
