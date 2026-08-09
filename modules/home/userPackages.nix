@@ -33,6 +33,7 @@
     ffmpeg
     cava
     telegram-desktop
+    antigravity
   ];
 
   # Config fastfetch
