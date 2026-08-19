@@ -33,7 +33,7 @@ in
     enable = true;
   };
 
-  xdg.configFile = jackhack96Links // digitalone1Links // {
+  xdg.dataFile = jackhack96Links // digitalone1Links // {
     "easyeffects/irs" = {
       source = "${jackhack96}/irs";
       recursive = true;
