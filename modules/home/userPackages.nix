@@ -35,6 +35,7 @@
     telegram-desktop
     antigravity
     slack
+    easyeffects
   ];
 
   # Config fastfetch

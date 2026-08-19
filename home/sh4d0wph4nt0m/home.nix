@@ -48,4 +48,8 @@
     '';
   };
 
+  services.easyeffects = {
+    enable = true;
+  };
+
 }
