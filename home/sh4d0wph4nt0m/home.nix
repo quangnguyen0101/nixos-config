@@ -13,6 +13,7 @@
     ../../modules/home/caelestia.nix
     ../../modules/home/userPackages.nix
     ../../modules/home/rmpc-config/rmpc.nix
+    ../../modules/home/easyeffects.nix
   ];
 
   home.username = "sh4d0wph4nt0m";
@@ -46,10 +47,6 @@
         name "PipeWire Output"
       }
     '';
-  };
-
-  services.easyeffects = {
-    enable = true;
   };
 
 }
