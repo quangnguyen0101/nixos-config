@@ -41,10 +41,26 @@
   home.file.".config/fastfetch/config.jsonc".source =
     "${pkgs.fastfetch}/share/fastfetch/presets/examples/7.jsonc";
 
+  # Config opencode - TUI
+  xdg.configFile."opencode/tui.json".text = ''
+    {
+      "$schema": "https://opencode.ai/tui.json",
+      "display_thinking": true
+    }
+  '';
+
   # Config opencode
   xdg.configFile."opencode/opencode.jsonc".text = ''
     {
       "$schema": "https://opencode.ai/config.json",
+      "attachment": {
+        "image": {
+          "auto_resize": true,
+          "max_width": 1024,
+          "max_height": 1024,
+          "max_base64_bytes": 2097152
+        }
+      },
       "provider": {
         "ollama": {
           "npm": "@ai-sdk/openai-compatible",
