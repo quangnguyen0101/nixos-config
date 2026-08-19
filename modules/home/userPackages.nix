@@ -54,16 +54,32 @@
           },
           "models": {
             "minimax-m2.7:cloud": {
-              "name": "MiniMax M2.7"
+              "name": "MiniMax M2.7",
+              "modalities": {
+                "input": ["text", "image"],
+                "output": ["text"]
+              }
             },
             "nemotron-3-super:cloud": {
-              "name": "Nemotron 3 Super"
+              "name": "Nemotron 3 Super",
+              "modalities": {
+                "input": ["text", "image"],
+                "output": ["text"]
+              }
             },
             "gpt-oss:120b-cloud": {
-              "name": "GPT-OSS 120B"
+              "name": "GPT-OSS 120B",
+              "modalities": {
+                "input": ["text", "image"],
+                "output": ["text"]
+              }
             },
             "gemma4:31b-cloud": {
-              "name": "Gemma 4 31B"
+              "name": "Gemma 4 31B",
+              "modalities": {
+                "input": ["text", "image"],
+                "output": ["text"]
+              }
             }
           }
         }
