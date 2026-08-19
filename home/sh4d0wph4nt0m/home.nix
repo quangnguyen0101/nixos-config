@@ -21,6 +21,12 @@
 
   programs.home-manager.enable = true;
 
+  services.home-manager.autoExpire = {
+    enable = true;
+    timestamp = "-14 days";
+    frequency = "weekly";
+  };
+
   home.pointerCursor = {
     gtk.enable = true;
     package = pkgs.bibata-cursors;
