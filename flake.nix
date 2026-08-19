@@ -60,6 +60,7 @@
           {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "hm-backup";
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.sh4d0wph4nt0m = ./home/sh4d0wph4nt0m/home.nix;
             # home-manager.sharedModules = [
