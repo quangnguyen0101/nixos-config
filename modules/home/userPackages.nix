@@ -40,4 +40,12 @@
   # Config fastfetch
   home.file.".config/fastfetch/config.jsonc".source =
     "${pkgs.fastfetch}/share/fastfetch/presets/examples/7.jsonc";
+
+  # Config opencode
+  xdg.configFile."opencode/opencode.jsonc".text = ''
+    {
+      "$schema": "https://opencode.ai/config.json",
+      "disabled_providers": ["ollama"]
+    }
+  '';
 }
