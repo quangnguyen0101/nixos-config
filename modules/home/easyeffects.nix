@@ -29,17 +29,9 @@ let
   digitalone1Links = lib.mapAttrs' (mkPresetLink digitalone1) (jsonFiles "digitalone1" digitalone1);
 in
 {
-  services.easyeffects = {
-    enable = true;
-  };
-
-  systemd.user.services.easyeffects = {
-    Unit = {
-      After = lib.mkForce [ "default.target" ];
-      PartOf = lib.mkForce [ "default.target" ];
-    };
-    Install.WantedBy = lib.mkForce [ "default.target" ];
-  };
+  # Disabled: run via hypr-user.lua instead to avoid Qt/Wayland
+  # crash when systemd starts before GUI session is ready.
+  # services.easyeffects.enable = true;
 
   xdg.dataFile = jackhack96Links // digitalone1Links // {
     "easyeffects/irs" = {
