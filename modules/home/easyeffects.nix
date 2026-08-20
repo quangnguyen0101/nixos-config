@@ -33,6 +33,14 @@ in
     enable = true;
   };
 
+  systemd.user.services.easyeffects = {
+    Unit = {
+      After = lib.mkForce [ "default.target" ];
+      PartOf = lib.mkForce [ "default.target" ];
+    };
+    Install.WantedBy = lib.mkForce [ "default.target" ];
+  };
+
   xdg.dataFile = jackhack96Links // digitalone1Links // {
     "easyeffects/irs" = {
       source = "${jackhack96}/irs";
