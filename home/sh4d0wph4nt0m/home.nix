@@ -9,6 +9,7 @@
     ../../modules/home/cava.nix
     ../../modules/home/python.nix
     ../../modules/home/ghostty.nix
+    ../../modules/home/opencode.nix
     # ../../modules/home/noctalia.nix
     ../../modules/home/caelestia.nix
     ../../modules/home/userPackages.nix
