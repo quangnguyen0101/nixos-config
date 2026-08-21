@@ -36,6 +36,7 @@
     antigravity
     slack
     easyeffects
+    (pkgs.callPackage ../../pkgs/deepseek-harness { })
   ];
 
   # Config fastfetch
