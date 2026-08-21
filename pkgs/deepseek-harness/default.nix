@@ -4,6 +4,7 @@
   buildNpmPackage,
   fetchurl,
   runCommand,
+  makeWrapper,
   nodejs,
 }:
 
@@ -40,6 +41,14 @@ buildNpmPackage rec {
   inherit nodejs;
 
   dontNpmBuild = true; # dist đã được build sẵn trong tarball npm
+
+  # cordis-plugin-hmr yêu cầu node chạy với --expose-internals
+  postInstall = ''
+    rm $out/bin/dsh
+    makeWrapper ${nodejs}/bin/node $out/bin/dsh \
+      --add-flags "--expose-internals" \
+      --add-flags "$out/lib/node_modules/@deepseek-ai/dsh/lib/bin.js"
+  '';
 
   meta = {
     description = "DeepSeek Harness agent CLI (dsh): everything is a plugin";
