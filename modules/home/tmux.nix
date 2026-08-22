@@ -9,6 +9,7 @@
     mouse = true; # bật chuột (chọn pane, resize, scroll) — rất nên có
     baseIndex = 1; # window/pane đánh số từ 1 thay vì 0, dễ bấm phím
     escapeTime = 0; # giảm delay khi nhấn ESC (quan trọng nếu dùng vim/neovim trong tmux)
+    focusEvents = true; # nvim nhận FocusGained/FocusLost để autoread hoạt động
 
     plugins = with pkgs; [
       {

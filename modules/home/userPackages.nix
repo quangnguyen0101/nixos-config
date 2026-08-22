@@ -28,6 +28,9 @@
     rmpc
     flac
     jq
+    ripgrep
+    fd
+    lsof
     tailwindcss-language-server
     megasync
     ffmpeg
