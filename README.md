@@ -12,7 +12,8 @@ flake.nix
     ├── hosts/nixos-btw/          (host-specific: hardware, networking, locale)
     ├── modules/system/           (system-level: hyprland, fonts, steam, bluetooth, etc.)
     ├── home-manager → home/
-    │   └── modules/home/         (user-level: zsh, tmux, nvim, ghostty, packages)
+    │   └── modules/home/         (user-level: zsh, tmux, nvim, ghostty, opencode, packages)
+    ├── pkgs/                     (custom packages: deepseek-harness)
     └── lanzaboote                (secure boot)
 ```
 
@@ -27,7 +28,7 @@ flake.nix
 | **Multiplexer** | Tmux + resurrect/continuum |
 | **Login** | greetd + regreet (Rosé Pine) |
 | **Input** | fcitx5 + bamboo (Vietnamese) |
-| **AI** | Ollama (local), CodeCompanion, Minuet, Opencode |
+| **AI** | Opencode (declarative config) + Ollama (user service, cloud models), CodeCompanion, Minuet |
 | **Gaming** | Steam with 32-bit support |
 | **Fonts** | JetBrains Mono, Fira Code, Hack, 0xProto Nerd Fonts |
 
@@ -37,4 +38,27 @@ flake.nix
 - **`home/`** – Home Manager user config (shell, editor, terminal, packages)
 - **`modules/system/`** – reusable NixOS modules (Hyprland, fonts, networking, bluetooth, i18n, GC, Steam, greeter)
 - **`modules/home/`** – reusable Home Manager modules (zsh, tmux, nvim, ghostty, caelestia, user packages)
+  - **`opencode.nix`** – opencode config (`programs.opencode.settings`) + `ollama.service` systemd **user** service
+- **`pkgs/`** – custom packages built with `callPackage`
 - **`flake.nix`** – entry point that ties everything together
+
+## Rebuild
+
+```sh
+sudo nixos-rebuild switch --flake .#nixos-btw
+```
+
+## AI Stack
+
+- **Opencode**: config fully declarative via home-manager's `programs.opencode`
+  - Provider: Ollama (`http://localhost:11434/v1`) with cloud models — see `modules/home/opencode.nix`
+  - TUI settings in `programs.opencode.tui` → `~/.config/opencode/tui.json`
+- **Ollama**: runs as a systemd *user* service (auto-start on login) so it uses the user's `~/.ollama` cloud auth
+
+```sh
+systemctl --user status ollama   # check service
+ollama list                      # list available models
+```
+
+> When adding/removing a model: update `programs.opencode.settings.provider.ollama.models`, then rebuild.
+> Remember to restart opencode after rebuild — config is only loaded at startup.
