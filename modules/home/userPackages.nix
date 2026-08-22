@@ -28,6 +28,7 @@
     rmpc
     flac
     jq
+    tailwindcss-language-server
     megasync
     ffmpeg
     cava
