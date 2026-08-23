@@ -2,6 +2,7 @@
   "name": "dsh-profile-web",
   "private": true,
   "dependencies": {
+    "@openviking/dsh-memory-plugin": "^0.2.1",
     "dshmarket": "^1.17.1"
   },
   "dsh": {
@@ -9,6 +10,7 @@
       "bundles": [
         "@deepseek-ai/dsh-base",
         "@deepseek-ai/dsh-web-app",
+        "@openviking/dsh-memory-plugin",
         "dshmarket"
       ]
     }

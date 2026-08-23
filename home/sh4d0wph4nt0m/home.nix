@@ -16,6 +16,7 @@
     ../../modules/home/rmpc-config/rmpc.nix
     ../../modules/home/easyeffects.nix
     ../../modules/home/dsh-plugins.nix
+    ../../modules/home/openviking-server.nix
   ];
 
   home.username = "sh4d0wph4nt0m";

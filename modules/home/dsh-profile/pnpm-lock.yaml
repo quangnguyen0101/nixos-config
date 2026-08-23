@@ -8,11 +8,22 @@ importers:
 
   .:
     dependencies:
+      '@openviking/dsh-memory-plugin':
+        specifier: ^0.2.1
+        version: 0.2.1
       dshmarket:
         specifier: ^1.17.1
         version: 1.17.1
 
 packages:
+
+  '@openviking/dsh-memory-plugin@0.2.1':
+    resolution: {integrity: sha512-zyH7D46uX/7L3F2NKSidan1Y4/HrhpG/A+6KVauBKsWgEctUZqRSr1hzknYIO1yRm4yxEEcgBpKbCj+OXORqDw==}
+    engines: {node: ^22.19.0 || >=24}
+    peerDependencies:
+      '@deepseek-ai/dsh-llm': '>=0.1.0-rc.6 <0.2.0'
+      '@deepseek-ai/dsh-mcp-client': '>=0.1.0-rc.6 <0.2.0'
+      '@deepseek-ai/dsh-skill-filesystem': '>=0.1.0-rc.6 <0.2.0'
 
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
@@ -35,6 +46,8 @@ packages:
     engines: {node: '>=20.18.1'}
 
 snapshots:
+
+  '@openviking/dsh-memory-plugin@0.2.1': {}
 
   argparse@2.0.1: {}
 

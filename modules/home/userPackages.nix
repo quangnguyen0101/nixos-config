@@ -45,6 +45,7 @@
     easyeffects
     pnpm # dsh cần để quản lý profile plugins
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
+    (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
 
   # Config fastfetch
