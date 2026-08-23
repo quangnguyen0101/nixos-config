@@ -35,6 +35,10 @@
     megasync
     ffmpeg
     cava
+    texlive.combined.scheme-full # latexmk, bibtex, biber, latexindent — cho vimtex
+    zathura # PDF viewer cho vimtex
+    xdotool # forward search Zathura <-> nvim
+    tree-sitter # bắt buộc cho nvim-treesitter branch main (yêu cầu CLI >= 0.26.1)
     telegram-desktop
     antigravity
     slack
