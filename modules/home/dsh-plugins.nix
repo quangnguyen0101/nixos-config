@@ -27,14 +27,8 @@ let
 in
 
 {
-  # Runtime cho bundle dsh-ouroboros (MCP server chạy qua uvx).
-  # python312 trên PATH để uv resolve python >=3.12 từ hệ thống thay vì tự tải
-  # managed Python (binary standalone không chạy được trên NixOS thiếu nix-ld).
-  home.packages = with pkgs; [
-    uv
-    python312
-  ];
-
+  # Lưu ý: uv (runtime cho bundle dsh-ouroboros) khai báo trong userPackages.nix.
+  # uv resolve python >=3.12 từ python3 sẵn có trên PATH của user.
   home.activation.dshPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     (
       target="$HOME/.dsh/profiles/web"
