@@ -14,6 +14,9 @@ importers:
       dsh-free-search:
         specifier: ^0.4.12
         version: 0.4.12
+      dsh-kimino-theme:
+        specifier: github:niiang/dsh-kimino-theme
+        version: https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/4c01c9701690c5e4ccfe0253225f4cba9254414f
       dshmarket:
         specifier: ^1.17.1
         version: 1.17.1
@@ -46,6 +49,10 @@ packages:
     peerDependencies:
       '@deepseek-ai/dsh-settings': '>=0.1.0-rc.6'
       '@deepseek-ai/dsh-tools': '>=0.1.0-rc.6'
+
+  dsh-kimino-theme@https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/4c01c9701690c5e4ccfe0253225f4cba9254414f:
+    resolution: {gitHosted: true, integrity: sha512-eBJJARuhPt14KaULtpe1piQNovEOvEAnVr8uZi6MsXcOXj1w8X+9+j0aGN78Fpu6hZ2+o8tmEe2EyxKSfINEfw==, tarball: https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/4c01c9701690c5e4ccfe0253225f4cba9254414f}
+    version: 66.2.0
 
   dshmarket@1.17.1:
     resolution: {integrity: sha512-DQRK0dg0duXhDOqw6LWy5m6GkG3oLiTXC9pM6W9mi1gCbqM1ofgSPuyPOGCsE+06qHsiF65j/urpvCyvhhCPNw==}
@@ -82,6 +89,8 @@ snapshots:
   dsh-free-search@0.4.12:
     dependencies:
       '@deepseek-ai/schemastery': 3.18.1
+
+  dsh-kimino-theme@https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/4c01c9701690c5e4ccfe0253225f4cba9254414f: {}
 
   dshmarket@1.17.1:
     dependencies:
