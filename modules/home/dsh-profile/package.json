@@ -3,11 +3,20 @@
   "private": true,
   "dependencies": {
     "@dsh-external/dsh-visualize": "github:Nagi-ovo/dsh-visualize",
+    "@linxin666/dsh-web-ui-all": "0.3.0",
+    "@liustack/modlens": "3.22.1",
+    "@liustack/modsearch": "5.8.0",
+    "@michengai/dsh-agency-agents": "0.1.20",
+    "@nanmicoder/dsh-agent-teams": "0.1.13",
     "@openviking/dsh-memory-plugin": "^0.2.1",
-    "dsh-better-sidebar": "^0.15.2",
-    "dsh-free-search": "^0.4.12",
+    "@tt-a1i/archify-dsh": "0.1.0",
+    "aegis": "github:GanyuanRan/Aegis#4a281c241a5ac7511b1421714d8c9bd03daa523d",
+    "dsh-context": "0.25.3",
     "dsh-kimino-theme": "github:niiang/dsh-kimino-theme",
-    "dshmarket": "^1.18.0"
+    "dsh-ouroboros": "github:Q00/ouroboros#62d87a599770c38e89656f53fe4049373f6be4fe&path:integrations/dsh-plugin",
+    "dsh-plugin-writing-guard": "1.6.1",
+    "dshmarket": "^1.18.0",
+    "upstream-radar": "0.36.0"
   },
   "dsh": {
     "profile": {
@@ -15,11 +24,20 @@
         "@deepseek-ai/dsh-base",
         "@deepseek-ai/dsh-web-app",
         "@dsh-external/dsh-visualize",
+        "@linxin666/dsh-web-ui-all",
+        "@liustack/modlens",
+        "@liustack/modsearch",
+        "@michengai/dsh-agency-agents",
+        "@nanmicoder/dsh-agent-teams",
         "@openviking/dsh-memory-plugin",
-        "dsh-better-sidebar",
-        "dsh-free-search",
+        "@tt-a1i/archify-dsh",
+        "aegis",
+        "dsh-context",
         "dsh-kimino-theme",
-        "dshmarket"
+        "dsh-ouroboros",
+        "dsh-plugin-writing-guard",
+        "dshmarket",
+        "upstream-radar"
       ]
     }
   }
