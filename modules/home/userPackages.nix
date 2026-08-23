@@ -43,6 +43,7 @@
     antigravity
     slack
     easyeffects
+    pnpm # dsh cần để quản lý profile plugins
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
   ];
 

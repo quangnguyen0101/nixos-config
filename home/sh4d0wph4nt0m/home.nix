@@ -15,6 +15,7 @@
     ../../modules/home/userPackages.nix
     ../../modules/home/rmpc-config/rmpc.nix
     ../../modules/home/easyeffects.nix
+    ../../modules/home/dsh-plugins.nix
   ];
 
   home.username = "sh4d0wph4nt0m";
