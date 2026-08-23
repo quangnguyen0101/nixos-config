@@ -5,6 +5,9 @@ nodeLinker: hoisted
 autoInstallPeers: false
 allowBuilds:
   node-pty: true
+  cloudflared: true # binary tunnel cho dsh-remote-web-ui (web-ui-all)
+  cpu-features: true # optional native probe của ssh2 (web-ui-all)
+  ssh2: true # SSH client cho dsh-ssh (web-ui-all)
 minimumReleaseAgeExclude:
   - dsh-better-sidebar@0.15.2
   - '@linxin666/dsh-chat-recovery@0.3.0'
