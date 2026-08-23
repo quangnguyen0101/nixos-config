@@ -11,11 +11,20 @@ importers:
       '@openviking/dsh-memory-plugin':
         specifier: ^0.2.1
         version: 0.2.1
+      dsh-free-search:
+        specifier: ^0.4.12
+        version: 0.4.12
       dshmarket:
         specifier: ^1.17.1
         version: 1.17.1
 
 packages:
+
+  '@deepseek-ai/cosmokit@1.8.2':
+    resolution: {integrity: sha512-muBOKtSrUKU5m/xpq8ZXWL6hQ/jgd4PhU2PqH97bcxIiLEJfNwZOGQEx4t/aS/GgxRAR+ra9pMHPMtTHU4sqqA==}
+
+  '@deepseek-ai/schemastery@3.18.1':
+    resolution: {integrity: sha512-Qn0FCSwCQnpnj6SB31I6i2sIKgKWnkbJM8O0EU91Gv2UsYVvtZTl6IA0sCwk2e2MZf5S8w5hpq9QkeVvK9qwxg==}
 
   '@openviking/dsh-memory-plugin@0.2.1':
     resolution: {integrity: sha512-zyH7D46uX/7L3F2NKSidan1Y4/HrhpG/A+6KVauBKsWgEctUZqRSr1hzknYIO1yRm4yxEEcgBpKbCj+OXORqDw==}
@@ -25,8 +34,18 @@ packages:
       '@deepseek-ai/dsh-mcp-client': '>=0.1.0-rc.6 <0.2.0'
       '@deepseek-ai/dsh-skill-filesystem': '>=0.1.0-rc.6 <0.2.0'
 
+  '@standard-schema/spec@1.1.0':
+    resolution: {integrity: sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==}
+
   argparse@2.0.1:
     resolution: {integrity: sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==}
+
+  dsh-free-search@0.4.12:
+    resolution: {integrity: sha512-HL/eBv/dRAa2ogj46Cy3uQxZxrC5GfZVkXP8EmxbB+254Yd4tbWXUqlCBwXhoA8ZwpcGBjDTVXuGxSF4ThcOng==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@deepseek-ai/dsh-settings': '>=0.1.0-rc.6'
+      '@deepseek-ai/dsh-tools': '>=0.1.0-rc.6'
 
   dshmarket@1.17.1:
     resolution: {integrity: sha512-DQRK0dg0duXhDOqw6LWy5m6GkG3oLiTXC9pM6W9mi1gCbqM1ofgSPuyPOGCsE+06qHsiF65j/urpvCyvhhCPNw==}
@@ -47,9 +66,22 @@ packages:
 
 snapshots:
 
+  '@deepseek-ai/cosmokit@1.8.2': {}
+
+  '@deepseek-ai/schemastery@3.18.1':
+    dependencies:
+      '@deepseek-ai/cosmokit': 1.8.2
+      '@standard-schema/spec': 1.1.0
+
   '@openviking/dsh-memory-plugin@0.2.1': {}
 
+  '@standard-schema/spec@1.1.0': {}
+
   argparse@2.0.1: {}
+
+  dsh-free-search@0.4.12:
+    dependencies:
+      '@deepseek-ai/schemastery': 3.18.1
 
   dshmarket@1.17.1:
     dependencies:

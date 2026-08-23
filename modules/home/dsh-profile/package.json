@@ -3,6 +3,7 @@
   "private": true,
   "dependencies": {
     "@openviking/dsh-memory-plugin": "^0.2.1",
+    "dsh-free-search": "^0.4.12",
     "dshmarket": "^1.17.1"
   },
   "dsh": {
@@ -11,6 +12,7 @@
         "@deepseek-ai/dsh-base",
         "@deepseek-ai/dsh-web-app",
         "@openviking/dsh-memory-plugin",
+        "dsh-free-search",
         "dshmarket"
       ]
     }
