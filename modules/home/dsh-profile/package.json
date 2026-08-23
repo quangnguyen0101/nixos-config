@@ -2,6 +2,7 @@
   "name": "dsh-profile-web",
   "private": true,
   "dependencies": {
+    "@dsh-external/dsh-visualize": "github:Nagi-ovo/dsh-visualize",
     "@openviking/dsh-memory-plugin": "^0.2.1",
     "dsh-free-search": "^0.4.12",
     "dsh-kimino-theme": "github:niiang/dsh-kimino-theme",
@@ -12,6 +13,7 @@
       "bundles": [
         "@deepseek-ai/dsh-base",
         "@deepseek-ai/dsh-web-app",
+        "@dsh-external/dsh-visualize",
         "@openviking/dsh-memory-plugin",
         "dsh-free-search",
         "dsh-kimino-theme",
