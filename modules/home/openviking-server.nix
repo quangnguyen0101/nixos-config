@@ -28,7 +28,7 @@ in
     vlm = {
       provider = "litellm";
       api_key = "ollama";
-      model = "ollama/nemotron-3-super:cloud";
+      model = "ollama/gpt-oss:120b-cloud";
       api_base = "http://127.0.0.1:11434";
       max_retries = 3;
       extra_request_body.think = false;
