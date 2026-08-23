@@ -1,64 +1,99 @@
 # nixos-config
 
-Personal NixOS + Home Manager flake configuration for `x86_64-linux`.
+## 📖 Giới thiệu
 
-## Overview
+**NixOS** cấu hình cá nhân được quản lý bằng **Nix Flake** và **Home Manager**.  Đây là một *single‑host* setup (máy `nixos-btw`) với kiến trúc **modular**: phần hệ thống và phần người dùng được tách riêng, dễ bảo trì và mở rộng.
 
-Single-host setup managed via a **Nix flake** with **Home Manager** integration. The config is modular, split into system-level and user-level modules.
+## 🗂️ Cấu trúc dự án
 
 ```
-flake.nix
-└── nixosConfigurations.nixos-btw
-    ├── hosts/nixos-btw/          (host-specific: hardware, networking, locale)
-    ├── modules/system/           (system-level: hyprland, fonts, steam, bluetooth, etc.)
-    ├── home-manager → home/
-    │   └── modules/home/         (user-level: zsh, tmux, nvim, ghostty, opencode, packages)
-    ├── pkgs/                     (custom packages: deepseek-harness)
-    └── lanzaboote                (secure boot)
+flake.nix                     # Entry point – khai báo inputs, outputs và các module
+└─ nixosConfigurations.nixos-btw
+    ├─ hosts/nixos-btw/               # Cấu hình máy cụ thể (hardware, hostname, locale…)
+    │   ├─ configuration.nix           # Tổng hợp các module hệ thống
+    │   └─ hardware-configuration.nix # Tự động sinh bởi nixos-generate-config
+    ├─ modules/system/                # Các module NixOS tái sử dụng
+    ├─ home-manager → home/           # Home Manager – cấu hình người dùng
+    ├─ pkgs/                          # Các package tùy chỉnh
+    └─ lanzaboote/                    # Secure Boot (lanzaboote) integration
 ```
 
-## Key Components
+### 📦 Danh sách các module chi tiết
 
-| Category | Tools |
-|---|---|
-| **WM** | Hyprland + Caelestia shell |
-| **Shell** | Zsh + Oh-My-Zsh |
-| **Terminal** | Ghostty (Catppuccin) |
-| **Editor** | Neovim with 30+ plugins (LSP, DAP, formatters, AI) |
-| **Multiplexer** | Tmux + resurrect/continuum |
+#### Modules hệ thống (`modules/system/`)
+| Module | Đường dẫn | Mô tả ngắn |
+|--------|-----------|------------|
+| `hyprland.nix` | `modules/system/hyprland.nix` | Cài đặt và cấu hình Hyprland (Wayland compositor) + XDG portal |
+| `steam.nix` | `modules/system/steam.nix` | Kích hoạt Steam, hỗ trợ 32‑bit graphics, mở firewall cho RemotePlay |
+| `fonts.nix` | `modules/system/fonts.nix` | Cài đặt các Nerd Font (JetBrains Mono, Fira Code, Hack, 0xProto) |
+| `networking.nix` | `modules/system/networking.nix` | NetworkManager, DHCP, DNS, Wi‑Fi, VPN, tắt IPv6 |
+| `bluetooth.nix` | `modules/system/bluetooth.nix` | Hỗ trợ Bluetooth stack |
+| `i18n.nix` | `modules/system/i18n.nix` | Locale, layout, cấu hình `fcitx5‑lotus` (Vietnamese) |
+| `gc.nix` | `modules/system/gc.nix` | Cấu hình garbage collector tự động (`nix.gc.automatic = true`) |
+| `greeter.nix` | `modules/system/greeter.nix` | Cấu hình greetd + regreet (giao diện đăng nhập) |
+| `printing.nix` | `modules/system/printing.nix` | Cài đặt CUPS để in ấn |
+| `systemPackages.nix` | `modules/system/systemPackages.nix` | Các gói hệ thống chung (git, curl, vim, …) |
+| `lanzaboote.nix` | `modules/system/lanzaboote.nix` | Tích hợp Secure Boot bằng lanzaboote |
+| `fcitx5-lotus.nix` | `modules/system/fcitx5-lotus.nix` | Bộ gõ Vietnamese dựa trên Lotus Input Method |
+| `...` | … | Các module khác (greeter, printing, …)
+
+#### Modules người dùng (`modules/home/`)
+| Module | Đường dẫn | Mô tả ngắn |
+|--------|-----------|------------|
+| `zsh.nix` | `modules/home/zsh.nix` | Zsh + Oh‑My‑Zsh, alias (`update`), tự động khởi chạy tmux |
+| `nvim-config/` | `modules/home/nvim-config/` | Cấu hình Neovim (LazyVim) với >30 plugin (LSP, Treesitter, Lualine, Telescope, …) |
+| `tmux.nix` | `modules/home/tmux.nix` | Cấu hình Tmux, plugin `resurrect`/`continuum` để giữ session |
+| `ghostty.nix` | `modules/home/ghostty.nix` | Terminal GPU‑accelerated Ghostty, theme Catppuccin |
+| `opencode.nix` | `modules/home/opencode.nix` | Opencode declarative + Ollama AI stack (chạy dưới systemd‑user) |
+| `python.nix` | `modules/home/python.nix` | Cài đặt Python và các gói pip tùy chỉnh |
+| `cava.nix` | `modules/home/cava.nix` | Cài đặt CAVA (audio visualizer) |
+| `rmpc-config/` | `modules/home/rmpc-config/` | Cấu hình Music Player Client (rmpc) |
+| `dsh-profile.nix` | `modules/home/dsh-profile.nix` | Cấu hình DSH workspace, pnpm‑workspace.yaml |
+| `...` | … | Các module khác (zsh, ghostty, tmux, …)
+
+## 🚀 Các thành phần chính (tóm tắt)
+| Thành phần | Mô tả |
+|-----------|------|
+| **Window manager** | Hyprland + Caelestia shell |
+| **Shell** | Zsh + Oh‑My‑Zsh, alias `update` |
+| **Terminal** | Ghostty (Catppuccin theme) |
+| **Editor** | Neovim (lazy‑vim) với hơn 30 plugin |
+| **Multiplexer** | Tmux với `resurrect/continuum` |
 | **Login** | greetd + regreet (Rosé Pine) |
-| **Input** | fcitx5 + bamboo (Vietnamese) |
-| **AI** | Opencode (declarative config) + Ollama (user service, cloud models), CodeCompanion, Minuet |
-| **Gaming** | Steam with 32-bit support |
+| **Input** | fcitx5‑lotus + bamboo (Vietnamese) |
+| **AI stack** | Opencode (declarative) + Ollama (systemd‑user) |
+| **Gaming** | Steam (32‑bit, RemotePlay) |
 | **Fonts** | JetBrains Mono, Fira Code, Hack, 0xProto Nerd Fonts |
+| **Secure boot** | lanzaboote (PKI bundle `/var/lib/sbctl`) |
 
-## Structure
-
-- **`hosts/`** – per-machine NixOS config (hostname, hardware, system imports)
-- **`home/`** – Home Manager user config (shell, editor, terminal, packages)
-- **`modules/system/`** – reusable NixOS modules (Hyprland, fonts, networking, bluetooth, i18n, GC, Steam, greeter)
-- **`modules/home/`** – reusable Home Manager modules (zsh, tmux, nvim, ghostty, caelestia, user packages)
-  - **`opencode.nix`** – opencode config (`programs.opencode.settings`) + `ollama.service` systemd **user** service
-- **`pkgs/`** – custom packages built with `callPackage`
-- **`flake.nix`** – entry point that ties everything together
-
-## Rebuild
-
-```sh
-sudo nixos-rebuild switch --flake .#nixos-btw
+## 🛠️ Cách rebuild hệ thống
+```bash
+# Alias được định nghĩa trong zsh: `update`
+sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw
 ```
+Lệnh này đọc `flake.nix`, biên dịch lại toàn bộ hệ thống và Home Manager, sau đó áp dụng ngay.
 
-## AI Stack
+## 🤖 AI stack chi tiết
+- **Opencode**: khai báo trong `modules/home/opencode.nix`.  Provider mặc định là Ollama (`http://localhost:11434/v1`).
+- **Ollama**: chạy dưới `systemd --user` (`systemctl --user enable --now ollama`).  Khi thêm/bớt model, cập nhật `programs.opencode.settings.provider.ollama.models` rồi rebuild.
+- **CodeCompanion** và **Minuet**: plugin Neovim để tương tác với các model AI trong editor.
 
-- **Opencode**: config fully declarative via home-manager's `programs.opencode`
-  - Provider: Ollama (`http://localhost:11434/v1`) with cloud models — see `modules/home/opencode.nix`
-  - TUI settings in `programs.opencode.tui` → `~/.config/opencode/tui.json`
-- **Ollama**: runs as a systemd *user* service (auto-start on login) so it uses the user's `~/.ollama` cloud auth
+## 📦 Các package tùy chỉnh
+- `deepseek-harness` – bản build của DeepSeek Harness, dùng cho phát triển DSH.
+- `openviking` – SDK và server cho bộ nhớ lâu dài (được sử dụng bởi skill `openviking‑memory`).
 
-```sh
-systemctl --user status ollama   # check service
-ollama list                      # list available models
+## 📜 Lưu ý phiên bản NixOS
+```nix
+system.stateVersion = "26.05";  # Phiên bản NixOS gốc đã được cài đặt
 ```
+Không thay đổi giá trị này trừ khi bạn đã chuẩn bị migration dữ liệu và hiểu rõ tác động.
 
-> When adding/removing a model: update `programs.opencode.settings.provider.ollama.models`, then rebuild.
-> Remember to restart opencode after rebuild — config is only loaded at startup.
+## 📂 Tài liệu tham khảo
+- https://nixos.org/manual/nixos/stable/ (Manual)
+- https://nixos.org/manual/home-manager/stable/ (Home Manager)
+- https://github.com/folke/lazy.nvim (LazyVim)
+- https://github.com/nix-community/lanzaboote (Lanzaboote)
+
+---
+
+*README này đã được mở rộng để cung cấp **danh sách chi tiết các module** cùng mô tả ngắn gọn, giúp bạn nhanh chóng nắm bắt cấu trúc và các thành phần của cấu hình NixOS.*
