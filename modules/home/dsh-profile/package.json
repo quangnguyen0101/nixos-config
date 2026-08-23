@@ -4,9 +4,10 @@
   "dependencies": {
     "@dsh-external/dsh-visualize": "github:Nagi-ovo/dsh-visualize",
     "@openviking/dsh-memory-plugin": "^0.2.1",
+    "dsh-better-sidebar": "^0.15.2",
     "dsh-free-search": "^0.4.12",
     "dsh-kimino-theme": "github:niiang/dsh-kimino-theme",
-    "dshmarket": "^1.17.1"
+    "dshmarket": "^1.18.0"
   },
   "dsh": {
     "profile": {
@@ -15,6 +16,7 @@
         "@deepseek-ai/dsh-web-app",
         "@dsh-external/dsh-visualize",
         "@openviking/dsh-memory-plugin",
+        "dsh-better-sidebar",
         "dsh-free-search",
         "dsh-kimino-theme",
         "dshmarket"

@@ -40,6 +40,12 @@ in
         install -m 644 ${./dsh-profile/package.json} "$target/package.json"
         install -m 644 ${./dsh-profile/pnpm-lock.yaml} "$target/pnpm-lock.yaml"
         install -m 644 ${./dsh-profile/pnpm-workspace.yaml} "$target/pnpm-workspace.yaml"
+        # Toolchain cho native module build (node-pty không có prebuilt Linux):
+        # node-gyp cần gcc/make/python3 và Node headers khớp ABI của dsh runtime.
+        # pnpm 11 đọc config qua tiền tố pnpm_config_* (không còn npm_config_*).
+        export PATH="${pkgs.gcc}/bin:${pkgs.gnumake}/bin:${pkgs.python3}/bin:$PATH"
+        export pnpm_config_nodedir="${pkgs.nodejs}"
+        export npm_config_nodedir="${pkgs.nodejs}"
         ${lib.getExe pkgs.pnpm} install --dir "$target" --frozen-lockfile --prefer-offline
         echo "$declared" > "$marker"
       fi

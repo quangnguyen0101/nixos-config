@@ -9,12 +9,12 @@
 }:
 
 let
-  version = "0.1.0-rc.7";
+  version = "0.1.1-rc.2";
 
   # Tarball gốc từ npm registry
   upstream = fetchurl {
     url = "https://registry.npmjs.org/@deepseek-ai/dsh/-/dsh-${version}.tgz";
-    hash = "sha512-ZceDCJ8FAywih+USW/OMk9jEhunlvJBGEz4kqrhau23hPzbciOazZrywH0nBRsaalSeAJ1JGBmjtw4OSjToStw==";
+    hash = "sha512-UP1UIh6q3Gme/yXRn/QL2P8IsVlv8Shpg22TRJIZPsCRWLm4CBiA1MUvXmJAfsOEETBMLAl+xWPtFw6ICsN3wg==";
   };
 
   # Vá manifest TRƯỚC khi build: mọi peerDependencies trong cây được nâng thành
@@ -36,7 +36,7 @@ buildNpmPackage rec {
   # Lockfile sinh với --legacy-peer-deps (cây peer của các package dsh-* quá phức tạp)
   npmFlags = [ "--legacy-peer-deps" ];
 
-  npmDepsHash = "sha256-OydAWcqYNXIjy3n+LneOVNDRACl/MpXcx3Zo9B04R3s=";
+  npmDepsHash = "sha256-/ge3zxpt5b+0QC2ahf4I/J+lmdFHKjMwAzREgvekres=";
 
   inherit nodejs;
 
