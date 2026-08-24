@@ -24,6 +24,7 @@
     ../../modules/system/networking.nix
     ../../modules/system/fcitx5-lotus.nix
     ../../modules/system/systemPackages.nix
+    ../../modules/system/nix-ld.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
