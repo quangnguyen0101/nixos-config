@@ -36,6 +36,9 @@ in
       declared="${manifestHash}"
       current=""
       [ -f "$marker" ] && current="$(cat "$marker")"
+      # User patch layer đồng bộ ngoài guard hash: thay đổi patch không cần
+      # chạy lại pnpm install, chỉ cần restart dsh.
+      install -m 644 ${./dsh-profile/cordis.patch.yml} "$target/cordis.patch.yml"
       if [ "$declared" != "$current" ]; then
         printf 'Syncing declarative dsh plugins -> %s\n' "$target"
         mkdir -p "$target"
