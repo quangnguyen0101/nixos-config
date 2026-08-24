@@ -13,28 +13,34 @@
 # Xem modules/system/nix-ld.nix.
 - id: openviking-memory
   disabled: false
-- insert:
-    - id: mcp-ouroboros
-      name: '@deepseek-ai/dsh-mcp-client'
-      config:
-        serverName: ouroboros
-        transport: stdio
-        command: uvx
-        args:
-          - --from
-          - 'ouroboros-ai[mcp]'
-          - --with
-          - 'mcp==2.0.0'
-          - ouroboros
-          - mcp
-          - serve
-        env:
-          OUROBOROS_LLM_BACKEND: !!js process.env.OUROBOROS_LLM_BACKEND ?? ''
-          OUROBOROS_AGENT_RUNTIME: !!js process.env.OUROBOROS_AGENT_RUNTIME ?? ''
-          OUROBOROS_DSH_CONFIG_PATH: !!js process.env.OUROBOROS_DSH_CONFIG_PATH ?? ''
-          OUROBOROS_DSH_CLI_PATH: !!js process.env.OUROBOROS_DSH_CLI_PATH ?? ''
-          ANTHROPIC_API_KEY: !!js process.env.ANTHROPIC_API_KEY ?? ''
-          DEEPSEEK_API_KEY: !!js process.env.DEEPSEEK_API_KEY ?? ''
-          UV_PYTHON_PREFERENCE: "only-managed"
-        toolCallTimeoutMs: 1800000
-        failOnStartupError: false
+# KHÔNG dùng `- insert:` ở đây — bundle dsh-ouroboros đã chèn row id
+# "mcp-ouroboros"; insert thêm lần nữa bị loader từ chối với lỗi
+# "duplicate loader entry id". Entry phẳng cùng id bên dưới là override.
+- id: mcp-ouroboros
+  name: '@deepseek-ai/dsh-mcp-client'
+  config:
+    serverName: ouroboros
+    transport: stdio
+    command: uvx
+    args:
+      - --from
+      - 'ouroboros-ai[mcp,litellm]'
+      # extra "litellm" có marker python <3.14; mặc định uv chọn bản mới nhất
+      # (3.14) nên litellm bị bỏ qua lúc resolve → ép về 3.13.
+      - -p
+      - '3.13'
+      - --with
+      - 'mcp==2.0.0'
+      - ouroboros
+      - mcp
+      - serve
+    env:
+      OUROBOROS_LLM_BACKEND: !!js process.env.OUROBOROS_LLM_BACKEND ?? ''
+      OUROBOROS_AGENT_RUNTIME: !!js process.env.OUROBOROS_AGENT_RUNTIME ?? 'opencode'
+      OUROBOROS_DSH_CONFIG_PATH: !!js process.env.OUROBOROS_DSH_CONFIG_PATH ?? ''
+      OUROBOROS_DSH_CLI_PATH: !!js process.env.OUROBOROS_DSH_CLI_PATH ?? ''
+      ANTHROPIC_API_KEY: !!js process.env.ANTHROPIC_API_KEY ?? ''
+      DEEPSEEK_API_KEY: !!js process.env.DEEPSEEK_API_KEY ?? ''
+      UV_PYTHON_PREFERENCE: "only-managed"
+    toolCallTimeoutMs: 1800000
+    failOnStartupError: false
