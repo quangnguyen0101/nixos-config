@@ -47,9 +47,6 @@ importers:
       dsh-plugin-writing-guard:
         specifier: 1.6.1
         version: 1.6.1
-      dshmarket:
-        specifier: ^1.18.0
-        version: 1.18.0
       upstream-radar:
         specifier: 0.36.0
         version: 0.36.0
@@ -811,15 +808,6 @@ packages:
       '@deepseek-ai/cordis': ^4.0.1
       '@deepseek-ai/dsh-llm': ^0.1.0-rc.6
       '@deepseek-ai/dsh-tools': ^0.1.0-rc.6
-
-  dshmarket@1.18.0:
-    resolution: {integrity: sha512-WAHmaGU1JkSMQl6FfG5NqMnTg4C6h5+i2skb52QdwPGMA8mifqflirr87TM1PPUvF431EYy9v/UR2GihnswmEw==}
-    peerDependencies:
-      '@deepseek-ai/cordis': ^4.0.1
-      '@deepseek-ai/dsh-settings': ^0.1.0-rc.7
-    peerDependenciesMeta:
-      '@deepseek-ai/dsh-settings':
-        optional: true
 
   es-toolkit@1.51.0:
     resolution: {integrity: sha512-zC2lQGkM7QX+Gm6iM3+WIdZJzthsEd14LvRNJneSO2hzyz/zNBENR8+YXWo1cKxgPBtV6ksPYHELbcwBRzmdCw==}
@@ -1896,11 +1884,6 @@ snapshots:
   dsh-ouroboros@https://codeload.github.com/Q00/ouroboros/tar.gz/62d87a599770c38e89656f53fe4049373f6be4fe#path:integrations/dsh-plugin: {}
 
   dsh-plugin-writing-guard@1.6.1: {}
-
-  dshmarket@1.18.0:
-    dependencies:
-      js-yaml: 4.3.1
-      undici: 7.29.0
 
   es-toolkit@1.51.0: {}
 

@@ -15,7 +15,6 @@
     "dsh-kimino-theme": "github:niiang/dsh-kimino-theme",
     "dsh-ouroboros": "github:Q00/ouroboros#62d87a599770c38e89656f53fe4049373f6be4fe&path:integrations/dsh-plugin",
     "dsh-plugin-writing-guard": "1.6.1",
-    "dshmarket": "^1.18.0",
     "upstream-radar": "0.36.0"
   },
   "dsh": {
@@ -36,7 +35,6 @@
         "dsh-kimino-theme",
         "dsh-ouroboros",
         "dsh-plugin-writing-guard",
-        "dshmarket",
         "upstream-radar"
       ]
     }
