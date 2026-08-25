@@ -13,6 +13,12 @@
 # Xem modules/system/nix-ld.nix.
 - id: openviking-memory
   disabled: false
+# Tắt panel Skin Center của aggregate web-ui-all (sub-plugin transitive,
+# không gỡ khỏi node_modules được). Disable ở layer user để sống qua rebuild —
+# toggle qua Plugin Manager UI sẽ bị template này ghi đè.
+- id: web-ui-skin-center
+  name: '@linxin666/dsh-client-ui-skin-center'
+  disabled: true
 # KHÔNG dùng `- insert:` ở đây — bundle dsh-ouroboros đã chèn row id
 # "mcp-ouroboros"; insert thêm lần nữa bị loader từ chối với lỗi
 # "duplicate loader entry id". Entry phẳng cùng id bên dưới là override.
