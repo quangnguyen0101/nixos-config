@@ -45,6 +45,7 @@
     easyeffects
     pnpm # dsh cần để quản lý profile plugins
     uv # runtime cho plugin dsh-ouroboros của dsh (MCP server chạy qua uvx)
+    chromium
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
