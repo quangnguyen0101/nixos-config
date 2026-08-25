@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@anionex/dsh-vision-toolkit':
-        specifier: 0.1.38
-        version: 0.1.38
+        specifier: 0.1.39
+        version: 0.1.39
       '@dsh-external/dsh-visualize':
         specifier: github:Nagi-ovo/dsh-visualize
         version: https://codeload.github.com/Nagi-ovo/dsh-visualize/tar.gz/b0bed38f40ffbb0d72bb88393d865307944c1bce
@@ -53,8 +53,8 @@ importers:
 
 packages:
 
-  '@anionex/dsh-vision-toolkit@0.1.38':
-    resolution: {integrity: sha512-84WgmkD+rvNGu2T+Dx1y/CteaCWku0YjNFMBFkNPtI940Ub8kI1dXg8M1/fmGsG093R4vrjnWdlTgZQuUwudPA==}
+  '@anionex/dsh-vision-toolkit@0.1.39':
+    resolution: {integrity: sha512-umMUT2lUiErTeDaZjW5GYUGv1W/o7lSbAiRICkxtV4jJryeJ3mjZ5Fgosdf9DMOG83JXJeVrIkAqKJjVotbo1w==}
     engines: {node: ^22.19.0 || >=24.0.0}
     peerDependencies:
       '@deepseek-ai/cordis': ^4.0.1
@@ -1112,7 +1112,7 @@ packages:
 
 snapshots:
 
-  '@anionex/dsh-vision-toolkit@0.1.38':
+  '@anionex/dsh-vision-toolkit@0.1.39':
     dependencies:
       saxes: 6.0.0
       tar: 7.5.22

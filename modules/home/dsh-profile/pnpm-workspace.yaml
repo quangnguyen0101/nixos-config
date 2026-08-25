@@ -30,3 +30,4 @@ minimumReleaseAgeExclude:
   - '@linxin666/dsh-web-ui-all@0.3.0 || 0.3.2'
   - '@nanmicoder/dsh-agent-teams@0.1.13'
   - dsh-context@0.25.3
+  - '@anionex/dsh-vision-toolkit@0.1.39'

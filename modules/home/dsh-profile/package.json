@@ -3,7 +3,7 @@
   "private": true,
   "dependencies": {
     "@dsh-external/dsh-visualize": "github:Nagi-ovo/dsh-visualize",
-    "@anionex/dsh-vision-toolkit": "0.1.38",
+    "@anionex/dsh-vision-toolkit": "0.1.39",
     "@linxin666/dsh-web-ui-all": "0.3.2",
     "@liustack/modsearch": "5.8.0",
     "@michengai/dsh-agency-agents": "0.1.20",
