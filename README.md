@@ -125,7 +125,7 @@ Tổng quan năng lực agent trong DSH profile "web". Chi tiết đầy đủ: 
 | Skills (quy trình làm việc) | **26** | Sẵn sàng |
 | Tools khai báo | **104** | 53 built-in + 15 OpenViking + 36 Ouroboros |
 | Vision tools tiềm ẩn | **+10** | Kích hoạt qua skill `vision-skills` |
-| Agency Experts | **271** | 17 phân hệ — mặc định TẮT |
+| Agency Experts | **271** | 18 phân hệ — mặc định TẮT |
 | MCP Servers | **2** | OpenViking, Ouroboros |
 
 ### Skills (26)
@@ -215,7 +215,7 @@ Pipeline: **yêu cầu → interview → Seed → execute → evaluate 3 tầng 
 
 ### Agency Experts (271)
 
-- **17 phân hệ**: engineering, security, marketing, design, finance, research, …
+- **18 phân hệ**: engineering, security, marketing, design, finance, research, …
 - **Trạng thái**: ⚠️ TẤT CẢ TẮT (mặc định). Bật qua Web GUI → Agency settings.
 - **Workflow**: `list_experts` → `summon_expert` / `summon_experts` (tối đa 8, concurrency 4)
 
