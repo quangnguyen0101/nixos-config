@@ -166,6 +166,10 @@ dsh web --port 3000
 dsh
 ```
 
+## Agent Capabilities
+
+DSH có 26 skills, 104 tools (53 built-in + 15 OpenViking + 36 Ouroboros), 271 agency experts, và 10 vision tools tiềm ẩn. Xem chi tiết tại [`docs/agent-capabilities.md`](docs/agent-capabilities.md).
+
 ###僕 Commands hữu ích
 
 | Command | Mô tả |
