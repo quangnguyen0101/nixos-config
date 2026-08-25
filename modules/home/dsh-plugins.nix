@@ -30,10 +30,15 @@ in
   # Lưu ý: uv (runtime cho bundle dsh-ouroboros) khai báo trong userPackages.nix.
   # uv resolve python >=3.12 từ python3 sẵn có trên PATH của user.
   #
-  # Python bundled của plugin dsh-vision-toolkit (python-build-standalone) không
-  # kèm CA store; không có biến này thì mọi request HTTPS tới vision.anionex.me
-  # chết ở CERTIFICATE_VERIFY_FAILED. NixOS giữ CA bundle hệ thống tại đây.
+  # SSL_CERT_FILE: Python bundled của plugin dsh-vision-toolkit không kèm CA store;
+  # NixOS giữ CA bundle hệ thống tại đây. Bắt buộc cho mọi HTTPS từ Python subprocess.
   home.sessionVariables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
+  # VISION_SSL_VERIFY: Plugin spawn Python subprocess với CUSTOM env, chỉ truyền
+  # vars mà visionEnv() liệt kê — SSL_CERT_FILE từ parent KHÔNG đến được subprocess.
+  # Biến này được visionEnv() đọc từ process.env và forward sang subprocess,
+  # nơi Python kiểm tra và tắt cert verify (vision_client.py:_ssl_context).
+  # Free service vision.anionex.me không cần TLS verify.
+  home.sessionVariables.VISION_SSL_VERIFY = "false";
 
   home.activation.dshPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     (
