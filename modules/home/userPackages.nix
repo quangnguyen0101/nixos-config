@@ -47,7 +47,6 @@
     uv # runtime cho plugin dsh-ouroboros của dsh (MCP server chạy qua uvx)
     chromium
     rclone
-    rclone-ui
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
