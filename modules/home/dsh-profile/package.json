@@ -2,20 +2,20 @@
   "name": "dsh-profile-web",
   "private": true,
   "dependencies": {
-    "@dsh-external/dsh-visualize": "github:Nagi-ovo/dsh-visualize",
+    "@dsh-external/dsh-visualize": "github:Nagi-ovo/dsh-visualize#b0bed38f40ffbb0d72bb88393d865307944c1bce",
     "@anionex/dsh-vision-toolkit": "0.1.39",
-    "@linxin666/dsh-web-ui-all": "0.3.2",
-    "@liustack/modsearch": "5.8.0",
-    "@michengai/dsh-agency-agents": "0.1.20",
-    "@nanmicoder/dsh-agent-teams": "0.1.13",
+    "@linxin666/dsh-web-ui-all": "0.3.6",
+    "@liustack/modsearch": "5.9.1",
+    "@michengai/dsh-agency-agents": "0.1.21",
+    "@nanmicoder/dsh-agent-teams": "0.1.14",
     "@openviking/dsh-memory-plugin": "^0.2.1",
     "@tt-a1i/archify-dsh": "0.1.0",
     "aegis": "github:GanyuanRan/Aegis#4a281c241a5ac7511b1421714d8c9bd03daa523d",
-    "dsh-context": "0.25.3",
-    "dsh-kimino-theme": "github:niiang/dsh-kimino-theme",
+    "dsh-context": "0.34.1",
+    "dsh-kimino-theme": "github:niiang/dsh-kimino-theme#2c74b3f1c6ba4090409c4f73dc628f6804ec9961",
     "dsh-ouroboros": "github:Q00/ouroboros#62d87a599770c38e89656f53fe4049373f6be4fe&path:integrations/dsh-plugin",
     "dsh-plugin-writing-guard": "1.6.1",
-    "upstream-radar": "0.36.0"
+    "upstream-radar": "0.45.0"
   },
   "dsh": {
     "profile": {
