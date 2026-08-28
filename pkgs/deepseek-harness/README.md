@@ -87,15 +87,14 @@ Managed declaratively trong `modules/home/dsh-profile/`:
 | `@dsh-external/dsh-visualize` | GitHub | — | Visualization tools |
 | `@anionex/dsh-vision-toolkit` | npm | 0.1.39 | Image analysis (free service) |
 | `@linxin666/dsh-web-ui-all` | npm | 0.3.2 | Aggregate web UI plugins |
-| `@liustack/modsearch` | npm | 5.8.0 | Module search |
 | `@michengai/dsh-agency-agents` | npm | 0.1.20 | Agency agent presets |
 | `@nanmicoder/dsh-agent-teams` | npm | 0.1.13 | Multi-agent teams |
 | `@openviking/dsh-memory-plugin` | npm | ^0.2.1 | Long-term memory (via `openviking`) |
 | `@tt-a1i/archify-dsh` | npm | 0.1.0 | Archiving |
 | `aegis` | GitHub | pinned commit | — |
 | `dsh-context` | npm | 0.25.3 | Context management |
+| `dsh-free-search` | GitHub | pinned commit | Keyless web search (DDG/Bing/SearXNG) |
 | `dsh-kimino-theme` | GitHub | — | UI theme |
-| `dsh-ouroboros` | GitHub | pinned commit | MCP server (Ollama cloud) |
 | `dsh-plugin-writing-guard` | npm | 1.6.1 | Write safety guard |
 | `upstream-radar` | npm | 0.36.0 | Upstream monitoring |
 
@@ -117,16 +116,6 @@ sudo nixos-rebuild switch
 Hiện tại patch:
 - Enable `openviking-memory`
 - Disable `web-ui-skin-center` (unwanted panel)
-- Override `mcp-ouroboros` config (Ollama cloud backend)
-
-## MCP integration (Ouroboros)
-
-DSH tích hợp Ouroboros qua MCP (Model Context Protocol). Server chạy qua `uvx` với config trong `cordis.patch.yml`:
-
-- Backend: `litellm` → Ollama cloud (`ollama/gpt-oss:120b-cloud`)
-- Runtime agent: `opencode`
-- Tools: 36 registered (execute seed, interview, evolve, QA, ...)
-- Config location: `~/.ouroboros/config.yaml`
 
 ## Vấn đề NixOS
 
@@ -168,7 +157,7 @@ dsh
 
 ## Agent Capabilities
 
-DSH có 26 skills, 104 tools (53 built-in + 15 OpenViking + 36 Ouroboros), 271 agency experts, và 10 vision tools tiềm ẩn. Xem chi tiết tại [`docs/agent-capabilities.md`](docs/agent-capabilities.md).
+DSH có 26 skills, 68 tools (53 built-in + 15 OpenViking), 271 agency experts, và 10 vision tools tiềm ẩn. Xem chi tiết tại [`docs/agent-capabilities.md`](docs/agent-capabilities.md).
 
 ###僕 Commands hữu ích
 

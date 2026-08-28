@@ -41,9 +41,6 @@ importers:
       dsh-kimino-theme:
         specifier: github:niiang/dsh-kimino-theme#2c74b3f1c6ba4090409c4f73dc628f6804ec9961
         version: https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961
-      dsh-ouroboros:
-        specifier: github:Q00/ouroboros#62d87a599770c38e89656f53fe4049373f6be4fe&path:integrations/dsh-plugin
-        version: https://codeload.github.com/Q00/ouroboros/tar.gz/62d87a599770c38e89656f53fe4049373f6be4fe#path:integrations/dsh-plugin
       dsh-plugin-writing-guard:
         specifier: 1.6.1
         version: 1.6.1
@@ -1023,10 +1020,6 @@ packages:
   dsh-kimino-theme@https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961:
     resolution: {gitHosted: true, integrity: sha512-n5MatqM0pVUukqDUTCiVvDbuRHTuAyhRPHGKrdD9PSmbURM/j7GwP7VB9maONB9v+30zsfTK0MXomX5G8QGGyQ==, tarball: https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961}
     version: 66.2.0
-
-  dsh-ouroboros@https://codeload.github.com/Q00/ouroboros/tar.gz/62d87a599770c38e89656f53fe4049373f6be4fe#path:integrations/dsh-plugin:
-    resolution: {gitHosted: true, path: integrations/dsh-plugin, tarball: https://codeload.github.com/Q00/ouroboros/tar.gz/62d87a599770c38e89656f53fe4049373f6be4fe}
-    version: 0.1.0
 
   dsh-plugin-writing-guard@1.6.1:
     resolution: {integrity: sha512-r8mZl5CiXpckPHjORVjcsnFvciHSrUXPw3TLN9ozPHTcoSvnR2ZsNOHN4brKN1d2DxlQwMOhd4aJifEIPgCgKQ==}
@@ -2386,8 +2379,6 @@ snapshots:
       '@deepseek-ai/schemastery': 3.18.1
 
   dsh-kimino-theme@https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961: {}
-
-  dsh-ouroboros@https://codeload.github.com/Q00/ouroboros/tar.gz/62d87a599770c38e89656f53fe4049373f6be4fe#path:integrations/dsh-plugin: {}
 
   dsh-plugin-writing-guard@1.6.1: {}
 

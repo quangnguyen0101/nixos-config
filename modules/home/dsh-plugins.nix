@@ -27,9 +27,6 @@ let
 in
 
 {
-  # Lưu ý: uv (runtime cho bundle dsh-ouroboros) khai báo trong userPackages.nix.
-  # uv resolve python >=3.12 từ python3 sẵn có trên PATH của user.
-  #
   # SSL_CERT_FILE: Python bundled của plugin dsh-vision-toolkit không kèm CA store;
   # NixOS giữ CA bundle hệ thống tại đây. Bắt buộc cho mọi HTTPS từ Python subprocess.
   home.sessionVariables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";

@@ -7,10 +7,10 @@ Tổng quan năng lực agent trong DeepSeek Harness (DSH) profile "web".
 | Thành phần | Số lượng | Ghi chú |
 |---|---|---|
 | Skills (quy trình làm việc) | **26** | Sẵn sàng |
-| Tools khai báo | **104** | 53 built-in + 15 OpenViking + 36 Ouroboros |
+| Tools khai báo | **68** | 53 built-in + 15 OpenViking |
 | Vision tools tiềm ẩn | **+10** | Kích hoạt qua skill `vision-skills` |
 | Agency Experts | **271** | 18 phân hệ — mặc định TẮT |
-| MCP Servers | **2** | OpenViking, Ouroboros |
+| MCP Servers | **1** | OpenViking |
 
 ---
 
@@ -203,96 +203,6 @@ Database ngữ cảnh bền vững phía sau trí nhớ của agent. Không gian
 | `forget` | Xóa vĩnh viễn URI — IRREVERSIBLE, recursive tùy chọn | uri, confirm |
 | `list_watches` | Liệt kê watch tasks (subscription auto-refresh) | — |
 | `cancel_watch` | Hủy watch theo target URI | target_uri |
-
----
-
-## MCP: Ouroboros — pipeline tiến hóa (36 tools)
-
-Hệ pipeline đầy đủ: **yêu cầu → interview → Seed → execute → evaluate 3 tầng → evolve/Ralph loop**. Background jobs trả `job_id` pollable.
-
-### Pipeline flow
-
-```
-Interview → generate_seed → execute_seed → evaluate (mechanical → semantic → consensus)
-                                    ↑              ↓
-                                    └── evolve_step ← reject
-```
-
-### Khảo sát & brownfield (4)
-
-| Tool | Mô tả |
-|------|-------|
-| `interview` | Interview tương tác làm rõ yêu cầu (start/resume/answer) |
-| `pm_interview` | PM interview thu thập product requirements |
-| `brownfield` | Quản lý repo brownfield: scan, register, query, set_default |
-| `generate_seed` | Sinh Seed immutable từ interview hoàn thành |
-
-### Sinh & chạy Seed (4)
-
-| Tool | Mô tả |
-|------|-------|
-| `execute_seed` | Handler foreground — chạy seed_content YAML hoặc seed_path |
-| `start_execute_seed` | Bản background → job ID ngay |
-| `auto` | Full-quality ooo auto: interview → Seed A-grade → execute |
-| `start_auto` | Bản background → auto_session_id + job_id |
-
-### Đánh giá & lateral thinking (6)
-
-| Tool | Mô tả |
-|------|-------|
-| `evaluate` | Pipeline 3 tầng: MECHANICAL → SEMANTIC → CONSENSUS |
-| `start_evaluate` | Bản background khi pipeline dự kiến vượt timeout |
-| `qa` | Verdict QA tổng quát mọi artifact type |
-| `checklist_verify` | Verify artifact thỏa MỌI AC trong Seed YAML |
-| `measure_drift` | Đo drift khỏi seed goal gốc (weighted: goal 50% + constraint 30% + ontology 20%) |
-| `lateral_think` | Sinh hướng tư duy alternative qua persona (hacker/researcher/simplifier/architect/contrarian) |
-
-### Vòng lặp tiến hóa (6)
-
-| Tool | Mô tả |
-|------|-------|
-| `evolve_step` | Foreground chính xác 1 generation evolutionary loop |
-| `start_evolve_step` | Bản background → job ID |
-| `evolve_rewind` | Rewind lineage về generation cụ thể |
-| `lineage_status` | Query trạng thái lineage: generation count, convergence |
-| `ralph` | Foreground fresh-agent Ralph loop: evolve_step lặp lại đến QA pass |
-| `start_ralph` | Fire-and-forget alias của ralph |
-
-### Job nền (4)
-
-| Tool | Mô tả |
-|------|-------|
-| `job_status` | Latest summary background job |
-| `job_wait` | Conversational polling chờ job đổi state |
-| `job_result` | Final output của background job COMPLETED |
-| `cancel_job` | Request cancellation background job |
-
-### Phiên & sự kiện (6)
-
-| Tool | Mô tả |
-|------|-------|
-| `session_status` | Trạng thái session Ouroboros: phase, progress, errors |
-| `query_events` | Event history: filter session_id/event_type |
-| `query_projection` | Read-only Run/Stage/Step projection từ persisted events |
-| `project_status` | Resolve project identity + rebuild read-only run status |
-| `ac_dashboard` | Dashboard compliance PER-AC pass/fail/flaky across generations |
-| `ac_tree_hud` | Markdown snapshot RENDER-READY của acceptance-criteria tree LIVE |
-
-### Conductor & SessionSignal (3)
-
-| Tool | Mô tả |
-|------|-------|
-| `record_conductor_decision` | Ghi Active Conductor decision audited |
-| `session_signal_targets` | Liệt kê exact active AC attempts + live SessionSignal capabilities |
-| `session_signal` | Gửi Synapse intent signal tới exact active AC session attempt |
-
-### Fan-out, artifact & hủy (3)
-
-| Tool | Mô tả |
-|------|-------|
-| `submit_fanout_results` | Submit correlated results subagent fan-out |
-| `fetch_artifact` | Fetch + integrity-check disposable artifact |
-| `cancel_execution` | Cancel execution RUNNING/PAUSED |
 
 ---
 

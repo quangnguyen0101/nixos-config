@@ -1,16 +1,5 @@
 # User patch layer cho dsh profile "web" — chạy SAU mọi bundle layer.
 # Mảng YAML các loader patch entry (override config theo id, disable, insert).
-#
-# mcp-ouroboros: restating toàn bộ config của row gốc từ bundle dsh-ouroboros
-# (layer sau thay thế nguyên config của row, không deep-merge) và thêm
-# UV_PYTHON_PREFERENCE=only-managed: trên NixOS, uvx mặc định chọn python3 của
-# nixpkgs làm base interpreter; binary đó trỏ loader thẳng vào
-# /nix/store/<glibc>/ld-linux nên né mất /lib64/ld-linux-x86-64.so.2 của
-# nix-ld → wheel nhị phân (greenlet/pydantic-core của SQLAlchemy async) không
-# tìm thấy libstdc++.so.6 và MCP chết lúc khởi động. Ép uv dùng CPython tự quản
-# lý (python-build-standalone, interpreter=/lib64/...) thì nix-ld can thiệp và
-# programs.nix-ld.libraries cung cấp libstdc++.
-# Xem modules/system/nix-ld.nix.
 - id: openviking-memory
   disabled: false
 # Tắt panel Skin Center của aggregate web-ui-all (sub-plugin transitive,
@@ -19,34 +8,3 @@
 - id: web-ui-skin-center
   name: '@linxin666/dsh-client-ui-skin-center'
   disabled: true
-# KHÔNG dùng `- insert:` ở đây — bundle dsh-ouroboros đã chèn row id
-# "mcp-ouroboros"; insert thêm lần nữa bị loader từ chối với lỗi
-# "duplicate loader entry id". Entry phẳng cùng id bên dưới là override.
-- id: mcp-ouroboros
-  name: '@deepseek-ai/dsh-mcp-client'
-  config:
-    serverName: ouroboros
-    transport: stdio
-    command: uvx
-    args:
-      - --from
-      - 'ouroboros-ai[mcp,litellm]'
-      # extra "litellm" có marker python <3.14; mặc định uv chọn bản mới nhất
-      # (3.14) nên litellm bị bỏ qua lúc resolve → ép về 3.13.
-      - -p
-      - '3.13'
-      - --with
-      - 'mcp==2.0.0'
-      - ouroboros
-      - mcp
-      - serve
-    env:
-      OUROBOROS_LLM_BACKEND: !!js process.env.OUROBOROS_LLM_BACKEND ?? ''
-      OUROBOROS_AGENT_RUNTIME: !!js process.env.OUROBOROS_AGENT_RUNTIME ?? 'opencode'
-      OUROBOROS_DSH_CONFIG_PATH: !!js process.env.OUROBOROS_DSH_CONFIG_PATH ?? ''
-      OUROBOROS_DSH_CLI_PATH: !!js process.env.OUROBOROS_DSH_CLI_PATH ?? ''
-      ANTHROPIC_API_KEY: !!js process.env.ANTHROPIC_API_KEY ?? ''
-      DEEPSEEK_API_KEY: !!js process.env.DEEPSEEK_API_KEY ?? ''
-      UV_PYTHON_PREFERENCE: "only-managed"
-    toolCallTimeoutMs: 1800000
-    failOnStartupError: false

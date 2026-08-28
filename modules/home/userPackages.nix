@@ -44,7 +44,6 @@
     slack
     easyeffects
     pnpm # dsh cần để quản lý profile plugins
-    uv # runtime cho plugin dsh-ouroboros của dsh (MCP server chạy qua uvx)
     chromium
     rclone
     wpsoffice

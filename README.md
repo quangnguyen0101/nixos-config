@@ -66,7 +66,7 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | **Multiplexer** | Tmux với `resurrect/continuum` |
 | **Login** | greetd + regreet (Rosé Pine) |
 | **Input** | fcitx5-lotus + bamboo (Vietnamese) |
-| **AI stack** | Opencode + Ollama + DSH (DeepSeek Harness) + Ouroboros MCP |
+| **AI stack** | Opencode + Ollama + DSH (DeepSeek Harness) |
 | **Gaming** | Steam (32-bit, RemotePlay) |
 | **Fonts** | JetBrains Mono, Fira Code, Hack, 0xProto Nerd Fonts |
 | **Secure boot** | lanzaboote (PKI bundle `/var/lib/sbctl`) |
@@ -94,18 +94,10 @@ Plugin-based AI agent CLI. Package tùy chỉnh trong `pkgs/deepseek-harness/` (
 
 - **Binary**: `dsh` (Node.js + `--expose-internals` cho HMR)
 - **Profile "web"**: managed declaratively trong `modules/home/dsh-profile/`
-  - **14 community plugins**: vision toolkit, memory, web UI aggregate, agent teams, ouroboros, …
-  - **Web search**: chuyển từ `modsearch` sang `dsh-free-search` (keyless, multi-engine DDG/Bing/SearXNG, auto-failover) — bỏ phụ thuộc dịch vụ bên thứ 3 (Firecrawl keyless 403, Antigravity capacity 503). `antigravity-cli` (agy) cũng đã gỡ theo.
+  - **15 community plugins**: vision toolkit, memory, web UI aggregate, agent teams, aegis, web search, …
+  - **Web search**: `dsh-free-search` (keyless, multi-engine DDG/Bing/SearXNG, auto-failover) — thay thế `modsearch` (Firecrawl keyless 403, Antigravity capacity 503). `antigravity-cli` (agy) cũng đã gỡ theo.
 - **Plugin management**: `pnpm install --frozen-lockfile` chạy qua Home Manager activation script
-- **User patch layer**: `cordis.patch.yml` — override loader entries (ouroboros config, disable skin center)
-
-### Ouroboros MCP
-MCP server tích hợp trong DSH, chạy qua `uvx`:
-
-- **Backend**: `litellm` → Ollama cloud (`ollama/gpt-oss:120b-cloud`)
-- **Runtime agent**: `opencode`
-- **36 tools**: execute seed, interview, evolve, QA, drift measure, …
-- **Config**: `~/.ouroboros/config.yaml`
+- **User patch layer**: `cordis.patch.yml` — override loader entries (openviking-memory enable, disable skin center)
 
 ### Vision Toolkit
 Plugin `@anionex/dsh-vision-toolkit` — image analysis miễn phí (service shared của Anionex, 100 ảnh/máy/ngày, không cần API key).
@@ -124,10 +116,10 @@ Tổng quan năng lực agent trong DSH profile "web". Chi tiết đầy đủ: 
 | Thành phần | Số lượng | Ghi chú |
 |---|---|---|
 | Skills (quy trình làm việc) | **26** | Sẵn sàng |
-| Tools khai báo | **104** | 53 built-in + 15 OpenViking + 36 Ouroboros |
+| Tools khai báo | **68** | 53 built-in + 15 OpenViking |
 | Vision tools tiềm ẩn | **+10** | Kích hoạt qua skill `vision-skills` |
 | Agency Experts | **271** | 18 phân hệ — mặc định TẮT |
-| MCP Servers | **2** | OpenViking, Ouroboros |
+| MCP Servers | **1** | OpenViking |
 
 ### Skills (26)
 
@@ -184,21 +176,6 @@ Database ngữ cảnh bền vững. Không gian URI `viking://`.
 | `list_watches` | Liệt kê watch tasks |
 | `cancel_watch` | Hủy watch theo target URI |
 
-### MCP: Ouroboros — pipeline tiến hóa (36 tools)
-
-Pipeline: **yêu cầu → interview → Seed → execute → evaluate 3 tầng → evolve/Ralph loop**.
-
-| Nhóm | Tools |
-|------|-------|
-| **Khảo sát & brownfield (4)** | `interview`, `pm_interview`, `brownfield`, `generate_seed` |
-| **Sinh & chạy Seed (4)** | `execute_seed`, `start_execute_seed`, `auto`, `start_auto` |
-| **Đánh giá & lateral (6)** | `evaluate`, `start_evaluate`, `qa`, `checklist_verify`, `measure_drift`, `lateral_think` |
-| **Vòng lặp tiến hóa (6)** | `evolve_step`, `start_evolve_step`, `evolve_rewind`, `lineage_status`, `ralph`, `start_ralph` |
-| **Job nền (4)** | `job_status`, `job_wait`, `job_result`, `cancel_job` |
-| **Phiên & sự kiện (6)** | `session_status`, `query_events`, `query_projection`, `project_status`, `ac_dashboard`, `ac_tree_hud` |
-| **Conductor & signal (3)** | `record_conductor_decision`, `session_signal_targets`, `session_signal` |
-| **Fan-out & artifact (3)** | `submit_fanout_results`, `fetch_artifact`, `cancel_execution` |
-
 ### Vision Tools (+10, tiềm ẩn)
 
 | Tool | Chức năng |
@@ -242,4 +219,3 @@ Không thay đổi giá trị này trừ khi bạn đã chuẩn bị migration d
 - https://github.com/folke/lazy.nvim (LazyVim)
 - https://github.com/nix-community/lanzaboote (Lanzaboote)
 - https://github.com/deepseek-ai/deepseek-harness (DeepSeek Harness)
-- https://github.com/Q00/ouroboros (Ouroboros)

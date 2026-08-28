@@ -13,7 +13,6 @@
     "aegis": "github:GanyuanRan/Aegis#4a281c241a5ac7511b1421714d8c9bd03daa523d",
     "dsh-context": "0.34.1",
     "dsh-kimino-theme": "github:niiang/dsh-kimino-theme#2c74b3f1c6ba4090409c4f73dc628f6804ec9961",
-    "dsh-ouroboros": "github:Q00/ouroboros#62d87a599770c38e89656f53fe4049373f6be4fe&path:integrations/dsh-plugin",
     "dsh-plugin-writing-guard": "1.6.1",
     "upstream-radar": "0.45.0"
   },
@@ -33,7 +32,6 @@
         "aegis",
         "dsh-context",
         "dsh-kimino-theme",
-        "dsh-ouroboros",
         "dsh-plugin-writing-guard",
         "upstream-radar"
       ]
