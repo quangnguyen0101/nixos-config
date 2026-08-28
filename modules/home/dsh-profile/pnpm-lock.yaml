@@ -10,22 +10,19 @@ importers:
     dependencies:
       '@anionex/dsh-vision-toolkit':
         specifier: 0.1.39
-        version: 0.1.39
+        version: 0.1.39(@deepseek-ai/schemastery@3.18.1)
       '@dsh-external/dsh-visualize':
         specifier: github:Nagi-ovo/dsh-visualize#b0bed38f40ffbb0d72bb88393d865307944c1bce
-        version: https://codeload.github.com/Nagi-ovo/dsh-visualize/tar.gz/b0bed38f40ffbb0d72bb88393d865307944c1bce
+        version: https://codeload.github.com/Nagi-ovo/dsh-visualize/tar.gz/b0bed38f40ffbb0d72bb88393d865307944c1bce(@deepseek-ai/schemastery@3.18.1)
       '@linxin666/dsh-web-ui-all':
         specifier: 0.3.6
-        version: 0.3.6(zod@4.4.3)
-      '@liustack/modsearch':
-        specifier: 5.9.1
-        version: 5.9.1
+        version: 0.3.6(@deepseek-ai/schemastery@3.18.1)(zod@4.4.3)
       '@michengai/dsh-agency-agents':
         specifier: 0.1.21
-        version: 0.1.21
+        version: 0.1.21(@deepseek-ai/schemastery@3.18.1)
       '@nanmicoder/dsh-agent-teams':
         specifier: 0.1.14
-        version: 0.1.14
+        version: 0.1.14(@deepseek-ai/schemastery@3.18.1)
       '@openviking/dsh-memory-plugin':
         specifier: ^0.2.1
         version: 0.2.1
@@ -37,7 +34,10 @@ importers:
         version: https://codeload.github.com/GanyuanRan/Aegis/tar.gz/4a281c241a5ac7511b1421714d8c9bd03daa523d
       dsh-context:
         specifier: 0.34.1
-        version: 0.34.1(zod@4.4.3)
+        version: 0.34.1(@deepseek-ai/schemastery@3.18.1)(zod@4.4.3)
+      dsh-free-search:
+        specifier: github:DDDMUC/dsh-free-search#dbb77a5b5de65a89e7bd2ec24af55132db4bea8f
+        version: https://codeload.github.com/DDDMUC/dsh-free-search/tar.gz/dbb77a5b5de65a89e7bd2ec24af55132db4bea8f
       dsh-kimino-theme:
         specifier: github:niiang/dsh-kimino-theme#2c74b3f1c6ba4090409c4f73dc628f6804ec9961
         version: https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961
@@ -158,6 +158,12 @@ packages:
 
   '@codemirror/view@6.43.9':
     resolution: {integrity: sha512-sTuUzTpPMFebRhg6dawChoKKgndIwfjmJgKVxBefPElcU2NwQ6AFroupk0SFqEerQyZOGRfDNnSN8Dw/lMAsXw==}
+
+  '@deepseek-ai/cosmokit@1.8.2':
+    resolution: {integrity: sha512-muBOKtSrUKU5m/xpq8ZXWL6hQ/jgd4PhU2PqH97bcxIiLEJfNwZOGQEx4t/aS/GgxRAR+ra9pMHPMtTHU4sqqA==}
+
+  '@deepseek-ai/schemastery@3.18.1':
+    resolution: {integrity: sha512-Qn0FCSwCQnpnj6SB31I6i2sIKgKWnkbJM8O0EU91Gv2UsYVvtZTl6IA0sCwk2e2MZf5S8w5hpq9QkeVvK9qwxg==}
 
   '@dsh-external/dsh-visualize@https://codeload.github.com/Nagi-ovo/dsh-visualize/tar.gz/b0bed38f40ffbb0d72bb88393d865307944c1bce':
     resolution: {gitHosted: true, integrity: sha512-RVXoEZQ3EVMAGE/3+Km3TNmyXr7TMuQuIBYiILk33RdtPsv+Q86yW+peBjlI1gdeiakHHB8KqDikOIPCoPrjVw==, tarball: https://codeload.github.com/Nagi-ovo/dsh-visualize/tar.gz/b0bed38f40ffbb0d72bb88393d865307944c1bce}
@@ -333,11 +339,6 @@ packages:
   '@linxin666/dsh-web-ui-all@0.3.6':
     resolution: {integrity: sha512-DsU06CWU1KQW0mNc00NW611dPbuGAQyiKqoMSqz+C1T2YN7Ua6T9ITdBwb7NV0KsiBIdotSmlhRQ21rpUd9D6Q==}
     deprecated: 迁移到 @linxin666/dsh-web-all；详见该版本 Release notes
-
-  '@liustack/modsearch@5.9.1':
-    resolution: {integrity: sha512-a7X2NcFIBFq3VLWjxPcMmTX4iPjcd0g1lZ1uFlxI9emJqffF59QVxPODgXHmDn/77yTs9zVfU55XdgxSHO84Ug==}
-    engines: {node: '>=22.13'}
-    hasBin: true
 
   '@marijn/find-cluster-break@1.0.4':
     resolution: {integrity: sha512-Wy0V7+SGUjnF9/TkiM1hKVDPj7jKXduPNboMVtHTA8dySMURWqfg/JZ9E2Sq8JgSJmkl7k7Qe9FLeMSrSraWmQ==}
@@ -626,10 +627,6 @@ packages:
   clsx@2.1.1:
     resolution: {integrity: sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==}
     engines: {node: '>=6'}
-
-  commander@13.1.0:
-    resolution: {integrity: sha512-/rFeCpNJQbhSZjGVwO9RFV3xPqbnERS8MmIQzCtD/zl6gpJuV/bMLuN92oG3F7d8oDEHHRrujSXNUr8fpjntKw==}
-    engines: {node: '>=18'}
 
   commander@7.2.0:
     resolution: {integrity: sha512-QrWXB+ZQSVPmIWIhtEO9H+gwHaMGYiF5ChvoJ+K9ZGHG/sVsa6yiesAD1GC/x46sET00Xlwo1u49RVVVzvcSkw==}
@@ -1015,6 +1012,14 @@ packages:
       react:
         optional: true
 
+  dsh-free-search@https://codeload.github.com/DDDMUC/dsh-free-search/tar.gz/dbb77a5b5de65a89e7bd2ec24af55132db4bea8f:
+    resolution: {gitHosted: true, integrity: sha512-o4tY209hHTcTEgNNMKKvWXjFtNBZwZRb0Lp92UCLjYHqyfh6M1I+15vs5t1a9QRl+oys9nuLKvs0Ic6vMyGQCA==, tarball: https://codeload.github.com/DDDMUC/dsh-free-search/tar.gz/dbb77a5b5de65a89e7bd2ec24af55132db4bea8f}
+    version: 0.4.15
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@deepseek-ai/dsh-settings': '>=0.1.0-rc.6'
+      '@deepseek-ai/dsh-tools': '>=0.1.0-rc.6'
+
   dsh-kimino-theme@https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961:
     resolution: {gitHosted: true, integrity: sha512-n5MatqM0pVUukqDUTCiVvDbuRHTuAyhRPHGKrdD9PSmbURM/j7GwP7VB9maONB9v+30zsfTK0MXomX5G8QGGyQ==, tarball: https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961}
     version: 66.2.0
@@ -1305,10 +1310,6 @@ packages:
   tweetnacl@0.14.5:
     resolution: {integrity: sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==}
 
-  undici@7.29.0:
-    resolution: {integrity: sha512-IDxfleLmmbSskfWSUATiN1nfn2rDuvnMOqb5CWR92iIfojA0Ud+ulOAAEQ57LPr9rWmsreUyf5lwyao+7GNNVw==}
-    engines: {node: '>=20.18.1'}
-
   undici@8.10.0:
     resolution: {integrity: sha512-HvltHd7avK13QIw/oLe4qoOLyoVSoafqJ2jYOrtMRBkbYT31eiBQ8O0ehRKZiEZCMEyLFQNIADpgCWC5fALvYQ==}
     engines: {node: '>=22.19.0'}
@@ -1358,8 +1359,9 @@ packages:
 
 snapshots:
 
-  '@anionex/dsh-vision-toolkit@0.1.39':
+  '@anionex/dsh-vision-toolkit@0.1.39(@deepseek-ai/schemastery@3.18.1)':
     dependencies:
+      '@deepseek-ai/schemastery': 3.18.1
       saxes: 6.0.0
       tar: 7.5.22
       undici: 8.10.0
@@ -1536,7 +1538,16 @@ snapshots:
       style-mod: 4.1.3
       w3c-keyname: 2.2.8
 
-  '@dsh-external/dsh-visualize@https://codeload.github.com/Nagi-ovo/dsh-visualize/tar.gz/b0bed38f40ffbb0d72bb88393d865307944c1bce': {}
+  '@deepseek-ai/cosmokit@1.8.2': {}
+
+  '@deepseek-ai/schemastery@3.18.1':
+    dependencies:
+      '@deepseek-ai/cosmokit': 1.8.2
+      '@standard-schema/spec': 1.1.0
+
+  '@dsh-external/dsh-visualize@https://codeload.github.com/Nagi-ovo/dsh-visualize/tar.gz/b0bed38f40ffbb0d72bb88393d865307944c1bce(@deepseek-ai/schemastery@3.18.1)':
+    dependencies:
+      '@deepseek-ai/schemastery': 3.18.1
 
   '@iconify/types@2.0.0': {}
 
@@ -1715,7 +1726,7 @@ snapshots:
     dependencies:
       schemastery: 3.18.0
 
-  '@linxin666/dsh-web-ui-all@0.3.6(zod@4.4.3)':
+  '@linxin666/dsh-web-ui-all@0.3.6(@deepseek-ai/schemastery@3.18.1)(zod@4.4.3)':
     dependencies:
       '@linxin666/dsh-client-ui-aionui-panel': 0.3.6
       '@linxin666/dsh-client-ui-community-plugins': 0.3.6
@@ -1735,7 +1746,7 @@ snapshots:
       '@linxin666/dsh-ssh': 0.3.6
       '@linxin666/dsh-tool-describe-image': 0.3.6
       '@mlgbnb/dsh-archive-manager': 1.0.7
-      '@morlay/better-session': 0.0.11(zod@4.4.3)
+      '@morlay/better-session': 0.0.11(@deepseek-ai/schemastery@3.18.1)(zod@4.4.3)
       dsh-better-sidebar: 0.15.2
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
@@ -1810,27 +1821,23 @@ snapshots:
       - valibot
       - zod
 
-  '@liustack/modsearch@5.9.1':
-    dependencies:
-      commander: 13.1.0
-      undici: 7.29.0
-
   '@marijn/find-cluster-break@1.0.4': {}
 
   '@mermaid-js/parser@1.2.1':
     dependencies:
       '@chevrotain/types': 11.1.2
 
-  '@michengai/dsh-agency-agents@0.1.21':
+  '@michengai/dsh-agency-agents@0.1.21(@deepseek-ai/schemastery@3.18.1)':
     dependencies:
+      '@deepseek-ai/schemastery': 3.18.1
       zod: 4.4.3
 
   '@mlgbnb/dsh-archive-manager@1.0.7': {}
 
-  '@morlay/better-session@0.0.11(zod@4.4.3)':
+  '@morlay/better-session@0.0.11(@deepseek-ai/schemastery@3.18.1)(zod@4.4.3)':
     dependencies:
       '@morlay/session-branch': 0.0.11
-      '@morlay/session-rdb': 0.0.11(zod@4.4.3)
+      '@morlay/session-rdb': 0.0.11(@deepseek-ai/schemastery@3.18.1)(zod@4.4.3)
       '@morlay/ui-conversation-message-actions': 0.0.11
     transitivePeerDependencies:
       - '@aws-sdk/client-rds-data'
@@ -1890,8 +1897,9 @@ snapshots:
 
   '@morlay/session-branch@0.0.11': {}
 
-  '@morlay/session-rdb@0.0.11(zod@4.4.3)':
+  '@morlay/session-rdb@0.0.11(@deepseek-ai/schemastery@3.18.1)(zod@4.4.3)':
     dependencies:
+      '@deepseek-ai/schemastery': 3.18.1
       '@morlay/session-branch': 0.0.11
       drizzle-orm: 1.0.0-rc.5-ab785fc(pg@8.23.0)(zod@4.4.3)
       pg: 8.23.0
@@ -1949,7 +1957,9 @@ snapshots:
     dependencies:
       '@morlay/session-branch': 0.0.11
 
-  '@nanmicoder/dsh-agent-teams@0.1.14': {}
+  '@nanmicoder/dsh-agent-teams@0.1.14(@deepseek-ai/schemastery@3.18.1)':
+    optionalDependencies:
+      '@deepseek-ai/schemastery': 3.18.1
 
   '@openviking/dsh-memory-plugin@0.2.1': {}
 
@@ -2108,8 +2118,6 @@ snapshots:
   cloudflared@0.7.3: {}
 
   clsx@2.1.1: {}
-
-  commander@13.1.0: {}
 
   commander@7.2.0: {}
 
@@ -2368,9 +2376,14 @@ snapshots:
       - bufferutil
       - utf-8-validate
 
-  dsh-context@0.34.1(zod@4.4.3):
+  dsh-context@0.34.1(@deepseek-ai/schemastery@3.18.1)(zod@4.4.3):
     dependencies:
+      '@deepseek-ai/schemastery': 3.18.1
       zod: 4.4.3
+
+  dsh-free-search@https://codeload.github.com/DDDMUC/dsh-free-search/tar.gz/dbb77a5b5de65a89e7bd2ec24af55132db4bea8f:
+    dependencies:
+      '@deepseek-ai/schemastery': 3.18.1
 
   dsh-kimino-theme@https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961: {}
 
@@ -2622,8 +2635,6 @@ snapshots:
   tslib@2.8.1: {}
 
   tweetnacl@0.14.5: {}
-
-  undici@7.29.0: {}
 
   undici@8.10.0: {}
 
