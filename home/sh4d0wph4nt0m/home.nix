@@ -13,6 +13,7 @@
     # ../../modules/home/noctalia.nix
     ../../modules/home/caelestia.nix
     ../../modules/home/userPackages.nix
+    ../../modules/home/antigravity-cli.nix
     ../../modules/home/rmpc-config/rmpc.nix
     ../../modules/home/easyeffects.nix
     ../../modules/home/dsh-plugins.nix
