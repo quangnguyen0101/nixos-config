@@ -94,7 +94,8 @@ Plugin-based AI agent CLI. Package tùy chỉnh trong `pkgs/deepseek-harness/` (
 
 - **Binary**: `dsh` (Node.js + `--expose-internals` cho HMR)
 - **Profile "web"**: managed declaratively trong `modules/home/dsh-profile/`
-- **14 community plugins**: vision toolkit, memory, web UI aggregate, agent teams, ouroboros, …
+  - **14 community plugins**: vision toolkit, memory, web UI aggregate, agent teams, ouroboros, …
+  - **Web search**: chuyển từ `modsearch` sang `dsh-free-search` (keyless, multi-engine DDG/Bing/SearXNG, auto-failover) — bỏ phụ thuộc dịch vụ bên thứ 3 (Firecrawl keyless 403, Antigravity capacity 503). `antigravity-cli` (agy) cũng đã gỡ theo.
 - **Plugin management**: `pnpm install --frozen-lockfile` chạy qua Home Manager activation script
 - **User patch layer**: `cordis.patch.yml` — override loader entries (ouroboros config, disable skin center)
 
@@ -151,7 +152,7 @@ Tổng quan năng lực agent trong DSH profile "web". Chi tiết đầy đủ: 
 |------|-------|
 | **File & code (7)** | `read`, `write`, `edit`, `glob`, `grep`, `read_image`, `run_code` |
 | **Shell & jobs (4)** | `bash`, `job_list`, `job_output`, `job_kill` |
-| **Web (3)** | `web_search`, `read_page`, `x_search` |
+| **Web** | `web_search` — keyless qua `dsh-free-search` (DuckDuckGo/Bing/SearXNG + auto-failover), thay thế `modsearch` (Firecrawl/Antigravity). `x_search` (X/Twitter) đã gỡ cùng `modsearch` |
 | **Subagent (5)** | `subagent`, `subagent_fork`, `send_message`, `interrupt_agent`, `list_agents` |
 | **AgentTeams (10)** | `create`, `add_member`, `remove_member`, `create_task`, `claim_task`, `update_task`, `reassign_task`, `send_message`, `status`, `delete` |
 | **Agency (3)** | `list_experts`, `summon_expert`, `summon_experts` |
