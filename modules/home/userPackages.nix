@@ -41,6 +41,7 @@
     tree-sitter # bắt buộc cho nvim-treesitter branch main (yêu cầu CLI >= 0.26.1)
     telegram-desktop
     antigravity
+    antigravity-cli # provides `agy` — keyless web search engine for modsearch (free Google sign-in)
     slack
     easyeffects
     pnpm # dsh cần để quản lý profile plugins

@@ -23,9 +23,6 @@
   home.homeDirectory = "/home/sh4d0wph4nt0m";
   home.stateVersion = "26.05";
 
-  # ~/.local/bin hosts user-installed CLI tools (e.g. agy for modsearch keyless web search).
-  home.sessionPath = [ "$HOME/.local/bin" ];
-
   programs.home-manager.enable = true;
 
   services.home-manager.autoExpire = {
