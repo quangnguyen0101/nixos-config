@@ -3,16 +3,18 @@
 let
   ydotool = "${pkgs.ydotool}/bin/ydotool";
   systemdInhibit = "${pkgs.systemd}/bin/systemd-inhibit";
+  notifySend = "${pkgs.libnotify}/bin/notify-send";
+
+  substitute = lib.replaceStrings
+    [ "@YDOTOOL@" "@SYSTEMD_INHIBIT@" "@NOTIFY_SEND@" ]
+    [ ydotool systemdInhibit notifySend ];
 
   keepAwakeDaemon = pkgs.writeShellScriptBin "keep-awake-daemon" (
-    lib.replaceStrings
-      [ "@YDOTOOL@" "@SYSTEMD_INHIBIT@" ]
-      [ ydotool systemdInhibit ]
-      (builtins.readFile ./keep-awake/keep-awake-daemon)
+    substitute (builtins.readFile ./keep-awake/keep-awake-daemon)
   );
 
   keepAwakeMenu = pkgs.writeShellScriptBin "keep-awake" (
-    builtins.readFile ./keep-awake/keep-awake
+    substitute (builtins.readFile ./keep-awake/keep-awake)
   );
 in
 {
@@ -41,6 +43,7 @@ in
       Type = "simple";
       ExecStart = "${keepAwakeDaemon}/bin/keep-awake-daemon";
       Restart = "no";
+      SuccessExitStatus = [ "SIGTERM" ];
     };
   };
 }

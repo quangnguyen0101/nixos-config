@@ -36,17 +36,29 @@ status_line() {
   fi
 }
 
+notify() {
+  @NOTIFY_SEND@ -a keep-awake "$1" "$2" 2>/dev/null || true
+}
+
 start_keep() { # $1 = số giây hoặc "inf"
   mkdir -p "$STATE_DIR"
   date +%s > "$START_FILE"
   printf '%s' "$1" > "$DUR_FILE"
   systemctl --user daemon-reload || true
   systemctl --user start ydotoold || true
-  systemctl --user restart "$SVC" || true
+  systemctl --user restart "$SVC" 2>/dev/null || true
+  if daemon_running; then
+    if [ "$1" = "inf" ]; then
+      notify "Đã bật giữ-awake" "Màn hình không bị khóa - vô thời hạn"
+    else
+      notify "Đã bật giữ-awake" "Giữ awake trong $(fmt_secs "$1")"
+    fi
+  fi
 }
 
 stop_keep() {
   systemctl --user stop "$SVC" 2>/dev/null || true
+  notify "Đã tắt giữ-awake" "Máy sẽ lock/sleep bình thường trở lại"
 }
 
 daemon_running() {

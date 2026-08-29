@@ -41,7 +41,18 @@ trap 'kill "$JIG" 2>/dev/null || true' EXIT HUP INT TERM
 
 # Chặn logind: không suspend, không idle-action, không suspend khi đóng lid.
 # Khi `sleep $sleep_for` kết thúc, inhibitor tự nhả và daemon thoát.
-@SYSTEMD_INHIBIT@ \
-  --what=idle:sleep:handle-lid-switch --mode=block \
-  --why="keep-awake (giữ máy awake theo yêu cầu)" \
-  sleep "$sleep_for"
+if [ "$duration" = "inf" ]; then
+  @SYSTEMD_INHIBIT@ \
+    --what=idle:sleep:handle-lid-switch --mode=block \
+    --why="keep-awake (giữ máy awake theo yêu cầu)" \
+    sleep infinity
+else
+  if @SYSTEMD_INHIBIT@ \
+    --what=idle:sleep:handle-lid-switch --mode=block \
+    --why="keep-awake (giữ máy awake theo yêu cầu)" \
+    sleep "$sleep_for"; then
+    @NOTIFY_SEND@ -a keep-awake \
+      "Hết thời gian giữ-awake" \
+      "Máy trở lại trạng thái bình thường" 2>/dev/null || true
+  fi
+fi

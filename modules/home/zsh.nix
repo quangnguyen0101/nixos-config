@@ -39,6 +39,16 @@
         sleep 3
         rmpc
       }
+
+      # Icon ⚡ bên phải prompt khi keep-awake đang giữ máy
+      _keep_awake_prompt() {
+        if systemctl --user is-active --quiet keep-awake 2>/dev/null; then
+          RPROMPT='%F{green}⚡%f'
+        else
+          RPROMPT=
+        fi
+      }
+      precmd_functions+=(_keep_awake_prompt)
     '';
   };
 }
