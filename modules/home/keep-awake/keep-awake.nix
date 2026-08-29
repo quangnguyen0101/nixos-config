@@ -10,11 +10,11 @@ let
     [ ydotool systemdInhibit notifySend ];
 
   keepAwakeDaemon = pkgs.writeShellScriptBin "keep-awake-daemon" (
-    substitute (builtins.readFile ./keep-awake/keep-awake-daemon)
+    substitute (builtins.readFile ./keep-awake-daemon)
   );
 
   keepAwakeMenu = pkgs.writeShellScriptBin "keep-awake" (
-    substitute (builtins.readFile ./keep-awake/keep-awake)
+    substitute (builtins.readFile ./keep-awake)
   );
 in
 {
