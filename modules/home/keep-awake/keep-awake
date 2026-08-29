@@ -40,11 +40,17 @@ start_keep() { # $1 = số giây hoặc "inf"
   mkdir -p "$STATE_DIR"
   date +%s > "$START_FILE"
   printf '%s' "$1" > "$DUR_FILE"
+  systemctl --user daemon-reload || true
+  systemctl --user start ydotoold || true
   systemctl --user restart "$SVC" || true
 }
 
 stop_keep() {
   systemctl --user stop "$SVC" 2>/dev/null || true
+}
+
+daemon_running() {
+  systemctl --user is-active --quiet "$SVC" 2>/dev/null
 }
 
 parse_duration() {
@@ -58,43 +64,50 @@ parse_duration() {
 }
 
 while true; do
-  clear
-  echo "┌────────────────────────────────────────────────────────┐"
-  printf "│  %-55s │\n" "$(status_line)"
-  echo "│                                                        │"
-  echo "│  1) 10 phút                                            │"
-  echo "│  2) 30 phút                                            │"
-  echo "│  3) 1 giờ                                              │"
-  echo "│  4) 2 giờ                                              │"
-  echo "│  5) 6 giờ                                              │"
-  echo "│  6) Tùy chỉnh  (90 phút, hoặc 2h / 30m / 45s)          │"
-  echo "│  7) Vô thời hạn  (tắt bằng option 8)                   │"
-  echo "│  8) TẮT giữ-awake                                      │"
-  echo "│  0) Thoát                                              │"
-  echo "└────────────────────────────────────────────────────────┘"
-  printf '  Chọn [0-8] >> '
-  read -r ans
-  case "$ans" in
-    1) start_keep 600 ;;
-    2) start_keep 1800 ;;
-    3) start_keep 3600 ;;
-    4) start_keep 7200 ;;
-    5) start_keep 21600 ;;
-    6)
-      printf '  Số phút (hoặc 2h / 30m / 45s): '
-      read -r custom
-      secs="$(parse_duration "$custom")"
-      if [ -z "$secs" ]; then
-        printf '  ! Không hiểu "%s".\n' "$custom"
+      clear
+      echo "┌────────────────────────────────────────────────────────┐"
+      printf "│  %-55s │\n" "$(status_line)"
+      echo "│                                                        │"
+      echo "│  1) 10 phút                                            │"
+      echo "│  2) 30 phút                                            │"
+      echo "│  3) 1 giờ                                              │"
+      echo "│  4) 2 giờ                                              │"
+      echo "│  5) 6 giờ                                              │"
+      echo "│  6) Tùy chỉnh  (90 phút, hoặc 2h / 30m / 45s)          │"
+      echo "│  7) Vô thời hạn  (tắt bằng option 8)                   │"
+      echo "│  8) TẮT giữ-awake                                      │"
+      echo "│  0) Thoát                                              │"
+      echo "└────────────────────────────────────────────────────────┘"
+      printf '  Chọn [0-8] >> '
+      read -r ans
+      case "$ans" in
+        1) start_keep 600 ;;
+        2) start_keep 1800 ;;
+        3) start_keep 3600 ;;
+        4) start_keep 7200 ;;
+        5) start_keep 21600 ;;
+        6)
+          printf '  Số phút (hoặc 2h / 30m / 45s): '
+          read -r custom
+          secs="$(parse_duration "$custom")"
+          if [ -z "$secs" ]; then
+            printf '  ! Không hiểu "%s".\n' "$custom"
+          else
+            start_keep "$secs"
+          fi
+          ;;
+        7) start_keep inf ;;
+        8) stop_keep ;;
+        0) exit 0 ;;
+        *) continue ;;
+      esac
+      if daemon_running; then
+        printf '\n  Daemon đang chạy - máy sẽ không bị lock/tắt màn hình.\n'
+        printf '  Mở lại menu để tắt (option 8) hoặc đổi thời gian.\n'
       else
-        start_keep "$secs"
+        printf '\n  ! Không khởi động được daemon.\n'
+        printf '    - Đã rebuild/chạy "nixos-rebuild switch" chưa?\n'
+        printf '    - Thử: systemctl --user start ydotoold\n'
       fi
-      ;;
-    7) start_keep inf ;;
-    8) stop_keep ;;
-    0) exit 0 ;;
-    *) continue ;;
-  esac
-  printf '\n  Xong. Mở lại menu để tắt (option 8) hoặc đổi thời gian.\n'
-  read -r _
-done
+      read -r _
+    done

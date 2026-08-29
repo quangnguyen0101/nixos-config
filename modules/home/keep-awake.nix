@@ -1,8 +1,14 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 
 let
+  ydotool = "${pkgs.ydotool}/bin/ydotool";
+  systemdInhibit = "${pkgs.systemd}/bin/systemd-inhibit";
+
   keepAwakeDaemon = pkgs.writeShellScriptBin "keep-awake-daemon" (
-    builtins.readFile ./keep-awake/keep-awake-daemon
+    lib.replaceStrings
+      [ "@YDOTOOL@" "@SYSTEMD_INHIBIT@" ]
+      [ ydotool systemdInhibit ]
+      (builtins.readFile ./keep-awake/keep-awake-daemon)
   );
 
   keepAwakeMenu = pkgs.writeShellScriptBin "keep-awake" (

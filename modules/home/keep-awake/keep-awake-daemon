@@ -19,13 +19,20 @@ else
   sleep_for="$rem"
 fi
 
+# Chắc chắn daemon ydotool (uinput) đang chạy trước khi jiggle
+systemctl --user start ydotoold 2>/dev/null || true
+SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/.ydotool_socket"
+for _ in $(seq 1 20); do
+  [ -S "$SOCK" ] && break
+  sleep 0.3
+done
+
 # Nhấn/nhả phím Left Shift (keycode 42) mỗi 60s
 # để reset idle timer của shell/compositor nếu có.
 jiggle() {
   while :; do
     sleep 60
-    YDOTOOL_SOCKET="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/.ydotool_socket" \
-      ydotool key 42:1 42:0 || true
+    YDOTOOL_SOCKET="$SOCK" @YDOTOOL@ key 42:1 42:0 || true
   done
 }
 jiggle &
@@ -34,7 +41,7 @@ trap 'kill "$JIG" 2>/dev/null || true' EXIT HUP INT TERM
 
 # Chặn logind: không suspend, không idle-action, không suspend khi đóng lid.
 # Khi `sleep $sleep_for` kết thúc, inhibitor tự nhả và daemon thoát.
-systemd-inhibit \
+@SYSTEMD_INHIBIT@ \
   --what=idle:sleep:handle-lid-switch --mode=block \
   --why="keep-awake (giữ máy awake theo yêu cầu)" \
   sleep "$sleep_for"
