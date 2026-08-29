@@ -1,0 +1,100 @@
+#!/usr/bin/env bash
+# Menu TUI: mỗi option = đặt 1 khoảng thời gian giữ awake rồi restart daemon.
+# Daemon đọc state từ ~/.local/state/keep-awake/, tự thoát khi hết giờ.
+set -euo pipefail
+
+STATE_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/keep-awake"
+DUR_FILE="$STATE_DIR/duration"
+START_FILE="$STATE_DIR/start"
+SVC=keep-awake.service
+
+fmt_secs() {
+  local s=$1 h m
+  h=$(( s / 3600 ))
+  m=$(( (s % 3600) / 60 ))
+  if [ "$h" -gt 0 ]; then
+    printf "%d giờ %d phút" "$h" "$m"
+  else
+    printf "%d phút" "$m"
+  fi
+}
+
+status_line() {
+  if systemctl --user is-active --quiet "$SVC" 2>/dev/null; then
+    local dur start rem
+    dur="$(cat "$DUR_FILE" 2>/dev/null || echo 0)"
+    if [ "$dur" = "inf" ]; then
+      printf "ĐANG GIỮ - vô thời hạn"
+    else
+      start="$(cat "$START_FILE" 2>/dev/null || echo 0)"
+      rem=$(( start + dur - $(date +%s) ))
+      [ "$rem" -lt 0 ] && rem=0
+      printf "ĐANG GIỮ - còn %s" "$(fmt_secs "$rem")"
+    fi
+  else
+    printf "TẮT - máy sẽ lock/sleep bình thường"
+  fi
+}
+
+start_keep() { # $1 = số giây hoặc "inf"
+  mkdir -p "$STATE_DIR"
+  date +%s > "$START_FILE"
+  printf '%s' "$1" > "$DUR_FILE"
+  systemctl --user restart "$SVC" || true
+}
+
+stop_keep() {
+  systemctl --user stop "$SVC" 2>/dev/null || true
+}
+
+parse_duration() {
+  # "90"  -> 90 phút ; "2h" -> 2 giờ ; "30m" -> 30 phút ; "45s" -> 45 giây
+  local a="$1"
+  if   [[ "$a" =~ ^([0-9]+)h$ ]]; then echo $(( ${BASH_REMATCH[1]} * 3600 ))
+  elif [[ "$a" =~ ^([0-9]+)m$ ]]; then echo $(( ${BASH_REMATCH[1]} * 60 ))
+  elif [[ "$a" =~ ^([0-9]+)s$ ]]; then echo "${BASH_REMATCH[1]}"
+  elif [[ "$a" =~ ^[0-9]+$ ]];   then echo $(( a * 60 ))
+  fi
+}
+
+while true; do
+  clear
+  echo "┌────────────────────────────────────────────────────────┐"
+  printf "│  %-55s │\n" "$(status_line)"
+  echo "│                                                        │"
+  echo "│  1) 10 phút                                            │"
+  echo "│  2) 30 phút                                            │"
+  echo "│  3) 1 giờ                                              │"
+  echo "│  4) 2 giờ                                              │"
+  echo "│  5) 6 giờ                                              │"
+  echo "│  6) Tùy chỉnh  (90 phút, hoặc 2h / 30m / 45s)          │"
+  echo "│  7) Vô thời hạn  (tắt bằng option 8)                   │"
+  echo "│  8) TẮT giữ-awake                                      │"
+  echo "│  0) Thoát                                              │"
+  echo "└────────────────────────────────────────────────────────┘"
+  printf '  Chọn [0-8] >> '
+  read -r ans
+  case "$ans" in
+    1) start_keep 600 ;;
+    2) start_keep 1800 ;;
+    3) start_keep 3600 ;;
+    4) start_keep 7200 ;;
+    5) start_keep 21600 ;;
+    6)
+      printf '  Số phút (hoặc 2h / 30m / 45s): '
+      read -r custom
+      secs="$(parse_duration "$custom")"
+      if [ -z "$secs" ]; then
+        printf '  ! Không hiểu "%s".\n' "$custom"
+      else
+        start_keep "$secs"
+      fi
+      ;;
+    7) start_keep inf ;;
+    8) stop_keep ;;
+    0) exit 0 ;;
+    *) continue ;;
+  esac
+  printf '\n  Xong. Mở lại menu để tắt (option 8) hoặc đổi thời gian.\n'
+  read -r _
+done

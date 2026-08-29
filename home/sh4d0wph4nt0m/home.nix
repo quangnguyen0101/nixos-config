@@ -17,6 +17,7 @@
     ../../modules/home/easyeffects.nix
     ../../modules/home/dsh-plugins.nix
     ../../modules/home/openviking-server.nix
+    ../../modules/home/keep-awake.nix
   ];
 
   home.username = "sh4d0wph4nt0m";
