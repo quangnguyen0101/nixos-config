@@ -11,6 +11,7 @@
       tr = "tree";
       clr = "clear";
       shut = "shutdown -h now";
+      nx = "cd ~/nixos-config";
       update = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw";
     };
 
