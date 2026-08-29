@@ -50,7 +50,7 @@ Trạng thái (ghi bởi menu, đọc bởi daemon):
 - **Toast**: bật/tắt/hết giờ → `notify-send` (góc trên phải caelestia, vài giây, hover chuột để giữ).
 - **Icon ⚡**: khi đang giữ awake, zsh prompt hiện ⚡ xanh ở RPROMPT (được thêm ở `modules/home/zsh.nix`).
 
-## Nhà mô đun
+## Cài đặt — home-manager
 
 Import `keep-awake.nix` trong home-manager — sau khi `switch` 1 lần, script đã đóng gói store paths (ydotool, systemd-inhibit, notify-send), dùng mãi không cần rebuild lại.
 
