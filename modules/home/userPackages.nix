@@ -40,6 +40,7 @@
     zathura # PDF viewer cho vimtex
     xdotool # forward search Zathura <-> nvim
     tree-sitter # bắt buộc cho nvim-treesitter branch main (yêu cầu CLI >= 0.26.1)
+    texstudio # TeX/LaTeX editor
     telegram-desktop
     antigravity
     slack
