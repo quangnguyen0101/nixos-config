@@ -19,6 +19,7 @@
     ../../modules/home/openviking-server.nix
     ../../modules/home/keep-awake/keep-awake.nix
     ../../modules/home/rclone-gdrive.nix
+    ../../modules/home/brt.nix
   ];
 
   home.username = "sh4d0wph4nt0m";

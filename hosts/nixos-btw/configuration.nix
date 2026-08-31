@@ -26,6 +26,7 @@
     ../../modules/system/systemPackages.nix
     ../../modules/system/nix-ld.nix
     ../../modules/system/rclone-fuse.nix
+    ../../modules/system/backlight.nix
   ];
 
   # Use the systemd-boot EFI boot loader.

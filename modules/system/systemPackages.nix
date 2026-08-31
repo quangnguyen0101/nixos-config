@@ -17,5 +17,8 @@
     steam
     sbctl
     usbutils
+    brightnessctl # điều khiển backlight laptop (kèm udev rule dựng sẵn)
+    ddcutil # điều khiển màn ngoài qua DDC/CI (cần i2c-dev module)
+    wlsunset # fallback giảm sáng phần mềm khi màn ngoài không hỗ trợ DDC
   ];
 }
