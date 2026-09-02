@@ -1,6 +1,5 @@
-cat > .gitignore << 'EOF'
 result
 result-*
 .direnv/
 *.swp
-EOF
+*.bak

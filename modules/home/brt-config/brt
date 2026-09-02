@@ -19,7 +19,7 @@ laptop_set() {
 }
 
 ext_supported() {
-    ddcutil detect 2>/dev/null | rg -qi "DDC/CI supported"
+    ddcutil detect 2>/dev/null | rg -qi "VCP version"
 }
 
 ext_pct() {
