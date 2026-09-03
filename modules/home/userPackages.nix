@@ -48,6 +48,7 @@
     chromium
     rclone
     wpsoffice
+    impression
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
