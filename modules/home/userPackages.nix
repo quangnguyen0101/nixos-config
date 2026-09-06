@@ -45,6 +45,7 @@
     slack
     easyeffects
     pnpm # dsh cần để quản lý profile plugins
+    uv # uvx spawn ouroboros mcp serve (dsh-ouroboros plugin)
     chromium
     rclone
     wpsoffice
