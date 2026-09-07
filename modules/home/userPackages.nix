@@ -44,14 +44,14 @@
     antigravity
     slack
     easyeffects
-    pnpm # dsh cần để quản lý profile plugins
-    uv # uvx spawn ouroboros mcp serve (dsh-ouroboros plugin)
+    pnpm # dsh cần để quản lý profile plugins; cũng là PM Node.js tổng dụng
+    uv # uvx spawn ouroboros mcp serve; cũng là tool Python tổng dụng
     chromium
     rclone
     wpsoffice
     impression
-    (pkgs.callPackage ../../pkgs/deepseek-harness { })
-    (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
+    # (pkgs.callPackage ../../pkgs/deepseek-harness { }) # tạm tắt (Docker)
+    # (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI (tạm tắt)
   ];
 
   # Config fastfetch
