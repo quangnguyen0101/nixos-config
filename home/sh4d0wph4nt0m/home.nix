@@ -16,7 +16,7 @@
     ../../modules/home/rmpc-config/rmpc.nix
     ../../modules/home/easyeffects.nix
     # ../../modules/home/dsh-plugins.nix
-    # ../../modules/home/openviking-server.nix # tạm tắt openviking (Docker)
+    ../../modules/home/openviking-server.nix
     ../../modules/home/keep-awake/keep-awake.nix
     ../../modules/home/rclone-gdrive.nix
     ../../modules/home/brt.nix

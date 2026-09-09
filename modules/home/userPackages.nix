@@ -45,13 +45,13 @@
     slack
     easyeffects
     pnpm # dsh cần để quản lý profile plugins; cũng là PM Node.js tổng dụng
-    uv # uvx spawn ouroboros mcp serve; cũng là tool Python tổng dụng
+    uv # tool Python tổng dụng (uv/uvx)
     chromium
     rclone
     wpsoffice
     impression
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
-    # (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI (tạm tắt)
+    (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
 
   # Config fastfetch
