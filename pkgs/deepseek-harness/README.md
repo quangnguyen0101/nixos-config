@@ -144,8 +144,18 @@ home.sessionVariables.VISION_SSL_VERIFY = "false";  # plugin custom env, SSL_CER
 
 ## Sử dụng
 
+Web UI chạy nền bằng systemd user service `dsh-web` (Home Manager), bind `127.0.0.1:3080`, không chiếm terminal:
+
 ```bash
-# Khởi chạy web UI
+systemctl --user status dsh-web    # xem trạng thái
+systemctl --user restart dsh-web   # restart (cần sau khi đổi cordis.patch.yml)
+systemctl --user stop dsh-web      # dừng
+```
+
+Chạy tay khi cần (ví dụ debug):
+
+```bash
+# Khởi chạy web UI (giữ terminal)
 dsh web
 
 # Khởi chạy với port cụ thể
@@ -163,7 +173,8 @@ DSH có 26 skills, 68 tools (53 built-in + 15 OpenViking), 271 agency experts, v
 
 | Command | Mô tả |
 |---------|-------|
-| `dsh web` | Khởi chạy web UI |
+| `systemctl --user {status,restart,stop} dsh-web` | Quản lý web server nền |
+| `dsh web` | Khởi chạy web UI (giữ terminal) |
 | `dsh --help` | Xem tất cả options |
 | `dsh --profile <name>` | Dùng profile cụ thể |
 

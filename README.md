@@ -93,8 +93,9 @@ Plugin Neovim để tương tác với các model AI trong editor.
 Plugin-based AI agent CLI. Package tùy chỉnh trong `pkgs/deepseek-harness/` (xem `README.md` trong thư mục đó).
 
 - **Binary**: `dsh` (Node.js + `--expose-internals` cho HMR)
+- **Web server**: chạy nền dưới dạng systemd user service `dsh-web` (Home Manager) → `http://127.0.0.1:3080`, không chiếm terminal; `systemctl --user {status,restart,stop} dsh-web`
 - **Profile "web"**: managed declaratively trong `modules/home/dsh-profile/`
-  - **15 community plugins**: vision toolkit, memory, web UI aggregate, agent teams, aegis, web search, …
+  - **14 community plugins**: vision toolkit, memory, web UI aggregate, agent teams, aegis, web search, dsh-memory (灵枢/AEIS), …
   - **Web search**: `dsh-free-search` (keyless, multi-engine DDG/Bing/SearXNG, auto-failover) — thay thế `modsearch` (Firecrawl keyless 403, Antigravity capacity 503). `antigravity-cli` (agy) cũng đã gỡ theo.
 - **Plugin management**: `pnpm install --frozen-lockfile` chạy qua Home Manager activation script
 - **User patch layer**: `cordis.patch.yml` — override loader entries (openviking-memory enable, disable skin center)

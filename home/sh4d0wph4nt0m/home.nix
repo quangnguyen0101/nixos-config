@@ -22,6 +22,13 @@
     ../../modules/home/brt.nix
   ];
 
+  systemd.user.services.dsh-web = {
+    Unit.Description = "dsh web server";
+    Service.ExecStart = "/etc/profiles/per-user/sh4d0wph4nt0m/bin/dsh --profile web --no-open";
+    Service.Restart = "on-failure";
+    Install.WantedBy = [ "default.target" ];
+  };
+
   home.username = "sh4d0wph4nt0m";
   home.homeDirectory = "/home/sh4d0wph4nt0m";
   home.stateVersion = "26.05";
