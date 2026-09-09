@@ -50,7 +50,7 @@
     rclone
     wpsoffice
     impression
-    # (pkgs.callPackage ../../pkgs/deepseek-harness { }) # tạm tắt (Docker)
+    (pkgs.callPackage ../../pkgs/deepseek-harness { })
     # (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI (tạm tắt)
   ];
 
