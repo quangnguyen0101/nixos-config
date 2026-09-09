@@ -8,3 +8,12 @@
 - id: web-ui-skin-center
   name: '@linxin666/dsh-client-ui-skin-center'
   disabled: true
+# Lingshu (dsh-memory): override config lên row insert của bundle (bản 0.3.1 insert id "dsh-memory").
+# python trỏ vào venv aeis đã cài sẵn (uv venv ~/.local/share/aeis/.venv).
+- id: dsh-memory
+  name: '@furongjun1999/dsh-memory'
+  config:
+    python: !!js process.env.HOME + '/.local/share/aeis/.venv/bin/python'
+    dbPath: !!js process.env.HOME + '/.local/share/lingshu/lingshu.db'
+    identity: '灵枢'
+    tools: 'brain'

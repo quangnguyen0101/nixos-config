@@ -15,7 +15,7 @@
     ../../modules/home/userPackages.nix
     ../../modules/home/rmpc-config/rmpc.nix
     ../../modules/home/easyeffects.nix
-    # ../../modules/home/dsh-plugins.nix
+    ../../modules/home/dsh-plugins.nix
     ../../modules/home/openviking-server.nix
     ../../modules/home/keep-awake/keep-awake.nix
     ../../modules/home/rclone-gdrive.nix
