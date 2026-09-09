@@ -9,7 +9,7 @@
       Type = "simple";
       ExecStartPre = "${pkgs.coreutils}/bin/mkdir -p %h/GoogleDrive";
       ExecStart = ''
-        ${pkgs.rclone}/bin/rclone mount "Google Drive:" %h/GoogleDrive \
+        ${pkgs.rclone}/bin/rclone mount "GDrive:" %h/GoogleDrive \
           --vfs-cache-mode full \
           --vfs-cache-max-size 30G \
           --vfs-cache-max-age 24h \
