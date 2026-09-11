@@ -14,8 +14,7 @@
     "dsh-context": "0.34.1",
     "dsh-kimino-theme": "github:niiang/dsh-kimino-theme#2c74b3f1c6ba4090409c4f73dc628f6804ec9961",
     "dsh-plugin-writing-guard": "1.6.1",
-    "upstream-radar": "0.45.0",
-    "@furongjun1999/dsh-memory": "0.3.1"
+    "upstream-radar": "0.45.0"
   },
   "dsh": {
     "profile": {
@@ -34,8 +33,7 @@
         "dsh-context",
         "dsh-kimino-theme",
         "dsh-plugin-writing-guard",
-        "upstream-radar",
-        "@furongjun1999/dsh-memory"
+        "upstream-radar"
       ]
     }
   }

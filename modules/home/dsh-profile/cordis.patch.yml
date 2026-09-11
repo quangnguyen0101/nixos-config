@@ -12,6 +12,7 @@
 # python trỏ vào venv aeis đã cài sẵn (uv venv ~/.local/share/aeis/.venv).
 - id: dsh-memory
   name: '@furongjun1999/dsh-memory'
+  disabled: true
   config:
     python: !!js process.env.HOME + '/.local/share/aeis/.venv/bin/python'
     dbPath: !!js process.env.HOME + '/.local/share/lingshu/lingshu.db'
