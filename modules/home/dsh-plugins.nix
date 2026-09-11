@@ -62,6 +62,31 @@ in
         export pnpm_config_nodedir="${pkgs.nodejs}"
         export npm_config_nodedir="${pkgs.nodejs}"
         ${lib.getExe pkgs.pnpm} install --dir "$target" --frozen-lockfile --prefer-offline
+        # pnpm 11 có bug: với profile có sẵn node_modules cũ, frozen install có thể
+        # "im lặng" bỏ qua bundle mới khai báo trong package.json/lockfile (không
+        # tải, không link, vẫn exit 0). Verify từng bundle; nếu thiếu thì `pnpm add`
+        # từng cái (deterministic, đã test) rồi cài lại trước khi ghi marker.
+        DSH_DIR="$target" ${pkgs.nodejs}/bin/node -e '
+          const fs = require("fs");
+          const base = ["@deepseek-ai/dsh-base", "@deepseek-ai/dsh-web-app"];
+          const p = require(process.env.DSH_DIR + "/package.json");
+          for (const b of p.dsh.profile.bundles) {
+            if (!base.includes(b)
+                && !fs.existsSync(process.env.DSH_DIR + "/node_modules/" + b)
+                && p.dependencies[b]) {
+              console.log(b + "@" + p.dependencies[b]);
+            }
+          }
+        ' > "$target/.missing-bundles"
+        if [ -s "$target/.missing-bundles" ]; then
+          while IFS= read -r spec; do
+            [ -n "$spec" ] || continue
+            printf 'Installing missing bundle %s\n' "$spec"
+            ${lib.getExe pkgs.pnpm} add --dir "$target" "$spec" --prefer-offline \
+              || ${lib.getExe pkgs.pnpm} add --dir "$target" "$spec"
+          done < "$target/.missing-bundles"
+        fi
+        rm -f "$target/.missing-bundles"
         echo "$declared" > "$marker"
       fi
     )
