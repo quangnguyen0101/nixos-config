@@ -99,6 +99,7 @@
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.sh4d0wph4nt0m = {
     isNormalUser = true;
+    linger = true;
     extraGroups = [
       "wheel"
       "networkmanager"
