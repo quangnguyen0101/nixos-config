@@ -3,3 +3,10 @@ result-*
 .direnv/
 *.swp
 *.bak
+
+# secrets — never commit API keys / tokens
+.env
+.env.*
+*.secret
+**/secrets/
+!*.example
