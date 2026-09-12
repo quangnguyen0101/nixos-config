@@ -19,19 +19,18 @@ in
       };
       agfs.backend = "local";
     };
-    embedding.dense = {
-      provider = "ollama";
-      api_base = "http://127.0.0.1:11434/v1";
-      model = "nomic-embed-text";
-      dimension = 768;
+    embedding = {
+      allow_metadata_override = true;
+      dense = {
+        provider = "litellm";
+        model = "gemini/gemini-embedding-2";
+        dimension = 768;
+      };
     };
     vlm = {
       provider = "litellm";
-      api_key = "ollama";
-      model = "ollama/gpt-oss:120b-cloud";
-      api_base = "http://127.0.0.1:11434";
+      model = "gemini/gemini-3.6-flash";
       max_retries = 3;
-      extra_request_body.think = false;
     };
   };
 
@@ -48,6 +47,7 @@ in
     Service = {
       ExecStart = "${openviking}/bin/openviking-server --host 127.0.0.1 --port 1933";
       Environment = [ "HOME=%h" ];
+      EnvironmentFile = [ "%h/.openviking/gemini.env" ];
       Restart = "on-failure";
       RestartSec = 5;
     };
