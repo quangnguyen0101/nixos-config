@@ -49,6 +49,7 @@
     chromium
     rclone
     wpsoffice
+    poppler-utils # pdftotext/pdfinfo — cho dsh-agent đọc file PDF
     impression
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI

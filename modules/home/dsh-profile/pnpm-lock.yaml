@@ -41,6 +41,9 @@ importers:
       dsh-kimino-theme:
         specifier: github:niiang/dsh-kimino-theme#2c74b3f1c6ba4090409c4f73dc628f6804ec9961
         version: https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961
+      dsh-office-tools:
+        specifier: 1.0.0
+        version: 1.0.0
       dsh-plugin-writing-guard:
         specifier: 1.6.1
         version: 1.6.1
@@ -1162,6 +1165,30 @@ packages:
   dsh-kimino-theme@https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961:
     resolution: {gitHosted: true, integrity: sha512-n5MatqM0pVUukqDUTCiVvDbuRHTuAyhRPHGKrdD9PSmbURM/j7GwP7VB9maONB9v+30zsfTK0MXomX5G8QGGyQ==, tarball: https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961}
     version: 66.2.0
+
+  dsh-office-tools@1.0.0:
+    resolution: {integrity: sha512-mf+okeXBNwcP547NQIbDJfFAhNlHWL7ixvFyjYZr7nikEE1BjY5laBnM64ckwzNbnQk0mvgh67Cfn82G8XvNvQ==}
+    engines: {node: '>=20'}
+    peerDependencies:
+      '@deepseek-ai/cordis': ^4.0.1
+      '@deepseek-ai/dsh-agent': ^0.1.0-rc.6 || ^0.1.1-rc.0 || ^0.1.2-alpha.0
+      '@deepseek-ai/dsh-fs': ^0.1.0-rc.6 || ^0.1.1-rc.0 || ^0.1.2-alpha.0
+      '@deepseek-ai/dsh-llm': ^0.1.0-rc.6 || ^0.1.1-rc.0 || ^0.1.2-alpha.0
+      '@deepseek-ai/dsh-session': ^0.1.0-rc.6 || ^0.1.1-rc.0 || ^0.1.2-alpha.0
+      '@deepseek-ai/dsh-tools': ^0.1.0-rc.6 || ^0.1.1-rc.0 || ^0.1.2-alpha.0
+    peerDependenciesMeta:
+      '@deepseek-ai/cordis':
+        optional: true
+      '@deepseek-ai/dsh-agent':
+        optional: true
+      '@deepseek-ai/dsh-fs':
+        optional: true
+      '@deepseek-ai/dsh-llm':
+        optional: true
+      '@deepseek-ai/dsh-session':
+        optional: true
+      '@deepseek-ai/dsh-tools':
+        optional: true
 
   dsh-plugin-writing-guard@1.6.1:
     resolution: {integrity: sha512-r8mZl5CiXpckPHjORVjcsnFvciHSrUXPw3TLN9ozPHTcoSvnR2ZsNOHN4brKN1d2DxlQwMOhd4aJifEIPgCgKQ==}
@@ -2697,6 +2724,8 @@ snapshots:
       '@deepseek-ai/schemastery': 3.18.1
 
   dsh-kimino-theme@https://codeload.github.com/niiang/dsh-kimino-theme/tar.gz/2c74b3f1c6ba4090409c4f73dc628f6804ec9961: {}
+
+  dsh-office-tools@1.0.0: {}
 
   dsh-plugin-writing-guard@1.6.1: {}
 
