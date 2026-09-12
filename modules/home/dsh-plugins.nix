@@ -15,6 +15,7 @@
 {
   lib,
   pkgs,
+  config,
   ...
 }:
 
@@ -36,6 +37,9 @@ in
   # nơi Python kiểm tra và tắt cert verify (vision_client.py:_ssl_context).
   # Free service vision.anionex.me không cần TLS verify.
   home.sessionVariables.VISION_SSL_VERIFY = "false";
+  # dsh-univer-office: puppeteer-core cần đường dẫn Chromium cho screenshot/
+  # render slide. Dùng chromium đang có sẵn trong profile thay vì tải bundle riêng.
+  home.sessionVariables.UNIVER_RENDER_BROWSER = "/etc/profiles/per-user/${config.home.username}/bin/chromium";
 
   home.activation.dshPlugins = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
     (
