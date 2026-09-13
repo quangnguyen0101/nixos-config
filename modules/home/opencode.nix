@@ -8,7 +8,11 @@
   programs.opencode = {
     enable = true;
 
+    extraPackages = [ pkgs.nixd ]; # LSP server cho .nix (còn lại opencode tự cài)
+
     settings = {
+      lsp = true;
+
       attachment = {
         image = {
           auto_resize = true;
