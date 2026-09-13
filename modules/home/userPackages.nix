@@ -8,7 +8,6 @@
     neovim
     kdePackages.dolphin
     ghostty
-    opencode-desktop # AI coding agent GUI client
     brave
     brave-search-cli
     tmux

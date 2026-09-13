@@ -1,6 +1,10 @@
 { pkgs, ... }:
 
 {
+  home.packages = [
+    pkgs.opencode-desktop # AI coding agent GUI client
+  ];
+
   programs.opencode = {
     enable = true;
 
