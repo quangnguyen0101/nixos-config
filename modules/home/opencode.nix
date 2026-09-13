@@ -13,6 +13,11 @@
     settings = {
       lsp = true;
 
+      # Ouroboros bridge plugin: chặn _subagent envelope từ MCP ouroboros, dispatch
+      # ra Task panes của opencode. File tĩnh từ wheel ouroboros-ai 0.54.4
+      # (version-agnostic, chi doc cap version MCP args). sync khi nang version.
+      plugin = [ "${./../../pkgs/ouroboros/ouroboros-bridge.ts}" ];
+
       mcp = {
         openviking = {
           type = "remote";
@@ -23,6 +28,14 @@
           url = "https://api.githubcopilot.com/mcp/";
           oauth = false; # GitHub khong ho tro DCR -> dung PAT trong header
           headers.Authorization = "Bearer {file:~/.config/opencode/github.token}";
+        };
+        ouroboros = {
+          type = "local";
+          command = "uvx";
+          args = [
+            "--from" "ouroboros-ai[mcp]==0.54.4" # pin version MCP server
+            "ouroboros" "mcp" "serve" "--runtime" "opencode"
+          ];
         };
       };
 
