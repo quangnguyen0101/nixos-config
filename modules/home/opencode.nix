@@ -20,7 +20,9 @@
         };
         github = {
           type = "remote";
-          url = "https://api.githubcopilot.com/mcp/"; # OAuth, authorized qua opencode
+          url = "https://api.githubcopilot.com/mcp/";
+          oauth = false; # GitHub khong ho tro DCR -> dung PAT trong header
+          headers.Authorization = "Bearer {file:~/.config/opencode/github.token}";
         };
       };
 
