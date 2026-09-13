@@ -44,12 +44,12 @@
     antigravity
     slack
     easyeffects
-    pnpm # dsh cần để quản lý profile plugins; cũng là PM Node.js tổng dụng
+    pnpm # PM Node.js tổng dụng
     uv # tool Python tổng dụng (uv/uvx)
     chromium
     rclone
     wpsoffice
-    poppler-utils # pdftotext/pdfinfo — cho dsh-agent đọc file PDF
+    poppler-utils # pdftotext/pdfinfo
     impression
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI

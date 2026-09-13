@@ -15,19 +15,11 @@
     ../../modules/home/userPackages.nix
     ../../modules/home/rmpc-config/rmpc.nix
     ../../modules/home/easyeffects.nix
-    ../../modules/home/dsh-plugins.nix
     ../../modules/home/openviking-server.nix
     ../../modules/home/keep-awake/keep-awake.nix
     ../../modules/home/rclone-gdrive.nix
     ../../modules/home/brt.nix
   ];
-
-  systemd.user.services.dsh-web = {
-    Unit.Description = "dsh web server";
-    Service.ExecStart = "/etc/profiles/per-user/sh4d0wph4nt0m/bin/dsh --profile web --no-open";
-    Service.Restart = "on-failure";
-    Install.WantedBy = [ "default.target" ];
-  };
 
   home.username = "sh4d0wph4nt0m";
   home.homeDirectory = "/home/sh4d0wph4nt0m";
