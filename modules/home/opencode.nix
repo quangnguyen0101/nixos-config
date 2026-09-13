@@ -18,6 +18,10 @@
           type = "remote";
           url = "http://127.0.0.1:1933/mcp";
         };
+        github = {
+          type = "remote";
+          url = "https://api.githubcopilot.com/mcp/"; # OAuth, authorized qua opencode
+        };
       };
 
       attachment = {
