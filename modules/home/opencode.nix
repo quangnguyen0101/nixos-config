@@ -13,6 +13,13 @@
     settings = {
       lsp = true;
 
+      mcp = {
+        openviking = {
+          type = "remote";
+          url = "http://127.0.0.1:1933/mcp";
+        };
+      };
+
       attachment = {
         image = {
           auto_resize = true;
