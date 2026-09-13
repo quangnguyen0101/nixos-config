@@ -2,6 +2,8 @@
 
 Nix package cho **DeepSeek Harness (dsh)** — plugin-based AI agent CLI. Bundle upstream npm `@deepseek-ai/dsh` vào Nix store bằng `buildNpmPackage` với manifest đã được vá sẵn.
 
+> ⏸️ **Trạng thái hiện tại: TẮT.** Web UI (`dsh-web` service), profile "web" (`dsh-profile/`) và `cordis.patch.yml` đã gỡ khỏi `home.nix` (2025-09). Chỉ còn binary `dsh` trong `userPackages.nix`, không còn service/plugins. Các phần về profile web, cordis patch, vision toolkit bên dưới để tham khảo lịch sử.
+
 ## Tại sao cần package riêng?
 
 Upstream `@deepseek-ai/dsh` sử dụng cấu trúc `peerDependencies` phức tạp (80+ `@deepseek-ai/dsh-*` packages). `buildNpmPackage` với `--legacy-peer-deps` không thể cài peers đúng cách vì dsh import chúng trực tiếp lúc runtime. Package này giải quyết bằng cách **promote tất cả peerDependencies thành direct dependencies** trong manifest trước khi build.
@@ -74,7 +76,9 @@ node --expose-internals $out/lib/node_modules/@deepseek-ai/dsh/lib/bin.js
 
 Yêu cầu `nodejs` được truyền vào derivation (thông qua `pkgs`).
 
-## Plugins
+## Plugins ⏸️
+
+> Khối này mô tả profile "web" khi còn hoạt động — đã gỡ khỏi `home.nix`.
 
 DSH hoạt động theo mô hình "everything is a plugin". CLI boot từ `dsh-base` bundle, sau đó load thêm plugins từ profile.
 
@@ -131,11 +135,11 @@ programs.nix-ld.libraries = with pkgs; [
 ];
 ```
 
-### Python bundled (vision toolkit)
+### Python bundled (vision toolkit) ⏸️
 
-Plugin `dsh-vision-toolkit` dùng Python bundled (`python-build-standalone`) thay vì system python3. Lý do: nixpkgs python dùng loader riêng (`/nix/store/.../ld-linux-x86-64.so.2`), bypass nix-ld → C-extension wheels (pillow, numpy) không load được.
+Plugin `dsh-vision-toolkit` dùng Python bundled (`python-build-standalone`) thay vì system python3. Lý do: nixpkgs python dùng loader riêng (`/nix/store/.../ld-linux-x86-64.so.2`), bypass nix-ld → C-extension wheels (pillow, numpy) không load được. (*Đã tắt cùng profile "web" — chỉ tham khảo.*)
 
-Environment variables cần thiết (set trong `dsh-plugins.nix`):
+Environment variables cần thiết (trước đây set trong `dsh-plugins.nix`):
 
 ```nix
 home.sessionVariables.SSL_CERT_FILE = "/etc/ssl/certs/ca-bundle.crt";
@@ -144,37 +148,28 @@ home.sessionVariables.VISION_SSL_VERIFY = "false";  # plugin custom env, SSL_CER
 
 ## Sử dụng
 
-Web UI chạy nền bằng systemd user service `dsh-web` (Home Manager), bind `127.0.0.1:3080`, không chiếm terminal:
-
-```bash
-systemctl --user status dsh-web    # xem trạng thái
-systemctl --user restart dsh-web   # restart (cần sau khi đổi cordis.patch.yml)
-systemctl --user stop dsh-web      # dừng
-```
+⏸️ Service `dsh-web` đã gỡ. Binary `dsh` vẫn cài trong store nhưng không còn service/plugins.
 
 Chạy tay khi cần (ví dụ debug):
 
 ```bash
-# Khởi chạy web UI (giữ terminal)
-dsh web
-
-# Khởi chạy với port cụ thể
-dsh web --port 3000
-
-# Dùng trong terminal
-dsh
+# Dùng trong terminal (nếu cần)
+dsh --help
+dsh --profile <name>
 ```
 
-## Agent Capabilities
+> ⏸️ `dsh web` / `systemctl --user dsh-web` không còn hoạt động (service đã gỡ khỏi `home.nix`).
+
+## Agent Capabilities ⏸️
+
+> Ghi lại năng lực profile "web" khi còn chạy — chỉ để tham khảo.
 
 DSH có 26 skills, 68 tools (53 built-in + 15 OpenViking), 271 agency experts, và 10 vision tools tiềm ẩn. Xem chi tiết tại [`docs/agent-capabilities.md`](docs/agent-capabilities.md).
 
-###僕 Commands hữu ích
+### Commands hữu ích
 
 | Command | Mô tả |
 |---------|-------|
-| `systemctl --user {status,restart,stop} dsh-web` | Quản lý web server nền |
-| `dsh web` | Khởi chạy web UI (giữ terminal) |
 | `dsh --help` | Xem tất cả options |
 | `dsh --profile <name>` | Dùng profile cụ thể |
 

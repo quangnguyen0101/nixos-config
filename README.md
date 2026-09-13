@@ -36,6 +36,7 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | `lanzaboote.nix` | Secure Boot bằng lanzaboote |
 | `fcitx5-lotus.nix` | Bộ gõ Vietnamese dựa trên Lotus Input Method |
 | `nix-ld.nix` | nix-ld + libraries (libstdc++, zlib, openssl) cho binary/wheel ngoài nix |
+| `postgres-docker.nix` | Container PostgreSQL declarative (oci-containers, `postgres:17-alpine`, bind mount `/home/sh4d0wph4nt0m/data/postgres`) |
 
 #### Modules người dùng (`modules/home/`)
 | Module | Mô tả ngắn |
@@ -46,15 +47,15 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | `tmux.nix` | Tmux, plugin `resurrect`/`continuum` để giữ session |
 | `ghostty.nix` | Terminal GPU-accelerated Ghostty, theme Catppuccin |
 | `caelestia.nix` | Caelestia shell (Wayland Hyprland shell) |
-| `opencode.nix` | Opencode declarative + Ollama AI stack (systemd-user) |
+| `opencode.nix` | Opencode declarative + Ollama AI stack (systemd-user) + 6 MCP servers |
 | `openviking-server.nix` | OpenViking context database server + CLI (systemd-user) |
 | `python.nix` | Python và các gói pip tùy chỉnh |
 | `cava.nix` | CAVA (audio visualizer) |
 | `easyeffects.nix` | EasyEffects presets (audio processing) |
 | `rmpc-config/` | Music Player Client (rmpc) — config + themes |
 | `userPackages.nix` | Gói người dùng chung (dsh, pnpm, uv, ollama, …) |
-| `dsh-plugins.nix` | Declarative plugin management cho DSH profile "web" |
-| `dsh-profile/` | Manifests vendored (package.json, lockfile, cordis.patch.yml) |
+| `dsh-plugins.nix` | ⏸️ Declarative plugin management cho DSH profile "web" — đã gỡ khỏi `home.nix` |
+| `dsh-profile/` | ⏸️ Manifests vendored (package.json, lockfile, cordis.patch.yml) — đã gỡ khỏi `home.nix` |
 
 ## 🚀 Các thành phần chính (tóm tắt)
 | Thành phần | Mô tả |
@@ -66,7 +67,7 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | **Multiplexer** | Tmux với `resurrect/continuum` |
 | **Login** | greetd + regreet (Rosé Pine) |
 | **Input** | fcitx5-lotus + bamboo (Vietnamese) |
-| **AI stack** | Opencode + Ollama + DSH (DeepSeek Harness) |
+| **AI stack** | Opencode (Ollama) + 6 MCP servers (context7, docker, github, openviking, ouroboros, postgres) |
 | **Gaming** | Steam (32-bit, RemotePlay) |
 | **Fonts** | JetBrains Mono, Fira Code, Hack, 0xProto Nerd Fonts |
 | **Secure boot** | lanzaboote (PKI bundle `/var/lib/sbctl`) |
@@ -83,32 +84,51 @@ Lệnh này đọc `flake.nix`, biên dịch lại toàn bộ hệ thống và H
 ### Opencode
 Khai báo trong `modules/home/opencode.nix`. Provider mặc định là Ollama (`http://localhost:11434/v1`). Chạy dưới `systemd --user`.
 
+#### MCP servers (6)
+
+| MCP server | Loại | Mô tả |
+|-----------|------|-------|
+| `context7` | remote | Tra cứu docs/code examples của thư viện (Context7) |
+| `docker` | local (`npx @hypnosis/docker-mcp-server`) | Quản lý containers, images, volumes, logs qua `DOCKER_HOST=unix:///var/run/docker.sock` |
+| `github` | remote | GitHub repos, issues, PRs, code search |
+| `openviking` | local | OpenViking context database — Xem `pkgs/openviking/README.md` |
+| `ouroboros` | local (`uvx ouroboros-ai[mcp]==0.54.4`) | Agent OS — Xem `pkgs/ouroboros/README.md` |
+| `postgres` | local (`uvx postgres-mcp==0.3.0`) | SQL data science trên container `postgres-ds` (PostgreSQL 17) |
+
+Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.cc.cc.lib` (greenlet/biopython trên NixOS cần libstdc++) — cấu hình trong `opencode.nix`.
+
 ### Ollama
 Chạy dưới `systemd --user` (`systemctl --user enable --now ollama`). Khi thêm/bớt model, cập nhật `programs.opencode.settings.provider.ollama.models` rồi rebuild.
 
 ### CodeCompanion & Minuet
 Plugin Neovim để tương tác với các model AI trong editor.
 
-### DeepSeek Harness (DSH)
-Plugin-based AI agent CLI. Package tùy chỉnh trong `pkgs/deepseek-harness/` (xem `README.md` trong thư mục đó).
+### DeepSeek Harness (DSH) ⏸️
+Plugin-based AI agent CLI. Package tùy chỉnh vẫn nằm trong `pkgs/deepseek-harness/` (xem `README.md` trong thư mục đó).
+
+> **Trạng thái hiện tại: TẮT.** Web UI (`dsh-web` systemd user service), profile "web", plugin management và `cordis.patch.yml` đã gỡ khỏi `home.nix` (2025-09 sạch hóa AI stack — chuyển sang OpenViking + Ouroboros). Chỉ còn binary `dsh` trong `userPackages.nix`, không còn service/plugins hoạt động. Thông tin bên dưới giữ để tham khảo lịch sử.
 
 - **Binary**: `dsh` (Node.js + `--expose-internals` cho HMR)
-- **Web server**: chạy nền dưới dạng systemd user service `dsh-web` (Home Manager) → `http://127.0.0.1:3080`, không chiếm terminal; `systemctl --user {status,restart,stop} dsh-web`
-- **Profile "web"**: managed declaratively trong `modules/home/dsh-profile/`
+- **Web server** *(đã gỡ)*: từng chạy nền qua systemd user service `dsh-web` → `http://127.0.0.1:3080`
+- **Profile "web"** *(đã gỡ import)*: từng quản lý trong `modules/home/dsh-profile/`
   - **13 community plugins**: vision toolkit, memory, web UI aggregate, agent teams, aegis, web search, …
-  - **Web search**: `dsh-free-search` (keyless, multi-engine DDG/Bing/SearXNG, auto-failover) — thay thế `modsearch` (Firecrawl keyless 403, Antigravity capacity 503). `antigravity-cli` (agy) cũng đã gỡ theo.
-- **Plugin management**: `pnpm install --frozen-lockfile` chạy qua Home Manager activation script
-- **User patch layer**: `cordis.patch.yml` — override loader entries (openviking-memory enable, disable skin center)
+  - **Web search**: `dsh-free-search` (keyless, multi-engine DDG/Bing/SearXNG, auto-failover)
+- **Plugin management** *(đã gỡ)*: `pnpm install --frozen-lockfile` qua Home Manager activation script
+- **User patch layer** *(đã gỡ)*: `cordis.patch.yml` — override loader entries
 
-### Vision Toolkit
-Plugin `@anionex/dsh-vision-toolkit` — image analysis miễn phí (service shared của Anionex, 100 ảnh/máy/ngày, không cần API key).
+> 📄 Các phần còn lại của README này về DSH (`🧠 Agent Capabilities`, vision tools, agency experts …) mô tả năng lực profile "web" khi còn hoạt động, chỉ để tham khảo.
+
+### Vision Toolkit ⏸️
+Plugin `@anionex/dsh-vision-toolkit` — image analysis miễn phí (service shared của Anionex, 100 ảnh/máy/ngày, không cần API key). **Đã tắt cùng DSH profile.**
 
 - Dùng Python bundled (`python-build-standalone`) thay vì system python3
 - `VISION_SSL_VERIFY=false` cần thiết vì plugin spawn subprocess với custom env
 
 ---
 
-## 🧠 DSH Agent Capabilities
+## 🧠 DSH Agent Capabilities ⏸️
+
+> **Lưu ý:** DSH profile "web" đã tắt (2025-09) — mục này ghi lại năng lực khi còn hoạt động, chỉ để tham khảo. Hiện tại dùng OpenViking (MCP) + Ouroboros (MCP) cho agent stack.
 
 Tổng quan năng lực agent trong DSH profile "web". Chi tiết đầy đủ: `~/MEGA/DSH/README.md`.
 
@@ -202,8 +222,9 @@ Database ngữ cảnh bền vững. Không gian URI `viking://`.
 
 | Package | Đường dẫn | Mô tả |
 |---------|-----------|-------|
-| `deepseek-harness` | `pkgs/deepseek-harness/` | DSH CLI binary — bundle npm tarball với peer deps promoted thành direct deps. Xem README.md trong thư mục. |
-| `openviking` | `pkgs/openviking/` | Context database server + CLI — SDK cho bộ nhớ lâu dài, dùng bởi plugin `openviking-memory` trong DSH profile. |
+| `deepseek-harness` | `pkgs/deepseek-harness/` | ⏸️ DSH CLI binary — bundle npm tarball với peer deps promoted thành direct deps. Xem README.md trong thư mục. |
+| `openviking` | `pkgs/openviking/` | Context database server + CLI — nền cho MCP `openviking` (6 MCP). Xem README.md trong thư mục. |
+| `ouroboros` | `pkgs/ouroboros/` | 🧩 Không phải package — vendor bridge plugin `.ts` cho MCP `ouroboros`. Xem README.md trong thư mục. |
 
 ### nix-ld
 `modules/system/nix-ld.nix` kích hoạt `programs.nix-ld` với `libstdc++`, `zlib`, `openssl` — cần thiết cho C-extension wheels (pillow, numpy, greenlet, …) dựng ngoài nix.
@@ -220,3 +241,5 @@ Không thay đổi giá trị này trừ khi bạn đã chuẩn bị migration d
 - https://github.com/folke/lazy.nvim (LazyVim)
 - https://github.com/nix-community/lanzaboote (Lanzaboote)
 - https://github.com/deepseek-ai/deepseek-harness (DeepSeek Harness)
+- https://ouroboros.ai (Ouroboros — Agent OS MCP)
+- https://openviking.dev (OpenViking — context database)
