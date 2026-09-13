@@ -23,6 +23,10 @@
           type = "remote";
           url = "http://127.0.0.1:1933/mcp";
         };
+        context7 = {
+          type = "remote";
+          url = "https://mcp.context7.com/mcp";
+        };
         github = {
           type = "remote";
           url = "https://api.githubcopilot.com/mcp/";
@@ -35,6 +39,23 @@
           command = [
             "uvx" "--from" "ouroboros-ai[mcp]==0.54.4" # pin version MCP server
             "ouroboros" "mcp" "serve" "--runtime" "opencode"
+          ];
+          environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+        };
+        docker = {
+          type = "local";
+          enabled = true;
+          command = [
+            "npx" "-y" "@hypnosis/docker-mcp-server@2.0.1"
+          ];
+          environment.DOCKER_HOST = "unix:///var/run/docker.sock";
+        };
+        postgres = {
+          type = "local";
+          enabled = true;
+          command = [
+            "uvx" "--from" "postgres-mcp==0.3.0" "--with" "mcp<2"
+            "postgres-mcp" "postgresql://dsuser:dssecret@127.0.0.1:5432/datascience"
           ];
           environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
         };
