@@ -59,6 +59,29 @@
           ];
           environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
         };
+        arxiv = {
+          type = "local";
+          enabled = true;
+          command = [
+            "uvx" "--from" "arxiv-mcp-server[pdf]==0.7.2" # pin version, [pdf] de dang roi PDF fallback
+            "arxiv-mcp-server"
+          ];
+          environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+        };
+        jupyter = {
+          type = "local";
+          enabled = true;
+          command = [
+            "uvx" "--from" "jupyter-mcp-server==2.1.15" # pin version (npm cung ten, dung uvx)
+            "jupyter-mcp-server"
+          ];
+          environment = {
+            JUPYTER_URL = "http://127.0.0.1:8888";
+            JUPYTER_TOKEN = "jupylocal-ds";
+            ALLOW_IMG_OUTPUT = "true";
+            LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+          };
+        };
       };
 
       attachment = {

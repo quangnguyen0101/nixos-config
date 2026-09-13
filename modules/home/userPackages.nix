@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     ydotool # giả lập bàn phím cho keep-awake
+    p7zip
     btop
     yazi
     neovim

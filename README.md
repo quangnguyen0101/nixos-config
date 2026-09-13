@@ -47,7 +47,8 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | `tmux.nix` | Tmux, plugin `resurrect`/`continuum` để giữ session |
 | `ghostty.nix` | Terminal GPU-accelerated Ghostty, theme Catppuccin |
 | `caelestia.nix` | Caelestia shell (Wayland Hyprland shell) |
-| `opencode.nix` | Opencode declarative + Ollama AI stack (systemd-user) + 6 MCP servers |
+| `opencode.nix` | Opencode declarative + Ollama AI stack (systemd-user) + 8 MCP servers |
+| `jupyter.nix` | JupyterLab server (data science, 127.0.0.1:8888) — kernel cho MCP `jupyter` |
 | `openviking-server.nix` | OpenViking context database server + CLI (systemd-user) |
 | `python.nix` | Python và các gói pip tùy chỉnh |
 | `cava.nix` | CAVA (audio visualizer) |
@@ -67,7 +68,7 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | **Multiplexer** | Tmux với `resurrect/continuum` |
 | **Login** | greetd + regreet (Rosé Pine) |
 | **Input** | fcitx5-lotus + bamboo (Vietnamese) |
-| **AI stack** | Opencode (Ollama) + 6 MCP servers (context7, docker, github, openviking, ouroboros, postgres) |
+| **AI stack** | Opencode (Ollama) + 8 MCP servers (arxiv, context7, docker, github, jupyter, openviking, ouroboros, postgres) |
 | **Gaming** | Steam (32-bit, RemotePlay) |
 | **Fonts** | JetBrains Mono, Fira Code, Hack, 0xProto Nerd Fonts |
 | **Secure boot** | lanzaboote (PKI bundle `/var/lib/sbctl`) |
@@ -84,7 +85,7 @@ Lệnh này đọc `flake.nix`, biên dịch lại toàn bộ hệ thống và H
 ### Opencode
 Khai báo trong `modules/home/opencode.nix`. Provider mặc định là Ollama (`http://localhost:11434/v1`). Chạy dưới `systemd --user`.
 
-#### MCP servers (6)
+#### MCP servers (8)
 
 | MCP server | Loại | Mô tả |
 |-----------|------|-------|
@@ -94,8 +95,10 @@ Khai báo trong `modules/home/opencode.nix`. Provider mặc định là Ollama (
 | `openviking` | local | OpenViking context database — Xem `pkgs/openviking/README.md` |
 | `ouroboros` | local (`uvx ouroboros-ai[mcp]==0.54.4`) | Agent OS — Xem `pkgs/ouroboros/README.md` |
 | `postgres` | local (`uvx postgres-mcp==0.3.0`) | SQL data science trên container `postgres-ds` (PostgreSQL 17) |
+| `arxiv` | local (`uvx arxiv-mcp-server[pdf]==0.7.2`) | Tìm kiếm / đọc paper arXiv (bao gồm fallback PDF→markdown qua pymupdf) |
+| `jupyter` | local (`uvx jupyter-mcp-server==2.1.15`) | Chạy notebook / Python code trên JupyterLab (127.0.0.1:8888) — kernel data science: pandas, numpy, matplotlib, scikit-learn |
 
-Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.cc.cc.lib` (greenlet/biopython trên NixOS cần libstdc++) — cấu hình trong `opencode.nix`.
+Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.cc.cc.lib` (greenlet/biopython trên NixOS cần libstdc++) — cấu hình trong `opencode.nix`. Jupyter MCP server kết nối tới JupyterLab đang chạy nền (`systemctl --user status jupyterlab`).
 
 ### Ollama
 Chạy dưới `systemd --user` (`systemctl --user enable --now ollama`). Khi thêm/bớt model, cập nhật `programs.opencode.settings.provider.ollama.models` rồi rebuild.
