@@ -1,12 +1,31 @@
 { config, pkgs, ... }:
 
 let
-  jupyterEnv = pkgs.python3.withPackages (p: [
+  # jupyter-collaboration 4.4.0 có test-suite fail với jupyter-server-ydoc trong
+  # nixpkgs (UndoManager.__init__() got an unexpected keyword argument 'doc' —
+  # upstream incompatibility). Runtime vẫn chạy tốt, chỉ skip check phase.
+  jupyter-collaboration = pkgs.python314Packages.jupyter-collaboration.overridePythonAttrs (old: {
+    doCheck = false;
+  });
+
+  jupyterPython = pkgs.python314.override {
+    packageOverrides = self: super: {
+      inherit jupyter-collaboration;
+    };
+  };
+
+  # Single python env (python314) — gồm cả các gói từ python.nix (pip, requests,
+  # mutagen): tránh ngay buildEnv conflict khi home.packages có hai python env
+  # cùng install lib/pkgconfig/python3.pc.
+  jupyterEnv = jupyterPython.withPackages (p: [
     p.jupyterlab
     p.jupyter-collaboration # realtime autosave — jupyter-mcp-server cần để phát hiện thay đổi
     p.ipykernel
-    p.pandas
+    p.pip
     p.numpy
+    p.requests
+    p.pandas
+    p.mutagen
     p.matplotlib
     p.scipy
     p.scikit-learn

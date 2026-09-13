@@ -48,9 +48,8 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | `ghostty.nix` | Terminal GPU-accelerated Ghostty, theme Catppuccin |
 | `caelestia.nix` | Caelestia shell (Wayland Hyprland shell) |
 | `opencode.nix` | Opencode declarative + Ollama AI stack (systemd-user) + 8 MCP servers |
-| `jupyter.nix` | JupyterLab server (data science, 127.0.0.1:8888) — kernel cho MCP `jupyter` |
+| `jupyter.nix` | Python 3.14 unified env (JupyterLab + scripting libs: pip, requests, mutagen) — kernel cho MCP `jupyter` |
 | `openviking-server.nix` | OpenViking context database server + CLI (systemd-user) |
-| `python.nix` | Python và các gói pip tùy chỉnh |
 | `cava.nix` | CAVA (audio visualizer) |
 | `easyeffects.nix` | EasyEffects presets (audio processing) |
 | `rmpc-config/` | Music Player Client (rmpc) — config + themes |
