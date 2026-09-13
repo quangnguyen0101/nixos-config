@@ -31,11 +31,12 @@
         };
         ouroboros = {
           type = "local";
-          command = "uvx";
-          args = [
-            "--from" "ouroboros-ai[mcp]==0.54.4" # pin version MCP server
+          enabled = true;
+          command = [
+            "uvx" "--from" "ouroboros-ai[mcp]==0.54.4" # pin version MCP server
             "ouroboros" "mcp" "serve" "--runtime" "opencode"
           ];
+          environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
         };
       };
 
