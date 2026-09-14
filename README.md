@@ -110,6 +110,18 @@ Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.
 
 Config/skills chỉ có hiệu lực sau khi **thoát & mở lại opencode** (không hot-reload).
 
+#### Sơ đồ kiến trúc
+
+Sơ đồ kiến trúc AI stack (opencode + 8 MCP servers + backend) render bằng skill `archify`: mở [`docs/nixos-config-architecture.html`](docs/nixos-config-architecture.html).
+
+- Source JSON: `docs/nixos-config.architecture.json` (12 nodes, 3 boundaries, 4 cards)
+- Re-render lại (cần `node >= 18`):
+  ```bash
+  node ~/.config/opencode/skills/archify/bin/archify.mjs render architecture \
+    docs/nixos-config.architecture.json docs/nixos-config-architecture.html
+  ```
+- Validate với `quality_profile=showcase`: `node ... run validate` — thêm `--quality showcase --json` cho báo cáo máy.
+
 ### Ollama
 Chạy dưới `systemd --user` (`systemctl --user enable --now ollama`). Khi thêm/bớt model, cập nhật `programs.opencode.settings.provider.ollama.models` rồi rebuild.
 
