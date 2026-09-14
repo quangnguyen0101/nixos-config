@@ -4,6 +4,9 @@ result-*
 *.swp
 *.bak
 
+# Obsidian vault metadata (local workspace/state)
+.obsidian/
+
 # secrets — never commit API keys / tokens
 .env
 .env.*

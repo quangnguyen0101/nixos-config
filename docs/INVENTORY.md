@@ -4,8 +4,11 @@ tags: [nixos, docs, inventory]
 
 # INVENTORY — Trạng thái & cách bật/tắt từng module
 
+> [!info] Obsidian
+> Vault này = repo `~/nixos-config`. Mở trong **Obsidian** để dùng wikilink `[[...]]`, graph view, backlinks — GitHub render phần lớn (chỉ wikilink thành text). Mỗi tool/MCP có note chi tiết tại [[_index]].
+
 > [!note]
-> Mục tiêu: biết rõ cái gì đang chạy, cái gì tắt, và *tắt như thế nào* để không cài phí. Module home eager import từ `home/sh4d0wph4nt0m/home.nix`, module system từ `hosts/nixos-btw/configuration.nix`.
+> Mục tiêu: biết rõ cái gì đang chạy, cái gì tắt, và *tắt như thế nào* để không cài phí. Module home eager import từ `home/sh4d0wph4nt0m/home.nix`, module system từ `hosts/nixos-btw/configuration.nix`. Cheatsheet dùng tool: [[USAGE]].
 
 ## Legend
 

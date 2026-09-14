@@ -6,8 +6,12 @@
 
 ## 📚 Tài liệu
 
+> [!tip] Obsidian
+> Docs viết theo chuẩn **Obsidian** (wikilink + callout + frontmatter). Mở `~/nixos-config` làm vault trong Obsidian để có trải nghiệm đầy đủ (click-nhảy qua `[[...]]`, graph view, backlinks). GitHub render được phần lớn — chỉ wikilink hiện thành text thường.
+
 - [`docs/USAGE.md`](docs/USAGE.md) — cheatsheet cách dùng từng công cụ hằng ngày (update, tmux, keep-awake, brt, rmpc, autoskills, …)
 - [`docs/INVENTORY.md`](docs/INVENTORY.md) — trạng thái từng module (đang chạy / đã tắt) + cách bật/tắt, đỡ cài phí không dùng
+- [`docs/tools/_index.md`](docs/tools/_index.md) — **Map of Content**: 1 note/tool click-nhảy (8 MCP servers + autoskills, keep-awake, brt, rmpc)
 
 ## 🗂️ Cấu trúc dự án
 
