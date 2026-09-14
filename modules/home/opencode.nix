@@ -96,6 +96,19 @@
             LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
           };
         };
+        vision = {
+          type = "local";
+          enabled = true;
+          command = [
+            "uvx" "--from" "opencode-vision[paddle]==2.1.0" # PaddleOCR local + Gemini free fallback
+            "python3" "-m" "opencode_vision.server"
+          ];
+          environment = {
+            # Gemini API key: file ngoai repo (600), khong commit len public github
+            GOOGLE_API_KEY = "{file:~/.config/opencode/gemini.key}";
+            LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
+          };
+        };
       };
 
       attachment = {
