@@ -29,6 +29,17 @@
 
     # Thêm Zsh function và script khởi động vào đây
     initContent = ''
+      # Graphical session display env (Hyprland): phục hồi khi pane tmux cũ thiếu.
+      # Chỉ áp khi đang có X-wayland socket, không phải SSH.
+      if [ -z "$SSH_CONNECTION" ]; then
+        if [ -e /tmp/.X11-unix/X0 ] && [ -z "$DISPLAY" ]; then
+          export DISPLAY=":0"
+        fi
+        if [ -n "$XDG_RUNTIME_DIR" ] && [ -e "$XDG_RUNTIME_DIR/wayland-1" ] && [ -z "$WAYLAND_DISPLAY" ]; then
+          export WAYLAND_DISPLAY="wayland-1"
+        fi
+      fi
+
       # Tự động chạy TMUX
       if [ -z "$TMUX" ] && [ -n "$PS1" ]; then
         exec tmux new-session -A -s main
