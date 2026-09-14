@@ -1,9 +1,16 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 
 {
   home.packages = [
     pkgs.opencode-desktop # AI coding agent GUI client
   ];
+
+  # Shell strategy instructions + global data-science skill: vender trong repo,
+  # home-manager copy ra ~/.config/opencode/ de opencode doc duoc.
+  home.file = {
+    ".config/opencode/shell_strategy.md".source = ./../../pkgs/opencode/shell_strategy.md;
+    ".config/opencode/skills/data-science/SKILL.md".source = ./../../pkgs/opencode/skills/data-science/SKILL.md;
+  };
 
   programs.opencode = {
     enable = true;
@@ -12,6 +19,10 @@
 
     settings = {
       lsp = true;
+
+      # Shell non-interactive strategy (vendored tu JRedeker/opencode-shell-strategy).
+      # Tai ke khi mở session -> chấm dứt shell command hang vi cho TTY.
+      instructions = [ "${config.home.homeDirectory}/.config/opencode/shell_strategy.md" ];
 
       # Ouroboros bridge plugin: chặn _subagent envelope từ MCP ouroboros, dispatch
       # ra Task panes của opencode. File tĩnh từ wheel ouroboros-ai 0.54.4
