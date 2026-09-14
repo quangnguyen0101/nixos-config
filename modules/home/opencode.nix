@@ -5,11 +5,14 @@
     pkgs.opencode-desktop # AI coding agent GUI client
   ];
 
-  # Shell strategy instructions + global data-science skill: vender trong repo,
-  # home-manager copy ra ~/.config/opencode/ de opencode doc duoc.
+  # Shell strategy instructions + global skills: vender trong repo, home-manager
+  # copy ra ~/.config/opencode/ de opencode doc duoc.
   home.file = {
     ".config/opencode/shell_strategy.md".source = ./../../pkgs/opencode/shell_strategy.md;
     ".config/opencode/skills/data-science/SKILL.md".source = ./../../pkgs/opencode/skills/data-science/SKILL.md;
+    # Archify (vendored tt-a1i/archify, MIT): renderer JSON-IR -> HTML/SVG diagrams.
+    # Can node >=18 (da co tren he thong). Rut gon: bo test/ va examples/*.html (proof artifacts).
+    ".config/opencode/skills/archify".source = ./../../pkgs/opencode/skills/archify;
   };
 
   programs.opencode = {

@@ -104,6 +104,7 @@ Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.
 | Item | Vị trí | Mô tả |
 |------|--------|-------|
 | `data-science` skill | `pkgs/opencode/skills/data-science/` → `~/.config/opencode/skills/` | Workflow data science chuẩn: notebook trên Jupyter MCP, compute server-side, Postgres/Docker, tra cứu arXiv, xuất plot + BibTeX |
+| `archify` skill | `pkgs/opencode/skills/archify/` → `~/.config/opencode/skills/` | (vendored `tt-a1i/archify`, MIT) Render mô hình hệ thống dạng HTML/SVG tương tác từ JSON IR — `archify`, `workflow`, `sequence`, `dataflow`, `lifecycle`. Cần `node >=18` (có sẵn trên hệ thống). Cắt `test/` + `examples/*.html` |
 | `nixos-config` skill | `.opencode/skills/nixos-config/` | Repo-scope: rebuild/check, nixfmt, module layout, secrets, tích hợp opencode |
 | `shell-strategy` instructions | `pkgs/opencode/shell_strategy.md` → `~/.config/opencode/shell_strategy.md` | Vendored từ JRedeker/opencode-shell-strategy — shell non-interactive: fail-fast `sudo -n`, cấm pager/editor, no TTY hang |
 
