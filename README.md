@@ -4,6 +4,11 @@
 
 **NixOS** cấu hình cá nhân được quản lý bằng **Nix Flake** và **Home Manager**. Đây là một *single-host* setup (máy `nixos-btw`) với kiến trúc **modular**: phần hệ thống và phần người dùng được tách riêng, dễ bảo trì và mở rộng.
 
+## 📚 Tài liệu
+
+- [`docs/USAGE.md`](docs/USAGE.md) — cheatsheet cách dùng từng công cụ hằng ngày (update, tmux, keep-awake, brt, rmpc, autoskills, …)
+- [`docs/INVENTORY.md`](docs/INVENTORY.md) — trạng thái từng module (đang chạy / đã tắt) + cách bật/tắt, đỡ cài phí không dùng
+
 ## 🗂️ Cấu trúc dự án
 
 ```
@@ -56,6 +61,12 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | `userPackages.nix` | Gói người dùng chung (dsh, pnpm, uv, ollama, …) |
 | `dsh-plugins.nix` | ⏸️ Declarative plugin management cho DSH profile "web" — đã gỡ khỏi `home.nix` |
 | `dsh-profile/` | ⏸️ Manifests vendored (package.json, lockfile, cordis.patch.yml) — đã gỡ khỏi `home.nix` |
+| `dms.nix` | ⏸️ Dank Material Shell — đã gỡ khỏi `home.nix` |
+| `noctalia.nix` | ⏸️ Noctalia shell — đã gỡ khỏi `home.nix` |
+| `autoskills.nix` | autoskills CLI (CC-BY-NC-4.0) — cài skill AI vào `.agents/skills/` theo project (xem `docs/USAGE.md`) |
+| `keep-awake/` | Giữ máy awake khi đóng lid — menu TUI `keep-awake` (ydotool + systemd-inhibit) |
+| `brt.nix` | Điều khiển độ sáng (brightnessctl / ddcutil / fallback wlsunset) |
+| `rclone-gdrive.nix` | Mount Google Drive qua systemd-user (`rclone-mount` → `~/GoogleDrive`) |
 
 ## 🚀 Các thành phần chính (tóm tắt)
 | Thành phần | Mô tả |
@@ -106,6 +117,7 @@ Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.
 | `data-science` skill | `pkgs/opencode/skills/data-science/` → `~/.config/opencode/skills/` | Workflow data science chuẩn: notebook trên Jupyter MCP, compute server-side, Postgres/Docker, tra cứu arXiv, xuất plot + BibTeX |
 | `archify` skill | `pkgs/opencode/skills/archify/` → `~/.config/opencode/skills/` | (vendored `tt-a1i/archify`, MIT) Render mô hình hệ thống dạng HTML/SVG tương tác từ JSON IR — `archify`, `workflow`, `sequence`, `dataflow`, `lifecycle`. Cần `node >=18` (có sẵn trên hệ thống). Cắt `test/` + `examples/*.html` |
 | `nixos-config` skill | `.opencode/skills/nixos-config/` | Repo-scope: rebuild/check, nixfmt, module layout, secrets, tích hợp opencode |
+| `autoskills` CLI | `modules/home/autoskills.nix` → `pkgs.autoskills` | Cài skill vào `.agents/skills/` per-project — chạy `autoskills` trong root project (xem `docs/USAGE.md`) |
 | `shell-strategy` instructions | `pkgs/opencode/shell_strategy.md` → `~/.config/opencode/shell_strategy.md` | Vendored từ JRedeker/opencode-shell-strategy — shell non-interactive: fail-fast `sudo -n`, cấm pager/editor, no TTY hang |
 
 Config/skills chỉ có hiệu lực sau khi **thoát & mở lại opencode** (không hot-reload).

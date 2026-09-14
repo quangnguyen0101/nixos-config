@@ -24,12 +24,13 @@ Repo này là **flake NixOS + home-manager** (host `nixos-btw`). Mọi config ph
 
 ## Format & lint
 
-- Toàn bộ `.nix` format bằng **nixfmt** trước khi commit: `nix fmt` (chạy từ root repo).
-- Validate cấu trúc: `nix flake check` (pass cả module + nixpkgs-fmt nếu có).
+- Repo **chưa có formatter**: `nix fmt` báo lỗi (flake thiếu `formatter.x86_64-linux`) và không có `nixfmt` trên PATH → bỏ qua bước format.
+- Validate cấu trúc: `nix flake check` (pass cả module + background service).
 
 ## Cấu trúc module
 
-- `modules/home/` — home-manager: `opencode.nix` (MCP servers, plugins, instructions, skills), `jupyter.nix` (python314 env, service jupyterlab), ...
+- `modules/home/` — home-manager: `opencode.nix` (MCP servers, plugins, instructions, skills), `jupyter.nix` (python314 env, service jupyterlab), `autoskills.nix` (cài skill AI per-project), ...
+- `docs/` — tài liệu hướng người dùng: `docs/USAGE.md` (cheatsheet dùng tool), `docs/INVENTORY.md` (trạng thái module + cách bật/tắt). Cập nhật khi thêm/bớt module.
 - `home/<user>/home.nix` — imports module home-manager vào host.
 - `pkgs/ouroboros/ouroboros-bridge.ts` — opencode plugin (referenced qua `./...` path → Nix copy vào `/nix/store`, store path thay đổi mỗi lần sửa → phải rebuild để opencode thấy bản mới).
 - Thay đổi ở module chỉ có hiệu lực sau khi user chạy `nixos-rebuild switch`. Config opencode không hot-reload → sau rebuild phải **thoát & mở lại opencode**.
@@ -47,4 +48,5 @@ Repo này là **flake NixOS + home-manager** (host `nixos-btw`). Mọi config ph
 - Skills trong repo:
   - project skill (repo-scope): `.opencode/skills/nixos-config/SKILL.md` — tự dùng khi đang ở repo.
   - global skill `data-science`: source ở `pkgs/opencode/skills/data-science/SKILL.md`, home-manager copy sang `~/.config/opencode/skills/`.
+  - project skills tự động (`autoskills` CLI, `modules/home/autoskills.nix`): `cd <project> && autoskills` cài vào `.agents/skills/`. Bỏ 2 skill vercel-labs (`react-best-practices`, `composition-patterns` — name mismatch), rà bằng lệnh ghi trong module. Effect sau khi mở lại opencode.
 - Lần đầu `opencode mcp list` ngay sau reboot có thể báo transient fail (cold start uvx) — chạy lại lần 2 là OK, đừng kết luận vội config sai.

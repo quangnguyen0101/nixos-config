@@ -4,9 +4,10 @@ Package NixOS tùy chỉnh cho [OpenViking](https://openviking.dev) — context 
 
 ## Cài đặt
 
+Qua overlay trong `flake.nix` (`pkgs.openviking`), dùng trong `modules/home/userPackages.nix`:
+
 ```nix
-# system-packages.nix
-pkgs.openviking
+(pkgs.callPackage ../../pkgs/openviking { })
 ```
 
 ## Cấu trúc
