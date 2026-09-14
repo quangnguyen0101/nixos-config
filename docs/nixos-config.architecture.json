@@ -1,0 +1,49 @@
+{
+  "schema_version": 1,
+  "diagram_type": "architecture",
+  "meta": {
+    "title": "Kiến trúc nixos-config — Opencode + 8 MCP servers",
+    "output": "nixos-config-architecture.html",
+    "quality_profile": "showcase",
+    "viewBox": [1340, 980]
+  },
+  "components": [
+    { "id": "opencode", "type": "frontend", "label": "Opencode", "sublabel": "agent client (GUI)", "tag": "opencode-desktop", "pos": [620, 110], "size": [170, 64] },
+    { "id": "mcp-github", "type": "external", "label": "GitHub MCP", "sublabel": "remote · Copilot API", "tag": "PAT auth", "brand": "github", "pos": [60, 110], "size": [170, 64] },
+    { "id": "mcp-context7", "type": "external", "label": "Context7 MCP", "sublabel": "remote · docs", "pos": [60, 250], "size": [170, 64] },
+    { "id": "mcp-arxiv", "type": "backend", "label": "arXiv MCP", "sublabel": "uvx 0.7.2 · stdio", "tag": "local", "pos": [150, 340], "size": [170, 60] },
+    { "id": "mcp-openviking", "type": "backend", "label": "OpenViking MCP", "sublabel": "127.0.0.1:1933", "tag": "memory DB", "pos": [360, 340], "size": [170, 60] },
+    { "id": "mcp-ouroboros", "type": "backend", "label": "Ouroboros MCP", "sublabel": "uvx 0.54.4 · agent OS", "pos": [570, 340], "size": [170, 60] },
+    { "id": "mcp-jupyter", "type": "backend", "label": "Jupyter MCP", "sublabel": "uvx 2.1.15 · kernel", "pos": [780, 340], "size": [170, 60] },
+    { "id": "mcp-docker", "type": "backend", "label": "Docker MCP", "sublabel": "npx 2.0.1", "tag": "socket", "brand": "docker", "pos": [958, 340], "size": [170, 60] },
+    { "id": "mcp-postgres", "type": "backend", "label": "Postgres MCP", "sublabel": "uvx 0.3.0 · SQL", "tag": "local", "pos": [1140, 340], "size": [170, 60] },
+    { "id": "ollama", "type": "backend", "label": "Ollama", "sublabel": "localhost:11434", "tag": "systemd --user", "brand": "ollama", "pos": [455, 640], "size": [170, 64] },
+    { "id": "jupyterlab", "type": "backend", "label": "JupyterLab", "sublabel": "127.0.0.1:8888", "tag": "systemd --user", "pos": [675, 640], "size": [170, 64] },
+    { "id": "postgres-ds", "type": "database", "label": "PostgreSQL 17", "sublabel": "postgres-ds :5432", "tag": "Docker container", "brand": "postgresql", "pos": [1095, 640], "size": [170, 64] }
+  ],
+  "boundaries": [
+    { "kind": "region", "label": "NixOS host — nixos-btw", "wraps": ["opencode", "mcp-arxiv", "mcp-openviking", "mcp-ouroboros", "mcp-jupyter", "mcp-docker", "mcp-postgres", "ollama", "jupyterlab", "postgres-ds"], "pad": 18 },
+    { "kind": "security-group", "label": "trusted loopback (127.0.0.1 / unix socket)", "wraps": ["opencode", "mcp-openviking", "mcp-ouroboros", "mcp-jupyter", "mcp-docker", "mcp-postgres", "ollama", "jupyterlab", "postgres-ds"], "pad": 12 },
+    { "kind": "region", "label": "public internet — remote MCP", "wraps": ["mcp-github", "mcp-context7"], "pad": 14 }
+  ],
+  "connections": [
+    { "from": "opencode", "to": "mcp-github", "label": "Bearer PAT (header)", "variant": "security" },
+    { "from": "opencode", "to": "mcp-context7", "label": "docs API" },
+    { "from": "opencode", "to": "mcp-arxiv", "label": "query arXiv", "labelAt": [296, 250] },
+    { "from": "opencode", "to": "mcp-openviking", "label": "loopback HTTP" },
+    { "from": "opencode", "to": "mcp-ouroboros", "label": "subagent bridge", "labelAt": [620, 244], "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "from": "opencode", "to": "mcp-jupyter", "label": "token auth", "fromSide": "bottom", "toSide": "top" },
+    { "from": "opencode", "to": "mcp-docker", "label": "DOCKER_HOST", "fromSide": "bottom", "toSide": "top" },
+    { "from": "opencode", "to": "mcp-postgres", "label": "DSN credentials", "variant": "security", "fromSide": "bottom", "toSide": "top" },
+    { "from": "opencode", "to": "ollama", "label": "LLM · openai-compatible /v1", "labelAt": [340, 414], "variant": "emphasis", "fromSide": "left", "toSide": "left", "via": [[340, 142], [340, 672]] },
+    { "from": "mcp-jupyter", "to": "jupyterlab", "label": "WebSocket :8888", "fromSide": "bottom", "toSide": "top" },
+    { "from": "mcp-docker", "to": "postgres-ds", "label": "manages container", "variant": "dashed", "fromSide": "bottom", "toSide": "top" },
+    { "from": "mcp-postgres", "to": "postgres-ds", "label": "SQL :5432", "fromSide": "bottom", "toSide": "top" }
+  ],
+  "cards": [
+    { "dot": "cyan", "title": "Declarative source (NixOS flake)", "items": ["8 MCP servers + plugin + skills khai báo trong modules/home/opencode.nix", "Áp dụng: sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw", "Config opencode không hot-reload — restart sau mỗi rebuild"] },
+    { "dot": "emerald", "title": "Local runtime", "items": ["uvx/npx servers cần LD_LIBRARY_PATH trỏ libstdc++ (gcc-15.2.0-lib)", "JupyterLab + Ollama chạy dưới systemd --user", "postgres-ds = container PostgreSQL 17 trên Docker host"] },
+    { "dot": "rose", "title": "Trust & secrets", "items": ["GitHub PAT đọc từ ~/.config/opencode/github.token (header Authorization)", "DSN postgresql://dsuser:dssecret@127.0.0.1:5432/datascience", "Jupyter token jupylocal-ds — tất cả gửi qua loopback"] },
+    { "dot": "violet", "title": "Skills & workflow", "items": ["Skills global: data-science, nixos-config, archify (~/.config/opencode/skills)", "Shell non-interactive strategy qua instructions[]", "arXiv MCP có fallback PDF → markdown (pymupdf)"] }
+  ]
+}
