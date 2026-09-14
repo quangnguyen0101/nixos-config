@@ -9,6 +9,7 @@
     ../../modules/home/cava.nix
     ../../modules/home/ghostty.nix
     ../../modules/home/opencode.nix
+    ../../modules/home/autoskills.nix
     # ../../modules/home/noctalia.nix
     ../../modules/home/caelestia.nix
     ../../modules/home/userPackages.nix

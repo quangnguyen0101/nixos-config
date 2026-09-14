@@ -68,6 +68,17 @@
             # ];
           }
 
+          # Overlay: autoskills (midudev/autoskills, CC-BY-NC-4.0 — branch
+          # off in pkgs/opencode/autoskills; tarball trong store, khong vendor
+          # noi dung skill vao repo). Dung qua `pkgs.autoskills`.
+          ({ pkgs, lib, ... }: {
+            nixpkgs.overlays = [
+              (final: prev: {
+                autoskills = final.callPackage ./pkgs/opencode/autoskills { };
+              })
+            ];
+          })
+
           lanzaboote.nixosModules.lanzaboote
           ({ pkgs, lib, ... }: {
             # Lanzaboote currently replaces the systemd-boot module.
