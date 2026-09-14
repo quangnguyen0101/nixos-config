@@ -99,6 +99,16 @@ Khai báo trong `modules/home/opencode.nix`. Provider mặc định là Ollama (
 
 Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.cc.cc.lib` (greenlet/biopython trên NixOS cần libstdc++) — cấu hình trong `opencode.nix`. Jupyter MCP server kết nối tới JupyterLab đang chạy nền (`systemctl --user status jupyterlab`).
 
+#### Skills & instructions
+
+| Item | Vị trí | Mô tả |
+|------|--------|-------|
+| `data-science` skill | `pkgs/opencode/skills/data-science/` → `~/.config/opencode/skills/` | Workflow data science chuẩn: notebook trên Jupyter MCP, compute server-side, Postgres/Docker, tra cứu arXiv, xuất plot + BibTeX |
+| `nixos-config` skill | `.opencode/skills/nixos-config/` | Repo-scope: rebuild/check, nixfmt, module layout, secrets, tích hợp opencode |
+| `shell-strategy` instructions | `pkgs/opencode/shell_strategy.md` → `~/.config/opencode/shell_strategy.md` | Vendored từ JRedeker/opencode-shell-strategy — shell non-interactive: fail-fast `sudo -n`, cấm pager/editor, no TTY hang |
+
+Config/skills chỉ có hiệu lực sau khi **thoát & mở lại opencode** (không hot-reload).
+
 ### Ollama
 Chạy dưới `systemd --user` (`systemctl --user enable --now ollama`). Khi thêm/bớt model, cập nhật `programs.opencode.settings.provider.ollama.models` rồi rebuild.
 
