@@ -76,6 +76,7 @@
         arxiv = {
           type = "local";
           enabled = true;
+          timeout = 120000; # arXiv rate-limit (429): retry budget 62s > default 30s
           command = [
             "uvx" "--from" "arxiv-mcp-server[pdf]==0.7.2" # pin version, [pdf] de dang roi PDF fallback
             "arxiv-mcp-server"
