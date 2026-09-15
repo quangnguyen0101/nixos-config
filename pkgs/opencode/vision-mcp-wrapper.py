@@ -13,6 +13,7 @@ starts. Run through uvx --from 'opencode-vision[paddle]==2.1.0'.
 Keep in sync when bumping opencode-vision. Patch targets:
   - opencode_vision.mcp.recv / send  (newline framing)
   - opencode_vision.server.METHOD_HANDLERS["initialize"]  (protocolVersion)
+  - opencode_vision.gemini.GEMINI_MODEL  (gemini-2.5-flash retired -> 3.6-flash)
 """
 
 import json
@@ -69,5 +70,11 @@ from opencode_vision import mcp as vision_mcp
 
 vision_mcp.recv = recv_newline
 vision_mcp.send = send_newline
+
+from opencode_vision import gemini as vision_gemini
+
+# Google retired gemini-2.5-flash for new users (HTTP 404) -> move to
+# gemini-3.6-flash for the OCR/description fallback endpoint.
+vision_gemini.GEMINI_MODEL = "gemini-3.6-flash"
 
 main()
