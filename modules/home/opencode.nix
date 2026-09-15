@@ -99,9 +99,10 @@
         vision = {
           type = "local";
           enabled = true;
+          timeout = 120000; # cold download paddleocr (paddle extra) ~2min
           command = [
             "uvx" "--from" "opencode-vision[paddle]==2.1.0" # PaddleOCR local + Gemini free fallback
-            "python3" "-m" "opencode_vision.server"
+            "python3" "${./../../pkgs/opencode/vision-mcp-wrapper.py}" # patch: newline framing + protocolVersion
           ];
           environment = {
             # Gemini API key: file ngoai repo (600), khong commit len public github
