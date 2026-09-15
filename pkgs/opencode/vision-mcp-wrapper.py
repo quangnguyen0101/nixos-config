@@ -75,6 +75,12 @@ from opencode_vision import gemini as vision_gemini
 
 # Google retired gemini-2.5-flash for new users (HTTP 404) -> move to
 # gemini-3.6-flash for the OCR/description fallback endpoint.
+# GEMINI_URL is baked at module import time, so patch BOTH the model name
+# and the pre-composed URL it was derived from.
 vision_gemini.GEMINI_MODEL = "gemini-3.6-flash"
+vision_gemini.GEMINI_URL = (
+    "https://generativelanguage.googleapis.com/v1beta/models/"
+    "gemini-3.6-flash:generateContent"
+)
 
 main()
