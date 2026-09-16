@@ -52,6 +52,7 @@
     wpsoffice
     poppler-utils # pdftotext/pdfinfo
     impression
+    drawio # ERD/Chen diagrams, UML
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
