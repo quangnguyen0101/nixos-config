@@ -53,6 +53,8 @@
     poppler-utils # pdftotext/pdfinfo
     impression
     drawio # ERD/Chen diagrams, UML
+    cmake # C/C++ build system
+    gcc # C/C++ compiler (cc = gcc)
     (pkgs.callPackage ../../pkgs/deepseek-harness { })
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
