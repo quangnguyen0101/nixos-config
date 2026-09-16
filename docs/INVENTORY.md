@@ -71,6 +71,7 @@ tags: [nixos, docs, inventory]
 | `deepseek-harness` | ⏸️ | binary `dsh` vẫn cài (ở `userPackages.nix`) nhưng không có service/plugin — xem README |
 | `openviking` | 🟢 | server + CLI — nền MCP `openviking` |
 | `ouroboros` | 🟢 | bridge plugin `.ts` cho MCP `ouroboros` |
+| `ponytail` | 🟢 | opencode plugin "lazy senior dev mode" (vendored v4.10.0, MIT) — inject ruleset mỗi turn, mode default `full`; thêm `/ponytail`, `-review`, `-audit`, `-debt`, `-gain`, `-help` |
 | `opencode/autoskills` | 🟢 | CLI cài skill theo project (CC-BY-NC-4.0) |
 | `opencode/skills/*` | 🟢 | skill copy vào `~/.config/opencode/skills/` |
 

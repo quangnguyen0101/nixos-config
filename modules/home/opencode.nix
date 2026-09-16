@@ -1,5 +1,12 @@
 { pkgs, config, ... }:
 
+let
+  # Ponytail (vendored DietrichGebert/ponytail v4.10.0, MIT): lazy senior dev mode.
+  # Interpolate CAI CAY (khong phai file le) de giu relative require '../../hooks',
+  # '../../skills' cua plugin; Nix copy toan bo dir vao store.
+  ponytail = "${./../../pkgs/ponytail}";
+in
+
 {
   home.packages = [
     pkgs.opencode-desktop # AI coding agent GUI client
@@ -30,7 +37,13 @@
       # Ouroboros bridge plugin: chặn _subagent envelope từ MCP ouroboros, dispatch
       # ra Task panes của opencode. File tĩnh từ wheel ouroboros-ai 0.54.4
       # (version-agnostic, chi doc cap version MCP args). sync khi nang version.
-      plugin = [ "${./../../pkgs/ouroboros/ouroboros-bridge.ts}" ];
+      # Ponytail: lazy senior dev ruleset, inject vao system prompt moi turn.
+      # Mode mac dinh = full (DEFAULT_MODE trong ponytail-config.js). Mac dinh global
+      # cho moi workspace vi load nhu server plugin.
+      plugin = [
+        "${./../../pkgs/ouroboros/ouroboros-bridge.ts}"
+        "${ponytail}/.opencode/plugins/ponytail.mjs"
+      ];
 
       mcp = {
         openviking = {
