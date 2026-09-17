@@ -11,11 +11,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783136658,
-        "narHash": "sha256-1t4frpWtweMzxmsvrlceEvN/OMCdsAvENTEsPf5Hf9w=",
+        "lastModified": 1789186140,
+        "narHash": "sha256-CEKrGzjO7Zk+BC0bsIySyu7q0vdy68V5MMq8YNKPpsk=",
         "owner": "caelestia-dots",
         "repo": "cli",
-        "rev": "7c4f5372eb1ad897e17a36416c57234ced5a5b79",
+        "rev": "6b84ee5090ec50f36aa1a53990d57ab0013925a0",
         "type": "github"
       },
       "original": {
@@ -34,11 +34,11 @@
         "quickshell": "quickshell"
       },
       "locked": {
-        "lastModified": 1783219767,
-        "narHash": "sha256-ttZfW6ucXTZbTYpFP2O2y50GSr5VhqOe0iba/E1do/g=",
+        "lastModified": 1789639698,
+        "narHash": "sha256-/lIWqT2EeGJuvDMvvtIZe9Ctjv/gnCX8hZGAwohTHRg=",
         "owner": "caelestia-dots",
         "repo": "shell",
-        "rev": "2b5eb204b267f1568666de83438798cca59fdcd1",
+        "rev": "0895d531f7674164b0c0cc6cc2f8477645c74adf",
         "type": "github"
       },
       "original": {
@@ -70,11 +70,11 @@
         "snowfall-lib": "snowfall-lib"
       },
       "locked": {
-        "lastModified": 1783530184,
-        "narHash": "sha256-S5UlX+XxqfwOS2utfIp22BRBJVlA9W459BA6gCZPCjE=",
+        "lastModified": 1789039765,
+        "narHash": "sha256-dtq7TOuoJF1Qcx7YxmXcjMUv9er1PNgnydWku810HOo=",
         "owner": "LotusInputMethod",
         "repo": "fcitx5-lotus",
-        "rev": "db89d0d60e667e2c092eccbd5602def8b0befcf9",
+        "rev": "3e5b1bf7d10a9316818f7097c4599a01e4e6148c",
         "type": "github"
       },
       "original": {
@@ -181,11 +181,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783024095,
-        "narHash": "sha256-oE+TNK98Pl7nHW4VU1oBvUKD5JR45U+py/NJmLoTNHI=",
+        "lastModified": 1789618856,
+        "narHash": "sha256-OSqj7eOijvCZfN7owFWRxLWRhej5lZI+Kt82q3INLvc=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "a4d410db95a6416d1008049330bd86b85b5db45a",
+        "rev": "afa6821c70560bb19d1a8c577bff398f7f239869",
         "type": "github"
       },
       "original": {
@@ -219,29 +219,34 @@
       }
     },
     "m3shapes": {
-      "flake": false,
+      "inputs": {
+        "nixpkgs": [
+          "caelestia-shell",
+          "nixpkgs"
+        ]
+      },
       "locked": {
-        "lastModified": 1781017666,
-        "narHash": "sha256-kfHyzZaPHgqZML48OA+5JwBOsLdQJ2ci/aGPShvUB4Y=",
+        "lastModified": 1787906858,
+        "narHash": "sha256-YZelgEZflFNwGutX4/tIzBdbOeghJgE2oDw0uWYGxns=",
         "owner": "soramanew",
         "repo": "m3shapes",
-        "rev": "bdc327b29f95394a732baf3c9b19658ba23755b6",
+        "rev": "32ad9ce328bb77ed349b40a3be10ee9ea610b8ab",
         "type": "github"
       },
       "original": {
         "owner": "soramanew",
         "repo": "m3shapes",
-        "rev": "bdc327b29f95394a732baf3c9b19658ba23755b6",
+        "rev": "32ad9ce328bb77ed349b40a3be10ee9ea610b8ab",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1782918843,
-        "narHash": "sha256-ETYnV9U7Sr+A45dohzZdfCZKOss4qrTkO+wgNZNvEc0=",
+        "lastModified": 1789370336,
+        "narHash": "sha256-6RSEDHIWQtesQKWSu5qRai8L2h4KgCgMEfJHstW99G4=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "e8273b29fe1390ec8d4603f2477357555291432e",
+        "rev": "c7def046b9a883d46974757852106483d741586f",
         "type": "github"
       },
       "original": {
@@ -282,11 +287,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1783212316,
-        "narHash": "sha256-tknenPoA90o+Z7woiHchSAHiQzI8s0qYWlB87lIVPEc=",
+        "lastModified": 1787994703,
+        "narHash": "sha256-6SUZyyALo19heYPa/Xmu2H4zV+wvdfVX4fTcqbgHRnI=",
         "ref": "refs/heads/master",
-        "rev": "4f2c62486b0c939f7fc1f7cea68037173813dbfe",
-        "revCount": 826,
+        "rev": "2d3b3e9c70ef380dff751b61d334dc88df016c29",
+        "revCount": 856,
         "type": "git",
         "url": "https://git.outfoxxed.me/outfoxxed/quickshell"
       },
