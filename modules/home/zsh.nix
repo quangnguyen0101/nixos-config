@@ -13,7 +13,7 @@
       shut = "shutdown -h now";
       op = "opencode";
       nx = "cd ~/nixos-config";
-      update = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw";
+      rebuild = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw";
     };
 
     oh-my-zsh = {
