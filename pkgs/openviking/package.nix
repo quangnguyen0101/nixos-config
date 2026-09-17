@@ -25,6 +25,7 @@ buildPythonPackage rec {
     "cryptography"
     "pathspec"
     "opentelemetry-instrumentation-asyncio"
+    "litellm"
   ];
 
   pythonRemoveDeps = [
