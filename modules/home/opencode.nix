@@ -71,7 +71,7 @@ in
         };
         docker = {
           type = "local";
-          enabled = true;
+          enabled = false; # disabled per request
           command = [
             "npx" "-y" "@hypnosis/docker-mcp-server@2.0.1"
           ];
@@ -79,7 +79,7 @@ in
         };
         postgres = {
           type = "local";
-          enabled = true;
+          enabled = false; # disabled per request
           command = [
             "uvx" "--from" "postgres-mcp==0.3.0" "--with" "mcp<2"
             "postgres-mcp" "postgresql://dsuser:dssecret@127.0.0.1:5432/datascience"
@@ -88,7 +88,7 @@ in
         };
         arxiv = {
           type = "local";
-          enabled = true;
+          enabled = false; # disabled per request
           timeout = 120000; # arXiv rate-limit (429): retry budget 62s > default 30s
           command = [
             "uvx" "--from" "arxiv-mcp-server[pdf]==0.7.2" # pin version, [pdf] de dang roi PDF fallback
@@ -98,7 +98,7 @@ in
         };
         jupyter = {
           type = "local";
-          enabled = true;
+          enabled = false; # disabled per request
           command = [
             "uvx" "--from" "jupyter-mcp-server==2.1.15" # pin version (npm cung ten, dung uvx)
             "jupyter-mcp-server"
@@ -112,7 +112,7 @@ in
         };
         vision = {
           type = "local";
-          enabled = true;
+          enabled = false; # disabled per request
           timeout = 120000; # cold download paddleocr (paddle extra) ~2min
           command = [
             "uvx" "--from" "opencode-vision[paddle]==2.1.0" # PaddleOCR local + Gemini free fallback
