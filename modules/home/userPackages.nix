@@ -36,13 +36,13 @@
     megasync
     ffmpeg
     cava
-    texlive.combined.scheme-full # latexmk, bibtex, biber, latexindent — cho vimtex
+    texliveFull # latexmk, bibtex, biber, latexindent — cho vimtex (top-level scheme; combined deprecated)
     zathura # PDF viewer cho vimtex
     xdotool # forward search Zathura <-> nvim
     tree-sitter # bắt buộc cho nvim-treesitter branch main (yêu cầu CLI >= 0.26.1)
     texstudio # TeX/LaTeX editor
     telegram-desktop
-    antigravity
+    antigravity-ide # renamed tu antigravity
     slack
     easyeffects
     pnpm # PM Node.js tổng dụng
