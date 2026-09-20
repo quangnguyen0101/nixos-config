@@ -12,6 +12,7 @@ in
 {
   home.packages = [
     llmAgentPkgs.opencode-desktop # AI coding agent GUI client (numtide/llm-agents.nix)
+    llmAgentPkgs.freebuff # AI coding agent CLI (numtide/llm-agents.nix)
   ];
 
   # Shell strategy instructions + global skills: vender trong repo, home-manager
