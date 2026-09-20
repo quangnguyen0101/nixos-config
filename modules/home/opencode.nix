@@ -1,6 +1,8 @@
-{ pkgs, config, ... }:
+{ pkgs, config, inputs, ... }:
 
 let
+  llmAgentPkgs = inputs.llm-agents.packages.${pkgs.system};
+
   # Ponytail (vendored DietrichGebert/ponytail v4.10.0, MIT): lazy senior dev mode.
   # Interpolate CAI CAY (khong phai file le) de giu relative require '../../hooks',
   # '../../skills' cua plugin; Nix copy toan bo dir vao store.
@@ -9,7 +11,7 @@ in
 
 {
   home.packages = [
-    pkgs.opencode-desktop # AI coding agent GUI client
+    llmAgentPkgs.opencode-desktop # AI coding agent GUI client (numtide/llm-agents.nix)
   ];
 
   # Shell strategy instructions + global skills: vender trong repo, home-manager
@@ -24,6 +26,8 @@ in
 
   programs.opencode = {
     enable = true;
+
+    package = llmAgentPkgs.opencode; # CLI tu numtide/llm-agents.nix
 
     extraPackages = [ pkgs.nixd ]; # LSP server cho .nix (còn lại opencode tự cài)
 
