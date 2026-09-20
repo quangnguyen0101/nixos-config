@@ -10,10 +10,8 @@ let
 in
 
 {
-  home.packages = [
-    llmAgentPkgs.opencode-desktop # AI coding agent GUI client (numtide/llm-agents.nix)
-    llmAgentPkgs.freebuff # AI coding agent CLI (numtide/llm-agents.nix)
-  ];
+  # Agents tu llm-agents.nix (opencode-desktop, freebuff...) duoc cai trong
+  # modules/home/llm-agents.nix
 
   # Shell strategy instructions + global skills: vender trong repo, home-manager
   # copy ra ~/.config/opencode/ de opencode doc duoc.
