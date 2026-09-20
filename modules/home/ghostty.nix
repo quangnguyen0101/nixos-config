@@ -17,7 +17,7 @@
       adjust-cursor-thickness = 2;
 
       # ─── THEME & MÀU SẮC ─────────────────────────────
-      theme = "light:Catppuccin Latte,dark:Catppuccin Frappe";
+      theme = "Catppuccin Frappe";
       alpha-blending = "linear-corrected";
 
       # ─── CURSOR ──────────────────────────────────────
