@@ -75,6 +75,14 @@
             nixpkgs.overlays = [
               (final: prev: {
                 autoskills = final.callPackage ./pkgs/opencode/autoskills { };
+                # opencode-desktop build thiếu OPENCODE_VERSION (CLI package có),
+                # nên core embedded gửi User-Agent "0.0.0-prod-<builddate>" lên
+                # opencode.ai/zen/v1 => free tier Console báo
+                # "OpenCode 1.18.0 or newer is required to use the free tier".
+                # Đặt OPENCODE_VERSION = version để bake đúng version vào bundle.
+                opencode-desktop = prev.opencode-desktop.overrideAttrs (old: {
+                  env = old.env // { OPENCODE_VERSION = old.version; };
+                });
               })
             ];
           })
