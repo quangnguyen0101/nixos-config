@@ -1,8 +1,6 @@
-{ pkgs, config, inputs, ... }:
+{ pkgs, config, ... }:
 
 let
-  llmAgentPkgs = inputs.llm-agents.packages.${pkgs.system};
-
   # Ponytail (vendored DietrichGebert/ponytail v4.10.0, MIT): lazy senior dev mode.
   # Interpolate CAI CAY (khong phai file le) de giu relative require '../../hooks',
   # '../../skills' cua plugin; Nix copy toan bo dir vao store.
@@ -10,8 +8,8 @@ let
 in
 
 {
-  # Agents tu llm-agents.nix (opencode-desktop, freebuff...) duoc cai trong
-  # modules/home/llm-agents.nix
+  # Agents tu llm-agents.nix (opencode-desktop, freebuff, opencode CLI...)
+  # duoc cai trong modules/home/llm-agents.nix
 
   # Shell strategy instructions + global skills: vender trong repo, home-manager
   # copy ra ~/.config/opencode/ de opencode doc duoc.
@@ -25,8 +23,6 @@ in
 
   programs.opencode = {
     enable = true;
-
-    package = llmAgentPkgs.opencode; # CLI tu numtide/llm-agents.nix
 
     extraPackages = [ pkgs.nixd ]; # LSP server cho .nix (còn lại opencode tự cài)
 

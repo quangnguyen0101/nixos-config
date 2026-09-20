@@ -11,4 +11,7 @@ in
     llmAgentPkgs.opencode-desktop # AI coding agent GUI client
     llmAgentPkgs.freebuff # AI coding agent CLI
   ];
+
+  # OpenCode TUI: dung CLI tu llm-agents.nix (config thuoc ve opencode.nix)
+  programs.opencode.package = llmAgentPkgs.opencode;
 }
