@@ -11,6 +11,11 @@ let
     node_modules = old.node_modules.overrideAttrs (inner: {
       outputHash = "sha256-qWZuOpolZAr7EZlAgfVx8nw8axoOMauoXwcqiJUGu24=";
     });
+
+    # Desktop build cua llm-agents thieu OPENCODE_VERSION (chi set channel=prod)
+    # -> core embedded bake "0.0.0-prod-<builddate>" -> gateway free tier reject
+    # ("OpenCode 1.18.0 or newer is required"). Set version de bake dung.
+    env = old.env // { OPENCODE_VERSION = old.version; };
   });
 in
 
