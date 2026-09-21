@@ -28,6 +28,14 @@ in
     # graphviz, mail merge, pdf fill/extract. Rut gon: bo examples (giu 3 ieee
     # refs), mascot png, tests/, stats/. Pi deps: matplotlib numpy pandas jinja2.
     ".config/opencode/skills/latex-document-skill".source = ./../../pkgs/opencode/skills/latex-document-skill;
+    # Obsidian skills (vendored kepano/obsidian-skills, MIT): 6 skills doc-tooling.
+    # Moi skill self-contained (refs tuong doi trong chinh folder no). Bo .claude-plugin/ va README.
+    ".config/opencode/skills/defuddle".source = ./../../pkgs/opencode/skills/defuddle;
+    ".config/opencode/skills/json-canvas".source = ./../../pkgs/opencode/skills/json-canvas;
+    ".config/opencode/skills/knap".source = ./../../pkgs/opencode/skills/knap;
+    ".config/opencode/skills/obsidian-bases".source = ./../../pkgs/opencode/skills/obsidian-bases;
+    ".config/opencode/skills/obsidian-cli".source = ./../../pkgs/opencode/skills/obsidian-cli;
+    ".config/opencode/skills/obsidian-markdown".source = ./../../pkgs/opencode/skills/obsidian-markdown;
   };
 
   programs.opencode = {
