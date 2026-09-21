@@ -47,12 +47,6 @@
     easyeffects
     pnpm # PM Node.js tổng dụng
     uv # tool Python tổng dụng (uv/uvx)
-    (python314.withPackages (ps: [
-      ps.matplotlib
-      ps.numpy
-      ps.pandas
-      ps.jinja2
-    ])) # deps cho latex-document-skill scripts (chart, csv_to_latex, mail_merge)
     defuddle # HTML->markdown CLI, runtime cho obsidian-skills/defuddle
     chromium
     rclone
