@@ -53,6 +53,7 @@
       ps.pandas
       ps.jinja2
     ])) # deps cho latex-document-skill scripts (chart, csv_to_latex, mail_merge)
+    defuddle # HTML->markdown CLI, runtime cho obsidian-skills/defuddle
     chromium
     rclone
     wpsoffice
