@@ -3,7 +3,7 @@
 let
   # Agents cai tu numtide/llm-agents.nix (auto update daily). Them agent moi
   # vao day de de quan ly, khong tan man trong cac module khac.
-  llmAgentPkgs = inputs.llm-agents.packages.${pkgs.system};
+  llmAgentPkgs = inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system};
 
   # Hash node_modules FOD cua llm-agents dang stale (got != specified).
   # Override bang hash thuc te de build duoc.
