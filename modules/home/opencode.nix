@@ -23,6 +23,11 @@ in
     # horizontal-swipe PPT + image prompts + social covers. Rut gon: bo
     # ppt-skill-showcase.png (demo) va docs/ (unused by SKILL.md).
     ".config/opencode/skills/guizang-ppt-skill".source = ./../../pkgs/opencode/skills/guizang-ppt-skill;
+    # LaTeX documents (vendored ndpvt-web/latex-document-skill, MIT): compile any
+    # LaTeX to PDF + PNG previews, 28 templates + ATS resumes, charts/mermaid/
+    # graphviz, mail merge, pdf fill/extract. Rut gon: bo examples (giu 3 ieee
+    # refs), mascot png, tests/, stats/. Pi deps: matplotlib numpy pandas jinja2.
+    ".config/opencode/skills/latex-document-skill".source = ./../../pkgs/opencode/skills/latex-document-skill;
   };
 
   programs.opencode = {
