@@ -1,283 +1,283 @@
-# Layouts · 风格 B 瑞士国际主义
+# Layouts · Style B Swiss International Style
 
-22 个原始登记版式 · 严格模块化网格 · 每个版式说明用途、骨架、关键类名、专属动效。
+22 registered original layouts · strictly modular grid · each layout documents its purpose, skeleton, key classes, and dedicated motion.
 
-> ⚠️ 这套版式与风格 A(电子杂志/电子墨水)**不通用**。类名同名但语义不同(例如 `h-hero` 在风格 A 是衬线,在风格 B 是无衬线极细 200)。一份 deck 只能选一套。
-
----
-
-## Swiss locked mode(必须先读)
-
-本主题的 golden source 是仓库内的 `assets/template-swiss.html`(由作者本机的原始参考 PPT 派生;原始文件不随仓库分发,`swiss-layout-lock.md` 登记的 S01-S22 即其版式快照)。
-
-生成正文页时不要把 Swiss 当成“自由组合的风格包”。默认只能使用 `references/swiss-layout-lock.md` 登记的 `S01-S22`。每个 slide 都必须在 `<section>` 上写 `data-layout="Sxx"`。
-
-**关键约束**:
-
-- 顶部中文标题默认左对齐并处在左上内容轴;不要把标题放到页面中间。
-- 不允许临时发明原始 22P 之外的正文结构。本文档末尾的 P23/P24 属于历史实验区,默认禁用。
-- 需要单张大图时使用 `S22 Image Hero`;需要多图时用 `S15/S16` 的原始矩阵/小报骨架改造成图片格。
-- 地点、路线、人物住所、城市关系页使用 `S08 + Swiss Map Component`;这仍然是 S08 的右侧插槽扩展,不是新正文页。先读 `swiss-map-component.md`。
-- SVG 只画几何,不写可见文字。标签放 HTML 里。
-- 生成完成后运行 `node scripts/validate-swiss-deck.mjs index.html`。
+> ⚠️ These layouts are **not interchangeable** with Style A (digital magazine / e-ink). Class names are the same but semantics differ (e.g. `h-hero` is serif in Style A, but a weight-200 ultra-thin sans in Style B). A deck must pick exactly one style.
 
 ---
 
-## 设计语言基线
+## Swiss locked mode (must read first)
 
-**配色**(`--accent` 由主题决定,见 `themes-swiss.md`)
-- `--paper` 纸白底 #ffffff(主背景)
-- `--ink` 黑墨字 #0a0a0a(主文字 / Ink 反转块)
-- `--accent` 单色锚点(IKB 蓝默认 / 黄 / 绿 / 橙 四套)
-- `--text-primary / secondary / helper` 三级文字灰阶
-- `--border-subtle` 1px 发丝细线 #e0e0e0
+The golden source of this theme is the repo's `assets/template-swiss.html` (derived from the author's local original reference PPT; the original file is not distributed with the repo, and the S01-S22 registered in `swiss-layout-lock.md` are its layout snapshot).
 
-**排版**
-- 字体:`var(--sans)` Inter / Helvetica Neue + `var(--mono)` JetBrains Mono
-- 字重:**200 (ExtraLight) 大字** / **300 (Light) 正文** / **600 (SemiBold) t-cat 小标**
-- 大标题遵循原始 PPT 的实际页面用法:主标题 `font-weight:200`,重点词/数字 `font-weight:300`;不要因为旧 CSS helper 里残留过 800/900 就把 Swiss 大标题加粗
-- 大字号收紧:`letter-spacing:-.04em` / `line-height:.9`
-- mono 数字:`font-feature-settings:"tnum","ss01"`
+When generating content pages, don't treat Swiss as a "freely mixed style pack". By default you may only use the `S01-S22` registered in `references/swiss-layout-lock.md`. Every slide must write `data-layout="Sxx"` on its `<section>`.
 
-**中文大标题字号分档**
-中文方块字的视觉面积比英文更重,不能直接套英文页的 `6.8vw-7vw`。生成前先按中文标题长度降级:
+**Key constraints**:
 
-| 中文标题形态 | 推荐字号 |
+- The top Chinese title is left-aligned by default on the top-left content axis; don't center the title.
+- It is not allowed to invent body structures beyond the original 22P. P23/P24 at the end of this document are a historical experiment zone, disabled by default.
+- For a single large image use `S22 Image Hero`; for multiple images adapt the original `S15/S16` matrix / patch-sheet skeletons into an image grid.
+- For place, route, residence, city-relationship pages use `S08 + Swiss Map Component`; this is still an extension of S08's right-hand slot, not a new body page. Read `swiss-map-component.md` first.
+- SVG draws geometry only, no visible text. Labels go in the HTML.
+- After generating, run `node scripts/validate-swiss-deck.mjs index.html`.
+
+---
+
+## Design language baseline
+
+**Colors** (`--accent` is decided by the theme, see `themes-swiss.md`)
+- `--paper` paper-white #ffffff (main background)
+- `--ink` ink-black #0a0a0a (main text / ink inverted blocks)
+- `--accent` single-hue anchor (IKB blue default / yellow / green / orange, four sets)
+- `--text-primary / secondary / helper` three-level text grays
+- `--border-subtle` 1px hairline #e0e0e0
+
+**Typography**
+- Fonts: `var(--sans)` Inter / Helvetica Neue + `var(--mono)` JetBrains Mono
+- Weights: **200 (ExtraLight) big type** / **300 (Light) body** / **600 (SemiBold) t-cat small labels**
+- Big titles follow the original PPT's actual page usage: main titles `font-weight:200`, emphasis words/numbers `font-weight:300`; don't embolden Swiss big titles just because an old CSS helper still carries 800/900
+- Big type tightens: `letter-spacing:-.04em` / `line-height:.9`
+- Mono numbers: `font-feature-settings:"tnum","ss01"`
+
+**Chinese big-title size tiers**
+Chinese square glyphs carry more visual weight than English, so don't directly reuse the English page's `6.8vw-7vw`. Before generating, step the size down by Chinese title length:
+
+| Chinese title shape | Recommended size |
 |---|---|
-| 1 行,≤ 8 个中文字符 | `min(6.4vw,11.2vh)` |
-| 2 行,每行≤ 8 个中文字符 | `min(5.8vw,10.2vh)` |
-| 2 行,任一行 9-12 个中文字符 | `min(5.2vw,9.2vh)` |
-| 3 行或更长标题 | 改写标题;实在不能改时用 `min(4.6vw,8.2vh)` |
+| 1 line, ≤ 8 Chinese characters | `min(6.4vw,11.2vh)` |
+| 2 lines, each ≤ 8 Chinese characters | `min(5.8vw,10.2vh)` |
+| 2 lines, any line 9-12 Chinese characters | `min(5.2vw,9.2vh)` |
+| 3 lines or longer title | Rewrite the title; if truly impossible use `min(4.6vw,8.2vh)` |
 
-规则:中文标题优先改短,其次降字号;不要让标题挤占下方图文区域。英文、数字型 hero 可以更大,中文方法论页必须更克制。
+Rule: shorten the Chinese title first, then lower the size; don't let the title crowd out the image/text area below. English/number heroes can be bigger; Chinese methodology pages must be more restrained.
 
-**演示最小字号与字重阶梯**
-瑞士风不是网页说明页,投屏时不能出现 10-12px 的注释字。默认下限:
+**Minimum presentation size and the weight ladder**
+Swiss is not a web spec page — no 10-12px annotation text when projected. Default floors:
 
-| 文本类型 | 最小字号 |
+| Text type | Minimum size |
 |---|---|
-| 正文段落 / 主要说明 | `18px` |
-| 卡片描述 / 列表 / 时间线说明 / caption / 图注 | `16px` |
-| meta / kicker / mono label / 图表标签 | `14px` |
+| Body paragraphs / main notes | `18px` |
+| Card descriptions / lists / timeline notes / captions / figure notes | `16px` |
+| meta / kicker / mono label / chart labels | `14px` |
 
-内容过多时,先压缩文案、拆页或更换 Sxx 版式;禁止靠降低小字字号解决拥挤。图注、时间线说明、KPI 注释、底部 note 尤其要守住这个下限。
+When there's too much content, trim copy, split pages, or switch Sxx layouts first; shrinking small text to fit is forbidden. Figure notes, timeline notes, KPI annotations, and bottom notes must especially hold this floor.
 
-**字号与字重阶梯(瑞士风核心)** — "越大越细,越小越粗"不是感性描述:
+**Size-to-weight ladder (Swiss core)** — "bigger is thinner, smaller is heavier" is not a feeling, it's a rule:
 
-| 字号区间 | 推荐字重 | 典型场景 |
+| Size range | Recommended weight | Typical use |
 |---|---|---|
-| ≥ 8vw | 200 (ExtraLight) | 封面大字、巨号 KPI、h-statement |
-| 4-7.9vw | 200-300 | 章节标题(h-xl/h-xl-zh)、大编号 |
-| 1.8-3.9vw | 300-400 | 中型标题、takeaway 标题(≈1.8vw)、中号数字 |
-| 1-1.7vw / 16-20px | 400-500 | 正文段落、卡片描述、说明文字 |
-| 13-15px(小字) | 500-600 | meta、kicker、角标、图表标签、caption 强调 |
+| ≥ 8vw | 200 (ExtraLight) | cover big type, mega KPI, h-statement |
+| 4-7.9vw | 200-300 | section titles (h-xl/h-xl-zh), big indexes |
+| 1.8-3.9vw | 300-400 | mid titles, takeaway titles (≈1.8vw), mid numbers |
+| 1-1.7vw / 16-20px | 400-500 | body paragraphs, card descriptions, notes |
+| 13-15px (small) | 500-600 | meta, kicker, corner badges, chart labels, caption emphasis |
 
-**硬规则:**
-- 同一页内,字号越小的元素字重必须 ≥ 字号越大的元素(不允许 16px 正文用 300 而 1.8vw 标题用 500)
-- 16px 左右的小字拒绝使用 weight 300(太细不可读),最低 400,推荐 500
-- 封面/IKB 反白大标题内强调字用 `italic + weight 300`,不要用 accent 色(蓝压蓝看不见)
+**Hard rules:**
+- Within one page, a smaller element's weight must be ≥ a larger element's weight (16px body at 300 while a 1.8vw title sits at 500 is not allowed)
+- 16px-ish small text refuses weight 300 (too thin to read); floor 400, recommend 500
+- Emphasis words inside a cover/IKB inverted big title use `italic + weight 300`, not the accent color (blue on blue is invisible)
 
-**网格**(IBM Carbon 2x Grid 改造)
-- 16 列 grid:`grid-template-columns:repeat(16,1fr)` + `gap:16px`
-- spacing token:`--sp-3` 8 / `--sp-4` 12 / `--sp-5` 16 / `--sp-6` 24 / `--sp-7` 32 / `--sp-8` 40 / `--sp-9` 48 / `--sp-10` 64 / `--sp-11` 80 / `--sp-12` 96 / `--sp-13` 160
+**Grid** (IBM Carbon 2x Grid adapted)
+- 16-column grid: `grid-template-columns:repeat(16,1fr)` + `gap:16px`
+- Spacing tokens: `--sp-3` 8 / `--sp-4` 12 / `--sp-5` 16 / `--sp-6` 24 / `--sp-7` 32 / `--sp-8` 40 / `--sp-9` 48 / `--sp-10` 64 / `--sp-11` 80 / `--sp-12` 96 / `--sp-13` 160
 
-**画布**
-- `.canvas-card`:`100vw × 100vh`,直角无圆角,padding `5.6vh 5vw 4.4vh`
-- `body{background:var(--paper)}` — 不用 WebGL 背景
-- 必须保留右下角 `B 静态` 快捷键。低功耗模式使用 `body.low-power`,停止 WebGL/ASCII canvas RAF 与 Motion 入场动画,刷新后通过 `localStorage` 保持用户选择。
+**Canvas**
+- `.canvas-card`: `100vw × 100vh`, right angles no radius, padding `5.6vh 5vw 4.4vh`
+- `body{background:var(--paper)}` — no WebGL background
+- Keep the bottom-right `B static` shortcut. Low-power mode uses `body.low-power`, stops the WebGL/ASCII canvas RAF and Motion entrance animations, and keeps the user's choice across refreshes via `localStorage`.
 
 ---
 
-### P0 对齐法则(每生成一页都先过这 4 条,违反 = 整页报废)
+### P0 alignment laws (run these 4 before generating every page; violating one = the page is trash)
 
-**1. 不要二次叠加水平 padding** ⚠️ 最常踩
-`.canvas-card` 已自带 `padding:5.6vh 5vw 4.4vh`。
-chrome-min(页眉)、主体内容、底部 footnote 都是 canvas-card 的子元素,**共用同一条 5vw 边线**。
-如果在主体那层再写 `padding:5vh 5vw 4vh`,水平方向就变成 `5vw + 5vw = 10vw`,主体比 chrome-min 多内缩一圈,左右对不齐。
+**1. Don't stack horizontal padding twice** ⚠️ most commonly hit
+`.canvas-card` already carries `padding:5.6vh 5vw 4.4vh`.
+chrome-min (header), body content, and the bottom footnote are all children of canvas-card, **sharing the same 5vw edge line**.
+If you write `padding:5vh 5vw 4vh` on the body layer again, the horizontal becomes `5vw + 5vw = 10vw`, the body indents a whole ring more than chrome-min, and left/right misalign.
 
 ```html
-<!-- ❌ 错:主体多缩了 5vw -->
+<!-- ❌ Wrong: body indents 5vw more -->
 <div class="canvas-card">
   <div class="chrome-min">...</div>
-  <div style="flex:1;padding:5vh 5vw 4vh;...">主体内容</div>
+  <div style="flex:1;padding:5vh 5vw 4vh;...">body content</div>
 </div>
 
-<!-- ✅ 对:主体 padding 为 0,只用 grid gap 控垂直间距 -->
+<!-- ✅ Right: body padding 0, vertical spacing via grid gap only -->
 <div class="canvas-card">
   <div class="chrome-min">...</div>
-  <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr auto;gap:3vh">主体内容</div>
+  <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr auto;gap:3vh">body content</div>
 </div>
 ```
 
-例外:`.slide.split .canvas-card{padding:0}` 已被 CSS 覆盖,split 模式下两个 `.half` 自己控制 padding(常用 `5.6vh 3.6vw 4.4vh`),与本法则不冲突。
+Exception: `.slide.split .canvas-card{padding:0}` is already overridden in CSS; in split mode the two `.half` control their own padding (commonly `5.6vh 3.6vw 4.4vh`), which does not conflict with this law.
 
-**2. kicker 必须在大标题"上方",不要压成左右**
-小标题(`.t-meta` / `.t-cat`)与大标题之间是从属关系,版式上必须**上下结构**。
+**2. The kicker must sit "above" the big title, not pressed side-by-side**
+The small label (`.t-meta` / `.t-cat`) subordinates the big title, so the layout must be **stacked vertically**.
 
 ```html
-<!-- ❌ 错:auto 1fr 把 kicker 和大标题挤成左右两列 -->
+<!-- ❌ Wrong: auto 1fr squeezes kicker and big title into two columns -->
 <div data-anim="head" style="display:grid;grid-template-columns:auto 1fr;gap:3vw;align-items:end">
   <div class="t-meta">METHODOLOGY · 03</div>
-  <h2 class="h-xl-zh">为什么是 N+1</h2>
+  <h2 class="h-xl-zh">Why N+1</h2>
 </div>
 
-<!-- ✅ 对:flex column 上下叠 -->
+<!-- ✅ Right: flex column stacks them -->
 <div data-anim="head" style="display:flex;flex-direction:column;gap:1.4vh">
   <div class="t-meta">METHODOLOGY · 03</div>
-  <h2 class="h-xl-zh">为什么是 N+1</h2>
+  <h2 class="h-xl-zh">Why N+1</h2>
 </div>
 ```
 
-**3. 双约束限高 `min(Xvw, Yvh)` 中 Y ≥ X × 1.6**
-标准 16:9 屏 1vw : 1vh ≈ 1.78,如果 Y 太严(例如 `min(7vw, 10vh)`),大字号会被高度上限截断到 10vh,不再受 7vw 主导,显得整体缩小。
-经验数值:
+**3. Dual-constraint height cap: in `min(Xvw, Yvh)`, Y ≥ X × 1.6**
+On a standard 16:9 screen 1vw : 1vh ≈ 1.78; if Y is too strict (e.g. `min(7vw, 10vh)`), the big type gets clipped by the height cap to 10vh, no longer driven by 7vw, and looks overall smaller.
+Experience values:
 
-| 用途 | 推荐 |
+| Use | Recommended |
 |---|---|
-| h-hero 巨字宣言 | `min(11.6vw, 19vh)` |
-| h-xl 章节标题 | `min(7vw, 12vh)` ~ `min(7.4vw, 13vh)` |
-| 大数字 KPI | `min(8.4vw, 14vh)` |
-| 中数字 / 编号 | `min(4.6vw, 8.5vh)` ~ `min(5.6vw, 10vh)` |
+| h-hero mega statement | `min(11.6vw, 19vh)` |
+| h-xl section title | `min(7vw, 12vh)` ~ `min(7.4vw, 13vh)` |
+| big number KPI | `min(8.4vw, 14vh)` |
+| mid numbers / indexes | `min(4.6vw, 8.5vh)` ~ `min(5.6vw, 10vh)` |
 
-**4. canvas-card 子元素之间用 grid `gap`,不要靠 margin/padding 堆**
-`.canvas-card` 默认 `display:flex;flex-direction:column`,chrome-min 自带 `margin-bottom:48px`(`--sp-9`)。
-主体区往下排几行(head / 内容 / footnote),**首选** `display:grid;grid-template-rows:...;gap:Nvh`,**次选** flex column + gap,**禁用** 在每个子块里加 `margin-top` / `padding-top` 调间距(会和 chrome-min 的 margin-bottom 重叠或撕裂)。
+**4. Between canvas-card children use grid `gap`, don't stack margins/paddings**
+`.canvas-card` is `display:flex;flex-direction:column` by default, and chrome-min carries `margin-bottom:48px` (`--sp-9`).
+For rows below the header (head / content / footnote), **prefer** `display:grid;grid-template-rows:...;gap:Nvh`, **next** a flex column + gap, **forbidden** to tune spacing by adding `margin-top` / `padding-top` in each child block (it overlaps or tears chrome-min's margin-bottom).
 
-**5. 底部分页安全区:主内容最低处不要触及 nav**
-底部分页 dot 固定在 `bottom:2vh`,视觉上占据约 `93vh` 之后的区域。主内容、图片 caption、图表说明、timeline label 的最低处必须停在安全区上方。
+**5. Bottom pager safe zone: the lowest edge of main content must not touch nav**
+The bottom pager dots are fixed at `bottom:2vh`, visually occupying everything after about `93vh`. The lowest edge of main content, image captions, chart notes, and timeline labels must stop above the safe zone.
 
-- 模板提供 `--nav-safe-bottom:8vh`,可用 `.nav-safe-bottom` / `.nav-safe-bottom-tight`
-- P23 使用 `.swiss-img-split.align-image-bottom` 时,模板会自动给底部加安全区,避免图片 caption 被分页组件挡住
-- 如果为某页手写 `align-items:end` / `margin-top:auto` / `position:absolute;bottom:...`,必须肉眼检查最低处是否越过 nav
-- 视觉自检:打开页面到该页,确认内容最低边缘与分页 dot 之间至少有 `3vh` 呼吸空间
+- The template provides `--nav-safe-bottom:8vh`, usable via `.nav-safe-bottom` / `.nav-safe-bottom-tight`
+- When P23 uses `.swiss-img-split.align-image-bottom`, the template automatically adds a bottom safe zone so the image caption is not covered by the pager
+- If you hand-write `align-items:end` / `margin-top:auto` / `position:absolute;bottom:...` on a page, you must eyeball whether the lowest edge crosses the nav
+- Visual self-check: open the page, confirm at least `3vh` breathing room between the lowest content edge and the pager dots
 
 ---
 
-**卡片填充规则(必须遵守)**
-| 类型 | 类名 | 角色 | 用法 |
+**Card fill rules (must comply)**
+| Type | Class | Role | Usage |
 |---|---|---|---|
-| Ink 黑底 | `.card-ink` | 反转 / 宣言 | hero 块、收束页一半 |
-| Accent 蓝填充 | `.card-accent` | 唯一焦点 | 一组中突出一项 |
-| Grey 灰底 | `.card-fill` | 默认中性 | 多卡并列、统计卡 |
-| Outlined 描边 | `.card-outlined` | 锚点(非卡片) | hairline 分割框 |
+| Ink black fill | `.card-ink` | inverted / manifesto | hero blocks, one half of a closing page |
+| Accent blue fill | `.card-accent` | single focal point | highlight one item in a group |
+| Grey fill | `.card-fill` | default neutral | parallel multi-cards, stat cards |
+| Outlined | `.card-outlined` | anchor (non-card) | hairline divider frame |
 
-❌ 禁止混用(蓝色背景+蓝色描边、灰底+描边等)
+❌ Mixing fills is forbidden (blue bg + blue outline, grey bg + outline, etc.)
 
-**装饰极简原则**
-- 1px hairline 分隔(`hr-hairline` / `border-bottom`)
-- 8×8 / 12×12 直角小方块替代圆点
-- 点阵 `dot-mat` / 描边圆 `ring-mat` / 叉 `cross-mat`(SVG mask)
+**Decoration minimalism**
+- 1px hairline dividers (`hr-hairline` / `border-bottom`)
+- 8×8 / 12×12 right-angle squares replace dots
+- Dot matrix `dot-mat` / ring `ring-mat` / cross `cross-mat` (SVG masks)
 
-**图片使用原则(Swiss + GPT-M 2.0)**
-- 图片是网格中的"证据块",不是装饰背景;必须有明确功能:案例、实拍证据、UI 截图、系统图、概念信息图
-- 所有图片容器保持直角、无阴影、无圆角;默认**不加图片外框**,让 caption 或页面网格承担层级
-- 白底信息图 / 流程图 / UI 图:容器背景必须是 `var(--paper)`,不要用灰底包白图,也不要加 `.swiss-keyline` 描边
-- 只有当图片本身边缘无法和页面区分时,才用 `.swiss-lined` 加一条顶部 accent 线;不要给每张图都套边框
-- 纪实照片用 `object-fit:cover` 只裁底部/边缘;原始截图或文字密集图用 `.fit-contain`,避免文字被裁
-- 如果信息图、流程图、UI 情景图是按 S15/S16 槽位重新生成的,必须用 `.frame-img.r-21x9` / `.frame-img.r-16x10` 铺满槽位;不要再加 `.fit-contain`,否则会变成小图漂在白框里
-- 瑞士风图片优先比例:S22 顶部横幅 `21:9`;S15/S16 多图格统一 `21:9` 或统一 `16:10`
-- 生成 2-3 张配图时,必须先绑定原始版式槽位:单张大图 = S22;多图 = S15/S16 网格改造;不要使用未登记的 P23/P24
-- S22 的照片主体必须位于中央安全区,HTML 用 `object-position:center 35%` 或 `center center`,不要用 `top center` 截人脸
-- GPT-M 2.0 生成图必须遵守单一 accent 色、Helvetica/Inter 气质、12/16 列网格、直角纯色、无渐变/阴影/圆角
-- 生成图只保留核心图像本身,不要把页眉、页脚、标题、页码、角标、边框、署名画进图片里
+**Image principles (Swiss + GPT-M 2.0)**
+- An image is an "evidence block" in the grid, not a decorative background; it must have a clear function: case, documentary evidence, UI screenshot, system diagram, conceptual infographic
+- All image containers stay right-angled, no shadows, no radius; by default **no image frame**, let captions or the page grid carry hierarchy
+- White-background infographics / flowcharts / UI shots: the container background must be `var(--paper)`, don't wrap a white image in grey, and don't add a `.swiss-keyline` outline
+- Only when the image's own edge can't be told apart from the page do you use `.swiss-lined` for a single top accent line; don't frame every image
+- Documentary photos use `object-fit:cover` cropping bottom/edges only; raw screenshots or text-dense images use `.fit-contain` so text isn't cut
+- If an infographic, flowchart, or UI shot is regenerated for an S15/S16 slot, it must fill the slot with `.frame-img.r-21x9` / `.frame-img.r-16x10`; don't add `.fit-contain` or it becomes a small image floating in a white box
+- Preferred Swiss image ratios: S22 top banner `21:9`; S15/S16 multi-image grids uniformly `21:9` or uniformly `16:10`
+- When generating 2-3 images, first bind the original layout slots: single large image = S22; multiple = S15/S16 grid adaptation; don't use the unregistered P23/P24
+- S22 photo subjects must sit in the central safe zone; in HTML use `object-position:center 35%` or `center center`, never `top center` beheading people
+- GPT-M 2.0 generations must obey a single accent color, Helvetica/Inter character, 12/16-column grid, right-angle flat color, no gradient/shadow/radius
+- Generations keep only the core graphic itself; never paint headers, footers, titles, page numbers, corner badges, borders, or signatures into the image
 
-**版式多样性硬规则**
-Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要把所有内容都做成 `head + grid-reveal + card`:
+**Layout-diversity hard rule**
+The Swiss theme has 22 registered layouts; generating should actively show the layout system, not turn everything into `head + grid-reveal + card`:
 
-- 7-8 页 deck 至少使用 **6 个不同 S 编号版式**
-- 不允许连续 3 页使用同一种主体结构(如三页连续 S19 / 普通卡片)
-- 如果是"测试模板"或"我想看看效果",必须覆盖:封面、收尾、至少 1 个对比/时间线(S08/S11/S02)、至少 1 个结构图(S14/S17/S15)、至少 1 个图片版式(S22 或 S15/S16 图片格)
-- 图片页不等于新发明一页。单图用 S22,多图用 S15/S16 的原始网格骨架改造
-- 每页写代码前先列 `页码 → data-layout → 为什么选它 → 图片槽位`;生成后用 validator 检查
+- A 7-8 page deck uses at least **6 different S-numbered layouts**
+- No 3 consecutive pages with the same body structure (e.g. three S19 in a row / plain cards)
+- If it's a "template test" or "I want to see the result", it must cover: a cover, a closing, at least 1 compare/timeline (S08/S11/S02), at least 1 structure diagram (S14/S17/S15), at least 1 image layout (S22 or an S15/S16 image grid)
+- An image page is not a freshly invented page. Single image → S22, multiple → S15/S16's original grid skeleton adapted
+- Before writing code for each page, list `page number → data-layout → why this one → image slot`; check with the validator after generating
 
-**动效原则(每页一个语义化 recipe)**
-- 不是统一 fade-up,而是**与图形语义耦合**:数字 scale 弹入、bar scaleY 拉起、SVG 圆环 stroke-dashoffset 描线、时间线节点序列点亮
-- 缓动:`EASE_PROD` `cubic-bezier(.2,0,.38,.9)` 用于 productive(120-240ms)、`EASE_ENTRY` `cubic-bezier(0,0,.3,1)` 用于 expressive(400-700ms)
-- playSlide 入口要 reveal 所有 `[data-anim]` 容器到 opacity:1,recipe 内再用 motion `{opacity:[0,1]}` 覆盖
+**Motion principles (one semantic recipe per page)**
+- Not a uniform fade-up but **coupled to the graphic's meaning**: numbers scale-pop in, bars scaleY raise, SVG rings stroke-dashoffset draw, timeline nodes light up in sequence
+- Easing: `EASE_PROD` `cubic-bezier(.2,0,.38,.9)` for productive (120-240ms), `EASE_ENTRY` `cubic-bezier(0,0,.3,1)` for expressive (400-700ms)
+- The playSlide entry must reveal all `[data-anim]` containers to opacity:1; inside a recipe use motion `{opacity:[0,1]}` to overdrive
 
 ---
 
-## 视觉 + 代码双维审核(生成后必须做)
+## Visual + code dual review (mandatory after generating)
 
-不要只看 HTML/CSS。Swiss 模板的还原度要同时从**浏览器视觉**和**代码结构**判断:
+Don't only read HTML/CSS. The Swiss template's fidelity has to be judged from **browser visuals** and **code structure** together:
 
-1. 同时打开两份页面:当前 `template-swiss.html`(golden source 快照)和正在修改的测试 PPT;有条件时再加一份此前验收过的成品 deck 作对照。
-2. 截图前先等入场动效稳定(约 1-2 秒)。不要把动画中间态误判成"内容缺失"或"版式空白"。
-3. 先看视觉:标题重量、头部距离、图片落位、底部安全区、caption 是否被 nav 挡住。
-4. 对照原始参考 PPT 的同类版式,不要只对照 CSS helper;以实际页面结构和视觉结果为准。
-5. 再回到代码,检查该页是否误用了不属于该版式的组件,例如把 P24 的三图证据墙塞进 P23,或把 P7 图表用于没有真实数值的概念列表。
-6. 若视觉不一致,优先判断是**版式选择错**、**必选组件缺失**、**可选组件滥用**还是**间距/安全区问题**,不要直接靠调 `margin` 硬救。
-7. 修改模板时,新增能力必须用新类隔离;不要因为一页出问题去改全局基座类。
+1. Open two pages side by side: the current `template-swiss.html` (golden-source snapshot) and the test PPT being edited; add a previously accepted finished deck as a third comparison if available.
+2. Wait for entrance animations to settle (about 1-2s) before screenshotting. Don't mistake an animation intermediate state for "missing content" or "empty layout".
+3. Look at visuals first: title weight, header distance, image placement, bottom safe zone, whether a caption is covered by the nav.
+4. Compare against the original reference PPT's same layout types, not just the CSS helpers; judge by the actual page structure and visual result.
+5. Then return to code and check whether a page misuses components that don't belong to its layout — e.g. jamming P24's three-image evidence wall into P23, or using a P7 chart for a concept list with no real values.
+6. On a visual mismatch, first decide whether it's **wrong layout choice**, **missing required component**, **abused optional component**, or **spacing/safe-zone problem**; don't try to brute-force it with `margin`.
+7. When editing the template, isolate new capabilities in new classes; never change a global base class because one page has a problem.
 
-### 原始 PPT 视觉锚点(对照时优先看这些)
+### Original PPT visual anchors (check these first when comparing)
 
-| 视觉锚点 | 原始 PPT 的实际做法 | 生成时的规则 |
+| Visual anchor | What the original PPT actually does | Rule when generating |
 |---|---|---|
-| 大标题重量 | 实际页面大量使用 `font-weight:200/300`;即使 raw CSS helper 里有 700/800/900,也不能直接当视觉标准 | 大标题保持轻字重,字号越大越细 |
-| 留白 | 页面经常只占上半屏或中部,底部留给 nav 和少量 footnote | 不要为了"填满"而把内容推到底 |
-| 分割线 | 只在章节边界、证据墙、卡片层级处使用 1px hairline | 不要给每个内容块都加线 |
-| 标题与内容 | 标题区和正文/图表之间有明显空气感 | 复杂页用 grid `gap`,不要让内容贴着标题 |
-| Timeline | 轴线在中下部,但 label 不碰底部 nav | 横向 timeline 必须同时检查上下 label 和 nav 安全区 |
-| 图片页 | 图片是证据块,要么做 S22 主视觉,要么放进 S15/S16 原始网格 | 不要使用未登记图文结构 |
+| Big-title weight | Real pages widely use `font-weight:200/300`; even if a raw CSS helper has 700/800/900, that's not a visual standard | Big titles stay light; the larger, the thinner |
+| Whitespace | Pages often fill only the upper half or middle; the bottom is left to nav and a little footnote | Don't push content to the bottom just to "fill" it |
+| Dividers | 1px hairlines only at section boundaries, evidence walls, card tiers | Don't give every content block a line |
+| Title vs content | Clear air between the title area and body/charts | Dense pages use grid `gap`; don't let content touch the title |
+| Timeline | Axis in the middle-lower area, but labels don't touch the bottom nav | A horizontal timeline must check both the upper/lower labels and the nav safe zone |
+| Image pages | Images are evidence blocks: either S22 hero visual or the original S15/S16 grid | Don't use unregistered image-text structures |
 
-### 组件必选 / 可选 / 可省略
+### Components required / optional / omittable
 
-| 组件 | 规则 |
+| Component | Rule |
 |---|---|
-| `.canvas-card` / `.chrome-min` | 基础页必选;split 页左右 half 各自有 chrome-min |
-| `t-meta` / `t-cat` kicker | head 区必选,但正文卡片内可省略;必须在大标题上方 |
-| 大标题 | 章节/论点页必选;列表型小卡页可以用较小标题,但不能缺页级信息锚点 |
-| `lead` 说明 | 可选;如果标题已经解释清楚,可以省略,但不能用长段正文贴着标题 |
-| 图片 caption | S15/S16 多图格必选;S22 大图可选,因为图已经是主视觉且下方有 KPI/说明 |
-| 发丝线 / border-bottom | 可选;只能用于建立层级,不能为了装饰堆线 |
-| KPI / 数字 | 只在有真实数据时使用;不要为概念解释编造数值 |
-| `footnote` / 底部说明 | 可选;如果使用,必须避开 nav 安全区 |
-| `S08 + Swiss Map Component` | 地点/路线/人物住所关系专用;右侧地图必须有点、连线、卡片和 `+` / `-` / `DRAG` 控制,详见 `swiss-map-component.md` |
+| `.canvas-card` / `.chrome-min` | required on base pages; in split pages each half has its own chrome-min |
+| `t-meta` / `t-cat` kicker | required in the head area, but omittable inside body cards; must sit above the big title |
+| Big title | required on section/argument pages; list-style small-card pages may use a smaller title, but can't lack the page-level information anchor |
+| `lead` intro | optional; if the title already explains itself it can be omitted, but don't glue long body text to the title |
+| Image caption | required on S15/S16 multi-image grids; optional on S22 because the image is already the hero and has KPIs/notes below |
+| Hairline / border-bottom | optional; only for building hierarchy, never stacked lines for decoration |
+| KPI / numbers | only with real data; never invent values to explain a concept |
+| `footnote` / bottom note | optional; if used, must stay out of the nav safe zone |
+| `S08 + Swiss Map Component` | reserved for place/route/residence relationships; the right-side map must have dots, connections, cards, and `+` / `-` / `DRAG` controls, see `swiss-map-component.md` |
 
-### 通用版式 / 非通用版式
+### Universal / non-universal layouts
 
-| 类型 | 版式 | 使用边界 |
+| Type | Layouts | Usage boundary |
 |---|---|---|
-| 通用 | S01, S03, S08, S09, S10, S11, S19 | 大多数叙事 deck 都能用,但仍要满足内容形状 |
-| 条件通用 | S04, S05, S13, S16 | 取决于数量是否刚好匹配:3/4/6 项 |
-| 数据专用 | S02, S06, S07, S18, S20, S21, S22 | 必须有真实时间、数值、指标或案例数据 |
-| 结构专用 | S14, S15, S17 | 必须有闭环、矩阵、层级/生态关系;不适合普通段落 |
+| Universal | S01, S03, S08, S09, S10, S11, S19 | work for most narrative decks, but still must satisfy the content shape |
+| Conditionally universal | S04, S05, S13, S16 | depend on whether the count matches exactly: 3/4/6 items |
+| Data-specific | S02, S06, S07, S18, S20, S21, S22 | must have real time, values, metrics, or case data |
+| Structure-specific | S14, S15, S17 | must have a loop, matrix, tier/ecosystem relationship; not for plain paragraphs |
 
 ---
 
-## 22 个登记版式
+## The 22 registered layouts
 
-### P1 · Cover · 封面页
+### P1 · Cover
 
-**用途**:整套 deck 起手 / 主题宣言。
-**适用内容类型**:封面 / 章节首页 / 主题宣言。**纯文字结构**(主标题 + 副标 + 元信息),不承载数据。
+**Purpose**: deck opener / theme manifesto.
+**Suitable content**: cover / chapter home / theme manifesto. **A pure text structure** (main title + subtitle + meta), carries no data.
 
-**默认推荐:IKB 满屏 + ASCII 呼吸场** ⭐
-- `<section class="slide accent">` 满屏 IKB,**不是** light 白底
-- `.canvas-card` 内首位插入 `<canvas class="ascii-bg" aria-hidden="true">`,模板底部 IIFE 自动驱动 sin/cos 二维噪声呼吸场
-- 主标题反白 weight 200,微强调字用斜体(`font-style:italic;font-weight:300`)而非 IKB 蓝(底已是蓝、蓝压蓝看不见)
-- **不要**再放编号大字"01"——chrome-min 已经标 01/NN
-- 与 P9 Closing 的 IKB 半屏配合形成"开场全 IKB ↔ 收尾半 IKB"色彩闭环
+**Default recommendation: fullscreen IKB + ASCII breathing field** ⭐
+- `<section class="slide accent">` fullscreen IKB, **not** a light white background
+- Insert `<canvas class="ascii-bg" aria-hidden="true">` as the first child inside `.canvas-card`; the template's bottom IIFE drives the sin/cos 2D-noise breathing field automatically
+- Main title inverted white weight 200; the subtle emphasis uses italics (`font-style:italic;font-weight:300`) instead of IKB blue (the background is already blue; blue on blue is invisible)
+- **Don't** put in a giant "01" number — chrome-min already shows 01/NN
+- Pairs with P9 Closing's half-IKB screen for the "open full IKB ↔ close half IKB" color loop
 
-**关键类**:`.slide.accent` `.ascii-bg` + `min(11.6vw,19vh)` 双约束大字
-**动效 recipe**:`hero` — ASCII 字符场持续呼吸,文字 fade-up 序列入场
+**Key classes**: `.slide.accent` `.ascii-bg` + `min(11.6vw,19vh)` dual-constraint big type
+**Motion recipe**: `hero` — ASCII character field breathes continuously, text fades up in sequence
 
-**示例代码(IKB 默认变体)**:
+**Example code (IKB default variant)**:
 ```html
 <section class="slide accent" data-animate="hero">
   <div class="canvas-card">
     <canvas class="ascii-bg" aria-hidden="true"></canvas>
     <div class="chrome-min">
-      <div class="l">[必填] Deck 标题 · Issue/Field Note 编号</div>
+      <div class="l">[required] Deck title · Issue/Field Note No.</div>
       <div class="r">SS · 26.05.10 · 01 / NN</div>
     </div>
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr auto;gap:2.6vh">
-      <div data-anim="kicker" class="t-meta" style="color:rgba(255,255,255,.78);letter-spacing:.22em">[必填] 章节英文 / Section En</div>
-      <h1 data-anim="title" style="align-self:center;font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(11.6vw,19vh);line-height:.94;letter-spacing:-.025em;color:#fff">[必填] 中文主标题<br/>(可在某字加 <span style="font-style:italic;font-weight:300">italic</span> 微强调)</h1>
+      <div data-anim="kicker" class="t-meta" style="color:rgba(255,255,255,.78);letter-spacing:.22em">[required] Section En</div>
+      <h1 data-anim="title" style="align-self:center;font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(11.6vw,19vh);line-height:.94;letter-spacing:-.025em;color:#fff">[required] Main title<br/>(add a subtle <span style="font-style:italic;font-weight:300">italic</span> emphasis on one character)</h1>
       <div data-anim="bottom" style="display:grid;grid-template-rows:auto auto;gap:1.6vh;border-top:1px solid rgba(255,255,255,.22);padding-top:2vh">
-        <div data-anim="lead" class="lead" style="max-width:52ch;color:rgba(255,255,255,.86);font-weight:300">[必填] 一段 1-2 行的副标 / 引子,定调全场.</div>
+        <div data-anim="lead" class="lead" style="max-width:52ch;color:rgba(255,255,255,.86);font-weight:300">[required] A 1-2 line subtitle / hook setting the tone.</div>
         <div style="display:flex;justify-content:space-between;align-items:end">
-          <div class="t-meta" style="color:rgba(255,255,255,.6)">[选填] 作者 · 日期 · 出处</div>
+          <div class="t-meta" style="color:rgba(255,255,255,.6)">[optional] Author · Date · Source</div>
           <div class="t-meta" style="color:rgba(255,255,255,.6)">→ swipe / arrow keys</div>
         </div>
       </div>
@@ -286,7 +286,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 </section>
 ```
 
-**经典变体(左 ink + 右 paper 对开)** — 仅当全 IKB 不合内容调性时使用:
+**Classic variant (left ink + right paper spread)** — only when full IKB doesn't fit the content's tone:
 ```html
 <section class="slide" data-animate="cover-reveal">
   <div class="canvas-card cover-split">
@@ -296,7 +296,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
       <span class="t-meta">— Kevin · 2026-05</span>
     </div>
     <div class="cover-paper">
-      <p class="lead">薄型承载层,厚重技能。</p>
+      <p class="lead">A thin harness, fat skills.</p>
       <ul class="meta-list">
         <li>22 PAGES</li><li>SWISS · IKB</li><li>MP-75</li>
       </ul>
@@ -307,15 +307,15 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P2 · Vertical Timeline · 纵向时间轴
+### P2 · Vertical Timeline
 
-**用途**:演化对比、年代变迁、版本迭代(2-5 个时间节点)。
-**适用内容类型**:**带量化数据的时间演化**。每节点必须有「年份 + 量化数值(如 1× / 4× 倍数 / 单位数字)+ 描述」三件套。如果只有节点名没有数据,改用 P11 横向时间线。
-**骨架**:左侧 axis 列 12px 圆点 + 1px 虚线轴 / 右侧节点信息(年份 + 大字数据 + 小标 + 描述)。
-**关键类**:`.timeline-v` `.tl-node` `.tl-axis`(12px 固定列宽,绝对定位 dot 防错位) `.kpi-row-4`
-**动效 recipe**:`timeline-vertical` — 节点按时间顺序由上到下点亮(dot 先 pop 再扩 → 文字横向滑入)
-**网格规则**:axis 列 = 12px 固定;dot 用 `position:absolute;left:50%;transform:translateX(-50%)` 与虚线对齐
-**示例代码**:
+**Purpose**: evolution comparison, eras/change across time, version history (2-5 time points).
+**Suitable content**: **time evolution with quantitative data**. Each node must carry the triad of "year + quantitative value (e.g. 1× / 4× multiplier / a unit number) + description". If a node only has a name and no data, use P11 horizontal timeline instead.
+**Skeleton**: left axis column of 12px dots + a 1px dashed axis / right node info (year + large data number + small label + description).
+**Key classes**: `.timeline-v` `.tl-node` `.tl-axis` (12px fixed column width, absolutely-positioned dot to prevent misalignment) `.kpi-row-4`
+**Motion recipe**: `timeline-vertical` — nodes light up top to bottom in time order (dot pops first then expands → text slides in horizontally)
+**Grid rules**: axis column = fixed 12px; dot uses `position:absolute;left:50%;transform:translateX(-50%)` to align with the dashed axis
+**Example code**:
 ```html
 <section class="slide" data-animate="timeline-vertical">
   <div class="canvas-card">
@@ -329,7 +329,7 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
           <p class="desc">Prompt Engineering Era</p>
         </div>
       </div>
-      <!-- 重复 N 个 tl-node,axis 列贯穿 -->
+      <!-- repeat N tl-nodes; the axis column runs through -->
     </div>
   </div>
 </section>
@@ -337,14 +337,14 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P3 · Statement · 极简陈述
+### P3 · Statement
 
-**用途**:中心论点、章节起始、口号。一页只放一句话 + 简单装饰。
-**适用内容类型**:**纯定性论断 / 口号 / 章节切换**。一句话压缩到 8-12 词,**不承载任何数据或列表**。如果需要数据支撑,改用 P18 Why Now;如果是封面,用 P1。
-**骨架**:左 1/3 空白 + 中段巨字陈述(8-10vw, weight 200) + 右下小字注脚 + 底部 hairline。
-**关键类**:`.h-statement`(9.6vw,letter-spacing:-.05em) `.stmt-anchor`
-**动效 recipe**:`statement-rise` — 大字按词序错峰升起(每词延迟 180ms)+ 注脚 fade in
-**示例代码**:
+**Purpose**: central thesis, section start, slogan. One page holds just one statement + simple decoration.
+**Suitable content**: **purely qualitative statement / slogan / section switch**. Compress the statement to 8-12 words; **carry no data or lists**. If you need data backing, use P18 Why Now; if it's a cover, use P1.
+**Skeleton**: left 1/3 blank + midsection giant-type statement (8-10vw, weight 200) + bottom-right small footnote + bottom hairline.
+**Key classes**: `.h-statement` (9.6vw, letter-spacing:-.05em) `.stmt-anchor`
+**Motion recipe**: `statement-rise` — the big type rises staggered in word order (180ms delay per word) + footnote fades in
+**Example code**:
 ```html
 <section class="slide" data-animate="statement-rise">
   <div class="canvas-card">
@@ -360,22 +360,22 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P4 · Six Cells · 六格定义
+### P4 · Six Cells
 
-**用途**:6 个并列概念定义、6 项功能并列。
-**适用内容类型**:**6 个对等概念 / 功能列举**(数量必须 = 6,过少用 P5,过多用 P15/P16)。每格仅承载「图标 + 编号 + 短标题 + 一行描述」,**不承载需要展开的数据 / 段落**。
-**骨架**:2×3 网格 / 每格上方 lucide 图标 + 编号 + 短标题 + 一行描述 / 单元间用 hairline 分隔。
-**关键类**:`.cell-6` `.cell-icon-row` `.cell-num`
-**动效 recipe**:`six-cells` — 6 格按 z 形顺序点亮(L→R, T→B,每格延迟 90ms)
-**注意**:**不要自己画 SVG 图标**,用 `<i data-lucide="bookmark"></i>` 引线上 lucide。
-**示例代码**:
+**Purpose**: 6 parallel concept definitions, 6 features side by side.
+**Suitable content**: **6 equal concepts / feature list** (count must be exactly 6; fewer → P5, more → P15/P16). Each cell carries only "icon + index + short title + one-line description", **no expandable data / paragraphs**.
+**Skeleton**: 2×3 grid / lucide icon + index + short title + one-line description above each cell / hairline separators between cells.
+**Key classes**: `.cell-6` `.cell-icon-row` `.cell-num`
+**Motion recipe**: `six-cells` — 6 cells light up in z-order (L→R, T→B, 90ms delay per cell)
+**Note**: **do not hand-draw SVG icons**; use `<i data-lucide="bookmark"></i>` to pull lucide online.
+**Example code**:
 ```html
 <div class="cell-6">
   <div class="cell">
     <i data-lucide="square-stack"></i>
     <span class="cell-num">01</span>
     <h4>Skill File</h4>
-    <p>纯 markdown,可手写、可重写</p>
+    <p>pure markdown, hand-writable and rewritable</p>
   </div>
   <!-- 5 more -->
 </div>
@@ -383,19 +383,19 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P5 · Three Sub-cards · 三子卡
+### P5 · Three Sub-cards
 
-**用途**:三步流程、三类对比(轻度差异)。
-**适用内容类型**:**3 个对等概念 / 步骤**(数量必须 = 3)。结构同质、**无强烈数据差异**(若数据可比,改用 P6 KPI Tower)。每卡内容比 P4 略多(编号 + 标题 + 1-2 行描述)。
-**骨架**:左侧大标题 + 描述 + 顶部 hairline / 右侧 3 张水平堆叠 sub-card。
-**关键类**:`.sub-card-stack` `.sub-card`(`.card-fill` 灰底,直角)
-**动效 recipe**:`sub-stack` — 主标题先入 → 3 卡阶梯式从右滑入(每卡延迟 140ms)
-**示例代码**:
+**Purpose**: three-step process, three-way comparison (mild differences).
+**Suitable content**: **3 equal concepts / steps** (count must be exactly 3). Homogeneous structure, **no strong data differences** (if data is comparable, use P6 KPI Tower instead). Each card carries slightly more than P4 (index + title + 1-2 line description).
+**Skeleton**: left big title + description + top hairline / right 3 horizontally stacked sub-cards.
+**Key classes**: `.sub-card-stack` `.sub-card` (`.card-fill` grey background, right angles)
+**Motion recipe**: `sub-stack` — main title enters first → 3 cards slide in stepwise from the right (140ms delay per card)
+**Example code**:
 ```html
 <div class="grid-2-9">
   <div class="lead-col">
     <span class="t-cat">Three Forces</span>
-    <h2 class="h-xl">压成三个事实</h2>
+    <h2 class="h-xl">Compress into Three Facts</h2>
   </div>
   <div class="sub-card-stack">
     <article class="card-fill sub-card">
@@ -410,14 +410,14 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P6 · KPI Tower · 不等高柱状 KPI
+### P6 · KPI Tower
 
-**用途**:4 项数据用视觉高度表达层级差异。
-**适用内容类型**:**4 项可比量化数据**(必须有真实数值,bar 高度由数据决定)。典型如:成本、容量、计数、效率指标。**禁止**用于无数据的概念列举(那是 P4/P5 的事)。
-**骨架**:4 列均分,每列底部一根不同高度的 IKB 蓝矩形(数据决定高度)+ 顶部图标 + 中段巨数 + 底部标签。
-**关键类**:`.kpi-tower-row` `.bar-tower`(min-height:6vh, max:36vh) `.tower-cap`
-**动效 recipe**:`tower-grow` — 标签先入 → 数字 scale 弹入 → tower scaleY 从 0 拉起(transform-origin:bottom)
-**示例代码**:
+**Purpose**: 4 data points expressed as visual height hierarchy.
+**Suitable content**: **4 comparable quantitative data points** (must have real values; bar height driven by data). Typically: cost, capacity, count, efficiency metrics. **Forbidden** for a data-free concept list (that's P4/P5 territory).
+**Skeleton**: 4 equal columns, each with an IKB-blue rectangle of different height at the bottom (height driven by data) + icon on top + megasize number mid-column + label at the bottom.
+**Key classes**: `.kpi-tower-row` `.bar-tower` (min-height:6vh, max:36vh) `.tower-cap`
+**Motion recipe**: `tower-grow` — labels enter first → numbers pop in with scale → towers scaleY up from 0 (transform-origin:bottom)
+**Example code**:
 ```html
 <div class="kpi-tower-row">
   <div class="tower-col">
@@ -426,20 +426,20 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
     <span class="lbl">Skills</span>
     <div class="bar-tower" style="--h:36vh"></div>
   </div>
-  <!-- 3 more,h 不同 -->
+  <!-- 3 more, different heights -->
 </div>
 ```
 
 ---
 
-### P7 · H-Bar Chart · 横向条形图
+### P7 · H-Bar Chart
 
-**用途**:多项排名比较 / 占比对比(5-10 项)。
-**适用内容类型**:**5-10 项可比量化数据**(必须有真实百分比 / 评分 / 数值,bar 宽度由数据决定)。典型如:benchmark 排名、市场份额、问卷占比。⚠️ **严禁用于无量化数据的概念列举**(那是 P4/P5/P15)— 编造数字会被识破。
-**骨架**:顶部大标题 / 中段空 / 下半部条形列表(每行:文字标签 + 1px 蓝条 0→target width + 末端数字)。
-**关键类**:`.h-bar-chart` `.bar-row` `.bar-fill`(scaleX 动画)
-**动效 recipe**:`hbar-grow` — 大标题先入 → 每行依序 width 0→target(transform-origin:left)+ 末端数字 count-up
-**示例代码**:
+**Purpose**: ranking comparison / share comparison (5-10 items).
+**Suitable content**: **5-10 comparable quantitative data points** (must have real percentages / scores / values; bar width driven by data). Typically: benchmark rankings, market share, survey shares. ⚠️ **Strictly forbidden for a data-free concept list** (that's P4/P5/P15 territory) — fabricated numbers will be spotted.
+**Skeleton**: big title at top / empty mid-section / lower-half bar list (each row: text label + 1px blue bar 0→target width + value at the end).
+**Key classes**: `.h-bar-chart` `.bar-row` `.bar-fill` (scaleX animation)
+**Motion recipe**: `hbar-grow` — big title enters first → each row width 0→target in order (transform-origin:left) + end numbers count up
+**Example code**:
 ```html
 <div class="h-bar-chart">
   <div class="bar-row">
@@ -453,50 +453,50 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P8 · Duo Compare · 双轨对照
+### P8 · Duo Compare
 
-**用途**:Before/After、A vs B、旧/新对比。
-**适用内容类型**:**二元对照**(必须正好 2 项)。两侧结构同质(t-cat 标签 + 大字标题 + 段落 / 列表说明)。典型如:旧/新工作流、传统/AI、客户视角/团队视角。
-**骨架**:左右两半屏中间一根纵向 1px 长线分隔 / 各自顶部 t-cat + 大字标题 + 下方说明。
-**关键类**:`.duo-compare` `.duo-half` `.vrule`(scaleY 拉开)
-**动效 recipe**:`duo-mirror` — 中线 vrule 先 scaleY 0→1 → 左右各自标题、文字镜像入场
-**示例代码**:
+**Purpose**: Before/After, A vs B, old/new comparison.
+**Suitable content**: **binary comparison** (must be exactly 2 items). Both sides are structurally homogeneous (t-cat label + big title + paragraph / list explanation). Typically: old/new workflow, traditional/AI, customer view/team view.
+**Skeleton**: two half-screens split by a single vertical 1px line / t-cat + big title at each top + explanation below.
+**Key classes**: `.duo-compare` `.duo-half` `.vrule` (scaleY stretch)
+**Motion recipe**: `duo-mirror` — center vrule scales Y 0→1 first → titles and text on both sides enter mirrored
+**Example code**:
 ```html
 <div class="duo-compare">
   <div class="duo-half">
     <span class="t-cat">Before</span>
-    <h2>交给模型</h2>
+    <h2>Handed to the model</h2>
   </div>
   <span class="vrule"></span>
   <div class="duo-half">
     <span class="t-cat">After</span>
-    <h2>交给代码</h2>
+    <h2>Handed to code</h2>
   </div>
 </div>
 ```
 
 ---
 
-### P9 · Closing Manifesto · 收束宣言
+### P9 · Closing Manifesto
 
-**用途**:整套 deck 收尾页。
-**适用内容类型**:**deck 收尾**(每个 deck 只有一页)。固定结构:左侧宣言短句 + 右侧 3 条 takeaway(编号 + 标题 + 一行说明)。**不能在中间页使用**(那会与 P1 封面重复)。
+**Purpose**: the deck's closing page.
+**Suitable content**: **deck closing** (one page per deck). Fixed structure: manifesto short line on the left + 3 takeaways on the right (index + title + one-line explanation). **Cannot be used on a mid-deck page** (that would duplicate the P1 cover).
 
-**默认推荐:左 IKB+ASCII / 右 paper takeaway** ⭐
-- 用 `<section class="slide split">` + 左半 `.half.b-accent` + ASCII canvas + 右半白底 takeaway
-- 与 P1 封面的全 IKB 形成"开场全 IKB ↔ 收尾半 IKB"色彩闭环
-- 右侧第 03 条 takeaway 用 `var(--accent)` 强调,把 IKB 蓝从左半穿到右半,完成色彩缝合
-- 大标题反白 weight 200,强调字用斜体(底已是蓝、不要再用 `var(--accent)` 标蓝)
+**Default recommendation: left IKB + ASCII / right paper takeaway** ⭐
+- Use `<section class="slide split">` + left `.half.b-accent` + ASCII canvas + right white takeaway
+- Builds the "full-IKB opening ↔ half-IKB closing" color loop with the P1 cover
+- Highlight takeaway 03 on the right with `var(--accent)`, stitching the IKB blue across from the left half and closing the color seam
+- Big title reversed white weight 200; emphasized word italic (the background is already blue — don't mark it `var(--accent)`)
 
-**关键类**:`.slide.split` `.half.b-accent` `.ascii-bg`(IIFE 自动启动)
-**动效 recipe**:`split-statement` — 左 ink/IKB 标题字符序列升起 → 右白半 takeaway 三条尾随
+**Key classes**: `.slide.split` `.half.b-accent` `.ascii-bg` (IIFE auto-start)
+**Motion recipe**: `split-statement` — left ink/IKB title char sequence rises → right white takeaway trails in with three items
 
-**示例代码(IKB 默认变体)**:
+**Example code (IKB default variant)**:
 ```html
 <section class="slide split" data-animate="split-statement">
   <div class="canvas-card">
     <div class="split-half">
-      <!-- 左半 · IKB + ASCII 呼吸场 -->
+      <!-- left half · IKB + ASCII breathing field -->
       <div class="half b-accent" style="padding:5.6vh 3.6vw 4.4vh;justify-content:space-between;position:relative;overflow:hidden">
         <canvas class="ascii-bg" aria-hidden="true"></canvas>
         <div class="chrome-min" style="margin-bottom:0;position:relative;z-index:1">
@@ -505,26 +505,26 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
         </div>
         <div data-anim="manifesto" style="display:flex;flex-direction:column;gap:2vh;position:relative;z-index:1">
           <div class="t-meta" style="color:rgba(255,255,255,.78);letter-spacing:.22em;margin-bottom:1.6vh">MANIFESTO</div>
-          <h2 style="font-family:var(--sans),var(--sans-zh);font-size:min(8vw,14vh);line-height:.94;letter-spacing:-.025em;font-weight:200;color:#fff">[必填] Build a model.<br/>Run <span style="font-style:italic;font-weight:300">forever</span>.</h2>
-          <div style="font-family:var(--sans),var(--sans-zh);font-size:max(13px,1vw);line-height:1.6;color:rgba(255,255,255,.82);font-weight:300;max-width:36ch;margin-top:1.4vh">[必填] 一句中英文落地注脚.</div>
+          <h2 style="font-family:var(--sans),var(--sans-zh);font-size:min(8vw,14vh);line-height:.94;letter-spacing:-.025em;font-weight:200;color:#fff">[required] Build a model.<br/>Run <span style="font-style:italic;font-weight:300">forever</span>.</h2>
+          <div style="font-family:var(--sans),var(--sans-zh);font-size:max(13px,1vw);line-height:1.6;color:rgba(255,255,255,.82);font-weight:300;max-width:36ch;margin-top:1.4vh">[required] One line is the landing note in Chinese or English.</div>
         </div>
         <div data-anim="signature" style="display:flex;justify-content:space-between;align-items:end;border-top:1px solid rgba(255,255,255,.22);padding-top:2vh;position:relative;z-index:1">
-          <div class="t-meta" style="color:rgba(255,255,255,.62)">[选填] 作者 · 头衔</div>
+          <div class="t-meta" style="color:rgba(255,255,255,.62)">[optional] Author · Title</div>
           <div class="t-meta" style="color:rgba(255,255,255,.62)">YY.MM.DD</div>
         </div>
       </div>
-      <!-- 右半 · 白底 takeaway,第 03 条用 IKB 蓝强调,首尾色彩闭环 -->
+      <!-- right half · white takeaway, third item highlighted IKB blue, closing the color loop -->
       <div class="half" style="padding:5.6vh 3.6vw 4.4vh;justify-content:space-between">
         <div class="chrome-min"><div class="l">TAKEAWAYS</div><div class="r">03 RULES</div></div>
         <div data-anim="rules">...</div>
-        <div class="t-meta" style="color:var(--text-helper);text-align:right">→ 完 · END OF FIELD NOTE</div>
+        <div class="t-meta" style="color:var(--text-helper);text-align:right">→ done · END OF FIELD NOTE</div>
       </div>
     </div>
   </div>
 </section>
 ```
 
-**经典变体(`.closing-split` ink 双半屏)** — 当封面没有用 IKB 满屏时,改用经典 ink 收束:
+**Classic variant (`.closing-split` ink dual-half)** — when the cover doesn't use a full IKB screen, use the classic ink close instead:
 ```html
 <div class="closing-split">
   <div class="cl-ink">
@@ -542,14 +542,14 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P10 · Dot Matrix Statement · 点阵宣言
+### P10 · Dot Matrix Statement
 
-**用途**:第二张陈述页 / 章节切换 / 视觉透气页。
-**适用内容类型**:**口号 / 隐喻 / 章节切换**(同 P3,但加几何点阵装饰)。用于一个 deck 内**避免连续两页都是 P3**;通常用作"概念定义"前的视觉调味页。
-**骨架**:中段 7vw 巨字三行宣言 / 右上角 36vw 圆点矩阵 + 左下角描边圆环矩阵。
-**关键类**:`.dot-mat`(SVG mask 实心点)`.ring-mat`(描边圆)`.cross-mat`(× 网格)
-**动效 recipe**:`matrix-statement` — 文字逐行入 → 点阵 mask-position 从左推到右
-**示例代码**:
+**Purpose**: second statement page / section switch / visual air page.
+**Suitable content**: **slogan / metaphor / section switch** (same as P3, but with geometric dot-matrix decoration). Used to **avoid two consecutive P3 pages** within a deck; typically the flavor page right before a "concept definition".
+**Skeleton**: three-line 7vw giant-type manifesto mid-page / 36vw dot-matrix top-right + stroked ring matrix bottom-left.
+**Key classes**: `.dot-mat` (SVG-mask solid dots) `.ring-mat` (stroked rings) `.cross-mat` (× grid)
+**Motion recipe**: `matrix-statement` — text lines enter one by one → dot matrix mask-position sweeps left to right
+**Example code**:
 ```html
 <div class="canvas-card">
   <span class="ring-mat" style="left:5vw;bottom:5vh;width:18vw;height:18vw"></span>
@@ -560,15 +560,15 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P11 · Horizontal Timeline · 横向时间线
+### P11 · Horizontal Timeline
 
-**用途**:多步骤流程(4-7 步)、时间演进。
-**适用内容类型**:**4-7 步线性流程**(每步只有一个名称,不需要展开数据 / 描述)。如果每步要展开,改用 P5;如果有量化数据,改用 P2。**禁止**用于循环结构(那是 P14)。
-**骨架**:顶部大标题 / 中段一根 1px hairline 横线 + N 个均布节点(8×8 直角方块 + 上方 mono 编号 + 下方步骤名)。
-**关键类**:`.timeline-h` `.tl-h-node` `.tl-h-axis`
-**动效 recipe**:`timeline-walk` — 节点沿轴左→右依次点亮(每节点 220ms)
-**对齐注意**:横向时间线 label 的 CSS 依赖 `translateX(-50%)` 居中。动效里如果要做上下位移,必须写完整 `transform: translate(-50%, y)` 序列,不能只写 `y`,否则动画结束后 label 会偏离 dot。
-**示例代码**:
+**Purpose**: multi-step process (4-7 steps), time evolution.
+**Suitable content**: **4-7 step linear process** (each step is just a name; no expandable data / description needed). If each step needs expansion, use P5; if it carries quantitative data, use P2. **Forbidden** for loop structures (that's P14).
+**Skeleton**: big title at top / mid-section one 1px hairline horizontal axis + N evenly-spaced nodes (8×8 right-angle square + mono index above + step name below).
+**Key classes**: `.timeline-h` `.tl-h-node` `.tl-h-axis`
+**Motion recipe**: `timeline-walk` — nodes light up left→right along the axis (220ms per node)
+**Alignment note**: the horizontal-timeline label CSS relies on `translateX(-50%)` centering. When the motion does vertical displacement, write the full `transform: translate(-50%, y)` sequence — never just `y` — or the label will drift off the dot after the animation ends.
+**Example code**:
 ```html
 <div class="timeline-h">
   <span class="tl-h-axis"></span>
@@ -583,134 +583,134 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P12 · Manifesto + Ink Banner · 宣言 + 通栏 ink 条
+### P12 · Manifesto + Ink Banner · Manifesto + full-bleed banner
 
-**用途**:阶段性结论、章节封底、口号 + 视觉强收束。
-**适用内容类型**:**章节性收束 / 阶段性宣言**(用于 deck 中段而非结尾,P9 是 deck 终结)。承载「主张 + 简短说明 + ink 通栏宣言」三段结构,无数据。
-**骨架**:上半屏左侧 t-cat + 大字 4 行宣言 + 右侧短段说明 / 下半屏 ink 通栏(无左右下边距)+ 反白短句 + lucide 图标矩阵。
-**关键类**:`.manifesto-top` `.ink-banner-full`(`margin:0 -5vw -4.4vh` 取消父级 padding)
-**动效 recipe**:`manifesto` — 大字三段错峰升起 → 底 ink 条横向 scaleX 0→1 铺开 → 反白文字 fade in
-**注意**:Skill File 那段小字 **顶对齐于右侧大字基线**(`align-items:flex-start;padding-top:1.2vw`)
-
----
-
-### P13 · Three Forces Cards · 三力卡片小报
-
-**用途**:3 个对等概念展示(每个 = 巨数 + 标题 + 双列描述)。
-**适用内容类型**:**3 个对等概念深化**(数量 = 3,比 P5 承载更多文字)。每卡内容比较丰富(巨编号 + 标题 + 双列段落描述)。01/02/03 为编号锚点而非真实数据。典型如:三大反驳、三种力量、三大主张。
-**骨架**:左 5/16 ink hero 块(t-cat + 4 行标题 + 点阵装饰)/ 右 11/16 三张水平卡堆叠。
-**关键类**:`.three-forces` `.hero-ink-col` `.force-card`(`.card-fill`)`.force-num`(9.2vw IKB 蓝)
-**动效 recipe**:`three-forces` — 左 hero 横移入 → 右 3 卡阶梯式从右滑入 → 巨蓝数字单独 pop
-**注意**:**3 张卡片必须统一样式**(都用 `.card-fill` 灰底,不要混用描边/蓝底);若需突出一张,改用 `.card-accent`,**禁止**蓝底+描边。
+**Purpose**: section conclusion, chapter closer, slogan + strong visual closure.
+**Suitable content**: **section close / mid-deck manifesto** (for the middle of a deck, not the end — P9 is the deck finale). Carries a three-part structure of "claim + short note + full-bleed banner", no data.
+**Skeleton**: upper-left t-cat + 4-line big manifesto title + short note on the right / lower-half ink banner (no left/right/bottom margin) + reversed short line + lucide icon matrix.
+**Key classes**: `.manifesto-top` `.ink-banner-full` (`margin:0 -5vw -4.4vh` cancels the parent padding)
+**Motion recipe**: `manifesto` — three title lines rise staggered → bottom ink band scales in laterally 0→1 → reversed text fades in
+**Note**: the small Skill File text aligns **top-aligned with the big-title baseline on the right** (`align-items:flex-start;padding-top:1.2vw`)
 
 ---
 
-### P14 · Loop Diagram · 闭环流程图
+### P13 · Three Forces Cards · Three-force cards
 
-**用途**:自学闭环、自动化流程(3-5 步循环)。
-**适用内容类型**:**循环 / 闭环流程**(终点回到起点,3-5 步)。如自学循环、CI/CD、反馈闭环、agent loop。**线性流程禁用**(那是 P11)。
-**骨架**:左 4 行编号步骤(顶对齐) / 右侧 SVG 同心圆环 / 中央巨字 LOOP / 节点统一灰底直角方块(不用圆点交替色)。
-**关键类**:`.loop-diagram` `.loop-steps` `.loop-svg`
-**动效 recipe**:`loop-form` — 左侧步骤纵向序列 → 右 SVG 圆环 stroke-dashoffset 描线 → 节点序列点亮
-**注意**:左右**整体居中对齐**(顶部对齐 + 高度等同)
-
----
-
-### P15 · Image Matrix + Hero Stat · 矩阵 + 大字底注
-
-**用途**:大量同类项展示(8-12 项 skill / 团队成员 / 案例图标),底部一个总数据收束。
-**适用内容类型**:**8-12 项同类型小项 + 一个汇总指标**。每项只承载短标题(无展开),底部巨数为「汇总值」(项目总数 / 总流量 / 总用户)。**项数过少改用 P4(6 项)**。
-**骨架**:顶部标题(留 9vh 间距)/ 中段 4×3 矩阵卡(每卡 12vh 固定高度)/ 底部巨数 + 标签(margin-top:auto 推到底)。
-**关键类**:`.matrix-fill`(grid-template-columns:repeat(4,1fr))`.matrix-cell`(`.card-fill` 灰底,**禁止描边**)`.hero-stat-bottom`
-**动效 recipe**:`matrix-fill` — 12 格随机棋盘渐显(每格 random delay)→ 底部巨数 count-up
-**注意**:卡片高度限定(避免大数字溢出);**所有卡用 `.card-fill` 灰底**,只突出强调项时单独换 `.card-accent`
+**Purpose**: 3 parallel concepts (each = mega number + title + two-column description).
+**Suitable content**: **3 parallel concepts in depth** (count = 3, carries more text than P5). Each card is richer (mega number + title + two-column paragraphs). 01/02/03 are number anchors, not real data. Typical: three rebuttals, three forces, three claims.
+**Skeleton**: left 5/16 ink hero block (t-cat + 4-line title + dot decoration) / right 11/16 three horizontally stacked cards.
+**Key classes**: `.three-forces` `.hero-ink-col` `.force-card` (`.card-fill`) `.force-num` (9.2vw IKB blue)
+**Motion recipe**: `three-forces` — left hero slides in → right 3 cards slide in staggered → the big blue number pops alone
+**Note**: **all 3 cards must share one style** (all `.card-fill` grey, don't mix outline/blue fills); to highlight one, use `.card-accent` instead — **never** blue fill + outline.
 
 ---
 
-### P16 · Multi-card Brief · 微卡小报
+### P14 · Loop Diagram · Loop diagram
 
-**用途**:6 项小卡并列(快讯、tip 集合、特性概览)。
-**适用内容类型**:**6 项轻量短讯 / tip / 注脚**(数量 = 6,每项主文短 + 小字注脚)。比 P4 内容更碎,适合快讯类。**只允许一张 accent 蓝突出**(单焦点法则)。
-**骨架**:顶部大标题(留 9vh)/ 下方 3×2 微卡(每卡:左上主文 + 右下小字 + 中间留空)。
-**关键类**:`.brief-grid` `.brief-card`(`.card-fill` 灰底)`.brief-card.is-accent`(单一蓝底强调)
-**动效 recipe**:`field-notes` — 6 卡按 z 形顺序点亮(L→R, T→B,90ms 错开)
-**注意**:卡内排版**左上主文 + 右下小字**,中间空出(避免内容散);**只允许一张 accent 蓝**
-
----
-
-### P17 · System Diagram · 同心圆系统图
-
-**用途**:层级架构(core→middle→outer)、生态地图。
-**适用内容类型**:**严格三层嵌套关系**(core 内核 / middle 中间层 / outer 外圈)。典型如:技术栈层级、生态分层、影响力辐射。**非三层结构禁用**(扁平用 P4,层级不清用 P5)。
-**骨架**:左半屏标题 + 三段说明 / 右半屏 SVG 三层同心圆 + 标签外引线。
-**关键类**:`.system-diagram` `.sys-svg` `.sys-label`
-**动效 recipe**:`system-diagram` — 同心圆从外向内 scale 入 → 标签序列出现
+**Purpose**: self-study loops, automated flows (3-5 step cycles).
+**Suitable content**: **cyclic / loop flows** (the end returns to the start, 3-5 steps). E.g. self-study loop, CI/CD, feedback loop, agent loop. **Linear flows are forbidden** (that's P11).
+**Skeleton**: left 4 numbered steps (top-aligned) / right-side SVG concentric rings / central giant LOOP / nodes uniformly grey right-angle squares (no alternating dot colors).
+**Key classes**: `.loop-diagram` `.loop-steps` `.loop-svg`
+**Motion recipe**: `loop-form` — left steps arrive vertically in order → right SVG ring draws via stroke-dashoffset → nodes light in sequence
+**Note**: left and right **align as one vertical center** (top-aligned with equal heights)
 
 ---
 
-### P18 · Why Now · 三列递进 + 巨数
+### P15 · Image Matrix + Hero Stat · Matrix + hero stat
 
-**用途**:三论点 + 各自支撑数据(为什么是现在)。
-**适用内容类型**:**3 个论点 + 每个论点对应一个量化数据**。每论点结构 = t-cat 标签 + 一句标题 + 段落 + 一个底部巨数(可以是百分比/年份/倍数)。最后一列 IKB 蓝强调表示「重点支撑论据」。
-**骨架**:顶部大标题 / 中段 3 列(每列:t-cat + 标题 + 描述)/ 列底各一个 8.4vw 巨数(01 / 02 / 03,最后一列 IKB 蓝强调)。
-**关键类**:`.why-now-grid` `.why-col` `.why-num-bottom`(8.4vw, weight 200)
-**动效 recipe**:`why-now` — 三列垂直递进 → 底部巨数 count-up
-**注意**:巨数字号统一,只用颜色(IKB 蓝)突出最后一列,**不要**用粗体
-
----
-
-### P19 · Four Cards · 四列均分卡
-
-**用途**:4 项功能/特性并列(等权重)。
-**适用内容类型**:**4 项等权特性 / 模块**(数量 = 4,结构完全同质)。每项 = t-meta 编号 + 大字标题 + 一段描述。无数据维度,纯定性。比 P5(三步)更平均,比 P6(数据高度)更纯文字。
-**骨架**:顶部 80px IKB 蓝短发丝顶线 + 大字双行标题 / 下方 4 列均分卡(每卡:t-meta 顶部 "— 01 / SLASH" + 大字标题 + 段落描述)。
-**关键类**:`.four-cards` `.fc-col`
-**动效 recipe**:`four-cards` — 顶部蓝线 width 0→100% → 4 列从下向上推入(每列 110ms 错开)
-**注意**:**不要**用 9px 圆形装饰点(不符合直角语言),用 `.t-meta` 文字代替
+**Purpose**: many same-kind items (8-12 skills / team members / case icons) closed by one aggregate number at the bottom.
+**Suitable content**: **8-12 small same-type items + one aggregate metric**. Each item carries only a short title (no expansion); the bottom mega number is the "aggregate value" (project total / total traffic / total users). **Too few items → use P4 (6 items)**.
+**Skeleton**: top title (leave 9vh gap) / middle 4×3 matrix cards (each 12vh fixed height) / bottom mega number + label (pushed down with margin-top:auto).
+**Key classes**: `.matrix-fill` (grid-template-columns:repeat(4,1fr)) `.matrix-cell` (`.card-fill` grey, **no outline**) `.hero-stat-bottom`
+**Motion recipe**: `matrix-fill` — 12 cells reveal in random checkerboard order (random per-cell delay) → bottom mega number count-up
+**Note**: cap the card height (avoid big-number overflow); **all cards `.card-fill` grey**, switch a single highlight item to `.card-accent`
 
 ---
 
-### P20 · Stacked KPI Ledger · 纵向账单 KPI
+### P16 · Multi-card Brief · Multi-card brief
 
-**用途**:4-6 行核心数据账单式展示(每行=数字+标签+图标)。
-**适用内容类型**:**4-6 项核心数据账单**(每行必须有真实数值 + 标签 + 图标)。垂直 ledger 形式适合财务数据、KPI 仪表板、关键指标列表。比 P6 KPI Tower 容纳数据更多但视觉化弱(无 bar 高度对比)。
-**骨架**:每行一道 hairline 分隔 / 左侧巨数(限高 `min(13vw,16vh)` 防溢出) / 中部标签 / 右侧 lucide 图标。
-**关键类**:`.stacked-ledger` `.ledger-row`(border-bottom:1px solid var(--border-subtle))`.ledger-num`
-**动效 recipe**:`stacked-ledger` — 每行数字升起 → 标签左滑 → 图标 pop(每行 180ms 错开)
-**注意**:**字号必须限高**(`font-size:min(13vw, 16vh)`),否则在标准 16:9 屏底部行会被挤出
-
----
-
-### P21 · Tech Spec Sheet · 规格说明书
-
-**用途**:产品规格、benchmark 数据、性能基线展示(多 KPI + 视觉化竖线装饰)。
-**适用内容类型**:**产品规格 / benchmark / 性能基线**(必须有真实多维数据,3 KPI + 9 根竖线 = 12+ 数据点)。典型如:模型评分、API 性能、压测结果。是 deck 中数据密度最高的版式。
-**骨架**:左 4 行大标题 / 中部 3 KPI(顶部 hairline + 数字 + 单位)/ 右下 9 根高低不一的垂直竖线 / 底部巨数 + Yearly goal + 三 tag + 右下角 MP-XX + 页码。
-**关键类**:`.tech-spec` `.spec-title-col` `.spec-kpi-grid` `.spec-bars`(`.bar-vert`,scaleY 弹起,transform-origin:bottom)
-**动效 recipe**:`tech-spec` — hero 区淡入 → 标题入 → KPI 顶线一根根画出 → 底巨数 pop → 竖线从底部 scaleY 弹起(50ms 错开)
-**注意**:右下 bars 矩阵必须**底对齐**且**不超出右边距**
+**Purpose**: 6 small cards in a row (quick notes, tip collections, feature overviews).
+**Suitable content**: **6 lightweight briefs / tips / footnotes** (count = 6, short main text per item + small footnote). More granular than P4, suited to quick-news. **Only one accent-blue highlight allowed** (single-focus rule).
+**Skeleton**: large title on top (leave 9vh) / 3×2 micro-cards below (per card: main text top-left + small note bottom-right + empty middle).
+**Key classes**: `.brief-grid` `.brief-card` (`.card-fill` grey) `.brief-card.is-accent` (single blue emphasis)
+**Motion recipe**: `field-notes` — 6 cards light in z-order (L→R, T→B, 90ms stagger)
+**Note**: inside cards **main text top-left + small note bottom-right**, keep the middle empty (avoid clutter); **only one accent-blue card**
 
 ---
 
-### P22 · Image Hero · 图文混排封面
+### P17 · System Diagram · Concentric system diagram
 
-**用途**:案例展示、产品图 + 数据落地、章节封面带图。
-**适用内容类型**:**案例展示 / 产品发布 / 章节带图封面**(必须有真实图片资源 + 3 个核心数据)。典型如:产品截图 + 关键指标、案例图 + ROI、用户反馈图 + 复购率。**没有真实图源时禁用**(占位灰图破坏视觉)。
-**骨架**:上半屏 60% 全幅图片 + 左上白底标题块叠加(top:11vh,留出充分缓冲)/ 下半屏 40% 长说明 + 三列 KPI($ / 127× / 100%)。
-**关键类**:`.image-hero` `.hero-img-wrap`(60vh)`.hero-overlay-block` `.hero-stats`
-**动效 recipe**:`image-hero` — 图缓慢 zoom-out(scale 1.05→1)→ 白块 scaleX 0→1 推开 → 三 KPI 顶线依序画出
-**注意**:
-- 图片优先用 `images/{页号}-{语义}.png` 本地文件(GPT-M 2.0 或用户提供素材),不要默认外链 unsplash
-- 图片下方内容不要贴着图下沿,使用 `.image-hero-body` 统一给下半屏增加顶部缓冲
-- 三列 KPI 大字号要限高(`min(4.6vw, 7.6vh)`),小字用 `margin-top:auto` 锚定列底,防止溢到 nav 圆点
-- 列高度统一(grid 不要 `align-items:start`,让列拉伸到同一高度)
+**Purpose**: layered architecture (core→middle→outer), ecosystem maps.
+**Suitable content**: **a strict three-layer nesting** (core / middle / outer). Typical: tech-stack layers, ecosystem layering, influence radiation. **Non-three-layer structures forbidden** (flat → P4, unclear hierarchy → P5).
+**Skeleton**: left half title + three-part note / right half SVG three-layer concentric rings + outbound label leaders.
+**Key classes**: `.system-diagram` `.sys-svg` `.sys-label`
+**Motion recipe**: `system-diagram` — concentric rings scale in from outer to inner → labels appear in sequence
 
-**示例代码**:
+---
+
+### P18 · Why Now · Three-column escalation + mega numbers
+
+**Purpose**: three arguments + supporting number each (why now).
+**Suitable content**: **3 arguments + one quantitative data point per argument**. Structure per argument = t-cat label + one-line title + paragraph + one mega number at the bottom (percentage / year / multiplier all fine). The last column is emphasized in IKB blue to flag the "key supporting argument".
+**Skeleton**: big title at top / 3 mid-section columns (each: t-cat + title + description) / one 8.4vw mega number at each column bottom (01 / 02 / 03, last column IKB-blue emphasized).
+**Key classes**: `.why-now-grid` `.why-col` `.why-num-bottom` (8.4vw, weight 200)
+**Motion recipe**: `why-now` — three columns rise in sequence → bottom mega numbers count up
+**Note**: keep the mega-number size uniform; highlight only the last column via color (IKB blue), **not** bold.
+
+---
+
+### P19 · Four Cards · Four-column equal cards
+
+**Purpose**: 4 features/attributes side by side (equal weight).
+**Suitable content**: **4 equal-weight features / modules** (count = 4, fully homogeneous structure). Each item = t-meta index + big title + one paragraph. No data dimension, purely qualitative. More even than P5 (three steps), more text-only than P6 (data height).
+**Skeleton**: top 80px IKB-blue short hairline cap + big two-line title / four equal columns below (each card: t-meta top "— 01 / SLASH" + big title + paragraph).
+**Key classes**: `.four-cards` `.fc-col`
+**Motion recipe**: `four-cards` — top blue line width 0→100% → 4 columns push up from the bottom (110ms stagger per column)
+**Note**: **don't** use 9px circular dots (violates the right-angle language); use `.t-meta` text instead.
+
+---
+
+### P20 · Stacked KPI Ledger · Vertical ledger KPI
+
+**Purpose**: 4-6 rows of core data presented as a ledger (each row = number + label + icon).
+**Suitable content**: **4-6 core-data ledger rows** (each row must have a real value + label + icon). The vertical ledger form fits finance data, KPI dashboards, key-metric lists. It holds more data than P6 KPI Tower but visualizes it weaker (no bar-height comparison).
+**Skeleton**: a hairline divider per row / megasize number on the left (height-capped with `min(13vw,16vh)` to prevent overflow) / label in the middle / lucide icon on the right.
+**Key classes**: `.stacked-ledger` `.ledger-row` (border-bottom:1px solid var(--border-subtle)) `.ledger-num`
+**Motion recipe**: `stacked-ledger` — each row's number rises → label slides left → icon pops (180ms stagger per row)
+**Note**: **the font size must be height-capped** (`font-size:min(13vw, 16vh)`), or bottom rows get squeezed off a standard 16:9 screen.
+
+---
+
+### P21 · Tech Spec Sheet · Spec sheet
+
+**Purpose**: product specs, benchmark data, performance baseline (multiple KPIs + decorative vertical lines).
+**Suitable content**: **product spec / benchmark / performance baseline** (must have real multi-dimensional data: 3 KPI + 9 vertical bars = 12+ data points). Typically: model scores, API performance, stress-test results. The densest data layout in the deck.
+**Skeleton**: 4-row big title on the left / 3 KPI mid (top hairline + number + unit) / 9 uneven-height vertical bars bottom-right / bottom mega number + Yearly goal + three tags + MP-XX bottom-right + page number.
+**Key classes**: `.tech-spec` `.spec-title-col` `.spec-kpi-grid` `.spec-bars` (`.bar-vert`, scaleY spring-up, transform-origin:bottom)
+**Motion recipe**: `tech-spec` — hero area fades in → title enters → KPI top lines draw one by one → bottom mega number pops → bars spring up from the bottom by scaleY (50ms stagger)
+**Note**: the bottom-right bars matrix must be **bottom-aligned** and **not exceed the right margin**.
+
+---
+
+### P22 · Image Hero · Image + copy hero
+
+**Purpose**: case study, product image + data anchoring, chapter cover with image.
+**Suitable content**: **case study / product launch / chapter cover with image** (must have real image assets + 3 core data points). Typically: product screenshot + key metrics, case image + ROI, user-feedback image + repeat-purchase rate. **Forbidden whenever there's no real image source** (placeholder grey images break the visual).
+**Skeleton**: top 60% full-bleed image + white title block overlaid on the upper-left (top:11vh, generous buffer) / bottom 40% long caption + three KPI columns ($ / 127× / 100%).
+**Key classes**: `.image-hero` `.hero-img-wrap` (60vh) `.hero-overlay-block` `.hero-stats`
+**Motion recipe**: `image-hero` — image slowly zooms out (scale 1.05→1) → white block pushes in scaleX 0→1 → three KPI top lines draw in sequence
+**Note**:
+- Prefer local `images/{page}-{semantic}.png` files (GPT-M 2.0 or user-provided assets); don't default to unsplash hotlinks
+- Don't glue content under the image's bottom edge; use `.image-hero-body` to add uniform top buffer to the lower half
+- Height-cap the three KPI large type (`min(4.6vw, 7.6vh)`); anchor small text with `margin-top:auto` at the column bottom to prevent overflow into the nav dots
+- Keep column heights uniform (no `align-items:start` on the grid; let the columns stretch to equal height)
+
+**Example code**:
 ```html
 <section class="slide light" data-animate="image-hero">
   <div class="canvas-card" style="padding:0;display:flex;flex-direction:column;overflow:hidden">
     <div data-anim="img" style="position:relative;flex:0 0 60%;overflow:hidden;background:var(--grey-1)">
-      <img src="images/22-product-scene.png" alt="[必填] 图片说明" loading="eager"
+      <img src="images/22-product-scene.png" alt="[required] Image description" loading="eager"
            style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 30%">
       <div class="chrome-min" style="position:absolute;top:0;left:0;right:0;color:rgba(255,255,255,.9);padding:5.6vh 5vw 0">
         <div class="l">Section · Case / Visual Evidence</div>
@@ -718,18 +718,18 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
       </div>
       <div data-anim="title-block" style="position:absolute;left:5vw;top:11vh;background:var(--paper);padding:3.2vh 3.2vw;max-width:40vw">
         <div style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(5.2vw,9vh);line-height:1;letter-spacing:-.035em;color:var(--text-primary)">
-          [必填] Image<br>Evidence
+          [required] Image<br>Evidence
         </div>
       </div>
     </div>
     <div data-anim="kpi" class="image-hero-body">
       <div style="max-width:48ch;font-family:var(--sans),var(--sans-zh);font-size:max(15px,1.3vw);line-height:1.55;font-weight:300;color:var(--text-primary);letter-spacing:-.005em">
-        [必填] 1-2 行解释这张图为什么重要,不要重复标题.
+        [required] In 1-2 lines, explain why this image matters; don't repeat the title.
       </div>
       <div class="image-hero-stats" style="gap:4vw">
-        <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 01</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em">12×</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[必填] 指标解释</p></div>
-        <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 02</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em">3.4h</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[必填] 指标解释</p></div>
-        <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 03</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em;color:var(--accent)">100%</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[必填] 指标解释</p></div>
+        <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 01</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em">12×</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[required] Explain the metric</p></div>
+        <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 02</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em">3.4h</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[required] Explain the metric</p></div>
+        <div style="display:flex;flex-direction:column;gap:.6vh"><div style="height:1px;background:var(--ink)"></div><div class="t-meta">Metric 03</div><div style="font-family:var(--sans);font-weight:200;font-size:min(4.6vw,7.6vh);line-height:.95;letter-spacing:-.04em;color:var(--accent)">100%</div><div style="height:1px;background:var(--border-subtle);margin-top:auto"></div><p class="body-sm">[required] Explain the metric</p></div>
       </div>
     </div>
   </div>
@@ -738,24 +738,24 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-## 历史实验区(默认禁用)
+## Historical experiment zone (disabled by default)
 
-下面的 P23/P24 是早期为了探索图文混排加入的实验版式。它们不属于原始 22P,默认不要用于正式生成。除非用户明确说“我要实验新图文版式”,否则请使用 S22 或 S15/S16 的图片槽位。
+P23/P24 below are experimental layouts added early on to explore mixing image and text. They are not part of the original 22P; don't use them for production generation by default. Unless the user explicitly asks to "experiment with new image-text layouts", use the S22 or S15/S16 image slots instead.
 
-### P23 · Swiss Image Split · 左文右图 / 右文左图(实验,默认禁用)
+### P23 · Swiss Image Split · Text-left/image-right, or image-left/text-right (experimental, disabled by default)
 
-**用途**:解释一个观点时配一张纪实照片、信息图、UI 情景图或系统关系图。
-**适用内容类型**:**一个核心论点 + 一张核心图片**。适合"左侧大标题 + 右侧图片证据"或"左图右说明"。如果图片是整页主角且需要 KPI,用 P22;如果是多张图片,用 P24。
-**骨架**:`.canvas-card` 内 head 上下叠 / 主体 `.swiss-img-split` 两列(5:7 或 reverse 7:5) / 图片下方 `.swiss-img-caption`。
-**关键类**:`.swiss-img-split` `.swiss-img-copy` `.frame-img.r-16x10.fit-contain|cover` `.swiss-img-caption`
-**动效 recipe**:`grid-reveal` — head 先入,图片和文字块错峰出现
-**注意**:
-- 图片通常与正文首行对齐,不要与大标题顶端齐平;可在图片列加 `padding-top:1vh` 到 `3vh`
-- 如果希望左侧内容块与右侧图片底部对齐,使用 `.swiss-img-split.align-image-bottom`,不要靠额外空行硬推
-- `.align-image-bottom` 已内置底部 nav safe zone;不要再额外把图片或 caption 往页面底部推
-- 左侧内容块避免无意义分割线;除非需要章节感,不要额外插入 `.rule`
-- 信息图/UI 图必须 `.fit-contain`;纪实照片默认 cover
-- 右图宽度大,标题不要超过 3 行,正文控制在 2-3 个短段或 3 条 bullet
+**Purpose**: pair a documentary photo, infographic, UI scene, or system diagram with an argument.
+**Suitable content**: **one core thesis + one hero image**. Fits "big title left + image evidence right" or "image left + caption right". If the image is the whole-page protagonist and needs KPIs, use P22; if multiple images, use P24.
+**Skeleton**: head stacked inside `.canvas-card` / body `.swiss-img-split` two columns (5:7 or reverse 7:5) / `.swiss-img-caption` below the image.
+**Key classes**: `.swiss-img-split` `.swiss-img-copy` `.frame-img.r-16x10.fit-contain|cover` `.swiss-img-caption`
+**Motion recipe**: `grid-reveal` — head enters first, image and text blocks appear staggered
+**Note**:
+- Align the image with the first line of the body text, not with the top of the big title; you may add `padding-top:1vh` to `3vh` to the image column
+- If you want the left content block to align with the bottom of the right image, use `.swiss-img-split.align-image-bottom` — don't force it with extra blank lines
+- `.align-image-bottom` already has the bottom nav safe zone built in; don't push the image or caption toward the page bottom on top of that
+- Avoid meaningless dividers in the left content block; don't insert a `.rule` unless you need a section break
+- Infographics/UI diagrams must use `.fit-contain`; documentary photos default to cover
+- The right image is wide, so keep the title to 3 lines or fewer and the body to 2-3 short paragraphs or 3 bullets
 
 ```html
 <section class="slide light" data-animate="grid-reveal">
@@ -767,19 +767,19 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr;gap:5vh">
       <div data-anim="head" style="display:flex;flex-direction:column;gap:1.4vh">
         <div class="t-meta">Evidence · GPT-M 2.0</div>
-        <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(7vw,12vh);line-height:.96;letter-spacing:-.035em">[必填] 一句核心论点</h2>
+        <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(7vw,12vh);line-height:.96;letter-spacing:-.035em">[required] One core thesis in one line</h2>
       </div>
       <div class="swiss-img-split align-image-bottom" data-anim="up">
         <div class="swiss-img-copy">
           <div class="t-cat" style="color:var(--accent)">Why it matters</div>
-          <p class="lead" style="font-weight:300;max-width:36ch">[必填] 2-3 行解释图片与论点的关系.</p>
-          <div class="body" style="font-weight:300;color:var(--text-secondary)">[必填] 可以放 2-3 条短 bullet 或一段说明,保持左对齐和充足留白.</div>
+          <p class="lead" style="font-weight:300;max-width:36ch">[required] In 2-3 lines, explain how the image relates to the thesis.</p>
+          <div class="body" style="font-weight:300;color:var(--text-secondary)">[required] Add 2-3 short bullets or one note here; keep left-aligned with generous whitespace.</div>
         </div>
         <figure class="tile">
           <div class="frame-img r-16x10 fit-contain">
-            <img src="images/23-visual-evidence.png" alt="[必填] 图片说明">
+            <img src="images/23-visual-evidence.png" alt="[required] Image caption">
           </div>
-          <figcaption class="swiss-img-caption"><strong>[必填] 图片标题</strong><span>16:10 · fit-contain</span></figcaption>
+          <figcaption class="swiss-img-caption"><strong>[required] Image title</strong><span>16:10 · fit-contain</span></figcaption>
         </figure>
       </div>
     </div>
@@ -789,18 +789,18 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-### P24 · Swiss Evidence Grid · 多图证据墙(实验,默认禁用)
+### P24 · Swiss Evidence Grid · Multi-image evidence wall (experimental, disabled by default)
 
-**用途**:三张同类型图片/截图/图表并列,展示证据链或多案例对比。
-**适用内容类型**:**2-3 张同类图片**。适合 UI 截图重绘、流程图三段、三个案例实拍、三张数据小图。不同类型混放会破坏瑞士风秩序。
-**骨架**:head 上下叠 / `.swiss-img-grid` 三列 / 每张 tile 用同一个 `.h-22` 或 `.h-26`。
-**关键类**:`.swiss-img-grid` `.frame-img.h-22|h-26` `.fit-contain` `.swiss-img-caption`
-**动效 recipe**:`grid-reveal`
-**注意**:
-- 同组图片必须同一比例、同一高度、同一边距密度;不要一张 16:9、一张 4:3、一张长条截图混排
-- 标题区和图片区之间必须有明显缓冲;模板里的 `.swiss-img-grid` 默认带顶部间距,只有在外层 grid 已经给足 gap 时才加 `.tight`
-- UI/信息图统一 `.fit-contain`;照片统一 cover
-- 如果用户原始截图比例混乱,先按 `screenshot-framing.md` 做 CleanShot X 式程序化适配;只有太长、太窄或需要重构信息时,才用 GPT-M 2.0 重生成同一比例的"截图再设计"
+**Purpose**: three same-type images/screenshots/charts side by side, showing an evidence chain or multi-case comparison.
+**Suitable content**: **2-3 same-type images**. Fits UI-screenshot redraws, three-stage flowcharts, three case photos, three small data charts. Mixing different types breaks the Swiss order.
+**Skeleton**: head stacked top / `.swiss-img-grid` three columns / every tile uses the same `.h-22` or `.h-26`.
+**Key classes**: `.swiss-img-grid` `.frame-img.h-22|h-26` `.fit-contain` `.swiss-img-caption`
+**Motion recipe**: `grid-reveal`
+**Note**:
+- Same-group images must share aspect ratio, height, and margin density; don't mix one 16:9, one 4:3 and one long-screenshot
+- There must be clear buffer between the title area and the image area; the template's `.swiss-img-grid` carries default top spacing, only add `.tight` when the outer grid already gives enough gap
+- UI/info-graphics uniformly use `.fit-contain`; photos uniformly cover
+- If the user's raw screenshot ratios are messy, first apply the CleanShot X-style programmatic reframing from `screenshot-framing.md`; only when an image is too long, too narrow, or needs information restructuring, use GPT-M 2.0 to regenerate a same-ratio "screenshot redesign"
 
 ```html
 <section class="slide light" data-animate="grid-reveal">
@@ -812,12 +812,12 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
     <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr;gap:6vh">
       <div data-anim="head" style="display:flex;flex-direction:column;gap:1.4vh">
         <div class="t-meta">Three visual proofs</div>
-        <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(6.6vw,11.6vh);line-height:.96;letter-spacing:-.035em">[必填] 三个证据,一个结论</h2>
+        <h2 style="font-family:var(--sans),var(--sans-zh);font-weight:200;font-size:min(6.6vw,11.6vh);line-height:.96;letter-spacing:-.035em">[required] Three proofs, one conclusion</h2>
       </div>
       <div class="swiss-img-grid" data-anim="up">
-        <figure class="tile"><div class="frame-img h-26 fit-contain"><img src="images/24-proof-a.png" alt="[必填]"></div><figcaption class="swiss-img-caption"><strong>01</strong><span>[必填] 证据 A</span></figcaption></figure>
-        <figure class="tile"><div class="frame-img h-26 fit-contain"><img src="images/24-proof-b.png" alt="[必填]"></div><figcaption class="swiss-img-caption"><strong>02</strong><span>[必填] 证据 B</span></figcaption></figure>
-        <figure class="tile"><div class="frame-img h-26 fit-contain swiss-lined"><img src="images/24-proof-c.png" alt="[必填]"></div><figcaption class="swiss-img-caption"><strong>03</strong><span>[必填] 关键证据</span></figcaption></figure>
+        <figure class="tile"><div class="frame-img h-26 fit-contain"><img src="images/24-proof-a.png" alt="[required]"></div><figcaption class="swiss-img-caption"><strong>01</strong><span>[required] Evidence A</span></figcaption></figure>
+        <figure class="tile"><div class="frame-img h-26 fit-contain"><img src="images/24-proof-b.png" alt="[required]"></div><figcaption class="swiss-img-caption"><strong>02</strong><span>[required] Evidence B</span></figcaption></figure>
+        <figure class="tile"><div class="frame-img h-26 fit-contain swiss-lined"><img src="images/24-proof-c.png" alt="[required]"></div><figcaption class="swiss-img-caption"><strong>03</strong><span>[required] Key evidence</span></figcaption></figure>
       </div>
     </div>
   </div>
@@ -826,72 +826,72 @@ Swiss 主题有 22 个登记版式,生成时要主动展示版式系统,不要�
 
 ---
 
-## 选版式索引(给 LLM 的决策表)
+## Layout selection index (decision table for the LLM)
 
-| 内容意图 | 推荐版式 |
+| Content intent | Recommended layout |
 |---|---|
-| Deck 起手封面 | P1 Cover |
-| 演化对比 / 时间轴(纵) | P2 Vertical Timeline |
-| 一句口号 / 章节起 | P3 Statement / P10 Dot Matrix |
-| 6 项概念定义 | P4 Six Cells |
-| 三步流程(轻) | P5 Three Sub-cards |
-| 4 项数据视觉化高度对比 | P6 KPI Tower |
-| 5-10 项排名比较 | P7 H-Bar Chart |
-| Before/After / 双轨对照 | P8 Duo Compare |
-| 整 deck 收尾 | P9 Closing Manifesto |
-| 多步流程(横,4-7 步) | P11 Horizontal Timeline |
-| 阶段性结论 + ink 通栏 | P12 Manifesto + Banner |
-| 3 个对等概念深化 | P13 Three Forces Cards |
-| 闭环流程 / 自学循环 | P14 Loop Diagram |
-| 8-12 项矩阵 + 总数据 | P15 Image Matrix |
-| 6 项快讯小卡 | P16 Multi-card Brief |
-| 层级架构 / 同心圆系统 | P17 System Diagram |
-| 三论点 + 数据支撑 | P18 Why Now |
-| 4 项等权特性 | P19 Four Cards |
-| 4-6 行账单式 KPI | P20 Stacked Ledger |
-| 产品规格 / benchmark | P21 Tech Spec |
-| 案例图 + 数据落地 | P22 Image Hero |
-| 地点 / 路线 / 人物住所关系 | S08 + Swiss Map Component |
-| 单图解释论点 / 图文混排 | P23 Swiss Image Split |
-| 2-3 张图片/截图/图表证据链 | P24 Swiss Evidence Grid |
+| Deck opening cover | P1 Cover |
+| Evolution comparison / timeline (vertical) | P2 Vertical Timeline |
+| One-liner / section opener | P3 Statement / P10 Dot Matrix |
+| 6 concept definitions | P4 Six Cells |
+| Three-step process (light) | P5 Three Sub-cards |
+| 4 data points, visual height comparison | P6 KPI Tower |
+| 5-10 ranking comparison | P7 H-Bar Chart |
+| Before/After / two-track contrast | P8 Duo Compare |
+| Whole-deck closing | P9 Closing Manifesto |
+| Multi-step process (horizontal, 4-7 steps) | P11 Horizontal Timeline |
+| Section conclusion + ink full-bleed | P12 Manifesto + Banner |
+| 3 parallel concepts, deepened | P13 Three Forces Cards |
+| Loop process / self-learning cycle | P14 Loop Diagram |
+| 8-12 matrix items + total data | P15 Image Matrix |
+| 6 brief cards | P16 Multi-card Brief |
+| Layered architecture / concentric system | P17 System Diagram |
+| Three arguments + data backing | P18 Why Now |
+| 4 equal-weight features | P19 Four Cards |
+| 4-6 ledger-style KPI rows | P20 Stacked Ledger |
+| Product spec / benchmark | P21 Tech Spec |
+| Case image + data anchoring | P22 Image Hero |
+| Place / route / who-lives-where relations | S08 + Swiss Map Component |
+| Single image explaining a thesis / image-text mix | P23 Swiss Image Split |
+| 2-3 image/screenshot/chart evidence chain | P24 Swiss Evidence Grid |
 
 ---
 
-## 选版式 P0 原则:内容数据类型必须匹配版式
+## Layout-selection P0 rule: the content-data type must match the layout
 
-> 这是写 deck 时**最容易踩雷**的地方。版式承载内容的「形状」是固定的——你必须先看内容,再选版式,**绝不能先选版式再编内容硬塞**。
+> This is the **easiest trap** when writing a deck. The "shape" a layout carries is fixed — you must look at the content first, then pick the layout; **never pick the layout first and cram content into it**.
 
-| 内容类型 | 必须用 | 严禁用 |
+| Content type | Must use | Must never use |
 |---|---|---|
-| 有真实量化数据(百分比/数值) | P6 KPI Tower / P7 H-Bar / P20 Ledger / P21 Tech Spec | P3 / P4 / P10 / P13(无数据版式) |
-| 无数据,纯定性论断 | P3 / P10 Statement / P12 / P13 / P19 | ⚠️ **P7 H-Bar / P6 KPI Tower**(编造数据会被识破) |
-| 4 项对等 | P19 Four Cards / P6(若有数据) | 不能强凑成 6 用 P4 |
-| 6 项对等 | P4 Six Cells / P16 Brief | 不能强凑成 4 用 P19 |
-| 3 项对等 | P5 Sub-cards / P13 Three Forces | |
-| Before/After | P8 Duo Compare(必须正好 2 项) | |
-| 地点/路线/城市关系 | S08 + Swiss Map Component | 普通 S04/S16 卡片罗列 |
-| 闭环结构 | P14 Loop Diagram | P11 横向流程(线性 ≠ 闭环) |
-| 三层嵌套 | P17 System Diagram | |
-| 时间演化(有数据) | P2 Vertical Timeline | |
-| 多步骤流程(无数据) | P11 Horizontal Timeline | |
-| 8-12 项同类 | P15 Image Matrix | |
-| deck 收尾 | P9 Closing(每 deck 仅 1 次) | |
-| 1 张核心图片 + 一段解释 | P23 Swiss Image Split | P22(除非图片是主角且有 KPI) |
-| 2-3 张同类图片 | P24 Evidence Grid | P4/P16(文字卡片,不是图片证据) |
+| Real quantitative data (percentages/numbers) | P6 KPI Tower / P7 H-Bar / P20 Ledger / P21 Tech Spec | P3 / P4 / P10 / P13 (data-free layouts) |
+| No data, purely qualitative claim | P3 / P10 Statement / P12 / P13 / P19 | ⚠️ **P7 H-Bar / P6 KPI Tower** (fabricated data will be spotted) |
+| 4 equal-weight items | P19 Four Cards / P6 (if data) | Don't pad it up to 6 just to use P4 |
+| 6 equal-weight items | P4 Six Cells / P16 Brief | Don't squeeze it down to 4 just to use P19 |
+| 3 equal-weight items | P5 Sub-cards / P13 Three Forces | |
+| Before/After | P8 Duo Compare (must be exactly 2 items) | |
+| Place/route/city relations | S08 + Swiss Map Component | Plain S04/S16 card grids |
+| Loop structure | P14 Loop Diagram | P11 horizontal process (linear ≠ loop) |
+| Three-layer nesting | P17 System Diagram | |
+| Time evolution (with data) | P2 Vertical Timeline | |
+| Multi-step process (no data) | P11 Horizontal Timeline | |
+| 8-12 same-type items | P15 Image Matrix | |
+| Deck closing | P9 Closing (no more than once per deck) | |
+| 1 hero image + one explanation | P23 Swiss Image Split | P22 (unless the image is the protagonist AND has KPIs) |
+| 2-3 same-type images | P24 Evidence Grid | P4/P16 (text cards, not image evidence) |
 
-**雷区案例**:用 P7 H-Bar Chart 展示「智能补全 / 实时协作 / 自主代理」这种**无可比百分比的概念列举**,编造 96/88/78 之类数字 → **数据不可信,版式滥用**。这种内容应该用 P2(若有时间维度)或 P3 Statement(若是论断)。
+**Landmine case**: using P7 H-Bar Chart for a concept list like "smart autocomplete / real-time collaboration / autonomous agents" that has **no comparable percentages**, then fabricating numbers like 96/88/78 → **the data isn't credible and the layout is misused**. Such content belongs in P2 (if there's a time dimension) or P3 Statement (if it's a claim).
 
 ---
 
-## 常犯错误(P0 检查项)
+## Common mistakes (P0 checklist)
 
-1. ❌ 给卡片加 `border-radius` → ✅ 必须直角
-2. ❌ 在 `.card-accent` 上又加描边 → ✅ 卡片填充类型互斥
-3. ❌ 自己画 SVG 图标 → ✅ 用 `lucide` 线上库,棱角风格
-4. ❌ 时间线 dot 用 grid `justify-self` 对齐虚线 → ✅ axis 列固定 12px + dot 绝对定位
-5. ❌ 大字号不限高(`13vw`)→ ✅ 永远 `min(Xvw, Yvh)` 双约束
-6. ❌ ESC 索引页缩略图看不到带动效内容 → ✅ 给 cloned slide 加可见性 override CSS
-7. ❌ 所有页用同一个 fade-up recipe → ✅ 每页一个语义化 recipe,与图形耦合
-8. ❌ 标题 + 卡片间距 < 5vh → ✅ 章节级标题至少 9vh
-9. ❌ 9px 圆形装饰点 → ✅ 8×8 直角小方块 / mono `t-meta` 文字
-10. ❌ 装饰元素超出页面边距 → ✅ 严格在 grid 内,不贴边
+1. ❌ Adding `border-radius` to cards → ✅ must be right angles
+2. ❌ Adding a stroke on `.card-accent` → ✅ card fill types are mutually exclusive
+3. ❌ Hand-drawing SVG icons → ✅ use the `lucide` online library, angular style
+4. ❌ Aligning timeline dots to the dashed axis with grid `justify-self` → ✅ fixed 12px axis column + absolutely-positioned dot
+5. ❌ Big type without a height cap (`13vw`) → ✅ always dual-constrain with `min(Xvw, Yvh)`
+6. ❌ ESC index thumbnails can't see animated content → ✅ add a visibility override CSS to the cloned slide
+7. ❌ Same fade-up recipe on every page → ✅ one semantic recipe per page, coupled to the graphic
+8. ❌ Title + card spacing < 5vh → ✅ section-level titles at least 9vh
+9. ❌ 9px circular dots → ✅ 8×8 right-angle squares / mono `t-meta` text
+10. ❌ Decorative elements crossing the page margin → ✅ strictly inside the grid, never flush to an edge

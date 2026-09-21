@@ -117,9 +117,9 @@ for(const [label,needle]of runtimeChecks)if(!html.includes(needle))errors.push(`
 if(!/\.ppt-preview-stack\s*\{[^}]*grid-template-rows\s*:/s.test(html))errors.push('Presenter preview stack must define vertical grid rows.');
 if(!/\.ppt-frame\s*\{[^}]*aspect-ratio\s*:\s*16\s*\/\s*9/s.test(html))errors.push('Presenter preview frames must declare a 16:9 aspect ratio.');
 if(!/fitPresenterFrames[\s\S]*?16\s*\/\s*9/.test(html))errors.push('Presenter preview fitter must preserve the 16:9 ratio.');
-if(!/id="ppt-timer-toggle"[^>]*>开始计时<\/button>/.test(html))errors.push('Presenter timer must use the explicit label "开始计时".');
-if(!/id="ppt-timer-reset"[^>]*>重置计时<\/button>/.test(html))errors.push('Presenter timer reset must use the explicit label "重置计时".');
-if(!html.includes('继续计时'))errors.push('Presenter timer resume state must use the explicit label "继续计时".');
+if(!/id="ppt-timer-toggle"[^>]*>Start timing<\/button>/.test(html))errors.push('Presenter timer must use the explicit label "Start timing".');
+if(!/id="ppt-timer-reset"[^>]*>Reset timing<\/button>/.test(html))errors.push('Presenter timer reset must use the explicit label "Reset timing".');
+if(!html.includes('Resume timing'))errors.push('Presenter timer resume state must use the explicit label "Resume timing".');
 if(/\.ppt-preview-stack\{[^}]*grid-template-columns/.test(html))errors.push('Presenter previews must stack vertically; remove grid-template-columns from .ppt-preview-stack.');
 
 const timedNotes=speakerNotes.filter(n=>Number.isFinite(Number(n?.minutes))&&Number(n.minutes)>0);

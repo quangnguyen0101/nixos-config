@@ -1,184 +1,184 @@
-# 演讲者模式与演讲备注契约
+# Presenter Mode and Speaker-Notes Contract
 
-制作任何需要现场讲述的 deck 时加载本文件。目标不是把页面文案复制到备注区，而是让页面、讲述、转场、时间和现场控制形成一条可以排练和可以恢复的叙事链。
+Load this file when building any deck that will be narrated live. The goal is not to copy on-page copy into the notes area, but to weave pages, narration, transitions, timing, and live control into a narrative chain that can be rehearsed and recovered.
 
-## 1. 页面计划同时规划“看什么”和“说什么”
+## 1. The page plan covers both "what is seen" and "what is said"
 
-在写 HTML 前，先做一张表。只填用户大纲、素材或已确认的现场信息能够支持的列：
+Before writing any HTML, build a table first. Only fill the columns that the user's outline, materials, or confirmed live information can support:
 
-| 页码 | `data-slide-id` | 章节 | 页面目的 | 观众屏可见信息 | 演讲者补充 | 建议时长 | 转场 | 可选现场信息 |
-|---|---|---|---|---|---|---:|---|---|
+| Page # | `data-slide-id` | Section | Page purpose | Visible on audience screen | Speaker additions | Suggested minutes | Transition | Optional live info |
+|---|---|---|---|---|---:|---|---|
 
-- **观众屏可见信息**：观众此刻必须读到的结论、证据、结构或图像。
-- **演讲者补充**：背景、例子、判断依据、语气和细节，不要逐字复述页面。
-- **转场**：解释下一页为什么紧接着出现，不要只写“下一页”。
-- **可选现场信息**：可包含停顿、提问、Demo、视频、敏感信息、翻页时机、备用方案或读音。
+- **Visible on audience screen**: the conclusion, evidence, structure, or image the audience must read at this moment.
+- **Speaker additions**: background, examples, reasoning, tone, and detail — don't recite the page verbatim.
+- **Transition**: explains why the next page follows this one; don't just write "next page".
+- **Optional live info**: may include pauses, questions, demos, videos, sensitive information, advance timing, fallback plans, or pronunciations.
 
-默认生成“提词卡”，不是逐字稿。只有用户明确要求逐字稿时，才写完整口播。
+Default to generating cue cards, not a verbatim script. Only write a full spoken script when the user explicitly asks for one.
 
-## 2. 模型如何把大纲信息带进演讲模式
+## 2. How the model brings outline information into Presenter Mode
 
-对用户的大纲、项目记录和补充说明做结构化提取，不要自行增加现场事实。
+Do a structured extraction of the user's outline, project records, and additional remarks — do not invent live facts on your own.
 
-- 已给出章节名或可靠推断的连续章节：写入 `section`。
-- 已给出总时长或逐页节奏：可给出 `minutes`，总建议时长不超过现场时长的 90%。
-- 大纲明确写了停顿、提问、Demo、视频、语气、翻页点或备用路径：分别写入对应的可选字段。
-- 用户明确要求某页自动停留多少秒：才写 `autoAdvanceSeconds`。
-- 没有提供的信息不猜测、不写“待补充”到演讲界面，直接省略字段。界面对缺失时长显示横杠，其他可选模块整段隐藏。
-- 如果页面在未运行校验的情况下临时新增，且没有对应备注，演讲者界面只显示中性横杠 `—`，不显示“待补充”或虚构内容；校验器仍应报告备注与页面不一致。
+- Continuous chapters that are already named or reliably inferable: write into `section`.
+- If total duration or per-page pacing is given: `minutes` may be provided; the total suggested duration must not exceed 90% of live time.
+- If the outline explicitly writes pauses, questions, demos, videos, tone, advance points, or fallback paths: write each into its corresponding optional field.
+- Write `autoAdvanceSeconds` only when the user explicitly asks a page to auto-hold for some seconds.
+- Don't guess on unprovided information, and don't write "to be added" into the presenter UI — just omit the field. The UI shows a dash for missing duration and hides other optional modules entirely.
+- If a page is temporarily added without running validation and has no matching notes, the presenter UI shows only a neutral dash `—`, never "to be added" or invented content; the validator should still report that the notes do not match the pages.
 
-`minutes` 是讲述计划，`autoAdvanceSeconds` 是播放行为，二者必须分开。不得因为一页建议讲 1 分钟，就默认 60 秒后自动翻页。
+`minutes` is a narration plan; `autoAdvanceSeconds` is a playback behavior. The two must be kept separate. Never auto-advance a page after a default 60 seconds just because it suggests narrating it for one minute.
 
-## 3. 稳定的页面 ID
+## 3. Stable page IDs
 
-每一页都必须有唯一、语义化且稳定的 ID：
+Every page must have a unique, semantic, and stable ID:
 
 ```html
 <section class="slide ..." data-slide-id="codepilot-capabilities">
 ```
 
-- 使用小写英文 slug：`cover`、`codepilot-capabilities`、`demo-workflow`、`closing`。
-- 页面重排时保留原 ID；只有页面语义彻底改变时才更换。
-- 不要用页码作为 ID。演讲者在浏览器里修改的备注按 ID 保存，稳定 ID 可避免重排后串页。
+- Use lowercase English slugs: `cover`, `codepilot-capabilities`, `demo-workflow`, `closing`.
+- Keep the original ID when pages are reordered; only change it when a page's semantics fundamentally change.
+- Don't use page numbers as IDs. Notes a presenter edits in the browser are saved by ID; stable IDs keep notes from leaking across pages after a reorder.
 
-## 4. `SPEAKER_NOTES` 数据结构
+## 4. The `SPEAKER_NOTES` data structure
 
-在 deck 中保留一条与每页 ID 对应的记录，顺序必须与 slide 完全一致：
+Keep one record matching each page ID in the deck, in exactly the same order as the slides:
 
 ```js
 const SPEAKER_NOTES = [
   {
     id: 'codepilot-capabilities',
-    title: 'CodePilot 能做什么',
+    title: 'What CodePilot can do',
     section: 'CodePilot',
     minutes: 0.9,
-    purpose: '先让观众建立完整产品认知，再进入实现过程',
+    purpose: 'Get the audience to grasp the full product first, then move into the implementation',
     talk: [
-      '从用户动作讲能力，不先讲底层 Harness',
-      '用首页、多模型、Skills 和侧边栏四张截图建立产品全貌',
-      '强调模型、工具和上下文可以在同一工作流里协作'
+      'Walk capabilities through user actions, not the underlying Harness first',
+      'Use four screenshots — home page, multi-model, Skills, sidebar — to build the full picture',
+      'Emphasize that model, tools, and context work together in one workflow'
     ],
-    transition: '观众知道产品长什么样后，再回答为什么要这样实现',
-    cue: '按截图顺序指向四个能力区',
-    advance: '讲完“同一工作流”后翻页'
+    transition: 'Once the audience sees what the product looks like, answer why it is built that way',
+    cue: 'Point to the four capability areas in screenshot order',
+    advance: 'Advance after covering the "same workflow" point'
   }
 ];
 window.__SPEAKER_NOTES__ = SPEAKER_NOTES;
 ```
 
-必填字段：
+Required fields:
 
-- `id`、`title`、`purpose`、`talk`、`transition`。
-- `talk` 默认 3–5 条，每条只表达一个意思；封面、章节页和纯过渡页可以更短。
+- `id`, `title`, `purpose`, `talk`, `transition`.
+- `talk` defaults to 3–5 items, each expressing one idea; covers, chapter pages, and pure transition pages may be shorter.
 
-可选字段：
+Optional fields:
 
-| 字段 | 用途 | 界面缺失时 |
+| Field | Purpose | When missing in the UI |
 |---|---|---|
-| `section` | 章节名和章节进度 | 隐藏章节行 |
-| `minutes` | 本页建议讲述分钟 | 显示 `—` |
-| `cue` | 停顿、Demo、视频、敏感信息提醒 | 隐藏 |
-| `interaction` | 现场提问、举手、投票或 Q&A | 隐藏 |
-| `delivery` | 语气、重音、语速或停顿 | 隐藏 |
-| `advance` | 人工翻页的句子或动作时机 | 隐藏 |
-| `fallback` | Demo / 视频 / 网络失败时的备用说法 | 隐藏 |
-| `pronunciation` | 人名、缩写和外语读音 | 隐藏 |
-| `autoAdvanceSeconds` | 本页自动停留秒数，优先于全局间隔 | 使用全局间隔或不自动翻页 |
+| `section` | chapter name and chapter progress | hide the chapter row |
+| `minutes` | suggested narration minutes for this page | show `—` |
+| `cue` | pause, demo, video, sensitive-info reminder | hide |
+| `interaction` | live questions, raised hands, polls, or Q&A | hide |
+| `delivery` | tone, emphasis, pace, or pauses | hide |
+| `advance` | the sentence or action that times manual page turns | hide |
+| `fallback` | alternate lines when a demo / video / network fails | hide |
+| `pronunciation` | pronunciation of names, acronyms, and foreign words | hide |
+| `autoAdvanceSeconds` | seconds this page auto-holds, overrides the global interval | use the global interval or don't auto-advance |
 
-`cue`、`interaction`、`delivery`、`advance`、`fallback`、`pronunciation` 可以是字符串，也可以是字符串数组。
+`cue`, `interaction`, `delivery`, `advance`, `fallback`, and `pronunciation` may each be a string or an array of strings.
 
-## 5. 演讲者界面行为
+## 5. Presenter UI behavior
 
-- 普通 deck 的右下角控制区显示 `P 演讲模式`，不单独悬浮一个抢眼按钮。
-- 点击后当前窗口进入演讲者视图，并打开独立观众屏。
-- 主体保持两栏：左侧预览、右侧备注；左侧当前页在上、下一页在下。
-- 当前页与下一页 iframe 始终严格保持 `16:9`。空间不足时留边并整体等比缩小，不得裁切、压扁或让页面内部文字重新排版。
-- 预览 iframe 只在初次挂载时加载 HTML，翻页时通过 `postMessage` 发送页码，不反复改写 `src` 重载整份演示稿。
-- 小屏优先缩小下一页预览，把空间留给当前页。
-- 底栏分成三段：左侧是 `已进行 / 本页 / 剩余或超时` 三组时间，中间是两行控制（第一行 `首页 / 上一页 / 下一页 / 尾页`，第二行 `开始计时或暂停 / 重置计时 / 排练`），右侧只显示 `第几页 / 总页数` 和完成百分比。不要在底栏重复当前页标题。计时按钮必须明确写成“开始计时 / 继续计时 / 重置计时”，避免让用户误以为是重置整场演示。
-- `自动翻页` 放在右上角状态栏，不占用底部翻页区。
-- `宫格` 放在“当前页”标题旁。打开后直接用宫格替换当前页/下一页预览区，不要弹出突兀的全屏层；卡片显示页码、标题、章节和进度，点击页面后立即回到当前页/下一页预览。`ESC` 切换宫格。
-- 右侧卡片依次显示 `标题 / 本页目的 / 草稿（备注）`，避免把标题或页面目的混进草稿正文。
-- 演讲者可从“均衡 / 页面优先 / 备注优先”三种布局选择。
-- 备注编辑按 `data-slide-id` 存入 `localStorage`，显示保存状态；切页后备注滚动回顶部，并允许调整字号。
-- `Home` / `End`、方向键、PageUp/PageDown 与可见按钮保持一致；光标在备注编辑器中时不得触发翻页。
-- 对话框已打开时，`?` 不得覆盖当前对话框；只有 `Escape` 关闭当前对话框。尾页的“下一页”预览显示“演示结束”，不重复当前页。
-- 设置面板使用可辨识的卡片层级；开关使用胶囊 switch，数值间隔使用带减号、数值和加号的 stepper，不直接暴露浏览器原生复选框或粗糙数字输入框。
+- On a normal deck, the bottom-right control area shows `P Presenter Mode` — not a separate attention-grabbing floating button.
+- Clicking it puts the current window into Presenter View and opens a separate audience screen.
+- The body stays two columns: preview on the left, notes on the right; on the left, the current page on top and the next page below.
+- The current- and next-page iframes must always hold strictly to `16:9`. When space is tight, keep margins and scale the whole thing down proportionally — never crop, squash, or reflow the inner text.
+- Preview iframes load the HTML only on initial mount; page turns send the page number via `postMessage` instead of rewriting `src` and reloading the whole deck.
+- On small screens, shrink the next-page preview first to give space to the current page.
+- The bottom bar splits into three segments: on the left are three time groups — `elapsed / this page / remaining or overtime` — in the middle are two control rows (first row `first / prev / next / last`, second row `start or pause timing / reset timing / rehearse`), and on the right only `page # / total pages` plus a completion percentage. Don't repeat the current page title in the bottom bar. The timing buttons must be written plainly as "Start timing / Continue timing / Reset timing" so users never mistake them for resetting the whole talk.
+- `Auto-advance` lives in the top-right status bar, not in the bottom navigation area.
+- `Grid` sits beside the "current page" title. Once opened, the grid replaces the current/next preview area directly rather than popping a jarring fullscreen layer; cards show page number, title, section, and progress, and clicking a page returns immediately to the current/next preview. `ESC` toggles the grid.
+- The right card shows `title / page purpose / draft (notes)` in that order, so the title or purpose never gets mixed into the draft body.
+- Presenters can choose between "balanced / page-first / notes-first" layouts.
+- Note edits are stored in `localStorage` keyed by `data-slide-id` with a save status; after switching pages the notes scroll back to the top, and font size is adjustable.
+- `Home` / `End`, arrow keys, and PageUp/PageDown stay consistent with the visible buttons; the cursor inside the notes editor must not trigger page turns.
+- While a dialog is open, `?` must not override it; only `Escape` closes the current dialog. On the last page, the "next page" preview shows "Presentation ended" rather than repeating the current page.
+- The settings panel uses a recognizable card hierarchy; toggles use capsule switches, numeric intervals use a stepper with minus / value / plus, and the browser's native checkboxes or crude number inputs are never exposed directly.
 
-## 6. 时间控制与排练
+## 6. Time control and rehearsal
 
-- 计时器由用户显式开始，可暂停、继续和重置；不要进入模式就自动计时。
-- 同时显示总实际时长、本页实际时长、本页计划、剩余或超时。
-- 只有每页都有 `minutes` 时，才显示总计划和预计结束时间；部分页缺失时显示横杠。
-- 有 `section` 时显示章节位置；该章节每页都有计划时长时，再显示章节剩余时间。
-- 排练模式记录每页实际时长和总时长，本地保留最近 5 次。
-- 排练结果只做数据汇总，不生成“AI 教练”式评判。
+- The timer starts explicitly by the user and can pause, continue, and reset; entering the mode must not start timing automatically.
+- Show actual total time, actual time on this page, this page's plan, and remaining or overtime at the same time.
+- Only when every page has `minutes` do you show the total plan and the estimated end time; if some pages lack it, show dashes.
+- Show chapter position when `section` exists; show chapter time remaining only when every page of that chapter has a planned duration.
+- Rehearsal mode records each page's actual duration plus the total, keeping the most recent 5 runs locally.
+- Rehearsal results are plain data summaries — no "AI coach" style judgment.
 
-## 7. 自动翻页
+## 7. Auto-advance
 
-- 默认关闭，由用户显式开启。
-- 可设置全局间隔；页面存在 `autoAdvanceSeconds` 时优先使用页面值。
-- 进入总览、正在圈选、打开设置、浏览器页面不可见、观众屏黑屏/白屏/冻结或观众屏失去同步时，自动倒计暂停。
-- 离开暂停状态后从原剩余时间继续，不重头计时。
-- 到尾页后停止，不自动回到首页。
+- Off by default; turned on explicitly by the user.
+- A global interval can be set; a page's `autoAdvanceSeconds` takes priority when present.
+- The auto countdown pauses when entering overview, during circling/annotation, with settings open, when the browser page is not visible, when the audience screen is black/white/frozen, or when the audience screen loses sync.
+- On leaving a pause, resume from the original remaining time — don't restart the countdown.
+- Stop after the last page; don't loop back to the first.
 
-## 8. 激光笔、圈选与观众屏控制
+## 8. Laser pointer, circling, and audience-screen control
 
-- `L` 切换激光笔，红点短暂淡出，不保存。
-- `C` 切换圈选，圈选保留在当前页；翻页时清除。
-- `X` 清除当前页标注。
-- 所有坐标归一化后传给观众屏，不受演讲者屏和观众屏尺寸差异影响。
-- `B` 切换观众屏黑屏，`W` 切换白屏，`F` 冻结/恢复观众屏。
-- 冻结时演讲者可以继续翻页，观众屏保留原页；恢复时立即追平演讲者当前页。
+- `L` toggles the laser pointer; the red dot fades out briefly and is not saved.
+- `C` toggles circling; annotations stay on the current page and clear on page turn.
+- `X` clears annotations on the current page.
+- All coordinates are normalized before being sent to the audience screen, so presenter-screen and audience-screen size differences do not matter.
+- `B` toggles the audience screen black, `W` toggles it white, `F` freezes/resumes the audience screen.
+- While frozen the presenter can keep advancing and the audience screen holds its old page; on resume it immediately catches up to the presenter's current page.
 
-## 9. 观众屏同步与恢复
+## 9. Audience-screen sync and recovery
 
-模板同时使用窗口 `postMessage`、`BroadcastChannel` 和 `storage` 事件同步。观众页在加载和每次翻页后回传确认，演讲者端显示：
+The template syncs through window `postMessage`, `BroadcastChannel`, and `storage` events together. The audience page sends back a confirmation after loading and after every page turn; the presenter side displays:
 
-- **连接中**：观众窗口已打开，尚未收到确认。
-- **已同步**：观众页确认的页码与演讲者页相同，心跳有效。
-- **未同步**：观众页心跳仍有效，但两端页码或序列号不同。
-- **已冻结**：观众屏故意保留原页，不是同步故障。
-- **未连接**：观众窗口未打开、已关闭，或心跳已超时。即使某些内置浏览器的 `window.closed` 代理不可靠，心跳超时后也必须落到“未连接”。
-- **弹窗被拦截**：浏览器阻止打开观众窗口。
+- **Connecting**: audience window open, no confirmation yet.
+- **Synced**: the audience page confirms the same page as the presenter, heartbeat valid.
+- **Out of sync**: the audience heartbeat is still valid, but the two ends have different page numbers or sequence numbers.
+- **Frozen**: the audience screen intentionally keeps its old page, not a sync failure.
+- **Disconnected**: audience window never opened, was closed, or the heartbeat timed out. Even where some embedded browsers make the `window.closed` proxy unreliable, a heartbeat timeout must still land on "Disconnected".
+- **Popup blocked**: the browser blocked opening the audience window.
 
-“重新打开观众屏”必须始终可用，并在恢复后立即发送当前页。
+"Reopen audience screen" must always be available and must send the current page immediately after recovery.
 
-演讲者退出演讲模式时必须发送 `bye`。由脚本打开的观众窗口尝试自动关闭；如果浏览器不允许自关，则保留深色“演示已结束”遮罩，不得继续停留在最后一页假装演示仍在进行。
+When the presenter exits Presenter Mode, `bye` must be sent. Audience windows opened by the script try to close themselves; if the browser does not allow self-closing, keep a dark "Presentation ended" overlay — never linger on the last page pretending the talk is still going.
 
-浏览器只能确认观众**页面/窗口**的软件同步状态，不能检测 HDMI、转接器或投影仪线缆是否物理断开。现场仍应目视确认外接屏。
+The browser can only confirm the software sync state of the audience **page/window**; it cannot detect whether an HDMI, adapter, or projector cable is physically disconnected. Still visually confirm the external screen on site.
 
-## 10. 演前检查和快捷键
+## 10. Pre-talk checks and shortcuts
 
-“检查”面板检查观众屏同步、弹窗权限、全屏、字体、图片、视频和当前页 16:9。检查结果不得宣称物理外接屏已连接。
+The "check" panel verifies audience sync, popup permissions, fullscreen, fonts, images, video, and the current page's 16:9. Check results must never claim a physical external screen is connected.
 
-| 键 | 行为 |
+| Key | Behavior |
 |---|---|
-| `L` | 激光笔 |
-| `C` | 圈选 |
-| `X` | 清除标记 |
-| `B` / `W` | 观众屏黑屏 / 白屏 |
-| `F` | 冻结 / 恢复观众屏 |
-| `A` | 开启 / 关闭自动翻页 |
-| `R` | 开始 / 结束排练 |
-| `?` | 打开快捷键说明 |
+| `L` | laser pointer |
+| `C` | circling |
+| `X` | clear marks |
+| `B` / `W` | audience screen black / white |
+| `F` | freeze / resume audience screen |
+| `A` | enable / disable auto-advance |
+| `R` | start / end rehearsal |
+| `?` | open shortcut help |
 
-## 11. 能力边界
+## 11. Capability boundaries
 
-这个演讲模式只依赖当前 HTML 和浏览器本地能力，不需要账号或在线服务。不要默认加入：
+This Presenter Mode depends only on the current HTML and the browser's local capabilities — no account or online service. Do not add by default:
 
-- 实时字幕、语音转文字或外部语音模型。
-- AI 排练教练或对演讲者的评分。
-- 扫码提问、在线投票或云端互动后台。
-- 手机遥控或需要服务端中继的跨设备控制。
+- Live captions, speech-to-text, or external voice models.
+- AI rehearsal coaching or scoring of the presenter.
+- QR-code questions, online polls, or cloud interaction backends.
+- Phone control or cross-device control that needs a server relay.
 
-## 12. 生成后验证
+## 12. Post-generation validation
 
 ```bash
 node <SKILL_ROOT>/scripts/validate-presenter-mode.mjs path/to/index.html
 node <SKILL_ROOT>/scripts/validate-presenter-mode.mjs path/to/index.html --target-minutes 30
 ```
 
-浏览器实测至少包含：进入演讲模式、弹窗允许/拦截、前后翻页且预览 iframe 不重载、内嵌宫格替换预览与选页返回、首页/尾页、尾页预览结束态、尾页重新开始、观众窗口关闭后显示“未连接”、重新打开后恢复同步、退出演讲后观众屏关闭或显示结束遮罩、备注保存、计时、排练记录、自动翻页暂停/恢复、激光笔、圈选、清除、黑屏、白屏、冻结、设置面板与演前检查。
+Hand-testing in the browser must cover at least: entering Presenter Mode; popup allow/block; turning forward and back without the preview iframe reloading; the in-page grid replacing the preview and returning after a page pick; first/last page; the last page's preview end state; restarting from the last page; showing "Disconnected" after the audience window closes; restoring sync after reopening; the audience screen closing or showing the end overlay after exiting Presenter Mode; note saving; timing; rehearsal records; auto-advance pause/resume; laser pointer; circling; clearing; black; white; freeze; the settings panel; and the pre-talk check.
 
-至少在一组常用尺寸和一组小屏尺寸下检查：当前页/下一页上下排列，两个 iframe 宽高比均为 `16:9`，且没有超出各自容器。
+Check at least one set of common sizes and one set of small-screen sizes: current page and next page stacked vertically, both iframes at `16:9`, and neither overflowing its own container.

@@ -1,327 +1,327 @@
-# 质量检查清单（Checklist）
+# Quality Checklist
 
-这个清单来自"一人公司"分享 PPT 的真实迭代过程。每一条都是踩过坑之后总结的，按重要性排序。
+This checklist comes from the real iteration process of the "One-Person Company" deck. Every item was learned the hard way, ordered by importance.
 
-生成 PPT 前，先通读一遍；生成后，逐项自检。
+Read it through once before generating a deck; after generating, self-check every item.
 
 ---
 
-## 🔴 P0 · 一定不能犯的错
+## 🔴 P0 · Mistakes That Must Never Happen
 
-### 0-P. 演讲者模式必须可控、可排练、可恢复、备注不串页
+### 0-P. Presenter Mode Must Be Controllable, Rehearsable, Recoverable, Notes Never Leak Across Slides
 
-**现象**:演讲者端已经翻页,观众屏仍停在上一页;观众窗口关闭后没有提示;页面重排后,用户改过的讲稿跑到了另一页;或演讲模式入口变成页面右上角的突兀按钮。
+**Symptom**: the presenter side has advanced, but the audience screen still sits on the previous slide; closing the audience window gives no notice; after a reflow the user's edited script lands on a different slide; or the presenter-mode entry becomes an abrupt button in the page's top-right corner.
 
-**做法**:
-- 演讲入口只放在右下角现有快捷控制区,显示 `P 演讲模式`。
-- 演讲者主体只做“左侧预览 + 右侧备注”两栏;当前页在上、下一页在下,避免形成挤压当前页的三栏布局。
-- 两个预览 iframe 必须严格保持 `16:9`,容器不足时等比缩小并留边,不得裁切或拉伸;小屏优先压缩下一页预览高度。
-- 底栏固定为“左时间、中控制、右页码进度”:左侧分组显示已进行/本页/剩余或超时,中间两行放翻页和会话控制,右侧只放页码与百分比;不要重复当前页标题。会话控制使用“开始计时 / 继续计时 / 重置计时 / 排练”等明确动作名,不使用孤立的“开始”或“重置”。
-- 翻页控制顺序固定为 `首页 / 上一页 / 下一页 / 尾页`;尾页时最后一个按钮变为“重新开始”。自动翻页放在右上角状态栏。
-- `宫格` 放在当前页标题旁,打开时替换当前/下一页预览区;选中页面后回到预览,不要弹出突兀的全屏总览。
-- 右侧卡片依次显示标题、本页目的和草稿备注;设置里的开关用胶囊 switch,时间间隔用美化后的加减 stepper。
-- 观众屏必须显示软件链路状态:`连接中 / 已同步 / 未同步 / 未连接 / 弹窗被拦截`,并始终提供“重新打开观众屏”。
-- 演讲者必须能看到总时长、本页时长、计划/剩余/超时;缺失 `minutes` 时显示横杠,不猜测。
-- 临时新增页面没有对应备注时,界面 fallback 只显示 `—`,不显示“待补充”;校验器仍要报告页面/备注数量不一致。
-- 排练模式记录每页实际时长,本地保留最近 5 次;只做数据汇总,不做 AI 教练评分。
-- 自动翻页默认关闭,`minutes` 与 `autoAdvanceSeconds` 必须分开;总览、圈选、设置、页面隐藏、观众屏暂停或失同步时倒计必须暂停。
-- 必须提供激光笔、圈选、清除、黑屏、白屏和冻结/恢复;标注坐标要归一化同步到观众屏。
-- 预览 iframe 只初次加载,翻页改用 `postMessage` 同步页码;尾页的下一页预览显示“演示结束”,不重复当前页。
-- 退出演讲必须处理 `bye`:脚本打开的观众窗口自动关闭,无法自关时显示“演示已结束”;心跳超时必须显示“未连接”而不是永久停在“未同步”。
-- 演前检查必须覆盖观众屏、弹窗、全屏、字体、图片/视频和 16:9;同时明确提醒它不能检测物理线缆。
-- 备注里的 `section / cue / interaction / delivery / advance / fallback / pronunciation / autoAdvanceSeconds` 都是可选字段;用户大纲没有就整段隐藏。
-- 每页必须有稳定、唯一的 `data-slide-id`;`SPEAKER_NOTES` 数量、顺序和 ID 必须逐页一致。
-- 备注本地编辑按页面 ID 保存;切页重置滚动位置并显示保存状态。
-- 浏览器只能确认观众页面是否同步,不能确认 HDMI/投影线物理连接;现场仍要目视检查外接屏。
+**Do**:
+- The presenter entry lives only in the existing shortcut control area at the bottom right, labeled `P Presenter Mode`.
+- The presenter body is only two columns, "preview on the left + notes on the right"; the current slide on top, the next slide below, avoiding a three-column layout that crushes the current slide.
+- Both preview iframes must strictly stay `16:9`; when the container is too small, scale down proportionally with margins — never crop or stretch; on small screens shrink the next-slide preview height first.
+- The bottom bar is fixed as "time on the left, controls in the middle, page progress on the right": the left groups show elapsed / current slide / remaining or overtime, the middle two rows hold paging and session controls, the right shows only page number and percentage — do not repeat the current slide's title. Session controls use explicit action names like "Start Timer / Resume Timer / Reset Timer / Rehearse", not bare "Start" or "Reset".
+- Paging order is always `Home / Prev / Next / End`; on the last slide the final button becomes "Restart". Auto-advance lives in the top-right status bar.
+- `Grid` sits beside the current slide's title; opening it replaces the current/next preview area, and picking a slide returns to the preview — do not pop an abrupt fullscreen overview.
+- The right card shows, in order, the title, this slide's purpose, and draft notes; settings toggles use capsule switches and the time interval uses a polished plus/minus stepper.
+- The audience screen must show the pipeline status: `connecting / synced / not synced / not connected / pop-up blocked`, and always offer "Reopen Audience Screen".
+- The presenter must see total duration, this slide's duration, and planned/remaining/overtime; when `minutes` is missing show a dash, never guess.
+- When a newly added slide has no matching notes, the UI fallback shows only `—`, not "to be filled"; the validator must still report the slide/note count mismatch.
+- Rehearse mode records each slide's real duration, keeping the last 5 runs locally; it only aggregates data, it does not score like an AI coach.
+- Auto-advance is off by default; `minutes` and `autoAdvanceSeconds` must stay separate; the countdown must pause on overview, marquee, settings, hidden slides, or when the audience screen pauses or desyncs.
+- Laser pointer, marquee, clear, black screen, white screen, and freeze/resume must all be provided; annotation coordinates must be normalized and synced to the audience screen.
+- The preview iframes load once; paging syncs via `postMessage`; on the last slide the next-slide preview shows "Presentation Over", not a repeat of the current slide.
+- Exiting must handle `bye`: windows the script opened close themselves, and when they cannot, show "Presentation Ended"; on heartbeat timeout show "Not Connected" instead of staying forever on "Not Synced".
+- The pre-talk check must cover the audience screen, popups, fullscreen, fonts, images/video, and 16:9; it must also clearly warn that it cannot detect physical cables.
+- In notes, `section / cue / interaction / delivery / advance / fallback / pronunciation / autoAdvanceSeconds` are all optional fields; if the user's outline lacks them, hide that whole block.
+- Every slide needs a stable, unique `data-slide-id`; the `SPEAKER_NOTES` count, order, and IDs must match every slide.
+- Local note edits save by slide ID; switching slides resets the scroll position and shows the save state.
+- The browser can only confirm whether the audience page is in sync, not the physical HDMI/projector cable; on site you still check the external screen by sight.
 
-**检查**:
+**Check**:
 
 ```bash
 node <SKILL_ROOT>/scripts/validate-presenter-mode.mjs path/to/index.html
 ```
 
-浏览器里关闭观众窗口,确认状态变化;再点击“重新打开观众屏”,确认它恢复到演讲者当前页。再逐项实测内嵌宫格选页返回、计时、排练、自动翻页暂停/恢复、激光笔、圈选、清除、黑屏、白屏、冻结、设置组件和演前检查。缩小浏览器窗口再检查一次:当前页与下一页仍上下排列,两个 iframe 的 `width / height` 仍约等于 `16 / 9`,且没有超出预览容器。
+In the browser, close the audience window and confirm the state change; then click "Reopen Audience Screen" and confirm it returns to the presenter's current slide. Then test, item by item: the inline grid picker return, timer, rehearsal, auto-advance pause/resume, laser pointer, marquee, clear, black screen, white screen, freeze, settings widgets, and pre-talk check. Shrink the browser window and check again: current and next slides still stack vertically, both iframes' `width / height` are still about `16 / 9`, and nothing overflows the preview container.
 
-### 0-S. Swiss locked mode:正文页必须来自原始 22P
+### 0-S. Swiss locked mode: content pages must come from the original 22P
 
-**现象**:颜色、字体看起来像 Swiss,但标题跑到中间、图片不在网格上、页面结构和原始 22P 完全不是一套东西。
+**Symptom**: colors and fonts look Swiss, but the title sits in the middle, images are off the grid, and the page structure shares nothing with the original 22P.
 
-**根因**:生成时把 Swiss 当成风格包,自由组合了新的 P23/P24/自绘 SVG 页面,没有从原始参考 PPT 的 22 个登记版式里选。
+**Root cause**: the generator treated Swiss as a style pack and freely combined new P23/P24/self-drawn SVG pages instead of picking from the 22 registered layouts of the original reference PPT.
 
-**做法**:
-- 先读 `references/swiss-layout-lock.md`
-- 正文页只能使用 `S01-S22`;新增首页/尾页只能使用 `SWISS-COVER-ASCII` / `SWISS-CLOSING-ASCII`
-- 每个 `<section class="slide">` 必须写 `data-layout="Sxx"`
-- 生成后必须运行:
+**Do**:
+- Read `references/swiss-layout-lock.md` first
+- Content pages may only use `S01-S22`; new cover/closing pages may only use `SWISS-COVER-ASCII` / `SWISS-CLOSING-ASCII`
+- Every `<section class="slide">` must carry `data-layout="Sxx"`
+- After generating, you must run:
 
 ```bash
 node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 ```
 
-**校验会拦截**:
-- 未登记版式 / 缺少 `data-layout`
-- P23/P24 实验结构
-- SVG 里写可见文字
-- S22 图片未绑定 `s22-hero-21x9`
-- S22 照片使用 `object-position:top center`
+**The validator blocks**:
+- Unregistered layouts / missing `data-layout`
+- P23/P24 experiment structures
+- Visible text written in SVG
+- S22 images not bound to `s22-hero-21x9`
+- S22 photos using `object-position:top center`
 
-### 0-S-2. Swiss 顶部标题默认左上,不是居中
+### 0-S-2. Swiss top title defaults to the top left, not centered
 
-**现象**:最顶上的中文标题在页面中间,像一页自制海报,不再像原始 PPT。
+**Symptom**: the top Chinese title sits in the middle of the page, like a self-made poster and nothing like the original PPT.
 
-**做法**:
-- 除 `S03/S09/S10` 这类 statement/split 版式外,顶部标题必须贴原始模板的左上内容轴。
-- 不要把小标题放左列、大标题放右侧大列,这会导致标题视觉居中。
-- 如果需要标题 + 说明两列,必须复制原始 `S11` 或 `S17` 的骨架,不要自写 `4fr 8fr`。
+**Do**:
+- Except for statement/split layouts like `S03/S09/S10`, the top title must hug the original template's top-left content axis.
+- Do not put the small title in the left column and the big title in the large right column, which visually centers the title.
+- If you need a title + note two-column header, copy the original `S11` or `S17` skeleton — do not hand-write `4fr 8fr`.
 
-### 0-S-3. Swiss 地图页必须用 S08 Map Component
+### 0-S-3. Swiss map pages must use the S08 Map Component
 
-**现象**:地点/历史内容只画了简易 SVG 地图,没有真实点位、关系卡片、缩放/拖动控制,或滚轮触发了 PPT 翻页。
+**Symptom**: place/history content only draws a simple SVG map, without real pins, relation cards, zoom/drag controls, or the wheel triggering a PPT page turn.
 
-**做法**:
-- 使用 `data-layout="S08"`。
-- 先读 `references/swiss-map-component.md`。
-- 右侧地图组件必须包含 marker 点、连接线、地点卡片、`+` / `-` / `DRAG` 控制。
-- 默认禁用 scroll zoom 和 drag pan;用户点击 `DRAG` 后才允许拖动。
-- 必须保留静态 fallback,地图 CDN 或瓦片失败时仍可读。
+**Do**:
+- Use `data-layout="S08"`.
+- Read `references/swiss-map-component.md` first.
+- The right map component must include marker dots, connection lines, place cards, and `+` / `-` / `DRAG` controls.
+- Scroll zoom and drag pan are disabled by default; dragging is allowed only after the user clicks `DRAG`.
+- Keep the static fallback: still readable when the map CDN or tiles fail.
 
-**检查**:
+**Check**:
 - `grep -n "data-map-ctrl" index.html`
 - `grep -n "maplibregl.Map" index.html`
-- 浏览器实测 `+` 可放大,`DRAG` 可切换为 `DRAG ON`
+- In the browser, `+` actually zooms in and `DRAG` toggles to `DRAG ON`
 
-### 0-S-4. Swiss 演示字号不能小到看不清 + 字重阶梯必须遵守
+### 0-S-4. Swiss display sizes must not shrink past legibility + the weight ladder must hold
 
-**现象**:瑞士风页面整体结构没问题,但图注、说明、时间线、KPI note、卡片小字在投屏时看不清;或者 16px 小字用了 weight 300 导致又小又细。
+**Symptom**: the Swiss page structure is fine, but captions, notes, timelines, KPI notes, and small card text are unreadable when projected; or 16px small text uses weight 300 and becomes too thin.
 
-**做法(字号下限)**:
-- 正文段落 / 主要说明 ≥ `18px`
-- 卡片描述 / 列表 / 时间线说明 / caption / 图注 ≥ `16px`
-- meta / kicker / mono label / 图表标签 ≥ `14px`
-- 内容超出时,先删减文案、拆页或换 Sxx 版式,不要用 10/11/12/13px 小字硬塞。
+**Do (size floor)**:
+- Body paragraphs / main notes ≥ `18px`
+- Card descriptions / lists / timeline notes / captions / figure notes ≥ `16px`
+- meta / kicker / mono label / chart labels ≥ `14px`
+- When content overflows, first cut copy, split into more slides, or switch to another Sxx layout — do not cram in 10/11/12/13px small text.
 
-**做法(字重阶梯 ⭐)**:
-瑞士风坚持"越大越细,越小越粗",字号与字重必须成反比阶梯:
-- ≥ 8vw → weight **200**(ExtraLight)
+**Do (weight ladder ⭐)**:
+Swiss style insists "bigger is thinner, smaller is heavier"; size and weight must run an inverse ladder:
+- ≥ 8vw → weight **200** (ExtraLight)
 - 4-7.9vw → weight **200-300**
 - 1.8-3.9vw → weight **300-400**
 - 1-1.7vw / 16-20px → weight **400-500**
 - 13-15px → weight **500-600**
-- 同一页内,字号小的元素字重必须 ≥ 字号大的元素。
-- **16px 左右小字禁止使用 weight 300**(太细不可读),最低 400,推荐 500。
-- 封面/IKB 反白大标题内强调字用 `italic + weight 300`,不要用 accent 色。
+- Within one page, a smaller element's weight must be ≥ a larger element's weight.
+- **Small text around 16px must never use weight 300** (too thin to read); the floor is 400, recommend 500.
+- Emphasis inside cover/IKB inverted huge titles uses `italic + weight 300`, not the accent color.
 
-**检查**:
+**Check**:
 - `rg -n "font-size:(10px|11px|12px|13px)|max\\((9|10|11|12|13)px" index.html`
-- `rg -n "font-weight:(300)" index.html | rg -v "min\(|h-xl|h-hero|h-statement|num-mega|kpi-thin|name-mega|8vw|9vw|1[1-9]vw|cover-|\.multi"` —— 检查 weight 300 是否落在了小字号上
-- 浏览器以 100% 缩放查看,底部 note、caption、timeline label、卡片描述仍能一眼读清。
+- `rg -n "font-weight:(300)" index.html | rg -v "min\(|h-xl|h-hero|h-statement|num-mega|kpi-thin|name-mega|8vw|9vw|1[1-9]vw|cover-|\.multi"` — check whether weight 300 landed on a small font size
+- View the browser at 100% zoom: bottom note, captions, timeline labels, card descriptions still read at a glance.
 
-### 0-A. 瑞士风画布对齐法则(每一页必查 · 最常踩)
+### 0-A. Swiss canvas alignment law (check every page · most-often-trodden)
 
-**现象**:页眉 chrome-min 和底部 footer 都靠在 5vw 的边线上,但中间区域往内缩了一截,左右对不齐。
+**Symptom**: the `chrome-min` header and the bottom footer both sit on the 5vw edge, but the middle area indents inward, so left/right don't align.
 
-**根因**:`.canvas-card` 已经自带 `padding:5.6vh 5vw 4.4vh`。如果在主体区再写 `padding:5vh 5vw 4vh`,水平方向就变成 `5vw + 5vw = 10vw`,主体比 chrome-min 多内缩 5vw。
+**Root cause**: `.canvas-card` already carries `padding:5.6vh 5vw 4.4vh`. If you add `padding:5vh 5vw 4vh` again on the body area, the horizontal direction becomes `5vw + 5vw = 10vw`, so the body indents 5vw more than `chrome-min`.
 
-**做法**:
-- 主体那层 `padding:0`,只用 grid `gap` 控垂直间距
-- chrome-min 与主体之间的间距由 `.chrome-min{margin-bottom:48px}` 提供,**不要**在主体顶部叠 `margin-top` / `padding-top`
-- split 模式例外:`.slide.split .canvas-card{padding:0}`,两个 `.half` 自己定 `padding:5.6vh 3.6vw 4.4vh`
+**Do**:
+- The body layer keeps `padding:0`; control vertical spacing only through grid `gap`
+- The gap between `chrome-min` and the body comes from `.chrome-min{margin-bottom:48px}` — do **not** stack `margin-top` / `padding-top` on top of the body
+- Split mode is the exception: `.slide.split .canvas-card{padding:0}`, and each `.half` sets its own `padding:5.6vh 3.6vw 4.4vh`
 
 ```html
-<!-- ❌ 错:主体多缩了 5vw,左右对不齐 -->
+<!-- ❌ Wrong: the body indents 5vw extra, left/right misalign -->
 <div class="canvas-card">
   <div class="chrome-min">...</div>
-  <div style="flex:1;padding:5vh 5vw 4vh;...">主体</div>
+  <div style="flex:1;padding:5vh 5vw 4vh;...">body</div>
 </div>
-<!-- ✅ 对 -->
+<!-- ✅ Right -->
 <div class="canvas-card">
   <div class="chrome-min">...</div>
-  <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr auto;gap:3vh">主体</div>
+  <div style="flex:1;padding:0;display:grid;grid-template-rows:auto 1fr auto;gap:3vh">body</div>
 </div>
 ```
 
-**自检命令**:`grep "padding:.*5vw" index.html`,如果命中 `padding:Xvh 5vw Yvh` 在 canvas-card 直系子元素里,就是错的(.half / 装饰层除外)。
+**Self-check command**: `grep "padding:.*5vw" index.html`. If a `padding:Xvh 5vw Yvh` hits a direct child of `canvas-card`, it's wrong (`.half` / decorative layers excepted).
 
-### 0-B. 瑞士风 head 区:kicker 必须在大标题"上方"(不要左右排)
+### 0-B. Swiss head area: kicker must sit "above" the big title (not side by side)
 
-**现象**:小标题(`.t-meta` / `.t-cat`)和大标题被挤在同一行,左侧一坨小字、右侧一坨大字,头部失去层级。
+**Symptom**: the small title (`.t-meta` / `.t-cat`) and the big title are squeezed onto one line — a lump of small text on the left, a lump of big text on the right, and the head loses hierarchy.
 
-**根因**:`grid-template-columns:auto 1fr` 把两个本该上下叠的元素压成左右两列。
+**Root cause**: `grid-template-columns:auto 1fr` presses two elements that should stack vertically into two side-by-side columns.
 
-**做法**:
+**Do**:
 ```html
-<!-- ❌ 错 -->
+<!-- ❌ Wrong -->
 <div data-anim="head" style="display:grid;grid-template-columns:auto 1fr;gap:3vw;align-items:end">
   <div class="t-meta">METHODOLOGY · 03</div>
-  <h2 class="h-xl-zh">为什么是 N+1</h2>
+  <h2 class="h-xl-zh">Why N+1</h2>
 </div>
-<!-- ✅ 对 -->
+<!-- ✅ Right -->
 <div data-anim="head" style="display:flex;flex-direction:column;gap:1.4vh">
   <div class="t-meta">METHODOLOGY · 03</div>
-  <h2 class="h-xl-zh">为什么是 N+1</h2>
+  <h2 class="h-xl-zh">Why N+1</h2>
 </div>
 ```
 
-例外:head 一行同时承载"左:kicker+大标题(自己上下叠)"和"右:小注脚",外层可以用 `display:grid;grid-template-columns:1fr auto`,但**内层**仍要保持 flex column。
+Exception: when one head row carries both "left: kicker + big title (stacked)" and "right: a small footnote", the outer layer may use `display:grid;grid-template-columns:1fr auto`, but the **inner** layer must stay a flex column.
 
-### 0-B-2. 瑞士风封面 / 封底默认:IKB 满屏 + ASCII 呼吸场 + 白色 weight 200(强制)
+### 0-B-2. Swiss cover / closing default: fullscreen IKB + ASCII breathing field + white weight 200 (mandatory)
 
-**现象**:封面用 `slide light` 白底 + 黑字 + 一个大大的"01"——同时 chrome 角标已经写了 `01 / 07`,屏幕上出现两个"01",视觉重复;白底太普通,完全没有"开场打招呼"的仪式感。
+**Symptom**: the cover uses a `slide light` white background + black text + a giant "01" — while the chrome badge already reads `01 / 07`, so the screen shows two "01"s, visually redundant; a white background is too plain and entirely lacks the "hello" ceremony of an opening.
 
-**根因**:layouts-swiss.md 旧版默认推荐左 ink + 右 paper 对开,实操中容易写成"白底 + 黑大字 + 编号大字",失去 IKB 这个标志色的开场冲击。
+**Root cause**: an older version of layouts-swiss.md recommended a left-ink + right-paper spread by default; in practice this gets written as "white background + big black type + big number", losing the opening impact of IKB, the signature color.
 
-**做法**(瑞士风必守):
-- **封面强制 `<section class="slide accent">`**(满屏 IKB),不要 `slide.light`,也不要 `slide.dark`;在 `.canvas-card` 内**第一个子元素**插入 `<canvas class="ascii-bg">`(ASCII 字符呼吸场,模板自带 IIFE 自动激活)
-- **不要再写"01"等编号大字**:`.chrome-min` 已经显示 `01 / N`,封面再放一个巨大的"01"=同义重复,直接删掉
-- **强调字必须用斜体**:`font-style:italic;font-weight:300`,**禁止**用 `color:var(--accent)`——IKB 蓝压 IKB 蓝,人眼看不见任何强调
-- **封底强制 `slide.split`** 双半屏,左半 `.half.b-accent` + ASCII canvas(与封面色彩闭环),右半 paper 白底放 3 条 takeaway;**第 03 条**用 `var(--accent)` 上色,完成"开场全 IKB ↔ 收尾半 IKB"的色彩闭环
-- ASCII canvas 在模板的 `<style>` 里已经预设 `mix-blend-mode:screen;opacity:.92`,不要去动这个值
-- 封面/封底主标题字号双约束:`min(11.6vw,19vh)` ~ `min(8vw,14vh)`(遵守 Y ≥ X × 1.6 规则)
+**Do** (Swiss style mandatory):
+- **The cover forces `<section class="slide accent">`** (fullscreen IKB), never `slide.light`, never `slide.dark`; insert `<canvas class="ascii-bg">` as the **first child** inside `.canvas-card` (ASCII breathing field; the template's built-in IIFE activates it automatically)
+- **Do not write a big "01" number anymore**: `.chrome-min` already shows `01 / N`; a giant "01" on the cover is redundant repetition — delete it
+- **Emphasis words must use italics**: `font-style:italic;font-weight:300`, **never** `color:var(--accent)` — IKB blue on IKB blue is invisible to the eye, so no emphasis reads at all
+- **The closing forces `slide.split`** with two half screens: the left half `.half.b-accent` + an ASCII canvas (a color loop back to the cover), the right half paper-white with 3 takeaways; **the 03rd item** is colored with `var(--accent)`, closing the "open full IKB ↔ close half IKB" color loop
+- The ASCII canvas already gets `mix-blend-mode:screen;opacity:.92` preset in the template's `<style>`; don't touch that value
+- Cover/closing main-title size has a double constraint: `min(11.6vw,19vh)` ~ `min(8vw,14vh)` (respects the Y ≥ X × 1.6 rule)
 
-**自检命令**:
-- `grep -c "ascii-bg" index.html`——封面 + 封底应至少命中 ≥ 2(各一个 canvas)
-- `grep -E '"slide accent"' index.html | head -1`——封面应是 `slide accent` 而非 `slide light`
-- `grep "color:var(--accent)" index.html`——若命中行同时含 `font-style:italic` 即危险信号(蓝压蓝),改为只 italic 不 accent;只有封底"03 takeaway"那一处用 `var(--accent)` 是合法的(此时背景是白色)
-- 目视:打开页面看封面有没有"01"等大编号——有就删
+**Self-check commands**:
+- `grep -c "ascii-bg" index.html` — cover + closing should hit ≥ 2 (one canvas each)
+- `grep -E '"slide accent"' index.html | head -1` — the cover should be `slide accent`, not `slide light`
+- `grep "color:var(--accent)" index.html` — if a hit line also contains `font-style:italic`, that's a danger signal (blue on blue); change it to italic-only without accent; the only legal `var(--accent)` use is the closing "03 takeaway" (there the background is white)
+- Eyes-on: open the page and look for a giant "01" etc. on the cover — delete it if present
 
-### 0-C. 瑞士风大字号双约束:`min(Xvw, Yvh)` 中 Y ≥ X × 1.6
+### 0-C. Swiss big-type double constraint: in `min(Xvw, Yvh)`, Y ≥ X × 1.6
 
-**现象**:在 16:9 标准屏(MacBook 13/14/16,常见显示器)打开,标题字号比预期小一截,整页内容显得空旷或缩水。
+**Symptom**: on a standard 16:9 screen (MacBook 13/14/16, common monitors), the title comes out noticeably smaller than intended and the whole slide looks empty or shrunk.
 
-**根因**:1vw : 1vh ≈ 1.78,如果写 `min(7vw, 10vh)`,在 16:9 屏 7vw = 12.46vh,会被 10vh 上限截断到 10vh,字号缩水 20%。
+**Root cause**: 1vw : 1vh ≈ 1.78. If you write `min(7vw, 10vh)`, on a 16:9 screen 7vw = 12.46vh and gets clipped to the 10vh cap, shrinking the type by 20%.
 
-**做法**:推荐数值速查
-| 用途 | 推荐 |
+**Do**: quick reference of recommended values
+| Use | Recommended |
 |---|---|
-| h-hero 巨字宣言 | `min(11.6vw, 19vh)` |
-| h-xl 章节标题 | `min(7vw, 12vh)` ~ `min(7.4vw, 13vh)` |
-| 大数字 KPI | `min(8.4vw, 14vh)` |
-| 中数字 / 编号 | `min(4.6vw, 8.5vh)` ~ `min(5.6vw, 10vh)` |
-| 副标 | `min(7.6vw, 13vh)` |
+| h-hero giant statement | `min(11.6vw, 19vh)` |
+| h-xl section title | `min(7vw, 12vh)` ~ `min(7.4vw, 13vh)` |
+| big-number KPI | `min(8.4vw, 14vh)` |
+| mid numbers / indexes | `min(4.6vw, 8.5vh)` ~ `min(5.6vw, 10vh)` |
+| subtitle | `min(7.6vw, 13vh)` |
 
-**自检命令**:`grep -E "font-size:min\([0-9.]+vw,\s*[0-9.]+vh\)" index.html`,把所有命中的 X/Y 看一眼,任何 Y/X < 1.6 都改大。
+**Self-check command**: `grep -E "font-size:min\([0-9.]+vw,\s*[0-9.]+vh\)" index.html`; eyeball every hit's X/Y, and enlarge any Y/X below 1.6.
 
-### 0-D. 瑞士风图片混排:直角、同高、只做证据
+### 0-D. Swiss image mixing: right angles, equal height, evidence only
 
-**现象**:图片像普通 PPT 插图,圆角、阴影、比例混乱;多张截图高度不一,或 GPT-M 2.0 生成图自带标题/页脚,和页面 chrome 重复。
+**Symptom**: images look like ordinary PPT illustrations with rounded corners, shadows, and chaos of ratios; multiple screenshots have different heights, or GPT-M 2.0 generations carry their own titles/footers that duplicate the page chrome.
 
-**根因**:瑞士风的图片不是装饰,而是 grid 里的证据块。没有先选原始版式和图片槽位,就会把任意图片硬塞进页面。
+**Root cause**: in Swiss style an image is not decoration but an evidence block inside the grid. If you don't pick the original layout and image slot first, you stuff arbitrary images into the page.
 
-**先判断图像角色**:
-- 证据截图、UI、代码、dashboard:保真优先,关键文字和数据不能裁;需要统一比例时先做截图背景画布和 `.fit-contain`。
-- 已按槽位生成的信息图/插图:按 S22/S15/S16 的目标比例铺满,不要再缩成短小图片。
-- 照片/产品图/人物图:必须写清 `object-position`,主体不能被裁切、标题块或 caption 压住。
-- 文字压图:必须先判断是否有足够 quiet zone;没有低细节留白就不要把标题压在图上。
-- 多图组:统一比例、高度、容器样式和 caption 密度;视觉角色不同的图不要硬放同一组。
+**First decide the image's role**:
+- Evidence screenshots, UI, code, dashboards: fidelity first — key text and data must not be cropped; when a uniform ratio is needed, first build a screenshot background canvas and use `.fit-contain`.
+- Infographics/illustrations already generated for a slot: fill the S22/S15/S16 target ratio — do not shrink them into small pictures again.
+- Photos/product shots/people: must state the `object-position` explicitly; the subject must not be cropped or covered by a title block or caption.
+- Text over images: first check there is enough quiet zone; without low-detail whitespace, do not lay a title over the image.
+- Multi-image groups: unify ratio, height, container style, and caption density; don't force images with different visual roles into one group.
 
-**做法**:
-- 先选版式:单张大图 + KPI 用 `S22`;多图用 `S15/S16` 的原始网格骨架改造
-- S22 生成图比例固定 `21:9`,并在 `<img>` 上写 `data-image-slot="s22-hero-21x9"`
-- 照片默认 `object-position:center 35%` 或 `center center`,不要用 `top center` 截人脸
-- 图片容器只用 `.frame-img`;**不要** `border-radius` / `box-shadow`
-- UI / 信息图 / 流程图若是用户原始截图或文字密集图,使用 `.fit-contain`;若已按槽位重生成,必须用对应比例类铺满容器,例如 `.frame-img.r-21x9`,不能再用固定短高度把图片缩小
-- 多图同组必须统一槽位、比例、高度,不要混用
-- 用户原始截图要先读 `references/screenshot-framing.md`:优先用 `assets/screenshot-backgrounds/` 内置主题背景 + 程序化缩放/留边/对齐,不要为了比例统一就重画截图内容
-- 截图背景必须跟随当前主题色,且可裁成 `21:9` / `16:10` / `4:3` / `1:1`;背景里不能有标题、页脚、边框、logo、人物或明显主体
-- GPT-M 2.0 提示词必须写明:Swiss Style、单一 accent、直角、无渐变/阴影/圆角、无页眉页脚标题角标
+**Do**:
+- Pick the layout first: one big image + KPI uses `S22`; multiple images adapt the original `S15/S16` grid skeletons
+- S22 generated images are fixed at `21:9` and the `<img>` carries `data-image-slot="s22-hero-21x9"`
+- Photos default to `object-position:center 35%` or `center center` — never `top center`, which beheads people
+- Image containers only use `.frame-img`; **no** `border-radius` / `box-shadow`
+- UI / infographics / flowcharts that are the user's raw screenshots or text-dense use `.fit-contain`; if already regenerated for the slot, fill the container with the matching ratio class such as `.frame-img.r-21x9` — never shrink the image with a fixed short height again
+- Images in one group must share slot, ratio, and height — don't mix
+- The user's raw screenshots should first read `references/screenshot-framing.md`: prefer the built-in theme backgrounds of `assets/screenshot-backgrounds/` plus programmatic scale/margins/alignment — do not redraw screenshot content just to unify ratios
+- Screenshot backgrounds must follow the current theme color and crop to `21:9` / `16:10` / `4:3` / `1:1`; the background must contain no title, footer, border, logo, person, or obvious subject
+- GPT-M 2.0 prompts must state: Swiss Style, a single accent, right angles, no gradients/shadows/rounded corners, no header/footer/title/chrome
 
-- 文字压图 / 全屏主视觉必须先做 quiet-zone 判断:至少约 30% 低细节区域可承载标题;不通过就换图、换裁切或改成图文分栏,不要整页套黑色/白色遮罩
+- Text over image / fullscreen hero must first pass a quiet-zone check: at least about 30% low-detail area to carry the title; if it fails, change the image, the crop, or split into side-by-side columns — do not slap a full-page black/white overlay
 
-**自检命令**:
-- `grep -E "frame-img.*border-radius|box-shadow" index.html`——命中就删
-- `grep -n "data-image-slot" index.html`——每张本地图片都应有槽位声明
-- 目视:图片内部如果自带大标题、页码、页脚、角标,优先重生成,不要在页面里再裁切硬救
-- 目视:截图外侧背景应该是安静托底,不能比截图本身更抢眼;Swiss 风截图不得出现圆角和投影
+**Self-check commands**:
+- `grep -E "frame-img.*border-radius|box-shadow" index.html` — delete any hit
+- `grep -n "data-image-slot" index.html` — every local image should declare its slot
+- Eyes-on: if the image itself carries a big title, page number, footer, or corner badge, regenerate it first — don't try to crop-save it inside the page
+- Eyes-on: the area around a screenshot should be a quiet backdrop, not louder than the screenshot itself; Swiss screenshots must not show rounded corners or drop shadows
 
-### 0-D-2. 瑞士风底部分页安全区:最低处不要碰 nav
+### 0-D-2. Swiss bottom page-safe zone: the lowest content must not touch nav
 
-**现象**:图片 caption、脚注、timeline 下方 label、底部 KPI 被分页小方块挡住,或者视觉上贴得太近。
+**Symptom**: image captions, footnotes, labels under timelines, and bottom KPIs are hidden behind the pager dots, or visually too close to them.
 
-**根因**:`#nav` 固定在 `bottom:2vh`,如果主体内容用 `align-self:end` / `align-items:end` / `margin-top:auto` 贴到底,最低处会进入分页区域。
+**Root cause**: `#nav` is fixed at `bottom:2vh`; if the body content hugs the bottom with `align-self:end` / `align-items:end` / `margin-top:auto`, its lowest edge enters the pager region.
 
-**做法**:
-- 主内容最低边缘与分页组件之间至少留 `3vh` 呼吸空间
-- 图文页需要底部对齐时,先控制图片高度,再给主体容器加 `.nav-safe-bottom` / `.nav-safe-bottom-tight`
-- 其他页面需要贴底时,给主体容器加 `.nav-safe-bottom` 或 `.nav-safe-bottom-tight`
-- 不要手写 `bottom:2vh` / `bottom:0` 放说明文字;这会和 nav 抢位置
+**Do**:
+- Keep at least `3vh` of breathing room between the main content's lowest edge and the pager
+- On image-text pages that need bottom alignment, control the image height first, then add `.nav-safe-bottom` / `.nav-safe-bottom-tight` to the body container
+- On other pages that need to hug the bottom, add `.nav-safe-bottom` or `.nav-safe-bottom-tight` to the body container
+- Don't hand-write `bottom:2vh` / `bottom:0` for caption text; that fights the nav for space
 
-**自检**:
-- 视觉:翻到该页,看最后一行 caption/label 是否明显高于分页组件
-- 代码:`grep -E "align-items:end|align-self:end|bottom:0|bottom:2vh|margin-top:auto" index.html`,命中后逐个确认是否有 nav safe zone
+**Self-check**:
+- Visual: flip to the slide; is the last row of caption/label clearly above the pager?
+- Code: `grep -E "align-items:end|align-self:end|bottom:0|bottom:2vh|margin-top:auto" index.html`; confirm each hit has a nav safe zone
 
-### 0-D-3. 后验测量:先量超出和空白,再改版式
+### 0-D-3. Measure after the fact: quantify overflow and whitespace before changing layout
 
-**现象**:一页只超出 20-30px,但修的时候删掉大块内容,结果下方多出一大片空白;或者标题与正文贴在一起,肉眼检查时容易漏。
+**Symptom**: a page overflows by only 20-30px, but the fix deletes a large block, leaving a huge empty area below; or the title and body touch, which eyeball checks miss.
 
-**做法**:
-- 生成后运行 `node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html`
-- 如果环境里能解析到 Playwright,校验器会额外执行真实渲染测量:
-  - `M1 DOM/visual overflow`:量出超出多少 px,并指出最低/最高的问题元素
-  - `M1 bottom whitespace`:量出底部空白和 active content height,防止从"超出"修成"巨空"
-  - `M1 nav-safe`:量出最低内容是否进入底部分页安全线
-  - `M2 title gap`:量出标题到下一块内容的距离,防止标题和正文贴住
+**Do**:
+- After generating, run `node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html`
+- If Playwright is resolvable in the environment, the validator additionally performs real rendered measurements:
+  - `M1 DOM/visual overflow`: measures how many px it overflows and points out the lowest/highest offending elements
+  - `M1 bottom whitespace`: measures the bottom whitespace and active content height, so fixing "overflow" doesn't morph into "giant empty gap"
+  - `M1 nav-safe`: measures whether the lowest content crosses into the bottom pager safe line
+  - `M2 title gap`: measures the distance from the title to the next content block, so the title and body can't stick together
 
-**Overflow 修正阶梯**:
-- `1-40px` over:只做微调,上移内容组或收紧一个 gap/padding;不要删内容。
-- `40-90px` over:局部压缩 gap/padding 或降低一个模块高度;仍然优先保留内容。
-- `90-160px` over:轻微压标题或压缩一段正文,再考虑拆页。
-- `160px+` over:才考虑换更高容量版式、合并模块或删内容。
+**Overflow fix ladder**:
+- `1-40px` over: fine-tune only — shift a content group up or tighten one gap/padding; don't delete content.
+- `40-90px` over: compress gaps/paddings locally or reduce one module's height; still prefer keeping content.
+- `90-160px` over: lightly compress the title or one body paragraph, then consider splitting the slide.
+- `160px+` over: only now consider a higher-capacity layout, merging modules, or deleting content.
 
-**修完反查**:
-- 如果 `M1 bottom whitespace` 变大,说明修过头了;恢复部分间距、放大最后一块或把内容组向下回调。
-- 每轮只做一个档位的调整,重渲染后再跑 validator。
-- 不要靠多模态肉眼先猜;超出、底部空白和标题间距先看测量值。
+**Recheck after fixing**:
+- If `M1 bottom whitespace` grew, you over-fixed; restore some spacing, enlarge the last block, or ease the content group back down.
+- Each round makes only one tier of adjustment; re-render, then rerun the validator.
+- Don't guess with your eyes and a multimodal model first; read the overflow, bottom whitespace, and title gap measurements.
 
 ---
 
-### 0-E. Swiss 模板还原度守卫:原始 PPT 是 golden source
+### 0-E. Swiss template fidelity guard: the original PPT is the golden source
 
-**现象**:生成页看起来像瑞士风,但和原始参考 PPT 的实际字重、间距、时间线、卡片密度不一致;越迭代越偏离参考。
+**Symptom**: the generated page looks Swiss but disagrees with the actual reference PPT in weights, spacing, timelines, and card density; each iteration drifts further from the reference.
 
-**根因**:把新增图片版式或实验结构写成了全局样式修改,或无意改动了原始基座类,例如 `.h-hero` / `.h-xl` 字重、`.tl-node` 列宽、`.duo-compare` 间距。
+**Root cause**: new image layouts or experiment structures were written as global style changes, or original base classes were unintentionally altered — e.g. `.h-hero` / `.h-xl` weights, `.tl-node` column widths, `.duo-compare` spacing.
 
-**做法**:
-- 仓库内的 `assets/template-swiss.html` 是 Swiss 主题的 golden source 快照,但要以**实际页面用法**为准,不要只看未使用的 CSS helper
-- 原始页面的大标题大量使用 `font-weight:200`,强调词/数字用 `300`;`.h-hero` / `.h-xl` / `.h-hero-zh` / `.h-xl-zh` 在本模板里必须保持轻字重,不要恢复成 800/900
-- 除新增封面/封底 ASCII 机制、S22 图片槽位修复、横向时间线 label 居中修复、以及把标题 helper 校正为实际轻字重外,不要改动原始基座 CSS/JS recipe
-- 新增图片能力必须绑定到 S22/S15/S16 原始槽位,不要发明新正文结构
-- 如果要修改 `assets/template-swiss.html`,先做原始参考对比;可接受差异只应是 ASCII 类、S22 图片定位类、轻字重标题 helper 和已知动效修复
+**Do**:
+- The repo's `assets/template-swiss.html` is the golden-source snapshot of the Swiss theme, but trust what **actual pages do**, not unused CSS helpers
+- The original pages widely use `font-weight:200` for big titles and `300` for emphasis words/numbers; `.h-hero` / `.h-xl` / `.h-hero-zh` / `.h-xl-zh` must stay light-weight in this template — don't restore 800/900
+- Beyond the added cover/closing ASCII mechanism, S22 image-slot fixes, horizontal-timeline label centering fix, and correcting title helpers to their actual light weights, don't touch the original base CSS/JS recipe
+- New image capabilities must bind to the original S22/S15/S16 slots; don't invent new content structures
+- If you must modify `assets/template-swiss.html`, compare against the original reference first; acceptable diffs are only the ASCII class, S22 image positioning, light-weight title helpers, and known motion fixes
 
-**自检命令**:
-- 运行本次测试目录里的 `compare-swiss-base.mjs`,确认输出里 `missing in template: 0`
-- 目视对比原始 PPT 的同类页面:大标题字重、chrome-min 位置、timeline dot/label、卡片密度必须一致
+**Self-check commands**:
+- Run `compare-swiss-base.mjs` in this test directory and confirm the output shows `missing in template: 0`
+- Visually compare the same page type in the original PPT: big-title weights, `chrome-min` position, timeline dots/labels, card density must all match
 
-### 0-F. 视觉 + 代码双核对:不要只看 HTML
+### 0-F. Double-check visuals + code: don't just read HTML
 
-**现象**:代码看起来类名正确,但实际页面拥挤、图文关系不对、可选组件堆太多,或者用了不适合内容的版式。
+**Symptom**: the code has the right class names, but the real page is crowded, image-text relations are off, too many optional components stacked, or the layout doesn't fit the content.
 
-**做法**:
-- 同时打开原始参考 PPT、当前模板或生成页、测试 PPT,先做视觉并排判断
-- 等入场动效稳定后再截图或下判断,不要把动画中间态当成内容缺失
-- 先打开网页逐页看视觉:标题字重、头部间距、正文密度、图片对齐、nav 安全区
-- 再回代码看结构:该页是否用了正确版式,必选组件是否齐,可选组件是否过度
-- 对照原始 PPT 时以实际画面为准;raw CSS helper 只能辅助,不能替代视觉判断
-- 判断问题来源:版式选错 / 必选组件缺失 / 可选组件滥用 / 间距和安全区问题
-- 通用版式(S03/S08/S11/S19)可多用;数据专用(S06/S07/S20/S21/S22)必须有真实数据或案例;结构专用(S14/S15/S17)必须有闭环、矩阵或层级关系
+**Do**:
+- Open the original reference PPT, the current template or generated page, and the test PPT side by side; judge visually first
+- Wait for entrance animations to settle before screenshotting or judging — don't mistake an animation intermediate state for missing content
+- First open the webpage and go page by page visually: title weights, header spacing, body density, image alignment, nav safe zone
+- Then return to the code for structure: the right layout? required components present? optional components overused?
+- When comparing to the original PPT, trust the actual render; raw CSS helpers assist but can't replace visual judgment
+- Diagnose the source: wrong layout / missing required component / overused optional component / spacing and safe-zone issue
+- Generic layouts (S03/S08/S11/S19) can be reused liberally; data-specific ones (S06/S07/S20/S21/S22) need real data or cases; structure-specific ones (S14/S15/S17) need a loop, matrix, or hierarchy relationship
 ---
 
-### 0. 生成前必须通过的类名校验(最重要)
+### 0. Class-name validation that must pass before generating (most important)
 
-**现象**：直接把 layouts.md 的骨架粘到新 HTML,结果样式全部丢失——大标题变成非衬线、数据大字报字体小得像正文、pipeline 多页糊成一坨、图片堆到浏览器底部。
+**Symptom**: paste a skeleton from layouts.md straight into new HTML and all styles vanish — big titles turn sans-serif, data wall-of-numbers font becomes body-sized, pipeline pages blur into one lump, images pile up at the browser's bottom.
 
-**根因**：如果当前模板的 `<style>` 里没有这些类的定义,浏览器就 fallback 到默认样式。
+**Root cause**: if the current template's `<style>` has no definitions for these classes, the browser falls back to default styling.
 
-**做法**：
-- **生成 PPT 前,必须先 `Read` 当前风格对应模板**:风格 A 读 `assets/template.html`,风格 B 读 `assets/template-swiss.html`,确认 layouts 里用到的类都已定义
-- 最常见遗漏的类:`h-hero / h-xl / h-sub / h-md / lead / meta-row / stat-card / stat-label / stat-nb / stat-unit / stat-note / pipeline-section / pipeline-label / pipeline / step / step-nb / step-title / step-desc / grid-2-7-5 / grid-2-6-6 / grid-2-8-4 / grid-3-3 / frame / img-cap / callout-src`
-- 如果某个类确实缺了,**在模板的 `<style>` 里补上**,不要在每页 inline 重写
-- 生成后打开浏览器,如果看到"大标题是非衬线"或"pipeline 步骤挤在一行",几乎 100% 是这个问题
+**Do**:
+- **Before generating a deck, you must `Read` the template of the current style**: style A reads `assets/template.html`, style B reads `assets/template-swiss.html`; confirm the classes used by the layouts are all defined
+- The most-often-missing classes: `h-hero / h-xl / h-sub / h-md / lead / meta-row / stat-card / stat-label / stat-nb / stat-unit / stat-note / pipeline-section / pipeline-label / pipeline / step / step-nb / step-title / step-desc / grid-2-7-5 / grid-2-6-6 / grid-2-8-4 / grid-3-3 / frame / img-cap / callout-src`
+- If a class really is missing, **add it to the template's `<style>`**; don't rewrite it inline on every page
+- After generating, open the browser: if you see "big titles are sans-serif" or "pipeline steps squashed into one line", it's almost 100% this problem
 
-### 1. 不要用 emoji 作图标
+### 1. Don't use emoji as icons
 
-**现象**：在中式杂志风格里用 emoji（🎯 💡 ✅）会立刻破坏格调。
+**Symptom**: using emoji (🎯 💡 ✅) in the Chinese-magazine style instantly kills the tone.
 
-**做法**：用 Lucide 图标库，CDN 方式引用：
+**Do**: use the Lucide icon library, referenced via CDN:
 
 ```html
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
@@ -331,13 +331,13 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 <script>lucide.createIcons();</script>
 ```
 
-常用图标名：`target / palette / search-check / compass / share-2 / crown / check-circle / x-circle / plus / arrow-right / grid-2x2 / network`
+Common icon names: `target / palette / search-check / compass / share-2 / crown / check-circle / x-circle / plus / arrow-right / grid-2x2 / network`
 
-### 2. 图片只允许裁底部，左右和顶部绝对不能切
+### 2. Images may only be cropped at the bottom; the left/right and top must never be cut
 
-**现象**：用 `aspect-ratio` 撑图，网格会在父容器不足时堆叠或切掉图片关键信息（比如截图上部的标题栏）。
+**Symptom**: stretching the image with `aspect-ratio` makes the grid stack or crop key information when the parent container is too small (e.g. a screenshot's top title bar).
 
-**做法**：图片容器用**固定 height + overflow hidden**，图片走 `object-fit:cover + object-position:top`：
+**Do**: use a **fixed height + overflow hidden** on the image container, with `object-fit:cover + object-position:top` on the image:
 
 ```html
 <figure class="frame-img" style="height:26vh">
@@ -345,290 +345,290 @@ node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 </figure>
 ```
 
-CSS 里 `.frame-img img` 已经预设 `object-position:top`，只裁底。
+In the CSS, `.frame-img img` already presets `object-position:top` — crop the bottom only.
 
-**绝不用这种写法**（会在网格中撑破容器）：
+**Never use this** (it bursts the container inside a grid):
 
 ```html
-<!-- 坏例 -->
+<!-- Bad example -->
 <figure class="frame-img" style="aspect-ratio: 16/9">...</figure>
 ```
 
-**例外**：单张主视觉（非网格内）可以用 `aspect-ratio + max-height`，因为父容器会兜底。
+**Exception**: a single hero visual (not inside a grid) may use `aspect-ratio + max-height`, because the parent container cushions it.
 
-### 2b. 亮页面配暗 WebGL = 灰蒙蒙(主题切换没生效)
+### 2b. Bright page + dark WebGL = hazy gray (theme switch didn't apply)
 
-**现象**:所有 light 页面背景都像蒙了一层灰,甚至 hero light 也灰。
+**Symptom**: every light page's background looks veiled in gray, even hero light.
 
-**根因**:JS 根据 slide 的主题切换两张 canvas 的 opacity。如果整个 deck 开场是 hero dark,而没有任何机制能把 bg 切到 light,body 永远不加 `light-bg` 类,`canvas#bg-dark` 一直在上面。
+**Root cause**: the JS toggles the two canvases' opacity based on the slide's theme. If the whole deck opens with a hero dark and nothing ever switches the bg to light, `body` never gets the `light-bg` class and `canvas#bg-dark` stays on top.
 
-**做法**:
-- 模板里 `go()` 函数已改为从 `classList` 推断主题(`light` / `dark`),所以 **slide 必须明确带 `light` 或 `dark` 类**。不要漏写,更不要用其他自定义主题名
-- hero 页用 `hero light` / `hero dark`,正文页用 `light` / `dark`。只写 `hero` 不带主题色是坏的
-- 一个 deck 里必须至少有一个 **非 hero 的 light 页**,确保 body 有机会加 `light-bg`
+**Do**:
+- In the template, the `go()` function now infers the theme from `classList` (`light` / `dark`), so **slides must explicitly carry a `light` or `dark` class**. Don't omit it, and never use other custom theme names
+- Hero pages use `hero light` / `hero dark`, content pages use `light` / `dark`. Writing only `hero` without a theme color is broken
+- A deck must contain at least one **non-hero light page**, ensuring `body` gets a chance to add `light-bg`
 
-### 2b-2. 整个 deck 全是 light,没有节奏
+### 2b-2. The whole deck is all light, no rhythm
 
-**现象**:除封面 `hero dark` 外,其余所有页面默认写 `light`——视觉平淡,没有呼吸感,白花花一片。
+**Symptom**: other than a `hero dark` cover, every page defaults to `light` — visually flat, no breathing room, an endless white stretch.
 
-**根因**:layouts.md 的骨架默认全写 `light`,如果只是粘贴骨架不调整主题,就会全亮。
+**Root cause**: the layouts.md skeletons default everything to `light`; pasting them unadjusted keeps the whole deck bright.
 
-**做法**:
-- **生成前画"主题节奏表"**:每一页写清 `hero dark` / `hero light` / `light` / `dark` 中的哪一个,对齐后再写代码
-- **硬规则**:连续 3 页以上同主题 = 不允许;8 页以上必须有 ≥1 `hero dark` + ≥1 `hero light`;不能全是 `light` 正文页——必须有 `dark` 正文页
-- **按布局选主题**(详见 layouts.md 开头"主题节奏规划"):
-  - 左文右图(Layout 4)、大引用(Layout 8)、图文混排(Layout 10)→ **`light` / `dark` 交替**
-  - 大字报、图片网格、Pipeline、对比页 → `light`(截图/数字/流程需要亮底)
-  - 封面、问题页 → `hero dark`
-  - 章节幕封 → `hero dark` 与 `hero light` 交替
-- **生成后自检**:`grep 'class="slide' index.html`,目视确认节奏有交错
+**Do**:
+- **Draw a "theme rhythm chart" before generating**: write clearly which of `hero dark` / `hero light` / `light` / `dark` each page uses, and only then write the code
+- **Hard rule**: 3+ consecutive pages of the same theme is not allowed; 8+ pages requires ≥1 `hero dark` + ≥1 `hero light`; can't be all `light` content pages — there must be `dark` content pages
+- **Pick the theme by layout** (see "theme rhythm planning" at the top of layouts.md):
+  - Text-left image-right (Layout 4), big quote (Layout 8), mixed image-text (Layout 10) → **alternate `light` / `dark`**
+  - Wall-of-words, image grid, Pipeline, comparison pages → `light` (screenshots/numbers/flow need a bright base)
+  - Cover, question pages → `hero dark`
+  - Chapter dividers → alternate `hero dark` with `hero light`
+- **Self-check after generating**: `grep 'class="slide' index.html`, confirm by eye that the rhythm alternates
 
-### 2c. chrome 和 kicker 不要写同一句话
+### 2c. chrome and kicker must not say the same thing
 
-**现象**:左上角 `.chrome` 写"Design First · 设计先行",同一页里 `.kicker` 又写"Phase 01 · 设计阶段"——同义翻译,AI 味浓。
+**Symptom**: top-left `.chrome` says "Design First", and the same page's `.kicker` says "Phase 01 · Design Phase" — synonymous duplication, smells of AI.
 
-**做法**:
-- **chrome = 杂志页眉 / 导航标签**:跨多页可相同(如 "Act II · Workflow"、"Data · Result"、"lukew.com · 2026.04")
-- **kicker = 本页独一份的引导句**:短、有钩子、是大标题的"小前缀"(如 "BUT"、"一个人,做了什么。"、"The Question")
-- 一个描述栏目,一个描述这一页——绝不互相翻译
+**Do**:
+- **chrome = magazine header / navigation label**: can repeat across pages (e.g. "Act II · Workflow", "Data · Result", "lukew.com · 2026.04")
+- **kicker = this page's one-of-a-kind lead-in**: short, has a hook, is the "small prefix" of the big title (e.g. "BUT", "One person. What did they do.", "The Question")
+- One describes the section, the other describes this page — never translate each other
 
-### 3. 大标题字号不能超过屏宽 / 单字数
+### 3. Big-title size must not exceed screen width / one character per line
 
-**现象**：中文大标题字号设太大（比如 13vw），结果每行只容 1 个字，强制换行非常难看。
+**Symptom**: the Chinese big title's font size is set too large (e.g. 13vw), so each line fits only 1 character and forced wrapping looks terrible.
 
-**做法**：
-- `h-hero`（最大）：10vw，**且标题长度 ≤ 5 字**
-- `h-xl`（次大）：6vw-7vw
-- 长标题用 `<br>` 手工断行，不要依赖自动换行
-- 必要时加 `white-space:nowrap`
+**Do**:
+- `h-hero` (largest): 10vw, **and the title must be ≤ 5 characters**
+- `h-xl` (second largest): 6vw-7vw
+- Break long titles manually with `<br>`, don't rely on auto-wrap
+- Add `white-space:nowrap` when needed
 
-**示例**：`我不是程序员。`（6 字）用 `h-xl` 7.2vw + nowrap，一行排完。
+**Example**: "I am not a programmer." uses `h-xl` 7.2vw + nowrap, fitting on one line.
 
-### 4. 字体分工：标题衬线、正文非衬线
+### 4. Font division of labor: serif titles, sans body
 
-**做法**：
-- 大标题、重点 quote、数字大字 → **衬线字体**（Noto Serif SC + Playfair Display + Source Serif）
-- 正文、描述、pipeline 步骤名 → **非衬线字体**（Noto Sans SC + Inter）
-- 元数据、代码、标签 → **等宽字体**（IBM Plex Mono + JetBrains Mono）
+**Do**:
+- Big titles, key quotes, giant numbers → **serif fonts** (Noto Serif SC + Playfair Display + Source Serif)
+- Body, descriptions, pipeline step names → **sans-serif fonts** (Noto Sans SC + Inter)
+- Metadata, code, labels → **monospace fonts** (IBM Plex Mono + JetBrains Mono)
 
-所有字体用 Google Fonts CDN 引入，模板里已预设。
+All fonts load via Google Fonts CDN, already preset in the template.
 
-### 4b. 图片不要用 `align-self:end` 贴底
+### 4b. Images must not hug the bottom with `align-self:end`
 
-**现象**：左文右图布局里,为了让右列图片和左列 callout 底部对齐,在 `<figure>` 上加 `align-self:end`。结果:
-- 如果父容器不是 grid(比如类名没定义),`align-self` 完全失效,图片掉到文档流最下面被浏览器底栏遮挡
-- 即使是 grid,图片会在 cell 里贴底,低分屏上仍然被 `.foot` 和 `#nav` 圆点遮挡
+**Symptom**: to align the right image column's bottom with the left callout's bottom in a text-left image-right layout, `align-self:end` is added to `<figure>`. The results:
+- If the parent isn't a grid (e.g. the class isn't defined), `align-self` does nothing and the image drops to the bottom of the document flow, hidden behind the browser bar
+- Even in a grid, the image hugs the bottom of the cell and is still covered by `.foot` and `#nav` dots on short screens
 
-**做法**:
-- 图文混排**必须用 `.frame.grid-2-7-5`**(或 `.grid-2-6-6`/`.grid-2-8-4`)
-- 右列 `<figure class="frame-img r-16x10">` 或 `<figure class="frame-img r-4x3">` 自然贴顶即可
-- 要让左列 callout 看起来"贴底",给**左列**加 flex column + `justify-content:space-between`,不要动右列
-- 如果图片与大标题顶端齐平但正文从标题下方开始,给图片加 `margin-top:7vh` 到 `9vh`,让图片跟正文内容区对齐
+**Do**:
+- Image-text mixing **must use `.frame.grid-2-7-5`** (or `.grid-2-6-6`/`.grid-2-8-4`)
+- The right column uses `<figure class="frame-img r-16x10">` or `<figure class="frame-img r-4x3">` and naturally sticks to the top
+- To make the left callout look "bottom-aligned", give the **left column** a flex column + `justify-content:space-between` — don't touch the right column
+- If the image is level with the big title's top but the body starts below the title, add `margin-top:7vh` to `9vh` to the image so it aligns with the body content area
 
-### 4c. 图片不要用原图奇葩比例
+### 4c. Images must not use the original image's odd ratios
 
-**现象**:`aspect-ratio: 2592/1798` 这种从原图复制的比例,在不同屏幕下撑出奇怪的空白或溢出。
+**Symptom**: `aspect-ratio: 2592/1798` copied from the original image produces odd whitespace or overflow on different screens.
 
-**做法**:无论原图什么比例,占位器固定用标准比例 **16/10 / 4/3 / 3/2 / 1/1 / 16/9**。图片自动 `object-fit:cover + object-position:top`,顶部不裁,底部裁掉一点无伤大雅。
+**Do**: whatever the original ratio, the placeholder always uses a standard ratio **16/10 / 4/3 / 3/2 / 1/1 / 16/9**. The image automatically uses `object-fit:cover + object-position:top` — top never crops, losing a little off the bottom is harmless.
 
-### 5. 不要给图片加厚边框 / 阴影
+### 5. Don't give images thick borders / shadows
 
-**现象**：为了"高级感"加了强阴影或黑框，瞬间变成商务 PPT。
+**Symptom**: adding a strong shadow or black frame for "premium feel" instantly becomes corporate PPT.
 
-**做法**：最多 1-4px 的微圆角 + **极淡的底噪**（已在模板里）。不要加 `box-shadow`，不要加 `border`（除非 1px 极淡的灰）。
+**Do**: at most a 1-4px slight border radius + **an extremely faint noise** (already in the template). No `box-shadow`, no `border` (except a 1px super-pale gray).
 
 ---
 
-## 🟡 P1 · 排版节奏
+## 🟡 P1 · Layout Rhythm
 
-### 6. Hero 页和非 hero 页要交替
+### 6. Hero pages and non-hero pages must alternate
 
-**推荐节奏**（25-30 页）：
+**Recommended rhythm** (25–30 pages):
 ```
 Hero Cover → Act Divider (hero) → 3-4 pages non-hero → Act Divider (hero)
 → 4-5 pages non-hero → Hero Question → ... → Hero Close
 ```
 
-连续 2 页以上 hero 会让人疲劳，连续 4 页以上 non-hero 会让节奏死。
+More than 2 consecutive hero pages tires people out; more than 4 consecutive non-hero pages kills the rhythm.
 
-### 7. 大字报页和密集页要交替
+### 7. Data-banner pages and dense pages must alternate
 
-大字报（big numbers / hero question）和密集页（pipeline / image grid）交替出现，听众眼睛才不累。
+Big-number pages (big numbers / hero question) and dense pages (pipeline / image grid) should alternate, so the audience's eyes don't tire.
 
-### 8. 同一概念的英文/中文用法要统一
+### 8. Keep English/Chinese usage of the same concept consistent
 
-**现象**：一会儿写 "Skills"，一会儿写 "技能"，一会儿写 "薄承载厚技能"，全篇不一致。
+**Symptom**: sometimes writing "Skills", sometimes "skills", sometimes "a thin carrier holds thick skill", inconsistent across the deck.
 
-**做法**：
-- 术语优先用**英文单词**（Skills / Harness / Pipeline / Workflow），这些都是圈内熟悉词
-- **别硬翻译**，硬翻译反而生硬
-- 整个 deck 里同一个词 1 个写法
+**Do**:
+- Prefer **English terms** (Skills / Harness / Pipeline / Workflow) — these are familiar words to the circle
+- **Don't force-translate**, forced translation reads stiff
+- Use only 1 spelling of the same word across the whole deck
 
-### 9. 底部 chrome 的页码要一致
+### 9. Bottom chrome page numbers must be consistent
 
-用 `XX / 总页数` 的格式（比如 `05 / 27`）。**不要在右上角加动态页码**（会和 `.chrome` 重复）。
+Use the `XX / total` format (e.g. `05 / 27`). **Don't add a dynamic page number top-right** (it duplicates `.chrome`).
 
-### 9b. 动效系统:每一页都要有 data-anim 标记
+### 9b. Motion system: every page must carry data-anim markers
 
-**现象**:生成后打开浏览器,翻页时内容直接"啪"地出来,没有任何节奏感——杂志风完全靠排版硬撑,少了层级展开的仪式感。
+**Symptom**: after generating, opening in a browser the content just "pops" in on each page turn with no rhythm — the magazine style is held up purely by the layout, missing the ceremony of layered reveal.
 
-**根因**:完全没给任何元素加 `data-anim`,Motion One 脚本找不到可播的元素,整页静态出现。
+**Root cause**: no `data-anim` on any element, Motion One finds nothing to play, the whole page appears statically.
 
-**做法**:
-- 所有正文页,**至少给 kicker / 主标题 / lead / callout / stat-card / figure 这些叶子元素加 `data-anim`**
-- **Hero 页**(开场/幕封/问题/结尾):所有核心块(kicker + 大标题 + lead + meta-row)都要加
-- **不需要特殊 recipe 的页**:什么也不用写,默认 cascade 就好看
-- **需要特殊 recipe 的 4 类页**:必须在 `<section>` 上加对应 `data-animate`
-  - 大引用 → `data-animate="quote"` + 每行 `<span data-anim="line" style="display:block">`
-  - Before/After 对比 → `data-animate="directional"` + 左列 `data-anim="left"` + 右列 `data-anim="right"`
-  - Pipeline 流水线 → `data-animate="pipeline"` + 每 step 加 `data-anim="step"`
-  - Hero 页(自动用 hero recipe,但仍需给元素加 `data-anim`)
+**Do**:
+- On every content page, **at least give leaf elements — kicker / main title / lead / callout / stat-card / figure — a `data-anim`**
+- **Hero pages** (opening/act-divider/question/ending): all core blocks (kicker + main title + lead + meta-row) get one
+- **Pages needing no special recipe**: write nothing, the default cascade already looks good
+- **The 4 page types that need a special recipe**: put the matching `data-animate` on `<section>`
+  - Big quote → `data-animate="quote"` + each line `<span data-anim="line" style="display:block">`
+  - Before/After compare → `data-animate="directional"` + left column `data-anim="left"` + right column `data-anim="right"`
+  - Pipeline flow → `data-animate="pipeline"` + every step gets `data-anim="step"`
+  - Hero pages (get the hero recipe automatically, but elements still need `data-anim`)
 
-**自检**:生成后 `grep -c 'data-anim' index.html`,应该数十条以上。如果只有个位数,一定漏标了。
+**Self-check**: after generating `grep -c 'data-anim' index.html`, should be dozens+. If only single digits, markers were missed.
 
-### 9c. Pipeline 页必须加 data-animate="pipeline"
+### 9c. Pipeline pages must carry data-animate="pipeline"
 
-**现象**:流水线页直接全部淡入,失去"一步步讲"的节奏,但切到下一页时又只能往前翻,没法回到上一个 step。
+**Symptom**: a pipeline page fades everything in at once, losing the "step by step" rhythm, but turning to the next page only goes forward, no way back to a previous step.
 
-**做法**:Layout 6 的 `<section>` 必须加 `data-animate="pipeline"`。演示时按 →/空格/滚轮下滑可以**逐个点亮 step**,全部点亮之后再按 → 才会翻到下一页。这个节奏是刻意的,不是 bug。
-
----
-
-## 🟢 P2 · 视觉打磨
-
-### 10. WebGL 背景的遮罩透明度
-
-**dark hero**：遮罩 12-15%（WebGL 明显透出）
-**light hero**：遮罩 16-20%（WebGL 隐约可见，不抢字）
-**普通 light/dark 页**：遮罩 92-95%（几乎不透）
-
-如果页面文字非常少（hero question），遮罩可以再薄些；如果正文密集，必须加厚遮罩确保可读。
-
-### 11. Light hero 的 shader 不能有强中心点
-
-**现象**：Spiral Vortex、径向涟漪在 light 主题下太显眼，像 Windows 98 屏保。
-
-**做法**：light hero 用 FBM 域扭曲驱动的无中心流动，底色保持银/纸色（接近 #F0F0F0 / #FBF8F3），彩虹偏色 subtle（0.05 以下）。
-
-### 12. Dark hero 允许更多视觉冲击
-
-Dark hero 可以用 Holographic Dispersion（钛金色散）等带中心结构的 shader，因为黑底能容纳更多视觉信息。
-
-### 13. 左文右图的对齐
-
-- 左列的文字组 `justify-content:space-between`：标题贴顶，引用框贴底
-- 右列图片保持自然顶对齐,不要加 `align-self:end`
-- 右列图片通常要跟正文内容区对齐,不是跟大标题顶端对齐;必要时加 `margin-top:7vh` 到 `9vh`
-- 网格整体 `align-items:start`（不是 `center` / `end`）
-
-### 13b. 标题与正文间距
-
-- 顶部标题 + 下方长文章/引用/图表的两段式布局,中间必须有明显间距,推荐 `margin-top:6vh` 到 `8vh`
-- 居中大标题页必须整体水平居中,不要只让文字块左对齐居中摆放
-- 复杂内容页用大标题定调,下方内容用 grid / rowline 两端对齐,不要把大标题、小标题、正文挤成一坨
-
-### 13c. UI 情景图不要拉成巨长条
-
-- 单张 UI 截图如果放满宽后变成长条,优先拆成 2-3 个局部面板
-- 多面板拼排时每个 `.frame-img` 用同一个固定高度类,如 `.h-16` / `.h-18` / `.h-22`,不要用同一个超宽容器硬塞
-- 同一组图片的视觉大小必须一致,不要混用不同高度、不同缩放和不同边距密度
-- 如果确实需要全宽,必须生成比例足够长的横向图片,并在 prompt 里明确"ultra-wide horizontal strip"
-
-### 13d. 生成配图不要自带 slide 元素
-
-- GPT-M 2.0 生成的配图只是嵌入素材,不要让图片自带页眉、页脚、标题、页码、角标、署名或装饰边框
-- 流程图/信息图只保留核心图形和必要短标签,PPT 自己负责标题、页脚和 chrome
-- 如果生成图已经带了这些元素,优先重生成;不要在 PPT 里再叠一层 chrome 造成干扰
-
-### 13e. Swiss 图文混排不能只用一种
-
-- 7-8 页 Swiss 测试 deck 至少使用 6 个不同 S 编号版式
-- 有 2-3 张配图时,至少使用两种图片承载方式:S22 主视觉 / S15 矩阵 / S16 小报 / S08 对照图文 / S19 四卡证据
-- 左文右图或右文左图需要底对齐时,先控制图片高度和主体安全区,不要把整块内容推到分页组件附近
-- 白底信息图容器必须白底、无描边;不要用灰框包白图
-
-### 13f. Swiss 中文大标题要降级
-
-- 中文 2 行标题默认从 `min(5.8vw,10.2vh)` 起步,不要直接用英文页的 `6.8vw-7vw`
-- 任一行 9-12 个中文字符时降到 `min(5.2vw,9.2vh)`
-- 3 行标题优先改写,不能为了标题大而挤掉下方图文内容
-
-### 14. 图片的微弱圆角
-
-风格 A 可以有轻微圆角。风格 B Swiss 必须直角: `.frame-img` 和图片本身都不要圆角、阴影或消费 app 式卡片感。
----
-
-## 🔵 P3 · 操作细节
-
-### 15. 图片路径用相对路径
-
-图片放在 `images/` 文件夹下，HTML 里用相对路径 `images/xxx.png`，不要用绝对路径。
-
-### 16. 页码在 `.chrome` 里写死
-
-JS 会动态算总页数并扩展底部翻页圆点，但 `.chrome` 里的 `XX / N` 是写死的。加页/删页时要手工改 N。
-
-### 17. 翻页导航要保留
-
-模板默认支持：← → / 滚轮 / 触屏滑动 / 底部圆点 / Home·End。不要删 JS 里的导航逻辑。
-
-### 18. 不要用 `height:100vh` 硬设，用 `min-height:80vh`
-
-`100vh` 会让内容刚好卡满屏幕，但浏览器工具栏、标签栏会吃掉一部分高度，导致内容溢出。用 `min-height:80vh + align-content:center` 更稳。
+**Do**: Layout 6's `<section>` must have `data-animate="pipeline"`. During the presentation, →/space/scroll-down **lights up each step one at a time**; only after all steps light up does → turn to the next page. This rhythm is deliberate, not a bug.
 
 ---
 
-## 🧪 最终自检清单
+## 🟢 P2 · Visual Polish
 
-生成完 PPT 后，逐项对照这个清单（勾一下）：
+### 10. WebGL background overlay transparency
+
+**dark hero**: overlay 12–15% (WebGL clearly shows through)
+**light hero**: overlay 16–20% (WebGL faintly visible, doesn't fight the text)
+**normal light/dark pages**: overlay 92–95% (almost opaque)
+
+If the page has very little text (hero question), the overlay can be thinner; if the body is dense, thicken the overlay to guarantee readability.
+
+### 11. Light hero shader must not have a strong center point
+
+**Symptom**: Spiral Vortex, radial ripples are too prominent on the light theme, like a Windows 98 screensaver.
+
+**Do**: light hero uses FBM domain-warp-driven centerless flow, keeping the base color silver/paper (near #F0F0F0 / #FBF8F3), rainbow tint subtle (below 0.05).
+
+### 12. Dark hero allows more visual impact
+
+Dark hero can use center-structured shaders like Holographic Dispersion (titanium-gold dispersion), because a black base can hold more visual information.
+
+### 13. Text-left image-right alignment
+
+- The left text group uses `justify-content:space-between`: title pinned top, quote box pinned bottom
+- The right image stays naturally top-aligned, don't add `align-self:end`
+- The right image usually aligns with the body content area, not with the big title's top; add `margin-top:7vh` to `9vh` if needed
+- The grid overall uses `align-items:start` (not `center` / `end`)
+
+### 13b. Title-to-body spacing
+
+- For the two-part layout of a top title + long article/quote/chart below, there must be clear space between them — recommend `margin-top:6vh` to `8vh`
+- Centered big-title pages must center the whole block, not just left-align the text block and place it centered
+- Dense-content pages: let the big title set the tone, lay out the content below with grid / rowline flushed both ends; don't squeeze the big title, subhead, and body into one lump
+
+### 13c. Don't stretch UI scenario shots into ultra-long strips
+
+- If a single UI screenshot becomes a long strip when stretched full-width, split it into 2–3 partial panels first
+- When fitting multiple panels, give every `.frame-img` the same fixed-height class, e.g. `.h-16` / `.h-18` / `.h-22`, don't cram them into one oversized container
+- Images in the same group must be visually the same size; don't mix different heights, zooms, and margin densities
+- If full-width is truly needed, generate a horizontal image that's wide enough and state "ultra-wide horizontal strip" explicitly in the prompt
+
+### 13d. Generated illustrations must not carry slide elements
+
+- GPT-M 2.0 generated images are embed material only: the image must not carry its own header, footer, title, page number, corner badge, caption, or decorative border
+- Flowcharts/infographics keep only the core graphic and necessary short labels; the PPT takes care of title, footer, and chrome
+- If the generated image already has these, regenerate it first; don't stack another chrome layer inside the deck
+
+### 13e. Swiss image-text mixing can't use only one kind
+
+- A 7–8 page Swiss test deck uses at least 6 different S-numbered layouts
+- With 2-3 images, use at least two image carriers: S22 hero visual / S15 matrix / S16 patch-sheet / S08 side-by-side compare / S19 four-card evidence
+- When text-left image-right or text-right image-left needs bottom alignment, control the image height and the body safe zone first; don't push the whole block near the pager
+- White-infographic containers must be white with no outline; don't wrap a white image in a gray frame
+
+### 13f. Swiss Chinese big titles step down a level
+
+- A 2-line Chinese title starts from `min(5.8vw,10.2vh)` by default, not the English page's `6.8vw-7vw`
+- When any line has 9-12 Chinese characters, drop to `min(5.2vw,9.2vh)`
+- 3-line titles should be rewritten first; don't shrink the content below to keep the title big
+
+### 14. Images' faint corner radius
+
+Style A may have a slight radius. Style B / Swiss must be right-angled: `.frame-img` and the images themselves carry no radius, no shadow, no consumer-app card feel.
+---
+
+## 🔵 P3 · Operation Details
+
+### 15. Image paths are relative
+
+Put images in the `images/` folder and reference them in HTML via relative paths like `images/xxx.png`, never absolute paths.
+
+### 16. Page numbers hard-coded in `.chrome`
+
+JS dynamically counts total pages and expands the bottom pager dots, but the `XX / N` in `.chrome` is hard-coded. When adding/removing pages, update N by hand.
+
+### 17. Keep pager navigation
+
+The template supports by default: ← → / wheel / touch swipe / bottom dots / Home·End. Don't delete the navigation logic in the JS.
+
+### 18. Don't hard-set `height:100vh`; use `min-height:80vh`
+
+`100vh` makes content exactly fill the screen, but browser toolbars and tab bars eat some height, causing overflow. `min-height:80vh + align-content:center` is more robust.
+
+---
+
+## 🧪 Final Self-Check List
+
+After generating the deck, check each item against this list:
 
 ```
-预检(生成前)
-  □ 已读过 template.html 的 <style>,确认所需类都存在
-  □ 已决定每页用哪个 Layout(1-10)
-  □ 已画出"主题节奏表":每页明确 hero dark / hero light / light / dark
-  □ 节奏表满足硬规则:无连续 3 页同主题 / 有 ≥1 hero dark + ≥1 hero light(8 页以上) / 至少有 1 个 dark 正文页
-  □ `<title>` 已改为实际 deck 标题(grep "[必填]" 应无结果)
-  □ 瑞士风:封面是 `slide accent` 满屏 IKB + `<canvas class="ascii-bg">`(不是 `slide light` 白底)
-  □ 瑞士风:封底是 `slide split` + 左 `b-accent` + ASCII canvas / 右 paper 3 条 takeaway,第 03 条用 var(--accent)
-  □ 瑞士风:`grep -c "ascii-bg" index.html` ≥ 2(封面 + 封底各一)
-  □ 瑞士风:封面没有"01"等大编号(chrome 已显示 01/N,不要重复)
-  □ 瑞士风:IKB 背景上的强调字用 `font-style:italic`,禁止用 `color:var(--accent)`(蓝压蓝)
+Pre-check (before generating)
+  □  Read template.html's <style>, confirm all required classes exist
+  □  Chose a Layout (1-10) for every page
+  □  Drew a "theme rhythm chart": every page clearly says hero dark / hero light / light / dark
+  □  The rhythm chart meets the hard rules: no 3 consecutive same-theme pages / has ≥1 hero dark + ≥1 hero light (8+ pages) / has at least 1 dark content page
+  □  <title> changed to the actual deck title (grep "[required]" should return nothing)
+  □  Swiss: cover is `slide accent` fullscreen IKB + `<canvas class="ascii-bg">` (not `slide light` white bg)
+  □  Swiss: closing is `slide split` + left `b-accent` + ASCII canvas / right paper with 3 takeaways, item 03 uses var(--accent)
+  □  Swiss: grep -c "ascii-bg" index.html ≥ 2 (one each on cover + closing)
+  □  Swiss: no giant "01" numbering on the cover (chrome already shows 01/N, don't repeat)
+  □  Swiss: emphasized words on the IKB background use font-style:italic, never color:var(--accent) (blue on blue)
 
-内容
-  □ 每一幕的页数比例合理(不会头重脚轻)
-  □ 没有使用 emoji 作图标
-  □ Skills / Harness 等术语用法统一
-  □ 每页的 kicker + 标题 + 正文 三级信息清晰
+Content
+  □  Each act's page-count ratio is reasonable (no top-heavy imbalance)
+  □  No emoji used as icons
+  □  Skills / Harness etc. terms used consistently
+  □  Every page's kicker + title + body three-tier info is clear
 
-排版
-  □ 所有大标题没有出现 1 字 1 行的换行
-  □ 图片网格用 height:Nvh 而非 aspect-ratio
-  □ 图片只裁底部，顶部和左右完整
-  □ 衬线/非衬线字体分工符合模板
-  □ Pipeline 多组之间有明显分隔
+Layout
+  □  No big title wraps 1 char per line
+  □  Image grids use height:Nvh not aspect-ratio
+  □  Images crop only the bottom, top and left/right intact
+  □  Serif/sans font division follows the template
+  □  Pipeline groups clearly separated
 
-视觉
-  □ hero 页和 non-hero 页交替
-  □ WebGL 背景在 hero 页可见
-  □ 图片有微弱圆角
-  □ 没有沉重的阴影和边框
+Visual
+  □  hero and non-hero pages alternate
+  □  WebGL background visible on hero pages
+  □  Images have a faint corner radius
+  □  No heavy shadows or borders
 
-交互
-  □ ← → 翻页正常
-  □ 底部圆点数量与总页数匹配
-  □ chrome 里的页码和实际页号一致
-  □ ESC 键触发索引视图（如果保留）
-  □ B 键触发静态/低功耗模式,右下角提示在 `B 静态` / `B 动态` 之间切换
+Interaction
+  □  ← → paging works
+  □  Bottom dot count matches total pages
+  □  chrome page number matches the actual page number
+  □  ESC triggers the index view (if kept)
+  □  B toggles static/low-power mode, bottom-right hint switches between `B static` / `B dynamic`
 
-动效
-  □ `assets/motion.min.js` 存在(本地兜底)
-  □ 低功耗模式下 WebGL/ASCII canvas 不再挂 RAF 循环,当前页内容仍全部可见
-  □ 翻页时内容逐个淡入,不是"啪"一下全出
-  □ 大引用页 `<section>` 带 `data-animate="quote"`,每行 `<span data-anim="line">`
-  □ Before/After 对比页 `<section>` 带 `data-animate="directional"`,左右列标 left/right
-  □ Pipeline 页 `<section>` 带 `data-animate="pipeline"`,每 step 标 data-anim="step"
-  □ `grep -c 'data-anim' index.html` 数量 ≥ 页数 × 3(平均每页 3 个以上标记)
+Motion
+  □  assets/motion.min.js exists (local fallback)
+  □  In low-power mode the WebGL/ASCII canvas drops the RAF loop, current page content still fully visible
+  □  On page turns content fades in one item at a time, not all at once
+  □  Big-quote page <section> carries data-animate="quote", every line <span data-anim="line">
+  □  Before/After compare page <section> carries data-animate="directional", left/right columns marked left/right
+  □  Pipeline page <section> carries data-animate="pipeline", every step marked data-anim="step"
+  □  grep -c 'data-anim' index.html count ≥ pages × 3 (3+ markers per page on average)
 ```
 
-全勾完，才是合格的 PPT。
+All boxes checked, and only then is it a qualified deck.

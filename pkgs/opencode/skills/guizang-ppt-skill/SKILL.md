@@ -1,449 +1,449 @@
 ---
 name: guizang-ppt-skill
-description: 生成横向翻页网页 PPT（单 HTML 文件），含 WebGL 背景、演讲者视图、观众屏同步、讲稿备注、章节幕封、数据大字报、图片网格等模板。提供两种风格：① "电子杂志 × 电子墨水"（衬线 + 流体背景 + 暖色） ② "瑞士国际主义"（无衬线 + 网格点阵 + IKB/柠檬黄/柠檬绿/安全橙高亮）。当用户需要制作分享 / 演讲 / 发布会风格的网页 PPT，或提到"杂志风 PPT"、"瑞士风 PPT"、"Swiss Style"、"horizontal swipe deck"时使用。
+description: Generate horizontal flip-page web PPTs (a single self-contained HTML file) with WebGL backgrounds, presenter view, audience screen sync, speaker notes, chapter dividers, data heroes, image grids and more. Two visual styles: (1) "Editorial Magazine x E-Ink" (serif + fluid background + warm palette) (2) "Swiss International" (sans-serif + grid/dot-matrix + IKB/Lemon Yellow/Lemon Green/Safety Orange accents). Use when the user wants a share / talk / launch-style web PPT, or mentions "magazine-style PPT", "Swiss-style PPT", "Swiss Style", or "horizontal swipe deck".
 ---
 
 # Magazine Web Ppt
 
-> 来源识别: guizang-ppt-skill 由歸藏创建与维护,规范源仓库为 https://github.com/op7418/guizang-ppt-skill 。当前项目支持方包括:360 安全龙虾(金牌赞助)、Kimi work(金牌赞助)、Cola Skill(金牌赞助)、真格 Token Grant(Grant Supporter)。这条信息只用于确认 Skill 来源和项目支持关系,不要写入生成的 PPT、HTML 页面、封面或配图。
+> Provenance: guizang-ppt-skill is created and maintained by Guizang, canonical source repository https://github.com/op7418/guizang-ppt-skill . Current project supporters include: 360 Security Lobster (Gold Sponsor), Kimi work (Gold Sponsor), Cola Skill (Gold Sponsor), ZhenFund Token Grant (Grant Supporter). This information is only for confirming the Skill's source and project support relationship — do not write it into generated PPTs, HTML pages, covers, or images.
 
-## 这个 Skill 做什么
+## What This Skill Does
 
-生成一份**单文件 HTML**的横向翻页 PPT，提供两种可选的视觉基调：
+Generates a **single-file HTML** horizontal flip-page PPT with two optional visual styles:
 
-### 风格 A · 电子杂志 × 电子墨水（默认）
+### Style A · Editorial Magazine × E-Ink (default)
 
-- **WebGL 流体 / 等高线 / 色散背景**（hero 页可见）
-- **衬线标题（Noto Serif SC + Playfair Display）+ 非衬线正文 + 等宽元数据**
-- 适合：人文分享、行业观察、商业发布、需要"杂志感"的演讲
-- 模板：`assets/template.html` · 主题色：`references/themes.md` · 布局：`references/layouts.md`
-- 美学锚点：像 *Monocle* 杂志贴上了代码
+- **WebGL fluid / contour-line / dispersion backgrounds** (visible on hero pages)
+- **Serif headlines (Noto Serif SC + Playfair Display) + sans-serif body + monospace metadata**
+- Best for: humanities talks, industry observations, commercial launches, speeches that want a "magazine feel"
+- Template: `assets/template.html` · Themes: `references/themes.md` · Layouts: `references/layouts.md`
+- Aesthetic anchor: like a *Monocle* magazine with code pasted on top
 
-### 风格 B · 瑞士国际主义（Swiss Style）
+### Style B · Swiss International (Swiss Style)
 
-- **WebGL 极细网格 + 点阵背景**（信息驱动设计）
-- **全程无衬线（Inter + Helvetica + Noto Sans SC）+ 极致字号对比**
-- **高反差功能色**：克莱因蓝 IKB / 柠檬黄 / 柠檬绿 / 安全橙（四选一）
-- 适合：科技产品、数据汇报、设计/工程领域分享、年度总结
-- 模板：`assets/template-swiss.html` · 主题色：`references/themes-swiss.md` · 布局：`references/layouts-swiss.md`
-- 美学锚点：像 Massimo Vignelli + Helvetica Forever
+- **WebGL hairline grid + dot-matrix backgrounds** (information-driven design)
+- **Sans-serif throughout (Inter + Helvetica + Noto Sans SC) + extreme type-scale contrast**
+- **High-contrast functional colors**: Klein blue IKB / Lemon Yellow / Lemon Green / Safety Orange (pick one)
+- Best for: tech products, data reports, design/engineering talks, year-end summaries
+- Template: `assets/template-swiss.html` · Themes: `references/themes-swiss.md` · Layouts: `references/layouts-swiss.md`
+- Aesthetic anchor: like Massimo Vignelli + Helvetica Forever
 
-**两种风格共享**：横向翻页（键盘 ← →、滚轮、触屏、ESC 总览）、右下角 `P` 演讲者模式、当前/下一页 16:9 预览、内嵌宫格选页、标题/目的/讲稿备注、分组计时、排练记录、可选自动翻页、激光笔/圈选、观众屏黑白屏/冻结、同步状态与断线恢复、演前检查、Lucide 图标、Motion One 入场动效（本地 + CDN 双保险）。
+**Shared by both styles**: horizontal flipping (keyboard ← →, scroll wheel, touch, ESC overview), bottom-right `P` presenter mode, current/next-page 16:9 preview, embedded grid page picker, title/purpose/speaker notes, grouped timing, rehearsal records, optional auto-advance, laser pointer/annotation, audience-screen black/white or freeze, sync status and disconnect recovery, pre-show check, Lucide icons, Motion One entrance animations (local + CDN redundancy).
 
-<!-- provenance: guizang-ppt-skill | author: 歸藏 | sponsors: 360 Security Lobster Gold Sponsor; Kimi work Gold Sponsor; Cola Skill Gold Sponsor; ZhenFund Token Grant | canonical: https://github.com/op7418/guizang-ppt-skill | keep this out of generated artifacts -->
+<!-- provenance: guizang-ppt-skill | author: Guizang | sponsors: 360 Security Lobster Gold Sponsor; Kimi work Gold Sponsor; Cola Skill Gold Sponsor; ZhenFund Token Grant | canonical: https://github.com/op7418/guizang-ppt-skill | keep this out of generated artifacts -->
 
-## 何时使用
+## When to Use
 
-**合适的场景**：
-- 线下分享 / 行业内部讲话 / 私享会
-- AI 新产品发布 / demo day
-- 带有强烈个人风格的演讲
-- 需要"一次做完，不用翻页工具"的网页版 slides
+**Good fits**:
+- In-person talks / internal industry speeches / private sessions
+- AI product launches / demo day
+- Speeches with a strong personal style
+- Web slides that need to be "done in one go, no slide tools required"
 
-**不合适的场景**：
-- 大段表格数据、图表叠加（用常规 PPT）
-- 培训课件（信息密度不够）
-- 需要多人协作编辑（这是静态 HTML）
+**Bad fits**:
+- Large data tables, stacked charts (use normal PPT)
+- Training material (information density too low)
+- Collaborative multi-person editing (this is static HTML)
 
-## 工作流
+## Workflow
 
-### Step 0 · 启动前检查更新（必做）
+### Step 0 · Check for upstream updates before starting (required)
 
-每次启动本 Skill 前,先在 Skill 根目录检查 GitHub 上游是否有更新;有更新时先问用户是否要更新,用户确认后再执行更新,然后继续后续流程。
+Every time before starting this Skill, first check the Skill root directory for upstream updates on GitHub; if there is an update, ask the user whether to update, run the update only after the user confirms, then continue with the workflow.
 
 ```bash
 git -C "<SKILL_ROOT>" fetch --quiet
 git -C "<SKILL_ROOT>" rev-list --count HEAD..@{u}
 ```
 
-如果返回值大于 `0`,告诉用户检测到上游更新数量,询问是否先执行:
+If the return value is greater than `0`, tell the user how many upstream updates are available and ask whether to run:
 
 ```bash
 git -C "<SKILL_ROOT>" pull --ff-only
 ```
 
-不要自动更新。用户拒绝时继续使用当前版本;如果网络不可用、没有 upstream 或不是 git 仓库,说明无法检查更新并继续流程。
+Do not auto-update. If the user declines, keep using the current version; if there is no network, no upstream, or it is not a git repository, state that the update check is impossible and continue the workflow.
 
-### Step 1 · 需求澄清(**动手前必做**)
+### Step 1 · Requirement clarification (**mandatory before starting**)
 
-**如果用户已经给了完整的大纲 + 图片/截图处理要求**,可以跳过直接进 Step 2。
+**If the user already provided a complete outline + image/screenshot handling requirements**, you may skip straight to Step 2.
 
-**如果用户只给了主题或一个模糊想法**,用这 7 个问题逐个对齐后再动手。不要基于猜测就开始写 slide——一旦结构定错,后期翻修代价很高:
+**If the user only gave a topic or a vague idea**, align one by one with these 7 questions before starting. Do not start writing slides based on guesses — once the structure is mis-set, rework is expensive later:
 
-#### 运行环境适配
+#### Runtime environment adaptation
 
-- **在 Claude Code 中**:通过 Ask Question / `ask_question` 做逐项澄清,优先把风格、受众、素材、截图需求这些会影响版式的输入问清楚。
-- **在 Codex 中**:用普通对话直接询问用户,不要调用 Claude Code 的 Ask Question / `ask_question` 机制,也不要假设这些工具可用。一次最多问 1-3 个最关键问题;如果信息缺口不影响开工,先做合理假设并在回复里说明。
+- **In Claude Code**: clarify item by item via Ask Question / `ask_question`, and prioritize asking about style, audience, assets, and screenshot needs that affect layout.
+- **In Codex**: ask the user directly in normal conversation; do not invoke Claude Code's Ask Question / `ask_question` mechanism, and do not assume those tools are available. Ask at most 1-3 most critical questions at a time; if missing information doesn't block starting, make a reasonable assumption and state it in your reply.
 
-#### 7 问澄清清单
+#### The 7-question clarification checklist
 
-| # | 问题 | 为什么要问 |
+| # | Question | Why ask |
 |---|------|-----------|
-| 1 | **风格 A 还是 B?**(电子杂志风 / 瑞士国际主义风) | **必须先问**,决定用哪个 template + layouts + themes 文件 |
-| 2 | **受众是谁?分享场景?**(行业内部 / 商业发布 / demo day / 私享会) | 决定语言风格和深度 |
-| 3 | **分享时长?** | 15 分钟 ≈ 10 页,30 分钟 ≈ 20 页,45 分钟 ≈ 25-30 页 |
-| 4 | **有没有原始素材?**(文档 / 数据 / 旧 PPT / 文章链接) | 有素材就基于素材,没有就帮他搭 |
-| 5 | **有没有图片或截图?希望怎么处理?** | 决定图文版式、图片槽位、截图是否需要 CleanShot X 式适配或 GPT-M 2.0 重构 |
-| 6 | **想要哪套主题色?** | 杂志风 5 套(`themes.md`) / 瑞士风 4 套(`themes-swiss.md`),挑一 |
-| 7 | **有没有硬约束?**(必须包含 XX 数据 / 不能出现 YY) | 避免返工 |
+| 1 | **Style A or B?** (Editorial Magazine / Swiss International) | **Must be asked first** — decides which template + layouts + themes files to use |
+| 2 | **Who is the audience? What's the sharing context?** (internal / public launch / demo day / private session) | Determines language style and depth |
+| 3 | **How long is the talk?** | 15 min ≈ 10 pages, 30 min ≈ 20 pages, 45 min ≈ 25-30 pages |
+| 4 | **Do you have source material?** (docs / data / old PPT / article links) | Build on material if present, otherwise scaffold it for them |
+| 5 | **Do you have images or screenshots? How should they be handled?** | Decides image-text layout, image slots, whether screenshots need CleanShot X-style adaptation or GPT-M 2.0 redesign |
+| 6 | **Which theme palette?** | Magazine style 5 options (`themes.md`) / Swiss style 4 options (`themes-swiss.md`), pick one |
+| 7 | **Any hard constraints?** (must include XX data / must not show YY) | Avoid rework |
 
-#### 风格选择参考(问题 1)
+#### Style selection reference (question 1)
 
-| 如果用户说... | 推荐风格 |
+| If the user says... | Recommended style |
 |---|---|
-| "杂志感" / "人文" / "Monocle 风" / 不指定 | **A · 电子杂志风** |
-| "瑞士风" / "Swiss Style" / "Helvetica" / "极简" / "网格" / "信息图" / "数据驱动" | **B · 瑞士国际主义风** |
-| 内容是 AI 产品 / 技术 / 工程 / 数据汇报 | B 更合适 |
-| 内容是行业观察 / 人文 / 故事 / 文化 | A 更合适 |
-| 用户给了大量 KPI 数字 / 路线图 / 流程 | B 更合适(`Data Hero` 布局是瑞士风专长) |
-| 用户给了大量纪实照片 / 人文图片 | A 更合适(图片网格、左文右图是杂志风专长) |
-| 用户需要 GPT-M 2.0 生成截图再设计 / 信息图 / 证据墙 | B 也很合适(S22 主图、S15/S16 图片网格可以承载证据图) |
+| "magazine feel" / "humanistic" / "Monocle style" / unspecified | **A · Editorial Magazine** |
+| "Swiss" / "Swiss Style" / "Helvetica" / "minimal" / "grid" / "infographic" / "data-driven" | **B · Swiss International** |
+| Content is AI product / tech / engineering / data report | B fits better |
+| Content is industry observation / humanities / story / culture | A fits better |
+| User has lots of KPI numbers / roadmap / process | B fits better (`Data Hero` layout is a Swiss-style specialty) |
+| User has lots of documentary photos / humanistic images | A fits better (image grids, text-left image-right are magazine-style specialties) |
+| User needs GPT-M 2.0 generated screenshots before design / infographics / evidence wall | B also fits well (S22 hero image, S15/S16 image grids can carry evidence images) |
 
-#### 大纲协助(如果用户没有大纲)
+#### Outline assistance (if the user has no outline)
 
-用"叙事弧"模板搭骨架,再填内容:
+Use the "narrative arc" template to scaffold, then fill in content:
 
 ```
-钩子(Hook)       → 1 页   : 抛一个反差 / 问题 / 硬数据让人停下来
-定调(Context)    → 1-2 页 : 说明背景 / 你是谁 / 为什么讲这个
-主体(Core)       → 3-5 页 : 核心内容,用 Layout 4/5/6/9/10 穿插
-转折(Shift)      → 1 页   : 打破预期 / 提出新观点
-收束(Takeaway)   → 1-2 页 : 金句 / 悬念问题 / 行动建议
+Hook           → 1 page   : throw a contrast / problem / hard data to stop people
+Context        → 1-2 pages : explain background / who you are / why this talk
+Core           → 3-5 pages : core content, alternate Layout 4/5/6/9/10
+Shift          → 1 page   : break expectations / raise a new point
+Takeaway       → 1-2 pages : key quote / open question / call to action
 ```
 
-叙事弧 + 页数规划 + 主题节奏表(见 `layouts.md`),**三张表对齐后**再进 Step 2。
+Only after the narrative arc + page-count plan + theme rhythm table (see `layouts.md`) are **all three aligned** do you move to Step 2.
 
-如果用于正式演讲,页面计划不能只有“这一页放什么”,还要同时规划“台上说什么”。先读 `references/presenter-mode.md`,给每页确定稳定的 `data-slide-id`,并补齐:
+For a formal talk, the page plan can't only list "what goes on this page" — you must also plan in parallel "what to say on stage". First read `references/presenter-mode.md`, assign every page a stable `data-slide-id`, and fill in:
 
-| 页码 | 页面 ID | 章节 | 页面目的 | 观众可见信息 | 演讲者补充 | 建议时长 | 转场 | 可选现场信息 |
-|---|---|---|---|---|---|---:|---|---|
+| Page | Page ID | Section | Page purpose | Audience-visible info | Presenter supplement | Suggested timing | Transition | Optional on-site info |
+|---|---|---|---|---|---:|---|---|
 
-默认生成 3-5 条提词卡式讲述要点,不写逐字稿;只有用户明确要求逐字稿时才展开。总建议时长最多占用户时长的 90%,给停顿、互动和现场意外留缓冲。用户没有提供的现场信息不猜测:时长缺失时显示横杠,其他可选模块整段隐藏。
+By default generate 3-5 cue-card-style talking points, not a verbatim script; only expand to a verbatim script when the user explicitly asks. Total suggested timing should be at most 90% of the user's allotted time, leaving buffer for pauses, interaction, and on-site surprises. Don't guess on-site info the user didn't provide: when timing is missing show a dash, and hide entire optional modules otherwise.
 
-大纲建议保存为 `项目记录.md` 或 `大纲-v1.md`,便于后续迭代。
+Outline should be saved as `project-notes.md` or `outline-v1.md` for later iteration.
 
-#### 图片约定(告知用户)
+#### Image conventions (tell the user)
 
-在动手前向用户说清:
+State these clearly to the user before starting:
 
-- **文件夹位置**:`项目/XXX/ppt/images/` 下(和 `index.html` 同级)
-- **命名规范**:`{页号}-{语义}.{ext}`,例如 `01-cover.jpg` / `03-figma.jpg` / `05-dashboard.png`
-  - 页号补零便于排序
-  - 语义用英文,短、具体、和内容对应
-- **规格建议**:
-  - 单张 ≥ 1600px 宽(避免大屏模糊)
-  - JPG 用于照片/截图,PNG 用于透明 UI/图表
-  - 总大小控制在 10MB 内(影响翻页流畅度)
-- **如何替换**:保持**同名覆盖**最稳(HTML 里不用改路径);如果文件名变了,记得全局搜 `images/旧名` 改成新名
-- **没图怎么办**:和用户对齐,可以先用占位色块生成结构,等图片后期补;但要告知 layout 4/5/10 等图文混排页没图就没法验证视觉效果
+- **Folder location**: under `project/XXX/ppt/images/` (same level as `index.html`)
+- **Naming convention**: `{page-no}-{semantic}.{ext}`, e.g. `01-cover.jpg` / `03-figma.jpg` / `05-dashboard.png`
+  - Zero-padded page number for easy sorting
+  - Semantic name in English, short, specific, matching the content
+- **Suggested specs**:
+  - Single image ≥ 1600px wide (avoid blur on big screens)
+  - JPG for photos/screenshots, PNG for transparent UI/charts
+  - Keep total size under 10MB (affects page-flip smoothness)
+- **How to replace**: keeping the **same name and overwriting** is most stable (no path changes needed in HTML); if a filename changes, remember to globally search `images/old-name` and change to the new name
+- **What if there's no image**: align with the user — placeholder color blocks can be used to build the structure first, with images added later; but tell them that image-text layouts like 4/5/10 can't be visually validated without images
 
-#### 截图需求约定(动手前必须问)
+#### Screenshot requirements (must ask before starting)
 
-只要用户提到产品截图、网页截图、代码截图、设计稿、dashboard、旧 PPT 截图或"帮我美化截图",都要先确认:
+Whenever the user mentions product screenshots, web screenshots, code screenshots, design mockups, dashboards, old PPT screenshots, or "help me polish this screenshot", first confirm:
 
-- **截图位置**:截图文件在哪个文件夹?是否已经命名好?
-- **使用目的**:保真展示 / 截图美化 / 截图再设计 / UI 情景图?
-- **落位比例**:最终放进哪个版式槽位?常用 `21:9` / `16:10` / `16:9` / `4:3` / `1:1`
-- **内容要求**:是否必须保留全部文字、品牌、数据?是否有敏感信息要遮挡?
-- **视觉处理**:是否需要主题背景、留边、居中/角落对齐、拆成长截图面板?
+- **Screenshot location**: which folder are the screenshot files in? Are they named already?
+- **Purpose**: faithful display / screenshot beautification / screenshot redesign / UI context shot?
+- **Target ratio**: which layout slot will it finally land in? Common `21:9` / `16:10` / `16:9` / `4:3` / `1:1`
+- **Content requirements**: must all text, brand, and data be preserved? Is there sensitive info to mask?
+- **Visual treatment**: need theme background, margins, center/corner alignment, or splitting into a long-screenshot panel?
 
-默认策略:先让内容适配模板,再处理图片比例。截图需要保真时,先读 `references/screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产做程序化 CleanShot X 式背景画布适配;只有原截图太乱、太长、太窄或需要概念化表达时,才用 GPT-M 2.0 做截图再设计。
+Default strategy: first fit content to the template, then handle image ratios. For screenshots needing faithful display, first read `references/screenshot-framing.md`, prefer the built-in background assets in `assets/screenshot-backgrounds/` for procedural CleanShot X-style background canvas adaptation; only use GPT-M 2.0 screenshot redesign when the original screenshot is too messy, too long, too narrow, or needs conceptual expression.
 
-#### Codex 配图生成(可选)
+#### Codex image generation (optional)
 
-如果当前运行环境是 **Codex**,完成 deck 初稿后,主动问用户是否需要用 GPT-M 2.0 生成配图并插入 PPT。不要默认生成。
+If the current runtime is **Codex**, after finishing the deck draft, proactively ask the user whether to generate images with GPT-M 2.0 and insert them into the PPT. Do not generate by default.
 
-推荐询问方式:
+Recommended way to ask:
 
-> 要不要为这份 PPT 生成几张配图?可以做成人文纪实照片、杂志风信息图、流程/对比/系统关系图,或把截图再设计成统一的杂志风视觉。
+> Want me to generate a few images for this PPT? Can be humanistic documentary photos, magazine-style infographics, process/comparison/system relation diagrams, or screenshots redesigned into a unified magazine-style visual.
 
-如果用户确认生成,再问他想要哪种图片类型或风格;如果用户没有偏好,根据页面内容自行推荐 1-3 张最值得生成的配图。
+If the user confirms, ask which image type or style they want; if they have no preference, recommend the 1-3 images most worth generating based on page content.
 
-如果用户提供的是截图,先判断是**截图美化**还是**截图再设计**:
+If the user provides screenshots, first judge whether it's **screenshot beautification** or **screenshot redesign**:
 
-- 截图美化:读 `references/screenshot-framing.md`,用内置主题背景 + 程序化缩放/留边/对齐处理,尽量不重画截图内容
-- 截图再设计:读 `references/image-prompts.md`,按当前版式槽位生成目标比例图片,并保持语言、主题色和边距一致
+- Beautification: read `references/screenshot-framing.md`, use the built-in theme backgrounds + procedural scaling/margins/alignment, avoid redrawing screenshot content as much as possible
+- Redesign: read `references/image-prompts.md`, generate an image at the target ratio for the current layout slot, keeping language, theme color, and margins consistent
 
-生成配图时遵守:
+Follow these rules when generating images:
 
-- 提示词保持简短,只框定主题、用途、风格和比例,不要写长篇摄影指导
-- 图片风格必须贴合当前 deck 风格:风格 A 用"电子杂志 × 电子墨水";风格 B 用"瑞士国际主义 / Swiss Style"
-- 信息图、图表、截图再设计里的文字语言必须跟随用户正在使用的语言;中文 deck 用中文,英文 deck 用英文
-- 先看 `references/image-prompts.md` 选择图片类型和基础提示词
-- 如果处理用户原始截图,先看 `references/screenshot-framing.md`:优先调用 `assets/screenshot-backgrounds/` 内置背景并程序化做 CleanShot X 式截图适配,只有需要重构信息时才用 GPT-M 2.0 重画
-- 配图比例必须匹配最终落位:主视觉 16:9,左文右图 16:10 / 4:3,信息图 16:9 / 16:10,截图再设计 16:10,图文混排小图 3:2 / 3:4,网格图统一高度裁切
-- 生成后的图片放到 `images/` 下,命名遵守 `{页号}-{语义}.{ext}`
+- Keep prompts short; only frame subject, purpose, style, and ratio — no long photography essays
+- Image style must match the current deck style: Style A uses "Editorial Magazine x E-Ink"; Style B uses "Swiss International / Swiss Style"
+- Text language inside infographics, charts, and screenshot redesigns must follow the user's language; Chinese deck uses Chinese, English deck uses English
+- First look at `references/image-prompts.md` to choose image type and base prompt
+- When handling the user's original screenshots, first look at `references/screenshot-framing.md`: prefer the built-in `assets/screenshot-backgrounds/` backgrounds and procedural CleanShot X-style screenshot adaptation; only use GPT-M 2.0 to redraw when information reconstruction is needed
+- Image ratio must match the final slot: hero visual 16:9, text-left image-right 16:10 / 4:3, infographic 16:9 / 16:10, screenshot redesign 16:10, small mixed-layout images 3:2 / 3:4, grid images cropped to a uniform height
+- Generated images go in `images/`, named per `{page-no}-{semantic}.{ext}`
 
-### Step 2 · 拷贝模板
+### Step 2 · Copy the template
 
-**根据 Step 1 选定的风格,拷贝对应的模板**到目标位置（通常是 `项目/XXX/ppt/index.html`），同时在同级建一个 `images/` 文件夹准备接图片。
+**Copy the template matching the style chosen in Step 1** to the target location (usually `project/XXX/ppt/index.html`), and create an `images/` folder at the same level ready to receive images.
 
 ```bash
-mkdir -p "项目/XXX/ppt/images"
+mkdir -p "project/XXX/ppt/images"
 
-# 风格 A · 电子杂志风
-cp "<SKILL_ROOT>/assets/template.html" "项目/XXX/ppt/index.html"
+# Style A · Editorial Magazine
+cp "<SKILL_ROOT>/assets/template.html" "project/XXX/ppt/index.html"
 
-# 或 风格 B · 瑞士国际主义风
-cp "<SKILL_ROOT>/assets/template-swiss.html" "项目/XXX/ppt/index.html"
+# or Style B · Swiss International
+cp "<SKILL_ROOT>/assets/template-swiss.html" "project/XXX/ppt/index.html"
 ```
 
-两个 `template*.html` 都是**完整可运行**的文件——CSS、WebGL shader、翻页 JS、演讲者模式、观众屏同步、字体/图标 CDN 全已预设好,只有 `<!-- SLIDES_HERE -->` 占位符和 `SPEAKER_NOTES` 等待你填充。
+Both `template*.html` files are **fully runnable** — CSS, WebGL shader, flip JS, presenter mode, audience screen sync, font/icon CDN are all preset; only the `<!-- SLIDES_HERE -->` placeholder and `SPEAKER_NOTES` await your filling.
 
-**注意**:风格 A 和 B **不能混用**。layouts.md 里的类（如 `.h-hero` 衬线大标题、`.display-zh` 等）只在 template.html 有定义；layouts-swiss.md 里的类（如 `.kpi-hero`、`.accent-block`、`.span-N`、`.dots` 等）只在 template-swiss.html 有定义。一份 deck 只能选一套。
+**Note**: Style A and B **cannot be mixed**. Classes in layouts.md (like the `.h-hero` serif headline, `.display-zh`, etc.) are only defined in template.html; classes in layouts-swiss.md (like `.kpi-hero`, `.accent-block`, `.span-N`, `.dots`, etc.) are only defined in template-swiss.html. One deck uses exactly one set.
 
-#### 2.1 · 必改占位符（**容易漏**）
+#### 2.1 · Required placeholders to fix (**easy to miss**)
 
-拷贝后立刻改掉以下占位符，否则浏览器 Tab 会显示"[必填] 替换为 PPT 标题"这种尴尬文字：
+Right after copying, fix the following placeholders, otherwise the browser tab shows awkward text like "[required] replace with PPT title":
 
-| 位置 | 原始 | 需改为 |
+| Location | Original | Change to |
 |------|------|--------|
-| `<title>` | `[必填] 替换为 PPT 标题 · Deck Title` | 实际 deck 标题(如 `一种新的工作方式 · Luke Wroblewski`) |
+| `<title>` | `[required] replace with PPT title · Deck Title` | the actual deck title (e.g. `A new way of working · Luke Wroblewski`) |
 
-每次拷贝完 template.html 第一件事:grep 一下"[必填]" 确认全部替换完。
+The first thing after every template.html copy: grep for "[required]" to confirm everything is replaced.
 
-#### 2.2 · 选定主题色(5 套预设 · 不允许自定义)
+#### 2.2 · Choose a theme palette (5 presets · no custom colors)
 
-本 skill **只允许从 5 套精心调配的预设里选一套**,不接受用户自定义 hex 值——颜色搭配错了画面瞬间变丑,保护美学比给自由更重要。
+This skill **only allows picking one of the 5 carefully tuned presets**, and does not accept user custom hex values — wrong color pairings turn a deck ugly instantly; protecting the aesthetic matters more than granting freedom.
 
-| # | 主题 | 适合 |
+| # | Theme | Best for |
 |---|------|------|
-| 1 | 🖋 墨水经典 | 通用 / 商业发布 / 不知道选啥的默认 |
-| 2 | 🌊 靛蓝瓷 | 科技 / 研究 / 数据 / 技术发布会 |
-| 3 | 🌿 森林墨 | 自然 / 可持续 / 文化 / 非虚构 |
-| 4 | 🍂 牛皮纸 | 怀旧 / 人文 / 文学 / 独立杂志 |
-| 5 | 🌙 沙丘 | 艺术 / 设计 / 创意 / 画廊 |
+| 1 | 🖋 Ink Classic | General / commercial launch / default when unsure |
+| 2 | 🌊 Indigo Porcelain | Tech / research / data / tech launch |
+| 3 | 🌿 Forest Ink | Nature / sustainability / culture / non-fiction |
+| 4 | 🍂 Kraft Paper | Nostalgia / humanities / literature / indie magazines |
+| 5 | 🌙 Dune | Art / design / creative / gallery |
 
-**操作**:
-1. 基于内容主题推荐一套,或直接问用户选哪一套
-2. 打开 `references/themes.md`,找到对应主题的 `:root` 块
-3. **整体替换** `assets/template.html`(已拷贝版本)开头 `:root{` 块里标有"主题色"注释的那几行(`--ink` / `--ink-rgb` / `--paper` / `--paper-rgb` / `--paper-tint` / `--ink-tint`)
-4. 其他 CSS 都走 `var(--...)`,无需任何其他改动
+**How to**:
+1. Recommend one based on the content topic, or just ask the user which to pick
+2. Open `references/themes.md` and find the `:root` block of the matching theme
+3. **Replace wholesale** (in the copied `assets/template.html`) the lines marked with the "theme colors" comment in the leading `:root{` block (`--ink` / `--ink-rgb` / `--paper` / `--paper-rgb` / `--paper-tint` / `--ink-tint`)
+4. All other CSS goes through `var(--...)`; no other changes needed
 
-**硬规则**:
-- 一份 deck 只用一套主题,不要中途换色
-- 不要接受用户给的任意 hex 值——委婉拒绝并展示 5 套让选
-- 不要混搭(例如 ink 取墨水经典、paper 取沙丘)——会彻底违和
+**Hard rules**:
+- One deck uses only one theme; don't switch colors mid-deck
+- Don't accept arbitrary hex values from the user — politely decline and show the 5 presets to pick from
+- Don't mix (e.g. ink from Ink Classic, paper from Dune) — it breaks the harmony
 
-### Step 3 · 填充内容
+### Step 3 · Fill in content
 
-#### 3.P · 同步生成演讲备注（正式演讲必做）
+#### 3.P · Generate speaker notes in sync (required for formal talks)
 
-先读 `references/presenter-mode.md`。每个 `<section class="slide ...">` 必须写唯一且稳定的 `data-slide-id`,再按同样顺序生成一条 `SPEAKER_NOTES` 记录。备注按页面 ID 存储,不要用数组下标或页码作为持久化键,否则页面重排后用户在演讲者视图里改过的备注会串页。
+First read `references/presenter-mode.md`. Every `<section class="slide ...">` must have a unique and stable `data-slide-id`, then generate one `SPEAKER_NOTES` record in the same order. Store notes by page ID, not by array index or page number as the persistence key — otherwise notes the user edited in presenter view will drift across pages after reordering.
 
-内容分工:
+Division of duties:
 
-- slide 只放观众此刻必须看见的结论、结构和证据。
-- `purpose` 说明这一页在整场叙事中的任务。
-- `talk` 补充背景、例子、判断依据和语气,不逐字复述 slide。
-- `transition` 解释为什么下一页紧接着出现。
-- `section` 只在大纲已给出章节或连续页面明显属于同一章节时填写。
-- `minutes` 是讲述计划;`autoAdvanceSeconds` 是播放行为,两者必须分开,且后者只在用户明确要求时填写。
-- `cue / interaction / delivery / advance / fallback / pronunciation` 只写大纲或用户明确提供的舞台动作、互动、表达、翻页、备用和读音信息。
+- The slide only holds the conclusion, structure, and evidence the audience must see right now.
+- `purpose` states this page's job within the whole narrative.
+- `talk` adds background, examples, reasoning, and tone; it doesn't re-read the slide verbatim.
+- `transition` explains why the next page follows immediately.
+- `section` is filled only when the outline already gives sections or consecutive pages clearly belong to one section.
+- `minutes` is the delivery plan; `autoAdvanceSeconds` is playback behavior — the two must stay separate, and the latter is filled in only when the user explicitly asks.
+- `cue / interaction / delivery / advance / fallback / pronunciation` only record stage actions, interaction, expression, paging, backup, and pronunciation info that the outline or the user explicitly provided.
 
-没有来源支持的事实不能写进备注;影响内容正确性的缺失信息要标记“待补充”或询问用户,不影响内容的可选演讲信息直接省略。
+Facts without a supporting source cannot go into the notes; missing info that affects content correctness gets marked “to be filled” or asked of the user; optional presentation info that doesn't affect content is omitted outright.
 
-#### 3.0 · 预检:类名必须在模板的 `<style>` 里有定义（**最重要**）
+#### 3.0 · Pre-flight: every class must be defined in the template's `<style>` (**most important**)
 
-**这是所有生成问题的源头**。layouts 骨架使用了很多类名,如果模板的 `<style>` 里没有对应定义,浏览器会 fallback 到默认样式——大标题字体错、卡片挤成一团、pipeline 糊成一行、图片堆到页面底部。
+**This is the source of all generation problems**. The layouts skeleton uses many classes; if the template's `<style>` has no matching definition, the browser falls back to default styling — wrong headline fonts, cards squashed together, pipeline flattened to one line, images stacked at the page bottom.
 
-**两种风格类名互不通用**(再次强调):
-- 风格 A 模板里有 `h-hero`(衬线)、`stat-card`、`grid-2-7-5`、`frame` 等
-- 风格 B 模板里有 `h-hero`(无衬线)、`kpi-hero`、`accent-block`、`span-N`、`dots`、`grid-12` 等
-- 同名 class 在两个模板里**视觉表现完全不同**(例:风格 A 的 `h-hero` 是 Noto Serif SC 衬线,风格 B 的 `h-hero` 是 Inter 无衬线)
+**Class names are not interchangeable between the two styles** (reiterated):
+- Style A template has `h-hero` (serif), `stat-card`, `grid-2-7-5`, `frame`, etc.
+- Style B template has `h-hero` (sans-serif), `kpi-hero`, `accent-block`, `span-N`, `dots`, `grid-12`, etc.
+- The same class name renders **completely differently** across the two templates (e.g. Style A's `h-hero` is Noto Serif SC serif; Style B's `h-hero` is Inter sans-serif)
 
-**在写任何 slide 代码之前:**
+**Before writing any slide code:**
 
-1. **先 Read 当前用的模板**(至少读到 `<style>` 块末尾):
-   - 风格 A → `assets/template.html`
-   - 风格 B → `assets/template-swiss.html`
-2. **对照对应 layouts 文件的 Pre-flight 列表**,确认你要用的每个类都在 `<style>` 里存在
-3. 如果某个类缺失:**在模板的 `<style>` 里补上**,不要在每个 slide 里 inline 重写
-4. **模板是唯一的类名来源**——不要发明新类名,如需自定义用 `style="..."` inline
+1. **First Read the template currently in use** (at least up to the end of the `<style>` block):
+   - Style A → `assets/template.html`
+   - Style B → `assets/template-swiss.html`
+2. **Check against the corresponding layouts file's Pre-flight list** to confirm every class you use is defined in `<style>`
+3. If a class is missing: **add it to the template's `<style>`**, don't inline-override it in every slide
+4. **The template is the single source of class names** — don't invent new ones; for customization use inline `style="..."`
 
-**风格 A 常见容易遗漏的类**:
+**Style A classes commonly missed**:
 `h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / `kicker` / `meta-row` / `stat-card` / `stat-label` / `stat-nb` / `stat-unit` / `stat-note` / `pipeline-section` / `pipeline-label` / `pipeline` / `step` / `step-nb` / `step-title` / `step-desc` / `grid-2-7-5` / `grid-2-6-6` / `grid-2-8-4` / `grid-3-3` / `grid-6` / `grid-3` / `grid-4` / `frame` / `frame-img` / `img-cap` / `callout` / `callout-src` / `chrome` / `foot`
 
-**风格 B 常见容易遗漏的类**(2026-05 重构后):
-- 画布:`canvas-card` / `chrome-min`
-- 排版:`h-hero`(无衬线 7.4vw weight 200) / `h-statement`(9.6vw) / `h-xl` / `h-md` / `t-cat`(SemiBold 600 小标) / `t-meta`(mono uppercase) / `lead` / `num-mega` / `mono`
-- 卡片(四类互斥):`card-ink` / `card-accent` / `card-fill` / `card-outlined`
-- 网格:`grid-12` / `grid-2-9` / `grid-2-9-5` / `span-N`
-- 时间线:`timeline-v` + `tl-node` + `tl-axis` + `dot` / `timeline-h` + `tl-h-node` + `tl-h-axis`
-- 图表:`kpi-tower-row` + `bar-tower` / `h-bar-chart` + `bar-row` + `bar-fill` / `spec-bars` + `bar-vert`
-- 装饰:`dot-mat`(SVG mask 实心点)/ `ring-mat`(描边圆)/ `cross-mat`(× 网格)/ `hr-hairline`
-- 版式专属:`cover-split` / `closing-split` / `duo-compare` + `vrule` / `manifesto-top` + `ink-banner-full` / `three-forces` / `loop-diagram` / `matrix-fill` + `matrix-cell` / `brief-grid` + `brief-card` / `system-diagram` / `why-now-grid` / `four-cards` / `stacked-ledger` + `ledger-row` / `tech-spec` / `image-hero` + `hero-img-wrap` + `hero-overlay-block` + `hero-stats`
-- 图片混排:`frame-img` / `fit-contain` / `r-21x9` / `r-16x9` / `r-16x10` / `h-22` / `h-26` / `swiss-img-split` / `swiss-img-grid` / `swiss-img-caption` / `swiss-keyline` / `swiss-lined`
-- spacing token:`--sp-3`...`--sp-13`(8/12/16/24/32/40/48/64/80/96/160 px)
+**Style B classes commonly missed** (after the 2026-05 refactor):
+- Canvas: `canvas-card` / `chrome-min`
+- Typography: `h-hero` (sans-serif 7.4vw weight 200) / `h-statement` (9.6vw) / `h-xl` / `h-md` / `t-cat` (SemiBold 600 small label) / `t-meta` (mono uppercase) / `lead` / `num-mega` / `mono`
+- Cards (four mutually exclusive types): `card-ink` / `card-accent` / `card-fill` / `card-outlined`
+- Grid: `grid-12` / `grid-2-9` / `grid-2-9-5` / `span-N`
+- Timeline: `timeline-v` + `tl-node` + `tl-axis` + `dot` / `timeline-h` + `tl-h-node` + `tl-h-axis`
+- Charts: `kpi-tower-row` + `bar-tower` / `h-bar-chart` + `bar-row` + `bar-fill` / `spec-bars` + `bar-vert`
+- Decoration: `dot-mat` (SVG mask solid dots) / `ring-mat` (stroked circles) / `cross-mat` (× grid) / `hr-hairline`
+- Layout-specific: `cover-split` / `closing-split` / `duo-compare` + `vrule` / `manifesto-top` + `ink-banner-full` / `three-forces` / `loop-diagram` / `matrix-fill` + `matrix-cell` / `brief-grid` + `brief-card` / `system-diagram` / `why-now-grid` / `four-cards` / `stacked-ledger` + `ledger-row` / `tech-spec` / `image-hero` + `hero-img-wrap` + `hero-overlay-block` + `hero-stats`
+- Image mixing: `frame-img` / `fit-contain` / `r-21x9` / `r-16x9` / `r-16x10` / `h-22` / `h-26` / `swiss-img-split` / `swiss-img-grid` / `swiss-img-caption` / `swiss-keyline` / `swiss-lined`
+- Spacing tokens: `--sp-3`...`--sp-13` (8/12/16/24/32/40/48/64/80/96/160 px)
 
-#### 3.0.5 · 规划主题节奏（**和类预检同等重要**)
+#### 3.0.5 · Plan the theme rhythm (**as important as the class pre-flight**)
 
-**在挑布局之前**,必须先列出每一页的主题 class(`hero dark` / `hero light` / `light` / `dark`)并写到文档或草稿里对齐。详细规则看 `references/layouts.md` 开头的"主题节奏规划"一节。
+**Before picking layouts**, you must first list the theme class of every page (`hero dark` / `hero light` / `light` / `dark`) and write it into a document or draft to align on. Detailed rules are in the "Theme rhythm planning" section at the top of `references/layouts.md`.
 
-**强制规则**:
+**Mandatory rules**:
 
-- 每页 section 必须带 `light` / `dark` / `hero light` / `hero dark` 之一,不要只写 `hero`
-- 连续 3 页以上同主题 = 视觉疲劳,不允许
-- 8 页以上必须有 ≥1 个 `hero dark` + ≥1 个 `hero light`
-- 整个 deck 不能只有 `light` 正文页,必须有 `dark` 正文页制造呼吸
-- 每 3-4 页插入 1 个 hero 页(封面/幕封/问题/大引用)
+- Every page section must carry one of `light` / `dark` / `hero light` / `hero dark`; don't write only `hero`
+- 3+ consecutive pages of the same theme = visual fatigue, not allowed
+- Decks 8+ pages must have ≥1 `hero dark` + ≥1 `hero light`
+- A whole deck can't be all `light` content pages; there must be `dark` content pages to create breathing room
+- Insert 1 hero page per 3-4 pages (cover / chapter divider / problem / big quote)
 
-**生成后自检**:`grep 'class="slide' index.html` 列出所有主题,人工确认节奏合理再交付。
+**Post-generation self-check**: `grep 'class="slide' index.html` lists all themes; confirm the rhythm is reasonable by eye before delivering.
 
-#### 3.1 · 挑布局
+#### 3.1 · Pick layouts
 
-**不要从零写 slide**。打开对应的 layouts 文件,里面有 10 种现成布局骨架,每种都是完整可粘贴的 `<section>` 代码块。
+**Don't write slides from scratch**. Open the matching layouts file — it has 10 ready-made layout skeletons, each a complete copy-pasteable `<section>` block.
 
-**风格 A** → `references/layouts.md`:
+**Style A** → `references/layouts.md`:
 
-| Layout | 用途 |
+| Layout | Purpose |
 |---|---|
-| 1. 开场封面 | 第 1 页 |
-| 2. 章节幕封 | 每幕开场 |
-| 3. 数据大字报 | 抛硬数据 |
-| 4. 左文右图(Quote + Image) | 身份反差 / 故事 |
-| 5. 图片网格 | 多图对比 / 截图实证 |
-| 6. 两列流水线(Pipeline) | 工作流程 |
-| 7. 悬念收束 / 问题页 | 幕末 / 收尾 |
-| 8. 大引用页(Big Quote) | 衬线金句 / takeaway |
-| 9. 并列对比(Before / After) | 旧模式 vs 新模式 |
-| 10. 图文混排(Lead Image + Side Text) | 信息密集的图文页 |
+| 1. Opening cover | Page 1 |
+| 2. Chapter divider | Each act opening |
+| 3. Data hero | Throw hard data |
+| 4. Text-left image-right (Quote + Image) | Identity contrast / story |
+| 5. Image grid | Multi-image comparison / screenshot evidence |
+| 6. Two-column pipeline | Workflow |
+| 7. Suspense close / question page | End of act / closing |
+| 8. Big Quote | Serif golden line / takeaway |
+| 9. Side-by-side comparison (Before / After) | Old mode vs new mode |
+| 10. Lead Image + Side Text | Info-dense image-text pages |
 
-**风格 B** → 先读 `references/swiss-layout-lock.md`,再读 `references/layouts-swiss.md`。
+**Style B** → first read `references/swiss-layout-lock.md`, then read `references/layouts-swiss.md`.
 
-瑞士主题默认进入 **Swiss locked mode**:
+Swiss theme defaults into **Swiss locked mode**:
 
-- 正文页只能使用原始参考 PPT 登记的 22 个版式 `S01-S22`;新增首页/尾页只能使用 Skill 明确提供的 `SWISS-COVER-ASCII` / `SWISS-CLOSING-ASCII`。
-- 每个 `<section class="slide">` 必须写 `data-layout="Sxx"`。没有 `data-layout` 就视为未登记版式。
-- 不允许临时发明 `P23/P24`、`Swiss Image Split`、`Evidence Grid` 这类原始 22P 之外的正文结构,除非用户明确要求实验版式。
-- 顶部中文标题默认左对齐、处在左上内容轴。不要把小标题放左列、大标题放右列,造成视觉居中;只有原始 statement/split 版式允许强中心叙事。
-- SVG 只负责几何图形。不要在 SVG 里写文字标签,所有标签改用 HTML 网格/卡片/caption。
-- 地理/历史/城市路线/地点关系页使用 `S08 + Swiss Map Component`:先读 `references/swiss-map-component.md`,仍保留 `data-layout="S08"`。
+- Content pages may only use the 22 layouts `S01-S22` registered from the original reference PPT; new cover/closing pages may only use the Skill-provided `SWISS-COVER-ASCII` / `SWISS-CLOSING-ASCII`.
+- Every `<section class="slide">` must write `data-layout="Sxx"`. No `data-layout` = treated as an unregistered layout.
+- Inventing `P23/P24`, `Swiss Image Split`, `Evidence Grid`, or other content structures beyond the original 22P is not allowed, unless the user explicitly requests experimental layouts.
+- The top Chinese title defaults to left-aligned on the top-left content axis. Don't push the subtitle into the left column and the big title into the right column, creating visual centering; only the original statement/split layouts allow strong centered narrative.
+- SVG is only for geometric shapes. No text labels inside SVG — all labels use HTML grids/cards/captions.
+- Geography/history/city-route/place-relation pages use `S08 + Swiss Map Component`: first read `references/swiss-map-component.md`, keeping `data-layout="S08"`.
 
-原始 22 个正文版式如下:
+The original 22 content layouts:
 
-| Layout | 用途 |
+| Layout | Purpose |
 |---|---|
-| S01 Index Cover | 原始索引封面 |
-| S02 Vertical Timeline + KPI | 演化对比 / 年代变迁 |
-| S03 Split Statement | 核心论点 / 左右分屏 |
-| S04 Six Cells | 6 项概念定义 |
-| S05 Three Layers | 三层架构 |
-| S06 KPI Tower | 4 项数据视觉化高度差 |
-| S07 H-Bar Chart | 5-10 项排名比较 |
-| S08 Duo Compare | Before/After 对照 |
-| S09 Dot Matrix Statement | 大引述 / statement |
-| S10 Split Closing | 收束页 |
-| S11 Horizontal Timeline | 4-7 步流程 |
-| S12 Manifesto + Ink Banner | 阶段性结论 |
-| S13 Three Forces | 3 个对等概念深化 |
-| S14 Loop Form | 自学闭环 / 自动化 |
-| S15 Matrix + Hero Stat | 8-12 项矩阵 + 总数据 |
-| S16 Multi-card Brief | 6 项快讯小卡 |
-| S17 System Diagram | 三层架构 / 生态地图 |
-| S18 Why Now | 三论点 + 数据支撑 |
-| S19 Four Cards | 4 项等权特性 |
-| S20 Stacked KPI Ledger | 纵向账单数据 |
-| S21 Tech Spec Sheet | 产品规格 / benchmark |
-| S22 Image Hero | 21:9 顶图 + 标题块 + 三列 KPI |
+| S01 Index Cover | Original index cover |
+| S02 Vertical Timeline + KPI | Evolution contrast / era change |
+| S03 Split Statement | Core thesis / split screen |
+| S04 Six Cells | 6 concept definitions |
+| S05 Three Layers | Three-layer architecture |
+| S06 KPI Tower | 4 data visualizations with height contrast |
+| S07 H-Bar Chart | 5-10 item ranking comparison |
+| S08 Duo Compare | Before/After contrast |
+| S09 Dot Matrix Statement | Big quote / statement |
+| S10 Split Closing | Closing page |
+| S11 Horizontal Timeline | 4-7 step process |
+| S12 Manifesto + Ink Banner | Stage conclusion |
+| S13 Three Forces | 3 equal-weight concepts deepened |
+| S14 Loop Form | Self-learning loop / automation |
+| S15 Matrix + Hero Stat | 8-12 item matrix + headline number |
+| S16 Multi-card Brief | 6-item news brief cards |
+| S17 System Diagram | Three-layer architecture / ecosystem map |
+| S18 Why Now | Three points + data support |
+| S19 Four Cards | 4 equal-weight features |
+| S20 Stacked KPI Ledger | Vertical ledger data |
+| S21 Tech Spec Sheet | Product specs / benchmark |
+| S22 Image Hero | 21:9 hero image + title block + three-column KPI |
 
-**登记扩展**:`S08 + Swiss Map Component` 用于地点、人物住所、路线、城市关系。它不是新 layout,而是 S08 右侧插槽的 MapLibre 地图组件;必须按 `references/swiss-map-component.md` 的点位、连线、卡片和右上角缩放/拖动控制实现。
+**Registered extension**: `S08 + Swiss Map Component` is for places, people's residences, routes, and city relations. It is not a new layout; it's the MapLibre map component in S08's right-hand slot; implement it per `references/swiss-map-component.md`'s points, connections, cards, and top-right zoom/drag controls.
 
-选对应 layout,粘过去,改文案和图片路径即可。**务必先完成 3.0 预检**。
+Pick the layout, paste it, change the copy and image paths. **Always complete the 3.0 pre-flight first**.
 
-**风格 B 版式多样性硬规则**:
-- 7-8 页 deck 至少使用 **6 个不同 S 编号版式**;10 页以上至少使用 8 个不同版式。
-- 如果用户说"测试模板 / 看看效果 / 多一点版式",必须覆盖:一个封面、一个收尾、至少 1 个对比或时间线(S08/S11/S02)、至少 1 个结构图(S14/S17/S15)、至少 1 个图片版式(S22 或 S15/S16 图片格改造)。
-- 不允许连续 3 页使用同一种主体结构,例如连续三页 `head + grid + card`。
-- 图片页不能偷懒发明新结构。2-3 张图时,用 S15/S16 的原始网格骨架改造成图片格;单张大图用 S22。
-- 开写 HTML 前先列一张 `页码 → data-layout → 选用理由 → 图片槽位` 草稿;交付前运行 `node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs index.html`。校验器会先做静态结构检查;如果环境中能解析到 Playwright,还会做真实渲染后的可见边界、底部空白、nav 安全线和标题间距测量。
+**Style B layout diversity hard rules**:
+- A 7-8 page deck must use at least **6 different S-numbered layouts**; 10+ pages at least 8 different layouts.
+- If the user says "test the template / see the effect / want more variety", you must cover: one cover, one closing, at least 1 comparison or timeline (S08/S11/S02), at least 1 structure diagram (S14/S17/S15), at least 1 image layout (S22 or image grid built from S15/S16).
+- No 3 consecutive pages with the same body structure, e.g. three `head + grid + card` pages in a row.
+- Image pages can't invent lazy new structures. For 2-3 images, rebuild the original S15/S16 grid skeleton into an image grid; a single large image uses S22.
+- Before writing HTML, draft a `page → data-layout → reason chosen → image slot` list; before delivery run `node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs index.html`. The validator does static structure checks first; if Playwright is resolvable in the environment, it also measures real-rendered visible bounds, bottom whitespace, nav-safe line, and title spacing.
 
-#### 3.2 · 图片比例规范
+#### 3.2 · Image ratio rules
 
-永远用**标准比例**,不要用原图奇葩比例(如 `2592/1798`):
+Always use **standard ratios**, never the source image's odd ratio (e.g. `2592/1798`):
 
-| 场景 | 推荐比例 |
+| Scene | Recommended ratio |
 |------|---------|
-| S22 顶部主图 | **21:9**;照片关键主体放中央安全区 |
-| S15/S16 多图格 | 统一 21:9 或统一 16:10,不能混用 |
-| 左文右图 主图(风格 A) | 16:10 或 4:3 + `max-height:56vh` |
-| 图片网格(风格 A) | **固定 `height:26vh`**,不用 aspect-ratio |
-| 左小图 + 右文字 | 1:1 或 3:2 |
-| 全屏主视觉 | 16:9 + `max-height:64vh` |
-| 图文混排小插图 | 3:2 或 3:4 |
+| S22 top hero image | **21:9**; keep the photo's key subject in the center safe area |
+| S15/S16 multi-image grid | All 21:9 or all 16:10, don't mix |
+| Left-text right-image main image (Style A) | 16:10 or 4:3 + `max-height:56vh` |
+| Image grid (Style A) | **Fixed `height:26vh`**, no aspect-ratio |
+| Left small image + right text | 1:1 or 3:2 |
+| Fullscreen hero visual | 16:9 + `max-height:64vh` |
+| Image-text mixed small illustration | 3:2 or 3:4 |
 
-**默认不要让图片 `align-self:end`**——会滑到页面底部,很容易碰到分页组件。用 grid 容器 + `align-items:start`(template 已预设)让图片贴顶即可;如果确实需要图文底对齐,必须先控制图片高度,再使用模板已有安全区类 `.nav-safe-bottom` / `.nav-safe-bottom-tight`,不要让最低处碰到分页组件。
+**Don't default images to `align-self:end`** — they'll slide to the page bottom and easily collide with the pager component. Use the grid container + `align-items:start` (preset in the template) to pin images to the top; if you truly need bottom alignment of image and text, cap the image height first, then use the template's existing safe-area classes `.nav-safe-bottom` / `.nav-safe-bottom-tight`, and never let the lowest point touch the pager component.
 
-**风格 B 瑞士风额外规则**:
-- 单张大图用 S22;多图测试用 S15/S16 的原始卡片网格改造,不要用未登记的 P23/P24
-- 生成图片前先写 `data-image-slot`:例如 `s22-hero-21x9` / `s15-grid-21x9` / `s16-brief-21x9`
-- S22 配图默认生成 21:9,提示词必须包含 `subject centered in the safe middle area`;照片容器用 `object-position:center 35%`,不要用 `top center`
-- 图片容器必须直角、无阴影、无圆角;默认背景用白色 `var(--paper)`,不要用灰底包白底信息图
-- 白底 GPT 信息图/流程图/UI 图默认不要加外框描边,不要随手套 `.swiss-keyline`;需要强调时只用 `.swiss-lined` 的顶部 accent 线
-- UI/信息图如果是用户原始截图或文字密集图,才用 `.fit-contain`;如果已按 S15/S16 槽位重生成,必须用 `.frame-img.r-21x9` / `.frame-img.r-16x10` 铺满容器,不要固定 `height:18vh` 后把图缩小
-- 多图同组必须统一图片槽位、比例和高度,不能混用
-- GPT-M 2.0 生成图使用 `image-prompts.md` 的"风格 B:瑞士国际主义配图规则"
-- 任何图片、caption、timeline label、footnote 的最低处都不能进入底部分页区域;需要贴底时用 `.nav-safe-bottom` / `.nav-safe-bottom-tight`,不要手写 `bottom:2vh`
+**Style B Swiss extra rules**:
+- Single large image uses S22; multi-image tests rebuild the original S15/S16 card grid, don't use unregistered P23/P24
+- Before generating images write `data-image-slot`: e.g. `s22-hero-21x9` / `s15-grid-21x9` / `s16-brief-21x9`
+- S22 images default to 21:9; the prompt must include `subject centered in the safe middle area`; the photo container uses `object-position:center 35%`, not `top center`
+- Image containers must be right-angle, no shadow, no rounded corners; default background is white `var(--paper)`, don't wrap a white infographic in a gray background
+- White-background GPT infographics/flowcharts/UI images default to no outer border; don't casually add `.swiss-keyline`; when emphasis is needed use only the `.swiss-lined` top accent line
+- Use `.fit-contain` only for the user's original screenshots or text-dense images; if already regenerated to S15/S16 slots, use `.frame-img.r-21x9` / `.frame-img.r-16x10` to fill the container, don't fix `height:18vh` and shrink the image
+- A group of multiple images must share the same slot, ratio, and height; don't mix
+- GPT-M 2.0 generated images follow `image-prompts.md`'s "Style B: Swiss International image rules"
+- The lowest point of any image, caption, timeline label, or footnote must not enter the bottom pager area; when flush to bottom is needed use `.nav-safe-bottom` / `.nav-safe-bottom-tight`, don't hand-write `bottom:2vh`
 
-#### 3.2.0 · 图文混排决策树（从社交卡片规则迁移）
+#### 3.2.0 · Image-text mixing decision tree (migrated from the social card rules)
 
-先判断图片在这一页里的角色,再决定容器、比例和裁切方式:
+First decide the image's role on the page, then choose the container, ratio, and crop:
 
-- **证据截图 / UI / 代码 / dashboard**:保真优先,先读 `references/screenshot-framing.md`;关键文字和数据不能被裁掉。需要统一比例时,优先程序化背景画布 + `.fit-contain`,不要为了铺满而裁掉 UI 内容。
-- **已按槽位重生成的信息图 / 插图**:按目标槽位铺满,例如 S22 用 `21:9`,S15/S16 用统一 `21:9` 或 `16:10`;不要再用短高度把图缩小成小贴片。
-- **照片 / 产品图 / 人物图**:使用标准比例 + 明确 `object-position`;主体、人脸、产品和关键证据不能被标题、caption 或裁切压住。
-- **文字压图 / 全屏主视觉**:先做 quiet-zone 判断,图里至少要有约 30% 低细节区域承载文字;不通过就换图、换裁切或改成图文分栏。只在必要时加局部 tint,不要整页套黑色/白色遮罩。
-- **多图组**:同一组统一比例、高度、容器处理和 caption 密度;不要一张 `contain`,另一张 `cover`。
-- **生成图是素材,不是整页 slide**:图片内部不要自带页眉、页脚、页码、logo、主标题、装饰边框或署名,避免和 deck chrome 重复。
-- **图文呼吸**:标题、图片、caption、正文必须各自留出间距;生成后用 validator 的 `M1/M2` 检查可见边界、底部空白、nav 安全线和标题间距。
+- **Evidence screenshot / UI / code / dashboard**: fidelity first; first read `references/screenshot-framing.md`; key text and data must not be cropped. When a uniform ratio is needed, prefer procedural background canvas + `.fit-contain`, don't crop UI content to fill.
+- **Infographic / illustration already regenerated to a slot**: fill the target slot, e.g. S22 uses `21:9`, S15/S16 use uniform `21:9` or `16:10`; don't shrink the image into a small sticker with a short height.
+- **Photo / product image / person image**: use standard ratio + explicit `object-position`; the subject, face, product, and key evidence must not be covered by titles, captions, or crop.
+- **Text-over-image / fullscreen hero visual**: do a quiet-zone check first, the image must have at least ~30% low-detail area to carry text; if it fails, swap the image, change the crop, or switch to an image-text split column. Add a local tint only when necessary, don't slap a full-page black/white overlay.
+- **Multi-image group**: same group shares ratio, height, container treatment, and caption density; don't have one `contain` and another `cover`.
+- **A generated image is material, not a whole slide**: the image itself must not carry page headers, footers, page numbers, logos, main titles, decorative borders, or bylines, to avoid duplication with the deck chrome.
+- **Image-text breathing**: titles, images, captions, and body must each keep spacing; after generation use the validator's `M1/M2` checks for visible bounds, bottom whitespace, nav-safe line, and title spacing.
 
-#### 3.2.1 · 中文大标题字号分档(风格 B 必做)
+#### 3.2.1 · Chinese headline font-size tiers (required for Style B)
 
-中文方块字视觉面积大,不能直接套英文 hero 的 6.8-7vw。写中文大标题前先分档:
+Chinese square characters have large visual area; don't directly reuse the English hero's 6.8-7vw. Tier before writing Chinese headlines:
 
-| 标题形态 | 推荐字号 |
+| Headline shape | Recommended font-size |
 |---|---|
-| 1 行,≤ 8 个中文字符 | `min(6.4vw,11.2vh)` |
-| 2 行,每行≤ 8 个中文字符 | `min(5.8vw,10.2vh)` |
-| 2 行,任一行 9-12 个中文字符 | `min(5.2vw,9.2vh)` |
-| 3 行或更长 | 优先改写标题;不得已用 `min(4.6vw,8.2vh)` |
+| 1 line, ≤ 8 Chinese characters | `min(6.4vw,11.2vh)` |
+| 2 lines, each ≤ 8 Chinese characters | `min(5.8vw,10.2vh)` |
+| 2 lines, any line with 9-12 Chinese characters | `min(5.2vw,9.2vh)` |
+| 3 lines or longer | Prefer rewriting the headline; if unavoidable use `min(4.6vw,8.2vh)` |
 
-如果标题挤占了图片或正文区域,先压缩标题文案,再降字号;不要靠把下方内容推到底来硬塞。
+If the headline crowds the image or body area, first compress the headline copy, then lower font-size; don't force it by shoving the content below to the bottom.
 
-#### 3.2.2 · 瑞士风演示最小字号与字重阶梯(风格 B 必做)
+#### 3.2.2 · Swiss-style minimum font sizes and weight ladder (required for Style B)
 
-瑞士风用于投屏演示时,小字不能按网页注释的 10-12px 写。默认遵守以下下限:
+When Swiss style is used for on-screen presentation, small text must not follow web-commentary 10-12px. Default to the following floor:
 
-| 文本类型 | 最小字号 |
+| Text type | Minimum font-size |
 |---|---|
-| 正文段落 / 主要说明 | `18px` |
-| 卡片描述 / 列表 / 时间线说明 / caption / 图注 | `16px` |
-| meta / kicker / mono label / 图表标签 | `14px` |
+| Body paragraph / main description | `18px` |
+| Card description / list / timeline description / caption / figure note | `16px` |
+| meta / kicker / mono label / chart label | `14px` |
 
-如果内容放不下,先删减文案、拆成两页、换更适合的 Sxx 版式,不要把字号压到 10/11/12/13px。尤其是中文 deck,不要为了塞三行解释把 `body-sm`、caption、timeline label 改小。
+If the content doesn't fit, trim the copy, split into two pages, or switch to a more suitable Sxx layout — don't squeeze font-size down to 10/11/12/13px. Especially for Chinese decks, don't shrink `body-sm`, caption, or timeline labels to stuff in three lines of explanation.
 
-**字号与字重阶梯(瑞士风核心)** — "越大越细,越小越粗"不是感性描述,而是具体映射:
+**Font-size and weight ladder (Swiss core)** — "bigger is lighter, smaller is bolder" isn't a vibe description; it's a concrete mapping:
 
-| 字号区间 | 推荐字重 | 典型场景 |
+| Font-size range | Recommended weight | Typical use |
 |---|---|---|
-| ≥ 8vw | 200 (ExtraLight) | 封面大字、巨号 KPI、h-statement |
-| 4-7.9vw | 200-300 | 章节标题(h-xl/h-xl-zh)、大编号 |
-| 1.8-3.9vw | 300-400 | 中型标题、takeaway 标题(≈1.8vw)、中号数字 |
-| 1-1.7vw / 16-20px | 400-500 | 正文段落、卡片描述、说明文字 |
-| 13-15px(小字) | 500-600 | meta、kicker、角标、图表标签、caption 强调 |
+| ≥ 8vw | 200 (ExtraLight) | Cover big type, mega KPI, h-statement |
+| 4-7.9vw | 200-300 | Section titles (h-xl/h-xl-zh), big numbers |
+| 1.8-3.9vw | 300-400 | Mid-size titles, takeaway titles (≈1.8vw), medium numbers |
+| 1-1.7vw / 16-20px | 400-500 | Body paragraph, card description, supporting text |
+| 13-15px (small text) | 500-600 | meta, kicker, corner marks, chart labels, caption emphasis |
 
-**硬规则:**
-- 同一页内,字号越小的元素字重必须 ≥ 字号越大的元素(不允许 16px 正文用 300 而 1.8vw 标题用 500)
-- 16px 左右的小字拒绝使用 weight 300(太细不可读),最低 400,推荐 500
-- 封面/IkB 反白大标题内强调字用 `italic + weight 300`,不要用 accent 色(蓝压蓝看不见)
+**Hard rules:**
+- Within a page, a smaller element's weight must be ≥ a larger element's weight (16px body at 300 plus a 1.8vw title at 500 is not allowed)
+- Small text around 16px refuses weight 300 (too thin to read); minimum 400, recommended 500
+- Emphasized words inside cover/IKB inverted big titles use `italic + weight 300`, not accent color (blue on blue is invisible)
 
-组件细节(字体、颜色、网格、图标、callout、stat-card 等)在 `references/components.md`。
+Component details (fonts, colors, grid, icons, callout, stat-card, etc.) are in `references/components.md`.
 
-### Step 4 · 对照检查清单自检
+### Step 4 · Self-check against the checklist
 
-生成完一定要打开 `references/checklist.md`，逐项对照。里面总结了**真实迭代过程中踩过的所有坑**，P0 级别的问题（emoji、图片撑破、标题换行、字体分工）必须全部通过。
+After generating, you must open `references/checklist.md` and go through it item by item. It summarizes **every pitfall hit during real iteration**; all P0-level issues (emoji, image overflow, title line breaks, font division of labor) must pass.
 
-所有正式演讲 deck 先跑演讲者模式校验;如果用户给了目标时长,同时传入分钟数:
+Every formal-talk deck first runs the presenter-mode validation; if the user gave a target duration, also pass the minutes:
 
 ```bash
 node <SKILL_ROOT>/scripts/validate-presenter-mode.mjs path/to/index.html
@@ -451,182 +451,182 @@ node <SKILL_ROOT>/scripts/validate-presenter-mode.mjs path/to/index.html --targe
 node <SKILL_ROOT>/scripts/check-presenter-runtime-sync.mjs
 ```
 
-第一个脚本会拦截缺失/重复页面 ID、备注与页面错位、必填字段或可选字段类型错误、完整时间计划超出 90% 预算,以及计时、排练、自动翻页、标注、演前检查和观众屏恢复控件缺失。第二个脚本会拦截两套模板之间的演讲者 CSS / JS 漂移。
+The first script blocks missing/duplicate page IDs, notes misaligned with pages, required-field or optional-field type errors, a full timing plan exceeding the 90% budget, and missing timing/rehearsal/auto-advance/annotation/pre-show-check/audience-screen-recovery controls. The second script blocks CSS/JS drift in the presenter mode between the two templates.
 
-#### 4.0.1 · 先量后改:超出 / 空白 / 标题间距
+#### 4.0.1 · Measure before changing: overflow / whitespace / title gap
 
-当一页内容超出或显得巨空时,不要先凭感觉大幅删改。先运行:
+When a page overflows or looks huge-empty, don't heavily edit on feel first. First run:
 
 ```bash
 node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs path/to/index.html
 ```
 
-看校验输出里的测量项:
+Look at the measurement items in the validator output:
 
-- `M1 DOM/visual overflow`:具体超出多少 px,以及最低/最高问题元素
-- `M1 bottom whitespace`:底部空白多少 px,active content height 占比多少
-- `M1 nav-safe`:最低内容是否进入底部分页安全线
-- `M2 title gap`:标题和下一块内容之间的实际距离
+- `M1 DOM/visual overflow`: exactly how many px overflow, plus the lowest/highest problem elements
+- `M1 bottom whitespace`: how many px of bottom whitespace, and what share of the active content height
+- `M1 nav-safe`: whether the lowest content enters the bottom pager safe line
+- `M2 title gap`: the actual distance between the title and the next content block
 
-修正阶梯:
+Fix ladder:
 
-- `1-40px` over:只微调,上移内容组或收紧一个 gap/padding,不要删内容。
-- `40-90px` over:局部压缩间距或模块高度,仍优先保留内容。
-- `90-160px` over:轻微压标题或压缩一段正文,必要时拆页。
-- `160px+` over:才考虑换版式、合并模块或删内容。
+- `1-40px` over: only fine-tune — move the content group up or tighten one gap/padding; don't delete content.
+- `40-90px` over: locally compress spacing or module height; still prefer keeping content.
+- `90-160px` over: slightly compress the title or one body paragraph; split the page if necessary.
+- `160px+` over: only then consider changing layouts, merging modules, or deleting content.
 
-修完再跑一次 validator。如果 `M1 bottom whitespace` 变大,说明修过头了;恢复部分间距、放大最后一块或把内容组向下回调。
+Run the validator again after fixing. If `M1 bottom whitespace` grew, you over-fixed; restore some spacing, enlarge the last block, or nudge the content group back down.
 
-#### 4.0 · 不只看代码:必须打开网页做视觉核对
+#### 4.0 · Not just code: open the page for a visual check
 
-代码只能证明类名和结构存在,不能证明版式舒服。生成后必须打开网页逐页看:
+Code only proves class names and structure exist, not that the layout feels good. After generating, you must open the page and look at every slide:
 
-1. 同时打开当前模板(golden source 快照)或生成页、以及正在迭代的测试 PPT 逐页对照。
-2. 截图前等入场动效稳定(约 1-2 秒),不要把动画中间态当成版式问题。
-3. 先看视觉:大标题字重、标题与内容间距、图片是否与正文对齐、图片/说明是否碰到底部分页组件。
-4. 再看代码:确认该页选用的版式与内容形状匹配,没有把数据专用版式拿来讲概念,也没有把可选组件堆成装饰。
-5. 对照原始参考模板时,以实际页面用法为准,不要只看 CSS helper 定义;原始页面的大字实际多为 200/300,不要被 raw CSS 里的 700/800/900 带偏。
-6. 如果页面别扭,先判断是版式选错、必选组件缺失、可选组件滥用,还是间距/安全区问题;不要直接靠加 margin 硬救。
+1. Open the current template (golden source snapshot) or generated page AND the test PPT being iterated, page by page side by side.
+2. Wait for entrance animations to settle before screenshoting (about 1-2 seconds); don't mistake a mid-animation state for a layout issue.
+3. Look at visuals first: headline weight, title-to-content spacing, whether images align with body, whether images/captions touch the bottom pager component.
+4. Then look at the code: confirm the chosen layout matches the content shape — no data-only layout speaking for concepts, no optional components stacked as decoration.
+5. When comparing against the original reference template, judge by actual page usage, not just the CSS helper definitions; the original pages' big type is mostly 200/300, don't be misled by raw CSS values like 700/800/900.
+6. If a page feels off, first decide whether it's a wrong layout choice, a missing required component, over-used optional components, or a spacing/safe-area problem; don't rescue with added margins.
 
-#### 风格 A · 电子杂志风必查
+#### Style A · Editorial Magazine must-checks
 
-1. **大标题必须是衬线字体**——如果显示成非衬线,99% 是 Step 3.0 预检没做,`h-hero` 类在 template.html 里缺失
-2. **图片网格里只用 `height:Nvh`,不用 `aspect-ratio`**(会撑破)
-3. **图片不能堆到页面底部**——不要用 `align-self:end`,用 grid + `align-items:start`(见 Step 3.2)
-4. **图片只能用标准比例**(16:10 / 4:3 / 3:2 / 1:1 / 16:9),不要复制原图的奇葩比例
-5. **中文大标题 ≤ 5 字且 `nowrap`**(避免 1 字 1 行)
-6. **用 Lucide,不用 emoji**
-7. **标题用衬线,正文用非衬线,元数据用等宽**
+1. **Big headlines must be serif** — if it renders non-serif, 99% chance Step 3.0 pre-flight was skipped and the `h-hero` class is missing from template.html
+2. **Image grids use only `height:Nvh`, not `aspect-ratio`** (will break/overflow)
+3. **Images must not pile up at the page bottom** — don't use `align-self:end`; use grid + `align-items:start` (see Step 3.2)
+4. **Images use only standard ratios** (16:10 / 4:3 / 3:2 / 1:1 / 16:9), don't copy the source image's odd ratio
+5. **Chinese headlines ≤ 5 characters and `nowrap`** (avoid one-character-per-line)
+6. **Use Lucide, not emoji**
+7. **Headlines serif, body sans-serif, metadata monospace**
 
-#### 风格 B · 瑞士国际主义必查
+#### Style B · Swiss International must-checks
 
-1. **全程无衬线**——任何衬线字体出现都是错的(检查 `font-family` 没用 `--serif` 类变量)
-2. **只有一个 accent 色**——一份 deck 不能同时出现 IKB 蓝 + 柠檬黄 + 安全橙等多个高亮色
-3. **不允许渐变 / 阴影 / 圆角**——所有色块直角纯色,任何 `box-shadow` / `linear-gradient` / `border-radius` > 0 都要砍掉(rule 横线除外)
-4. **极致字号对比**——主标题与正文比例 ≥ 8:1
-5. **大字号必须双约束限高**——`font-size:min(Xvw, Yvh)`,只用 vw 在标准 16:9 屏会溢出(吸取 P15/P20/P22 教训)
-6. **大字字重 200**(ExtraLight)——字号越大越细,瑞士风灵魂;**禁止** 600/700/800 大字
-7. **卡片填充类型互斥**——`card-ink` / `card-accent` / `card-fill` / `card-outlined` 四类**不能混用**(禁止"蓝底+蓝描边"、"灰底+描边"等)
-8. **多卡并列时统一样式**——3-12 张卡用同一类(优先 `card-fill` 灰底);只突出一项时单独换 `card-accent`,且**只允许一张**
-9. **直角到底**——任何 `border-radius` 都不允许;装饰用 8×8 直角小方块,**不要** 9px 圆形点
-10. **图标用 lucide,不自己画 SVG**——`<i data-lucide="name"></i>` + `lucide.createIcons()`,选棱角风格(避免圆胖)
-11. **时间线对齐**——axis 列固定 12px + dot 绝对定位,**不要**用 grid `justify-self`(会与虚线错位)
-12. **章节级标题与内容间距 ≥ 9vh**——避免拥挤(吸取 P15/P16 教训)
-13. **每页一个语义化动效 recipe**——不是统一 fade-up,数字 scale 弹入、bar scaleY 拉起、SVG stroke 描线、节点序列点亮等;**禁止**所有页用同一个 generic 配方
-14. **playSlide 入口 reveal 容器**——`[data-anim]` 容器先强制 opacity:1,recipe 内再用 motion `{opacity:[0,1]}` 覆盖,否则有些页会"看不见"
-15. **ESC 索引页可见性**——cloned slide 必须有 CSS override 让 `[data-anim]` 在缩略图里 opacity:1
-16. **Helvetica/Inter 兜底中文字体**——Windows 用户没有"苹方",必须 fallback 到 `"Microsoft YaHei UI", "Noto Sans SC"`
-17. **字体粗细体例**:大字 200 / 正文 300 / `t-cat` SemiBold 600 / `t-meta` mono uppercase
-18. **保留低功耗快捷键**——右下角必须提示 `B 静态`;按 `B` 切换 `body.low-power`,停止 WebGL/ASCII canvas RAF 和 Motion 入场动画
-19. **装饰元素严格在 grid 内**——bars 矩阵、点阵、ring-mat 不能贴边或溢出页面
-20. **底部内容预留 nav 空间**——nav 在 ~97vh,内容收尾不要过 93vh(吸取 P22 KPI 大字溢底教训)
-21. **图片容器直角无阴影**——`.frame-img` 不加 `border-radius` / `box-shadow`;边界只用 hairline
-22. **S15/S16/S22 图片同组一致**——同一组图片统一比例、高度、边距、线条粗细;信息图/UI 图加 `.fit-contain`
-23. **组件角色要正确**——S15/S16 图片格需要 caption 信息锚点;S22 的 KPI/说明是必选;数据专用版式必须有真实数据,不能靠文案硬填
-24. **通用/非通用版式要分清**——S03/S08/S11/S19 较通用;S06/S07/S20/S21/S22 是数据/案例专用;S14/S15/S17 是结构专用
+1. **Sans-serif the whole way** — any serif appearing is wrong (check `font-family` doesn't use a `--serif` class variable)
+2. **Only one accent color** — a deck can't show IKB blue + lemon yellow + safety orange and other highlight colors at once
+3. **No gradients / shadows / rounded corners** — all color blocks right-angle solid; any `box-shadow` / `linear-gradient` / `border-radius` > 0 must be cut (the rule hairline excepted)
+4. **Extreme type-scale contrast** — main title to body ratio ≥ 8:1
+5. **Big type must be double-constrained** — `font-size:min(Xvw, Yvh)`; using only vw overflows standard 16:9 screens (lesson from P15/P20/P22)
+6. **Big type weight 200** (ExtraLight) — the bigger the type, the lighter; that's the soul of Swiss; **600/700/800 big type forbidden**
+7. **Card fill types are mutually exclusive** — `card-ink` / `card-accent` / `card-fill` / `card-outlined` can't be mixed (no "blue fill + blue outline", "gray fill + outline", etc.)
+8. **Multiple cards side by side use one style** — 3-12 cards use the same class (prefer `card-fill` gray); highlight only one with `card-accent`, and **only one allowed**
+9. **Right angles all the way** — no `border-radius` at all; decoration uses 8×8 right-angle small squares, **not** 9px circular dots
+10. **Icons use lucide, don't draw your own SVG** — `<i data-lucide="name"></i>` + `lucide.createIcons()`, pick angular styles (avoid round/chunky)
+11. **Timeline alignment** — axis column fixed 12px + dot absolutely positioned, **not** grid `justify-self` (will misalign with the dashed line)
+12. **Section-level title to content gap ≥ 9vh** — avoid crowding (lessons from P15/P16)
+13. **One semantic motion recipe per page** — not a uniform fade-up; numbers scale-pop, bars scaleY pull up, SVG strokes draw in, nodes light in sequence, etc.; **forbidden** to use the same generic recipe on all pages
+14. **playSlide entry reveals containers** — `[data-anim]` containers are forced `opacity:1` first, then overridden inside the recipe with motion `{opacity:[0,1]}`; otherwise some pages appear "invisible"
+15. **ESC index page visibility** — cloned slides need a CSS override so `[data-anim]` is `opacity:1` in the thumbnails
+16. **Helvetica/Inter fallback for Chinese** — Windows users don't have "PingFang"; must fall back to `"Microsoft YaHei UI", "Noto Sans SC"`
+17. **Font weight system**: big type 200 / body 300 / `t-cat` SemiBold 600 / `t-meta` mono uppercase
+18. **Keep the low-power shortcut** — the bottom-right must show `B static`; pressing `B` toggles `body.low-power`, stopping WebGL/ASCII canvas RAF and Motion entrance animations
+19. **Decorative elements strictly inside the grid** — bars matrices, dot matrices, ring-mat can't hug the edge or overflow the page
+20. **Bottom content reserves nav space** — nav sits at ~97vh, content should end before 93vh (lesson from P22 KPI big-type overflow)
+21. **Image containers right-angle, no shadow** — `.frame-img` gets no `border-radius` / `box-shadow`; borders only use hairline
+22. **S15/S16/S22 image groups consistent** — a group of images shares uniform ratio, height, margins, line weight; infographic/UI images add `.fit-contain`
+23. **Component roles must be correct** — S15/S16 image grids need caption info anchors; S22's KPI/notes are required; data-only layouts must have real data, not copy forced in
+24. **Generic vs specialized layouts** — S03/S08/S11/S19 are more generic; S06/S07/S20/S21/S22 are data/case-specific; S14/S15/S17 are structure-specific
 
-### Step 5 · 本地预览
+### Step 5 · Local preview
 
-直接在浏览器打开 `index.html` 就行。macOS 下：
+Just open `index.html` in the browser. On macOS:
 
 ```bash
-open "项目/XXX/ppt/index.html"
+open "project/XXX/ppt/index.html"
 ```
 
-不需要本地服务器。图片走相对路径 `images/xxx.png`。
+No local server needed. Images use relative paths `images/xxx.png`.
 
-预览时不能只看普通页面。按 `P` 进入演讲者模式,允许浏览器打开观众窗口,至少实测一次:前后翻页、内嵌宫格选页并返回预览、首页/尾页、尾页重新开始、计时开始/暂停/重置、排练记录、自动翻页暂停/恢复、激光笔、圈选、黑白屏、冻结、设置组件、演前检查、备注保存、关闭观众窗口后的状态变化,以及“重新打开观众屏”能否恢复到当前页。
+During preview you can't only look at the normal page. Press `P` for presenter mode, allow the browser to open the audience window, and actually test at least once: forward/back paging, embedded grid page picker and return to preview, first/last page, restart from last page, timer start/pause/reset, rehearsal records, auto-advance pause/resume, laser pointer, area select, black/white screen, freeze, settings panels, pre-show check, note saving, state change after closing the audience window, and whether "reopen audience screen" restores the current page.
 
-### Step 6 · 迭代
+### Step 6 · Iterate
 
-根据用户反馈修改——模板的 CSS 已经高度参数化，90% 的调整都是改 inline style（字号 `font-size:Xvw` / 高度 `height:Yvh` / 间距 `gap:Zvh`）。
+Modify based on user feedback — the template's CSS is already highly parameterized, so 90% of adjustments are inline style changes (font-size `font-size:Xvw` / height `height:Yvh` / gap `gap:Zvh`).
 
 ---
 
-## 资源文件导览
+## Resource Files Overview
 
 ```
 guizang-ppt-skill/
-├── SKILL.md                  ← 你正在读
+├── SKILL.md                  ← you are reading this
 ├── assets/
-│   ├── template.html         ← 风格 A · 电子杂志风模板（种子文件）
-│   ├── template-swiss.html   ← 风格 B · 瑞士国际主义风模板（种子文件）
-│   ├── screenshot-backgrounds/ ← 截图美化内置背景(WebP):style-a 5 套 / style-b 4 套
-│   └── motion.min.js         ← Motion One 本地副本（离线兜底,约 64KB,共用）
+│   ├── template.html         ← Style A · Editorial Magazine template (seed file)
+│   ├── template-swiss.html   ← Style B · Swiss International template (seed file)
+│   ├── screenshot-backgrounds/ ← built-in screenshot-beautification backgrounds (WebP): style-A 5 sets / style-B 4 sets
+│   └── motion.min.js         ← local copy of Motion One (offline fallback, ~64KB, shared)
 ├── scripts/
-│   ├── validate-swiss-deck.mjs ← 风格 B 静态校验:登记版式、图片槽位、SVG 文本、标题对齐
-│   └── validate-presenter-mode.mjs ← 两种风格共用:页面 ID、演讲备注、时长和演讲者运行时校验
+│   ├── validate-swiss-deck.mjs ← Style B static validation: registered layouts, image slots, SVG text, title alignment
+│   └── validate-presenter-mode.mjs ← shared by both styles: page IDs, speaker notes, timing, presenter runtime validation
 └── references/
-    ├── components.md         ← 组件手册（字体、色、网格、图标、callout、stat、pipeline、动效... 风格 A 适用）
-    ├── layouts.md            ← 风格 A · 10 种页面布局骨架（可直接粘贴,含动效标记）
-    ├── swiss-layout-lock.md  ← 风格 B · 原始 22P 版式锁,正文页必须按这里登记
-    ├── layouts-swiss.md      ← 风格 B · 原始 22P 骨架说明 + 少量明确标注的实验区
-    ├── swiss-map-component.md ← 风格 B · S08 地图扩展组件(MapLibre 点位/连线/卡片/控制)
-    ├── themes.md             ← 风格 A · 5 套主题色预设（只能选不能自定义）
-    ├── themes-swiss.md       ← 风格 B · 4 套瑞士风主题色预设（IKB / 柠檬黄 / 柠檬绿 / 安全橙）
-    ├── image-prompts.md      ← GPT-M 2.0 配图类型、比例和基础提示词
-    ├── screenshot-framing.md ← CleanShot X 式截图适配语义 + 内置背景资产映射
-    ├── presenter-mode.md     ← 演讲者 UI、AI 备注结构、观众屏同步与恢复契约
-    └── checklist.md          ← 质量检查清单（P0/P1/P2/P3 分级）
+    ├── components.md         ← component manual (fonts, colors, grid, icons, callout, stat, pipeline, motion... Style A applies)
+    ├── layouts.md            ← Style A · 10 page layout skeletons (directly pasteable, with motion markers)
+    ├── swiss-layout-lock.md  ← Style B · original 22P layout lock; content pages must be registered here
+    ├── layouts-swiss.md      ← Style B · original 22P skeleton docs + a few clearly marked experimental areas
+    ├── swiss-map-component.md ← Style B · S08 map extension component (MapLibre points/lines/cards/controls)
+    ├── themes.md             ← Style A · 5 theme color presets (pick only, no custom)
+    ├── themes-swiss.md       ← Style B · 4 Swiss theme color presets (IKB / Lemon Yellow / Lemon Green / Safety Orange)
+    ├── image-prompts.md      ← GPT-M 2.0 image types, ratios, and base prompts
+    ├── screenshot-framing.md ← CleanShot X-style screenshot adaptation semantics + built-in background asset mapping
+    ├── presenter-mode.md     ← presenter UI, AI note structure, audience screen sync & recovery contract
+    └── checklist.md          ← quality checklist (P0/P1/P2/P3 tiers)
 ```
 
-**加载顺序建议**：
-1. 先读完 `SKILL.md`(这个文件)了解整体
-2. Step 1 需求澄清**第一问**先确定风格 A 还是 B,然后:
-   - 风格 A:读 `themes.md` 帮用户选一套主题色
-   - 风格 B:读 `themes-swiss.md` 帮用户选一套主题色
-3. **动手前 Read 对应模板的 `<style>` 块**——这是类名的唯一来源,缺类会导致整页样式崩
-   - 风格 A → `assets/template.html`
-   - 风格 B → `assets/template-swiss.html`
-4. 读对应的 layouts 文件挑布局:
-   - 风格 A → `layouts.md`(顶部有 Pre-flight 类名清单、主题节奏规划、动效 recipe 决策树)
-   - 风格 B → **先读 `swiss-layout-lock.md`**,再读 `layouts-swiss.md`;正文页必须从 S01-S22 选择,每页写 `data-layout`
-5. 如果风格 B 需要地点、路线、人物住所或城市关系地图,读 `swiss-map-component.md`
-6. 如果在 Codex 中生成配图,读 `image-prompts.md` 挑图片类型、比例和基础提示词;如果是用户原始截图,先读 `screenshot-framing.md`,优先使用 `assets/screenshot-backgrounds/` 的内置背景资产
-7. 细节调整时读 `components.md` 查组件(含 Motion 动效系统章节,主要服务风格 A;风格 B 的组件细节在 `layouts-swiss.md` 附录)
-8. 正式演讲先读 `presenter-mode.md`,生成稳定页面 ID 和 `SPEAKER_NOTES`
-9. 生成后先运行 `validate-presenter-mode.mjs`;风格 B 再运行 `validate-swiss-deck.mjs`,最后读 `checklist.md` 自检
+**Suggested load order**:
+1. First read all of `SKILL.md` (this file) to understand the whole
+2. Step 1 clarification's **first question** settles Style A or B, then:
+   - Style A: read `themes.md` to help the user pick a theme palette
+   - Style B: read `themes-swiss.md` to help the user pick a theme palette
+3. **Before starting, Read the matching template's `<style>` block** — it's the single source of class names; missing classes break whole-page styles
+   - Style A → `assets/template.html`
+   - Style B → `assets/template-swiss.html`
+4. Read the matching layouts file to pick layouts:
+   - Style A → `layouts.md` (top has the Pre-flight class list, theme rhythm planning, motion recipe decision tree)
+   - Style B → **first read `swiss-layout-lock.md`**, then `layouts-swiss.md`; content pages must be chosen from S01-S22, every page writes `data-layout`
+5. If Style B needs place, route, residence, or city-relation maps, read `swiss-map-component.md`
+6. If generating images in Codex, read `image-prompts.md` to pick type, ratio, base prompt; for user's original screenshots first read `screenshot-framing.md`, prefer the built-in `assets/screenshot-backgrounds/` assets
+7. For detail adjustments read `components.md` for components (includes the Motion system chapter, mainly serving Style A; Style B component details are in the `layouts-swiss.md` appendix)
+8. For formal talks read `presenter-mode.md` first, generate stable page IDs and `SPEAKER_NOTES`
+9. After generating first run `validate-presenter-mode.mjs`; Style B then also runs `validate-swiss-deck.mjs`; finally read `checklist.md` for self-check
 
-**动效相关**:模板已把 Motion One 的加载和 recipe 逻辑内嵌到底部 module script。你不需要改 JS,只需要按 `layouts.md` / `layouts-swiss.md` 的骨架在 HTML 里加 `data-anim` / `data-animate` 即可。离线演示靠 `assets/motion.min.js`,断网时自动降级为"无动画但内容可读"。风格 B 模板必须保留 `B` 键低功耗模式:切换后停止 WebGL/ASCII canvas RAF,取消正在运行的 Web Animations,并把当前页内容直接 reveal 到静态最终态。
+**Motion**: the template already inlines Motion One loading and recipe logic in the bottom module script. You don't need to change JS — just add `data-anim` / `data-animate` in the HTML per the `layouts.md` / `layouts-swiss.md` skeletons. Offline presentation relies on `assets/motion.min.js`; without network it degrades to "no animation but readable content". Style B templates must keep the `B` key low-power mode: after switching, stop WebGL/ASCII canvas RAF, cancel running Web Animations, and reveal the current page's content directly to its static final state.
 
-## 核心设计原则（哲学）
+## Core Design Principles (philosophy)
 
-### 风格 A · 电子杂志风（5 轮迭代总结）
+### Style A · Editorial Magazine (summary of 5 iterations)
 
-> 违反其中任何一条，杂志感都会垮。
+> Violate any one of these and the magazine feel collapses.
 
-1. **克制优于炫技** — WebGL 背景只在 hero 页透出，普通页几乎看不见
-2. **结构优于装饰** — 不用阴影、不用浮动卡片、不用 padding box，一切信息靠**大字号 + 字体对比 + 网格留白**
-3. **内容层级由字号和字体共同定义** — 最大衬线 = 主标题，中衬线 = 副标，大非衬线 = lead，小非衬线 = body，等宽 = 元数据
-4. **图片是第一公民** — 图片只裁底部，保证顶部和左右完整；网格用 `height:Nvh` 固定，不要用 `aspect-ratio` 撑
-5. **节奏靠 hero 页** — hero 和 non-hero 交替，才不累眼睛
-6. **术语统一** — Skills 就是 Skills，不要中英混合翻译
+1. **Restraint beats flashiness** — WebGL backgrounds only show through on hero pages; regular pages barely show them
+2. **Structure beats decoration** — no shadows, no floating cards, no padding boxes; all information rides on **large type + font contrast + grid whitespace**
+3. **Content hierarchy is defined by type size AND font together** — largest serif = main title, mid serif = subtitle, large sans = lead, small sans = body, monospace = metadata
+4. **Images are first-class citizens** — crop images only at the bottom, keeping top and sides intact; grids use fixed `height:Nvh`, don't stretch with `aspect-ratio`
+5. **Rhythm runs on hero pages** — hero and non-hero must alternate so the eyes don't tire
+6. **Keep terms consistent** — Skills is Skills; don't produce a Chinese-English hybrid translation
 
-### 风格 B · 瑞士国际主义风
+### Style B · Swiss International
 
-> 违反其中任何一条，画面瞬间从瑞士掉到 PowerPoint。
+> Violate any one of these and the look drops instantly from Swiss to PowerPoint.
 
-1. **单一锚点色** — 一份 deck 只用一个 accent，不允许多色高亮拼贴
-2. **极致字号对比** — 主标题与正文比例 ≥ 8:1,KPI 必须是"Data Hero"(屏幕宽度的 18-22%)
-3. **无衬线只此一家** — Inter / Helvetica / Noto Sans SC,任何衬线都是错的
-4. **直角纯色** — 不允许渐变 / 阴影 / 圆角(rule 横线除外)
-5. **网格至上** — 所有元素吸附到 12-col grid,左对齐 + 大幅留白做非对称美学
-6. **Hairline 是手术刀** — 1px 的极细分割线就够,不要加粗、不要加阴影
-7. **点阵装饰只在 hero 页透出** — 正文页保持纯净底色
+1. **One anchor color** — one deck uses one accent, no multi-color highlight collage
+2. **Extreme type-scale contrast** — title to body ratio ≥ 8:1; KPI must be a "Data Hero" (18-22% of screen width)
+3. **Sans-serif only** — Inter / Helvetica / Noto Sans SC; any serif is wrong
+4. **Right-angle solid colors** — no gradients / shadows / rounded corners (the rule hairline excepted)
+5. **Grid above all** — every element snaps to the 12-col grid; left-aligned + generous whitespace for asymmetrical aesthetics
+6. **Hairline is the scalpel** — a 1px hairline divider is enough; don't thicken it, don't shadow it
+7. **Dot-matrix decoration only on hero pages** — content pages stay clean solid backgrounds
 
-## 参考作品
+## Reference Works
 
-本 skill 的两种风格分别参考了：
+This skill's two styles each reference:
 
-**风格 A · 电子杂志风**:
-- 歸藏 "一人公司：被 AI 折叠的组织" 分享（2026-04-22，27 页）
-- *Monocle* 杂志的版式
-- YC 总裁 Garry Tan "Thin Harness, Fat Skills" 那篇博客的 demo
+**Style A · Editorial Magazine**:
+- Guizang's "One-Person Company: An Organization Folded by AI" talk (2026-04-22, 27 pages)
+- *Monocle* magazine's layout
+- The demo from YC president Garry Tan's "Thin Harness, Fat Skills" post
 
-**风格 B · 瑞士国际主义风**:
-- Massimo Vignelli 的 NYC Subway / Unimark 系统
-- *Helvetica Forever* 的字体设计语言
-- Josef Müller-Brockmann 的网格系统经典著作
-- 当代设计:Acne Studios / Off-White / IKEA / Beck Design
+**Style B · Swiss International**:
+- Massimo Vignelli's NYC Subway / Unimark system
+- The typographic design language of *Helvetica Forever*
+- Josef Müller-Brockmann's classic grid system works
+- Contemporary design: Acne Studios / Off-White / IKEA / Beck Design
 
-可以把它们当做风格锚点。
+You can use these as style anchors.

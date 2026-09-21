@@ -6,8 +6,8 @@ import {fileURLToPath} from 'node:url';
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'..');
 const files=['assets/template.html','assets/template-swiss.html'];
 const blocks=[
-  ['presenter CSS','/* ============ 演讲者模式 ============ */','/* ============ /演讲者模式 ============ */'],
-  ['presenter JavaScript','/* =============== 演讲者模式 / 观众屏同步 =============== */','/* =============== /演讲者模式 / 观众屏同步 =============== */'],
+  ['presenter CSS','/* ============ Presenter Mode ============ */','/* ============ /Presenter Mode ============ */'],
+  ['presenter JavaScript','/* =============== Presenter Mode / Audience Sync =============== */','/* =============== /Presenter Mode / Audience Sync =============== */'],
 ];
 
 function extract(source,label,startMarker,endMarker,file){

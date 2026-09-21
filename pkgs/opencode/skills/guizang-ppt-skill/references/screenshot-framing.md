@@ -1,136 +1,136 @@
-# 截图美化语义规则
+# Screenshot Beautification Semantic Rules
 
-用于把用户提供的产品截图、网页截图、代码截图、设计稿截图处理成符合模板比例的图片资产。目标是类似 CleanShot X 的“截图居中 + 背景填充 + 统一比例”,而不是默认让 GPT-M 2.0 重画截图。
+Used to turn the user's product screenshots, web screenshots, code screenshots, and design-filing screenshots into image assets that fit the template's ratios. The target is a CleanShot X-style "centered screenshot + filled background + uniform ratio", rather than having GPT-M 2.0 redraw every screenshot by default.
 
-## 优先级
+## Priority
 
-1. **程序化适配优先**:截图内容、文字、UI 细节需要保真时,不要重画;创建目标比例画布,把原截图等比缩放后放入画布。
-2. **GPT-M 2.0 只做重构**:只有原图过长、过窄、信息太乱、需要 UI 情景化或概念化表达时,才使用“截图再设计 / UI 情景图”。
-3. **模板槽位先行**:先确定 slide 版式和图片槽位比例,再决定截图适配参数。
+1. **Programmatic adaptation first**: when screenshot content, text, or UI details must stay faithful, don't redraw — create a canvas at the target ratio, scale the original screenshot proportionally, and place it in the canvas.
+2. **GPT-M 2.0 only for restructuring**: use "screenshot redesign / UI scenario" only when the original is too long, too narrow, too messy, or needs UI scenario-ization or conceptual expression.
+3. **Template slots first**: determine the slide layout and image slot ratios first, then decide the screenshot adaptation parameters.
 
-## 开始前询问
+## Ask Before Starting
 
-在主流程 Step 1 中,只要用户可能提供截图,就先问清楚:
+In Step 1 of the main flow, as long as the user is likely to provide screenshots, ask first:
 
-- 截图在哪个文件夹?是否包含网页、App、代码、dashboard、设计稿或旧 PPT?
-- 这批截图要**保真展示**、**统一美化**、**重新设计成 UI 情景图**,还是混合处理?
-- 最终要放进哪些槽位:21:9 顶图、16:10 主图、4:3 侧图、1:1 方图、还是多图网格?
-- 是否必须保留所有文字和数据?是否需要隐藏账号、头像、项目名等敏感信息?
-- 构图希望居中、左上、右下,还是根据页面内容自动判断?
+- Which folder are the screenshots in? Do they include web pages, apps, code, dashboards, design files, or old PPTs?
+- Does this batch need **faithful display**, **uniform beautification**, **redesign into UI scenario images**, or a mix?
+- Which slots will they go into: 21:9 top strip, 16:10 main image, 4:3 side image, 1:1 square, or a multi-image grid?
+- Must all text and data be preserved? Do sensitive items like accounts, avatars, or project names need to be hidden?
+- Should the composition be centered, top-left, bottom-right, or auto-decided from the page content?
 
-如果在 Claude Code 中,用 Ask Question / `ask_question` 做这些澄清;如果在 Codex 中,用普通对话询问,不要调用 Ask Question。
+In Claude Code, use Ask Question / `ask_question` for these clarifications; in Codex, ask in a normal conversation and do not call Ask Question.
 
-## 处理链路
+## Processing Chain
 
-1. **先匹配版式**:根据内容选择模板 layout,确定截图槽位尺寸和比例。
-2. **再选处理方式**:
-   - 要保真:程序化适配,不重画截图。
-   - 要统一视觉但不改内容:程序化适配 + 主题背景。
-   - 原图不可用或需要解释概念:再走 GPT-M 2.0 截图再设计。
-3. **再选择背景**:优先使用内置背景资产,不应该每张截图临时生成一种风格。
-4. **最后合成截图**:创建目标比例画布,背景 cover 铺满,截图等比缩放后按 `padding` 和 `alignment` 放入。
+1. **Match a layout first**: pick a template layout from the content, and pin down the screenshot slot size and ratio.
+2. **Then choose the treatment**:
+   - Keep faithful: programmatic adaptation, don't redraw the screenshot.
+   - Unify the look without changing content: programmatic adaptation + theme background.
+   - Original unusable or a concept needs explaining: go through GPT-M 2.0 screenshot redesign.
+3. **Then choose a background**: prefer the built-in background assets; don't generate a one-off style per screenshot.
+4. **Finally compose the screenshot**: create a canvas at the target ratio, cover-fill the background, then place the proportionally scaled screenshot at the given `padding` and `alignment`.
 
-默认不要裁掉截图内容。只有截图已经按目标槽位重新生成,或者用户明确允许裁切时,才使用 cover 裁切。
+By default, don't crop screenshot content. Only when the screenshot has already been re-generated for the target slot, or the user explicitly allows cropping, use cover cropping.
 
-## 语义参数
+## Semantic Parameters
 
-每次处理截图前,先确定这 7 个参数:
+Before processing a screenshot, settle these 7 parameters:
 
-| 参数 | 可选值 | 判断方式 |
+| Parameter | Choices | How to decide |
 |---|---|---|
-| `ratio` | `21:9` / `16:10` / `16:9` / `4:3` / `1:1` | 跟随模板图片槽位,不要跟随原截图比例 |
-| `background` | `plain` / `gradient` / `wallpaper` / `blurred` / `grid` / `paper` | 跟随当前 PPT 风格和主题 |
-| `padding` | `compact` / `standard` / `spacious` | 普通截图 standard;文字密集或高截图 spacious;小图组 compact |
-| `inset` | `none` / `subtle` / `balanced` | 截图需要从背景中浮出来时用 balanced;瑞士风多用 none/subtle |
-| `shadow` | `none` / `soft` / `editorial` | Style A 可 soft/editorial;Style B 默认 none |
-| `corners` | `square` / `small` / `medium` | Style B square;Style A small/medium |
-| `alignment` | `center` / `top-left` / `top-right` / `bottom-left` / `bottom-right` | 跟随页面构图,不是永远居中 |
+| `ratio` | `21:9` / `16:10` / `16:9` / `4:3` / `1:1` | follow the template's image slot, not the original screenshot's ratio |
+| `background` | `plain` / `gradient` / `wallpaper` / `blurred` / `grid` / `paper` | follow the current PPT style and theme |
+| `padding` | `compact` / `standard` / `spacious` | standard for normal screenshots; spacious for text-dense or tall screenshots; compact for small screenshot groups |
+| `inset` | `none` / `subtle` / `balanced` | balanced when the screenshot needs to float off the background; Swiss style mostly uses none/subtle |
+| `shadow` | `none` / `soft` / `editorial` | Style A may use soft/editorial; Style B defaults to none |
+| `corners` | `square` / `small` / `medium` | Style B uses square; Style A uses small/medium |
+| `alignment` | `center` / `top-left` / `top-right` / `bottom-left` / `bottom-right` | follow page composition, not always center |
 
-## 风格映射
+## Style Mapping
 
-### Style A · 电子杂志风
+### Style A · E-magazine style
 
-- 背景: `paper` / `blurred` / 低饱和 `gradient`
-- 质感:纸张、墨水、胶片颗粒、暖白、低对比
-- 截图:可用小圆角和轻微阴影,但不要像 SaaS 营销卡片
-- 背景资产:优先使用 `assets/screenshot-backgrounds/style-a/` 下对应主题的 16:9 crop-safe WebP,截图合成时按槽位裁切
-- 推荐语义:
+- Background: `paper` / `blurred` / low-saturation `gradient`
+- Texture: paper, ink, film grain, warm white, low contrast
+- Screenshot: a small corner radius and a light shadow are fine, but don't make it look like a SaaS marketing card
+- Background assets: prefer the theme-matched 16:9 crop-safe WebP under `assets/screenshot-backgrounds/style-a/`; crop it to the slot when composing
+- Recommended semantics:
 
 ```text
 ratio:16:10, background:paper, padding:standard, inset:balanced, shadow:editorial, corners:small, alignment:center
 ```
 
-### Style B · 瑞士国际主义
+### Style B · Swiss International Style
 
-- 背景: `plain` / `grid` / `dot-matrix`
-- 色彩:只允许当前锚点色作为极低占比强调;不要大面积亮色块
-- 截图:直角、无阴影、无圆角、少量 hairline 或顶部 accent 线
-- 背景资产:优先使用 `assets/screenshot-backgrounds/style-b/` 下对应主题色的 16:9 crop-safe WebP,只用当前 accent,不要混色
-- 推荐语义:
+- Background: `plain` / `grid` / `dot-matrix`
+- Color: the current anchor color may be used only as very low-share emphasis; no large bright color blocks
+- Screenshot: right angles, no shadow, no corner radius, with a few hairlines or a top accent line
+- Background assets: prefer the theme-color-matching 16:9 crop-safe WebP under `assets/screenshot-backgrounds/style-b/`; use only the current accent, never mixed colors
+- Recommended semantics:
 
 ```text
 ratio:21:9, background:grid, padding:standard, inset:subtle, shadow:none, corners:square, alignment:center
 ```
 
-## 背景强度规则
+## Background Intensity Rules
 
-截图背景是“托底”,不是主视觉。
+The screenshot background is a "mat", not the hero visual.
 
-- 如果 `alignment` 不确定,背景中心和四角都必须安静,不要放显眼色块。
-- 如果截图要放在右下角,右下角不能有强色块;其他位置同理。
-- 瑞士风锚点色只做 `5%-8%` 视觉占比的淡线、点阵或极浅几何场,不要生成高亮蓝条、大色块、霓虹渐变。
-- 背景不能有文字、logo、图标、人物、设备、边框、明显主体或方向性构图。
-- 背景必须 crop-safe:裁成 `21:9`、`16:10`、`4:3`、`1:1` 都不能暴露“被裁掉”的痕迹。
+- If `alignment` is uncertain, the center and all four corners of the background must stay quiet — no prominent color blocks.
+- If the screenshot sits in the bottom-right, the bottom-right must hold no strong color block; likewise for other positions.
+- Swiss-style anchor colors appear only as `5%-8%` visual-share thin lines, dot matrices, or very subtle geometry — never bright blue bars, large color blocks, or neon gradients.
+- The background must have no text, logo, icon, person, device, border, obvious subject, or directional composition.
+- The background must be crop-safe: cropping to `21:9`, `16:10`, `4:3`, or `1:1` must not reveal any "cropped" seam.
 
-## 内置主题背景资产
+## Built-In Theme Background Assets
 
-本 Skill 已经内置一组 GPT-M 2.0 预生成背景。处理截图时**优先使用这些资产**,不要实时调用 GPT-M 2.0 重新生成背景。只有用户明确要求新风格、现有主题缺失,或背景与内容明显不匹配时,才生成新的背景。
+This Skill ships a set of GPT-M 2.0 pre-generated backgrounds. When processing screenshots, **prefer these assets** — don't call GPT-M 2.0 live to regenerate a background. Generate a new background only when the user explicitly asks for a new style, the current theme has no matching asset, or the background clearly mismatches the content.
 
-背景图之后由程序复用到每张截图中。不要把背景当作单张 slide 来画,背景图内部不能有标题、页脚、边框、logo、人物或明显主体。
+A background image is afterwards reused programmatically across every screenshot. Don't design a background as a single slide — a background image must not contain titles, footers, borders, logos, people, or obvious subjects.
 
-### Style A · 5 套主题背景
+### Style A · 5 theme backgrounds
 
-| 主题 | 内置资产 | 背景语义 |
+| Theme | Built-in asset | Background semantics |
 |---|---|---|
-| 墨水经典 | `assets/screenshot-backgrounds/style-a/monocle-classic.webp` | 黑白灰纸张纹理、柔和阴影、细颗粒 |
-| 靛蓝瓷 | `assets/screenshot-backgrounds/style-a/indigo-porcelain.webp` | 靛蓝低饱和墨色、纸感渐变、轻微噪点 |
-| 森林墨 | `assets/screenshot-backgrounds/style-a/forest-ink.webp` | 模糊植物阴影、低饱和绿色、纸张颗粒 |
-| 牛皮纸 | `assets/screenshot-backgrounds/style-a/kraft-paper.webp` | 暖纸色、淡墨阴影、复古印刷颗粒 |
-| 沙丘 | `assets/screenshot-backgrounds/style-a/dune.webp` | 沙色/灰调柔和渐变、低对比、留白安静 |
+| Monocle Classic | `assets/screenshot-backgrounds/style-a/monocle-classic.webp` | black-white-gray paper texture, soft shadows, fine grain |
+| Indigo Porcelain | `assets/screenshot-backgrounds/style-a/indigo-porcelain.webp` | low-saturation indigo ink, paper-feel gradient, slight noise |
+| Forest Ink | `assets/screenshot-backgrounds/style-a/forest-ink.webp` | blurred plant shadows, low-saturation green, paper grain |
+| Kraft Paper | `assets/screenshot-backgrounds/style-a/kraft-paper.webp` | warm paper color, faint ink shadows, vintage print grain |
+| Dune | `assets/screenshot-backgrounds/style-a/dune.webp` | soft sand/gray gradient, low contrast, quiet whitespace |
 
-### Style B · 4 套主题背景
+### Style B · 4 theme backgrounds
 
-| 主题色 | 内置资产 | 背景语义 |
+| Theme color | Built-in asset | Background semantics |
 |---|---|---|
-| IKB 蓝 | `assets/screenshot-backgrounds/style-b/ikb-dot-gradient.webp` | 点阵 + 低对比蓝色渐变,避免亮蓝大色块 |
-| 柠檬黄 | `assets/screenshot-backgrounds/style-b/lemon-grid.webp` | 纯网格 + 稀疏点阵,黄色只做低透明细线/点 |
-| 柠檬绿 | `assets/screenshot-backgrounds/style-b/lemon-green-dot-shadow.webp` | 点阵 + 阴影场,绿色只做轻微光感 |
-| 安全橙 | `assets/screenshot-backgrounds/style-b/safety-orange-halftone.webp` | 模块化半调点阵 + 暗部阴影,橙色低占比 |
+| IKB blue | `assets/screenshot-backgrounds/style-b/ikb-dot-gradient.webp` | dot matrix + low-contrast blue gradient, avoid bright blue color blocks |
+| Lemon yellow | `assets/screenshot-backgrounds/style-b/lemon-grid.webp` | clean grid + sparse dot matrix, yellow only as low-opacity thin lines/dots |
+| Lemon green | `assets/screenshot-backgrounds/style-b/lemon-green-dot-shadow.webp` | dot matrix + shadow field, green only as a slight glow |
+| Safety orange | `assets/screenshot-backgrounds/style-b/safety-orange-halftone.webp` | modular halftone dots + dark shadows, orange in low share |
 
-内置背景都是 1920×1080 级别的 16:9 WebP。程序化合成时,先把背景 cover 到目标画布,再裁成 `21:9` / `16:10` / `4:3` / `1:1` 等截图槽位。背景必须四角安静,因为截图可能居中、左上、右下或被裁成不同尺寸。
+All built-ins are 16:9 WebP at 1920×1080 level. When composing programmatically, first cover the background onto the target canvas, then crop to screenshot slots like `21:9` / `16:10` / `4:3` / `1:1`. The background must keep all four corners quiet, because the screenshot may be centered, top-left, bottom-right, or cropped to different sizes.
 
-## 截图类型决策
+## Screenshot Type Decisions
 
-| 原始素材 | 推荐处理 |
+| Raw material | Recommended treatment |
 |---|---|
-| 普通网页 / App / 桌面截图 | 程序化适配到目标比例 |
-| 产品 UI 细节很重要 | 程序化适配,使用 `fit-contain`,不重画 |
-| 长网页截图 | 截关键区域或拆成 2-3 张同尺寸面板 |
-| 极窄 / 极高截图 | 先尝试 `spacious + side alignment`;仍太小时再重构 |
-| 代码截图 | Style A 用纸感背景;Style B 用浅网格背景;文字必须可读 |
-| 概念解释用的 UI 情景图 | 可以 GPT-M 2.0 重新设计 |
+| Ordinary web / app / desktop screenshot | programmatic adaptation to the target ratio |
+| Product UI details matter | programmatic adaptation with `fit-contain`, don't redraw |
+| Long web-page screenshot | clip the key region or split into 2-3 same-size panels |
+| Extremely narrow / extremely tall screenshot | try `spacious + side alignment` first; restructure only if still too small |
+| Code screenshot | paper-feel background for Style A; light grid background for Style B; text must stay readable |
+| UI scenario image for concept explanation | may be redesigned with GPT-M 2.0 |
 
-## 生成背景图提示词
+## Background Image Generation Prompts
 
-只有需要新增背景资产时才使用本节。常规截图美化不要实时生成背景,直接使用上方内置资产。
+Use this section only when new background assets are needed. For routine screenshot beautification, don't generate backgrounds live — use the built-in assets above.
 
-### Style A 背景
+### Style A background
 
 ```text
 16:9 crop-safe screenshot background for an editorial magazine / e-ink PPT system. Warm off-white paper texture, subtle ink wash, fine film grain, low contrast, quiet center and quiet corners, no text, no logo, no objects, no border, no focal subject. Suitable for cropping to 21:9, 16:10, 4:3, or 1:1.
 ```
 
-### Style B 背景
+### Style B background
 
 ```text
 16:9 crop-safe screenshot background for a Swiss International Style PPT system. Pure off-white base, ultra-subtle 16-column grid and sparse dot matrix, one accent color only: [theme color], used at very low opacity as thin lines or tiny dots, no large bright color blocks. Quiet center and quiet corners, no text, no logo, no objects, no border, no focal subject. Suitable for cropping to 21:9, 16:10, 4:3, or 1:1.

@@ -1,165 +1,165 @@
-# 页面布局库（Layouts）
+# Page Layout Library (Layouts)
 
-本文档收录 10 种最常用的页面布局骨架。每种都是一个完整可粘贴的 `<section class="slide ...">...</section>` 代码块，直接替换文案/图片即可使用。
+This document collects the 10 most commonly used page layout skeletons. Each is a complete, copy-paste-ready `<section class="slide ...">...</section>` code block — swap in your own copy/images and use it directly.
 
 ---
 
-## ⚠️ 生成前必读（Pre-flight）
+## ⚠️ Read Before Generating (Pre-flight)
 
-### A. 类名必须来自 template.html
+### A. Class names must come from template.html
 
-layouts.md 使用的所有类（`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / `meta-row` / `stat-card` / `stat-label` / `stat-nb` / `stat-unit` / `stat-note` / `pipeline-section` / `pipeline-label` / `pipeline` / `step` / `step-nb` / `step-title` / `step-desc` / `grid-2-7-5` / `grid-2-6-6` / `grid-2-8-4` / `grid-3-3` / `grid-6` / `grid-3` / `grid-4` / `frame` / `frame-img` / `img-cap` / `callout` / `callout-src` / `kicker`）都在 `assets/template.html` 的 `<style>` 块里预定义。
+All classes used in layouts.md (`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / `meta-row` / `stat-card` / `stat-label` / `stat-nb` / `stat-unit` / `stat-note` / `pipeline-section` / `pipeline-label` / `pipeline` / `step` / `step-nb` / `step-title` / `step-desc` / `grid-2-7-5` / `grid-2-6-6` / `grid-2-8-4` / `grid-3-3` / `grid-6` / `grid-3` / `grid-4` / `frame` / `frame-img` / `img-cap` / `callout` / `callout-src` / `kicker`) are predefined in the `<style>` block of `assets/template.html`.
 
-**不要发明新类名**。如果必须自定义，用 `style="..."` inline 写。生成前若不确定某个类是否存在，grep template.html 确认。
+**Do not invent new class names.** If you must customize, write inline `style="..."`. If you're unsure a class exists before generating, grep template.html to confirm.
 
-### B. 图片比例规范（非常重要）
+### B. Image aspect-ratio rules (very important)
 
-**永远用标准比例**，不要用原图 `aspect-ratio: 2592/1798` 这种奇葩比例：
+**Always use standard ratios**, never the original image's odd ratio like `aspect-ratio: 2592/1798`:
 
-| 场景 | 推荐比例 | 写法 |
+| Scene | Recommended ratio | Usage |
 |------|---------|------|
-| 左文右图 主图 | 16:10 或 4:3 | `.frame-img.r-16x10` 或 `.frame-img.r-4x3` |
-| 图片网格（多图对比） | 统一 | `.frame-img.h-22` / `.frame-img.h-26`，不用 aspect-ratio |
-| 小型面板组 | 统一 | `.frame-img.h-16` / `.frame-img.h-18`，同组必须同高 |
-| 左小图 + 右文字 | 1:1 或 3:2 | `.frame-img.r-1x1` 或 `.frame-img.r-3x2` |
-| 全屏主视觉 | 16:9 | `.frame-img.r-16x9` |
-| 信息图 / 截图再设计 | 16:9 或 16:10 | `.frame-img.r-16x9.fit-contain` 或 `.frame-img.r-16x10.fit-contain` |
-| 图文混排小插图 | 3:2 或 3:4 | `.frame-img.r-3x2` 或 `.frame-img.r-3x4` |
+| Main image, text left / image right | 16:10 or 4:3 | `.frame-img.r-16x10` or `.frame-img.r-4x3` |
+| Image grid (multi-image comparison) | Uniform | `.frame-img.h-22` / `.frame-img.h-26`, no aspect-ratio |
+| Small panel groups | Uniform | `.frame-img.h-16` / `.frame-img.h-18`, same height within a group |
+| Small image left + text right | 1:1 or 3:2 | `.frame-img.r-1x1` or `.frame-img.r-3x2` |
+| Fullscreen hero visual | 16:9 | `.frame-img.r-16x9` |
+| Infographic / screenshot redesign | 16:9 or 16:10 | `.frame-img.r-16x9.fit-contain` or `.frame-img.r-16x10.fit-contain` |
+| Mixed text + image small illustrations | 3:2 or 3:4 | `.frame-img.r-3x2` or `.frame-img.r-3x4` |
 
-图片必须包在 `<figure class="frame-img">` 里。默认照片会 `object-fit:cover + object-position:top center`,只裁底部,不裁顶/左/右。信息图和截图再设计必须加 `.fit-contain`,避免文字或标注被裁切。
+Images must be wrapped in `<figure class="frame-img">`. By default, photos get `object-fit:cover + object-position:top center`, cropping only the bottom, never top/left/right. Infographics and screenshot redesigns must add `.fit-contain` so text or annotations are never cropped.
 
-### B2. 图片与内容的垂直对齐
+### B2. Vertical alignment of images and content
 
-图片应该跟正文内容区对齐,不要默认贴到大标题顶端。特别是左文右图和图文混排页:
+Images should align with the body content area rather than defaulting to flush with the top of the big title. Especially on text-left/image-right pages and mixed text+image pages:
 
-- 如果左列是 kicker + 大标题 + 正文 + callout,右列图片通常从正文高度开始,可给图片加 `style="margin-top:7vh"` 到 `9vh`
-- 如果图片是信息图或 UI 情景图,优先对齐正文首行或说明文字,不要和超大标题顶端齐平
-- 如果一张截图/UI 情景图在横向页面里变成很长的条,不要硬拉满宽;改成极宽横图素材,或拆成 2-3 个局部面板拼排
-- 多图面板必须使用同一个高度类,不要混用 `h-16` / `h-22` 或手写不同 `height`
+- If the left column is kicker + big title + body + callout, the right-column image usually starts at body height; give the image `style="margin-top:7vh"` up to `9vh`
+- If the image is an infographic or UI scenario shot, align it with the first body line or the caption text, not flush with the top of the oversized title
+- If a screenshot/UI scenario shot becomes a very long strip on a landscape page, don't force it full width; either swap in an extra-wide image, or split it into 2-3 partial panels arranged side by side
+- Multi-image panels must use the same height class — don't mix `h-16` / `h-22` or hand-write different `height` values
 
-### B3. 标题与正文的间距
+### B3. Spacing between title and body
 
-- 两段式页面(顶部标题 + 下方长正文/引用/图表)必须在标题和内容之间留出明显间距,推荐 `margin-top:6vh` 到 `8vh`
-- 居中大标题页必须让主标题在页面水平居中,使用 `.center` 或 `text-align:center; margin-inline:auto`
-- 复杂内容页(大标题 + 小标题 + 详细内容)要让大标题和下方内容分层,下方内容使用左右两端对齐的 grid 或 rowline,不要全部堆在一条中轴线上
+- Two-part pages (title on top + long body/quote/chart below) must leave clear spacing between title and content; recommend `margin-top:6vh` to `8vh`
+- Centered-big-title pages must horizontally center the main title, using `.center` or `text-align:center; margin-inline:auto`
+- Complex-content pages (big title + subheadings + detailed content) must separate the big title from what's below; lay the lower content out on a left-right aligned grid or rowline instead of stacking everything on a single center axis
 
-### C. 图片定位准则（避免图片堆到页面最底部、被浏览器工具栏遮挡）
+### C. Image positioning guidelines (avoid images piling at the very bottom of the page or being hidden behind the browser toolbar)
 
-**错误做法**（已踩坑，不要再犯）：
-- 在非 grid 容器里用 `align-self:end`：`align-self` 在 flex/grid 之外完全无效，图片会掉到文档流末尾堆底
-- 用 `position:absolute + bottom:0` 把图"固定"到底：会被底部 `.foot` 和 `#nav` 圆点遮挡
-- 单张图片只写 `height:N vh` 不限 `max-height`：在低分屏会撑出视口
+**Wrong approaches** (already tripped up on — don't repeat):
+- Using `align-self:end` in a non-grid container: `align-self` has zero effect outside flex/grid, so the image falls to the end of the document flow and piles up at the bottom
+- Using `position:absolute + bottom:0` to "pin" the image to the bottom: it gets covered by the bottom `.foot` and `#nav` dots
+- Writing only `height:N vh` on a single image with no `max-height`: it overflows the viewport on low-resolution screens
 
-**正确做法**：
-- 图文混排**必须用 `.frame.grid-2-7-5`**（或 `.grid-2-6-6` / `.grid-2-8-4`）的 grid 结构
-- grid 容器默认 `align-items:start`（已在 template 中设置），图片自然贴到 cell 顶端
-- 如果需要"图片底对齐左列 callout"：**左列用 flex column + `justify-content:space-between`**（让 callout 自己贴左列底），**右列 figure 直接保持 align-items:start 即可**，不要加 `align-self:end`
-- 所有 grid 父容器建议加 inline `style="padding-top:6vh"`，给标题区留呼吸空间
+**Correct approach**:
+- Mixed text+image pages **must use the grid structure `.frame.grid-2-7-5`** (or `.grid-2-6-6` / `.grid-2-8-4`)
+- Grid containers default to `align-items:start` (already set in the template), so images naturally sit at the top of the cell
+- If you want the image bottom-aligned with the left column's callout: **left column uses flex column + `justify-content:space-between`** (letting the callout sit at the left column's bottom), **the right-column figure just stays at align-items:start** — don't add `align-self:end`
+- All grid parent containers should get inline `style="padding-top:6vh"` to give the title area breathing room
 
-### D. 主题色与主题节奏
+### D. Theme color and theme rhythm
 
-- 主题色从 `references/themes.md` 的 5 套预设里选一套,不允许自定义 hex 值
-- 主题节奏(每页用 light / dark / hero light / hero dark 哪一个)在下文"主题节奏规划"一节有硬规则,生成前必读
-- 两件事都要在挑布局之前决定,避免返工
+- Pick theme colors from the 5 presets in `references/themes.md`; custom hex values are not allowed
+- Theme rhythm (whether each page uses light / dark / hero light / hero dark) has hard rules in the "Theme rhythm planning" section below — read before generating
+- Decide both before picking layouts, to avoid rework
 
-### E. 动效系统(默认开启 · Motion One 驱动)
+### E. Motion system (on by default · Motion One driven)
 
-**核心机制**:template.html 底部的 module script 会在翻页时触发入场动画。所有带 `data-anim` 的元素初始不可见,翻到当前页时由 Motion One 逐个淡入。
+**Core mechanism**: the module script at the bottom of template.html triggers entrance animations on page turn. All elements with `data-anim` start invisible and are faded in one by one by Motion One when the page becomes current.
 
-**动效策略**:在 `<section>` 上加 `data-animate="<recipe>"` 选择动画风格;每个需要入场动画的元素加 `data-anim`(可选附值,如 `left` / `right` / `line` / `step`)。
+**Motion strategy**: add `data-animate="<recipe>"` to the `<section>` to choose an animation style; add `data-anim` to each element that needs an entrance animation (optionally with a value like `left` / `right` / `line` / `step`).
 
-| recipe | 用法 | 适合布局 |
+| recipe | Usage | Best for |
 |---|---|---|
-| 默认(cascade) | 什么也不加,自动级联淡入 | 大部分正文页(Layout 3 / 4 / 5 / 10) |
-| `hero` | `.hero` 页自动启用,节奏更慢更仪式感 | Layout 1 / 2 / 7(所有 hero 页) |
-| `quote` | 一句一句揭示,慢节奏(550ms stagger) | Layout 8 大引用 |
-| `directional` | 左进 → 分割 → 右进,用于对比 | Layout 9 Before/After |
-| `pipeline` | 手动推进,按 →/空格 一步步点亮 | Layout 6 流水线 |
+| default (cascade) | Add nothing; auto cascading fade-in | Most content pages (Layout 3 / 4 / 5 / 10) |
+| `hero` | Enabled automatically on `.hero` pages; slower, more ceremonial rhythm | Layout 1 / 2 / 7 (all hero pages) |
+| `quote` | Reveal one line at a time; slow rhythm (550ms stagger) | Layout 8 big quote |
+| `directional` | Enter from left → split → enter from right, for comparison | Layout 9 Before/After |
+| `pipeline` | Manual advance; light up step by step with →/Space | Layout 6 pipeline |
 
-**降级保底**:如果 motion.min.js 本地 + CDN 都加载失败,脚本会强制把所有 `data-anim` 元素设为 `opacity:1`,内容永远可读。
+**Fallback safety**: if both the local and CDN copies of motion.min.js fail to load, the script forces all `data-anim` elements to `opacity:1`, so content is always readable.
 
-**不需要动效的页面**:如果某页想完全跳过动效,不加任何 `data-anim` 即可 —— Motion One 只对带标记的元素生效。
+**Pages that need no motion**: if a page should skip motion entirely, just don't add any `data-anim` — Motion One only affects marked elements.
 
 ---
 
-## 0. 基础结构（所有 slide 都一样）
+## 0. Base structure (same for every slide)
 
 ```html
 <section class="slide [light|dark|hero light|hero dark]">
   <div class="chrome">
-    <div>上下文标签 · 子标签</div>
-    <div>ACT · 页号 / 总页数</div>
+    <div>Context Label · Sub-label</div>
+    <div>ACT · Page / Total</div>
   </div>
-  <!-- 主内容 -->
+  <!-- main content -->
   <div class="foot">
-    <div>页码说明 · Page Description</div>
+    <div>Page Note · Page Description</div>
     <div>— · —</div>
   </div>
 </section>
 ```
 
-- 非 hero 页建议加 `light` 或 `dark` 主题；hero 页加 `hero light` 或 `hero dark`（参与 WebGL 主题插值）
-- `chrome` 和 `foot` 是可选但推荐保留的上下左右四角元数据
-- **hero 页用于章节封面/开场/收束/转场**，非 hero 页用于正文
+- Non-hero pages should carry a `light` or `dark` theme; hero pages carry `hero light` or `hero dark` (participates in the WebGL theme interpolation)
+- `chrome` and `foot` are optional but recommended four-corner metadata
+- **Hero pages are for chapter covers/openings/closings/transitions**; non-hero pages are for body content
 
-### ⚠️ chrome 和 kicker 不要写同一句话
+### ⚠️ chrome and kicker must not say the same thing
 
-这是最常见的内容重复问题。两者在语义上完全不同的维度：
+This is the most common content-duplication problem. The two live on entirely different semantic axes:
 
-| 位置 | 角色 | 内容性质 | 例子 |
+| Position | Role | Nature of content | Example |
 |------|------|---------|------|
-| `.chrome` 左上 | **杂志页眉 / 导航元数据** | 稳定的"栏目名"或"章节分类"，跨多页可以相同 | "Act II · Workflow" / "Data · Result" / "lukew.com · 2026.04" |
-| `.chrome` 右上 | **页号 + 幕号** | 固定格式 | "Act II · 15 / 25" |
-| `.kicker` | **这一页独一份的引导句** | 是大标题的"小前缀"，像杂志大标题上方的一行话，每页都应不同 | "BUT" / "一个人,做了什么。" / "Phase 01 · 设计阶段" |
+| `.chrome` top-left | **magazine header / navigation metadata** | a stable "column name" or "chapter category", may repeat across pages | "Act II · Workflow" / "Data · Result" / "lukew.com · 2026.04" |
+| `.chrome` top-right | **page number + act** | fixed format | "Act II · 15 / 25" |
+| `.kicker` | **this page's one-of-a-kind lead line** | the "small prefix" of the big title, like the line above a magazine headline; should differ per page | "BUT" / "One person, what did they do." / "Phase 01 · Design Phase" |
 
-**反例**（已踩坑）：chrome 写"设计先行 · Design First"，kicker 又写"Phase 01 · 设计阶段"——意思重复，读者一眼就觉得 AI 生成的。
+**Counterexample** (already tripped up on): chrome writes "Design First" and the kicker writes "Phase 01 · Design Phase" — the meaning repeats, and readers instantly sense it was AI-generated.
 
-**正确做法**：chrome 是**栏目标签**（稳定、跨页可复用），kicker 是**本页钩子**（短句、有戏剧性），两者互为补充，不互相翻译。
+**Correct approach**: chrome is a **column label** (stable, reusable across pages), the kicker is **this page's hook** (short, dramatic); the two complement each other rather than translating each other.
 
-### ⚠️ 主题节奏规划（必读 · 生成前必做)
+### ⚠️ Theme rhythm planning (must-read · do before generating)
 
-**核心机制**:每页 `<section>` 必须带 `light` / `dark` / `hero light` / `hero dark` 之一。JS 根据 class 推断主题,决定 body 加不加 `light-bg`,从而切换暗/亮两张 WebGL canvas 哪张在前。不带主题或写自定义名 = fallback 出错。
+**Core mechanism**: every page's `<section>` must carry one of `light` / `dark` / `hero light` / `hero dark`. The JS infers the theme from the class and decides whether the body gets `light-bg`, which controls which of the two dark/light WebGL canvases sits in front. No theme or a custom name = a broken fallback.
 
-#### 按布局的主题默认值
+#### Per-layout theme defaults
 
-| Layout | 默认主题 | 原因 |
+| Layout | Default theme | Reason |
 |---|---|---|
-| 1. 开场封面 | `hero dark` | 开场仪式感,暗底强冲击 |
-| 2. 章节幕封 | `hero dark` 与 `hero light` **必须交替** | 呼吸节奏 |
-| 3. 大字报(数据) | `light` | 数字需纸白底;多幕连发时可偶插 `dark` |
-| 4. 左文右图 | **`light` / `dark` 交替** | 正文节奏主力 |
-| 5. 图片网格 | `light` | 截图需亮底 |
-| 6. Pipeline | `light` | 流程图需清晰 |
-| 7. 问题页 | `hero dark` | 强视觉冲击默认 |
-| 8. 大引用 | **`dark` 优先**,偶用 `light` | 金句仪式感靠暗底 |
-| 9. 对比页 | `light` | 双列需清晰 |
-| 10. 图文混排 | **`light` / `dark` 交替** | 节奏 |
+| 1. Opening cover | `hero dark` | Opening ceremony; strong impact on dark |
+| 2. Chapter divider | `hero dark` and `hero light` **must alternate** | breathing rhythm |
+| 3. Big numbers (data) | `light` | numbers need a paper-white background; may occasionally insert `dark` across multiple acts |
+| 4. Text left / image right | **alternate `light` / `dark`** | the main driver of body-copy rhythm |
+| 5. Image grid | `light` | screenshots need a bright background |
+| 6. Pipeline | `light` | flowcharts need clarity |
+| 7. Question page | `hero dark` | strong visual impact by default |
+| 8. Big quote | **`dark` preferred**, occasional `light` | a golden line's ceremony comes from a dark background |
+| 9. Comparison page | `light` | two columns need clarity |
+| 10. Mixed text + image | **alternate `light` / `dark`** | rhythm |
 
-#### 节奏硬规则(生成后 grep 自检)
+#### Hard rhythm rules (grep self-check after generating)
 
-- ❌ **禁止**连续 3 页以上相同主题(包括 light 堆叠和 dark 堆叠)
-- ❌ **禁止**8 页以上的 deck 没有至少 1 个 `hero dark` + 1 个 `hero light`
-- ❌ **禁止**整个 deck 只有 `light` 正文页没有任何 `dark` 正文页——会显得平淡、没呼吸
-- ✅ **推荐**每 3-4 页插入 1 个 hero(封面/幕封/问题/大引用)
+- ❌ **Forbidden**: more than 3 consecutive pages of the same theme (includes light stacks and dark stacks)
+- ❌ **Forbidden**: a deck over 8 pages with no `hero dark` and no `hero light`
+- ❌ **Forbidden**: a deck with only `light` content pages and no `dark` content page — it reads flat, with no breathing
+- ✅ **Recommended**: insert 1 hero every 3-4 pages (cover / divider / question / big quote)
 
-#### 8 页节奏模板(可直接套用)
+#### 8-page rhythm template (ready to use)
 
-| 页 | 主题 | 布局 | 备注 |
+| Page | Theme | Layout | Note |
 |---|---|---|---|
-| 1 | `hero dark` | 封面 | 开场 |
-| 2 | `light` | 大字报 | 数据抛出 |
-| 3 | `dark` | 左文右图 | 对比/故事 |
-| 4 | `light` | Pipeline | 流程 |
-| 5 | `hero light` | 章节幕封 | 呼吸 |
-| 6 | `dark` | 左文右图 or 大引用 | |
-| 7 | `hero dark` | 问题页 | 悬念收束 |
-| 8 | `light` | 大引用/结尾 | 收尾 |
+| 1 | `hero dark` | cover | opening |
+| 2 | `light` | big numbers | throw hard data |
+| 3 | `dark` | text left / image right | comparison / story |
+| 4 | `light` | Pipeline | process |
+| 5 | `hero light` | chapter divider | breathing |
+| 6 | `dark` | text left / image right or big quote | |
+| 7 | `hero dark` | question page | suspense closer |
+| 8 | `light` | big quote / closing | wrap-up |
 
-**先画这张表对齐,再动手写 slide**。跳过规划直接粘骨架 = 全是 light。
+**Draw this table and align on it first, then write slides.** Skipping the planning and pasting skeletons directly = a deck of nothing but `light`.
 
 ---
 
-## Layout 1: 开场封面（Hero Cover）
+## Layout 1: Opening Cover (Hero Cover)
 
 ```html
 <section class="slide hero dark">
@@ -168,322 +168,322 @@ layouts.md 使用的所有类（`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / 
     <div>Vol.01</div>
   </div>
   <div class="frame" style="display:grid; gap:4vh; align-content:center; min-height:80vh">
-    <div class="kicker" data-anim>私享会 · 李继刚</div>
-    <h1 class="h-hero" data-anim>一人公司</h1>
-    <h2 class="h-sub" data-anim>被 AI 折叠的组织</h2>
+    <div class="kicker" data-anim>Private Meetup · Li Jigang</div>
+    <h1 class="h-hero" data-anim>One-Person Company</h1>
+    <h2 class="h-sub" data-anim>An Organization Folded by AI</h2>
     <p class="lead" style="max-width:60vw" data-anim>
-      一个 AI 创作者 —— 在 64 天里做了 11 万行代码、在 9 个平台上持续输出，生活节奏几乎没有被改变。
+      An AI creator who wrote 110K lines of code in 64 days and kept publishing across 9 platforms, with barely a shift in daily rhythm.
     </p>
     <div class="meta-row" data-anim>
-      <span>歸藏 Guizang</span><span>·</span><span>独立创作者 / CodePilot 作者</span>
+      <span>Guizang</span><span>·</span><span>Independent creator / CodePilot author</span>
     </div>
   </div>
   <div class="foot">
-    <div>一场关于 AI · 组织 · 个体的分享</div>
+    <div>A talk about AI · organizations · individuals</div>
     <div>— 2026 —</div>
   </div>
 </section>
 ```
 
-**要点**：
-- 用 `hero dark` 让 WebGL 背景在大部分区域透出
-- `h-hero` 是最大字号（10vw），这里作标题主视觉
-- 用 `min-height:80vh + align-content:center` 让内容整体垂直居中
-- 不需要 `.chrome` 里写页码，封面页自成一体
+**Key points**:
+- Use `hero dark` so the WebGL background shows through most areas
+- `h-hero` is the largest size (10vw), used here as the title hero visual
+- Use `min-height:80vh + align-content:center` to vertically center the whole content block
+- No page number needed in `.chrome`; the cover page stands alone
 
 ---
 
-## Layout 2: 章节幕封（Act Divider）
+## Layout 2: Chapter Divider (Act Divider)
 
 ```html
 <section class="slide hero light">
   <div class="chrome">
-    <div>第一幕 · 硬数据</div>
+    <div>Act I · Hard Data</div>
     <div>Act I · 01 / 25</div>
   </div>
   <div class="frame" style="display:grid; gap:6vh; align-content:center; min-height:80vh">
     <div class="kicker" data-anim>Act I</div>
-    <h1 class="h-hero" style="font-size:8.5vw" data-anim>硬数据</h1>
+    <h1 class="h-hero" style="font-size:8.5vw" data-anim>Hard Data</h1>
     <p class="lead" style="max-width:55vw" data-anim>
-      先看数字，再谈方法。
+      Numbers first, methods second.
     </p>
   </div>
   <div class="foot">
-    <div>第一幕引子</div>
+    <div>Act I Intro</div>
     <div>— · —</div>
   </div>
 </section>
 ```
 
-**要点**：
-- 极简，只需要 kicker + 大标题 + 一行引语
-- 两个幕的封面可以交替 `hero light` / `hero dark`，制造节奏
-- `h-hero` 字号可以从 10vw 调到 8.5vw 适配长短
+**Key points**:
+- Minimal: just kicker + big title + one intro line
+- Covers of two acts can alternate `hero light` / `hero dark` to create rhythm
+- The `h-hero` size can be adjusted from 10vw to 8.5vw to fit shorter or longer titles
 
 ---
 
-## Layout 3: 数据大字报（Big Numbers Grid）
+## Layout 3: Big Numbers (Big Numbers Grid)
 
 ```html
 <section class="slide light">
   <div class="chrome">
-    <div>过去 64 天 · 开发篇</div>
+    <div>Last 64 Days · Dev Chapter</div>
     <div>Act I / Dev · 02 / 25</div>
   </div>
   <div class="frame" style="padding-top:3vh">
-    <div class="kicker" data-anim>一个人，做了什么。</div>
-    <h2 class="h-xl" data-anim>过去 64 天</h2>
-    <p class="lead" style="margin-bottom:2vh" data-anim>从 0 到开源 CodePilot。</p>
+    <div class="kicker" data-anim>One person, what did they do.</div>
+    <h2 class="h-xl" data-anim>Last 64 Days</h2>
+    <p class="lead" style="margin-bottom:2vh" data-anim>From 0 to open-sourcing CodePilot.</p>
 
     <div class="grid-6" style="margin-top:2vh">
       <div class="stat-card" data-anim>
         <div class="stat-label">Duration</div>
-        <div class="stat-nb">64 <span class="stat-unit">天</span></div>
-        <div class="stat-note">从 0 到现在</div>
+        <div class="stat-nb">64 <span class="stat-unit">days</span></div>
+        <div class="stat-note">From 0 to now</div>
       </div>
       <div class="stat-card" data-anim>
         <div class="stat-label">Lines of Code</div>
         <div class="stat-nb">110K+</div>
-        <div class="stat-note">一行行写到 11 万+</div>
+        <div class="stat-note">Written line by line to 110K+</div>
       </div>
       <div class="stat-card" data-anim>
         <div class="stat-label">GitHub Stars</div>
         <div class="stat-nb">5,166</div>
-        <div class="stat-note">一个开源仓库</div>
+        <div class="stat-note">One open-source repo</div>
       </div>
       <div class="stat-card" data-anim>
         <div class="stat-label">Downloads</div>
         <div class="stat-nb">41K+</div>
-        <div class="stat-note">装到了几万台电脑里</div>
+        <div class="stat-note">Installed on tens of thousands of machines</div>
       </div>
       <div class="stat-card" data-anim>
         <div class="stat-label">AI Providers</div>
         <div class="stat-nb">19</div>
-        <div class="stat-note">跨平台接入</div>
+        <div class="stat-note">Cross-platform integrations</div>
       </div>
       <div class="stat-card" data-anim>
         <div class="stat-label">Commits</div>
         <div class="stat-nb">608+</div>
-        <div class="stat-note">没有协作者</div>
+        <div class="stat-note">No collaborators</div>
       </div>
     </div>
   </div>
   <div class="foot">
-    <div>项目 · CodePilot　|　github.com/codepilot</div>
+    <div>Project · CodePilot　|　github.com/codepilot</div>
     <div>Act I · Dev Numbers</div>
   </div>
 </section>
 ```
 
-**要点**：
-- 3×2 或 4×2 网格最稳（见 `.grid-6`）
-- 每个 `stat-card` 结构固定：label（英文小字）→ nb（大字数字）→ note（注释）
-- 数字建议 2-3 位字符（太长会溢出），用 K / M 简写
-- **间距不要再加大**：骨架默认 `padding-top:3vh` + lead `margin-bottom:2vh` + grid `margin-top:2vh` 是 3×2 网格在 16:9 屏不压 foot 的实测上限;内容更多时先删卡片,不要压缩 foot 空间
+**Key points**:
+- A 3×2 or 4×2 grid is most stable (see `.grid-6`)
+- Each `stat-card` has a fixed structure: label (small English text) → nb (big-number value) → note (annotation)
+- Keep numbers to 2-3 characters (longer ones overflow); use K / M shorthand
+- **Do not increase the spacing**: the skeleton's defaults of `padding-top:3vh` + lead `margin-bottom:2vh` + grid `margin-top:2vh` are the measured upper limit for a 3×2 grid that doesn't press the foot on a 16:9 screen; when you need more content, cut cards first rather than compressing foot space
 
 ---
 
-## Layout 4: 左文右图（Quote + Image）
+## Layout 4: Text Left, Image Right (Quote + Image)
 
 ```html
 <section class="slide light">
   <div class="chrome">
-    <div>身份反差 · The Twist</div>
+    <div>Identity Contrast · The Twist</div>
     <div>03 / 25</div>
   </div>
   <div class="frame grid-2-7-5" style="padding-top:6vh">
-    <!-- 左列：标题 + 正文 + callout，flex column 让 callout 贴列底 -->
+    <!-- Left column: title + body + callout; flex column keeps the callout at the bottom -->
     <div style="display:flex; flex-direction:column; justify-content:space-between; gap:3vh">
       <div>
         <div class="kicker" data-anim>BUT</div>
         <h2 class="h-xl" style="white-space:nowrap; font-size:7.2vw" data-anim>
-          我不是程序员。
+          I'm not a programmer.
         </h2>
         <p class="lead" style="margin-top:3vh" data-anim>
-          大学毕业之后再也没写过一行代码。过去十年做的是 UI 设计和 AI 特效。
+          Not a single line of code since graduation. The last ten years were all UI design and AI effects.
         </p>
       </div>
       <div class="callout" data-anim>
-        "这东西在三年前，<br>
-        需要一个十人团队做一年。"
-        <div class="callout-src">— 一个观察者的判断</div>
+        "Three years ago, this<br>
+        needed a ten-person team for a year."
+        <div class="callout-src">— One observer's judgment</div>
       </div>
     </div>
-    <!-- 右列：图片用标准 16/10 比例 + max-height，不要 align-self:end -->
+    <!-- Right column: standard 16/10 ratio + max-height; no align-self:end -->
     <figure class="frame-img r-16x10" data-anim>
-      <img src="images/codepilot.png" alt="CodePilot 产品截图">
-      <figcaption class="img-cap">CodePilot · 产品截图</figcaption>
+      <img src="images/codepilot.png" alt="CodePilot product screenshot">
+      <figcaption class="img-cap">CodePilot · Screenshot</figcaption>
     </figure>
   </div>
   <div class="foot">
-    <div>Page 03 · 我不是程序员</div>
+    <div>Page 03 · I'm Not a Programmer</div>
     <div>— · —</div>
   </div>
 </section>
 ```
 
-**要点**：
-- 用 `grid-2-7-5`（左 7 份、右 5 份），`align-items:start` 已在 template 预设
-- **左列**用 flex column + `justify-content:space-between`：标题贴顶，callout 自然贴底
-- **右列图片** **不要加 `align-self:end`**。会让图片滑到 cell 底部，低分屏下被浏览器工具栏遮挡
-- 图片必须用 **标准比例类 `.r-16x10` 或 `.r-4x3`**，不要用原图奇葩比例（`2592/1798` 这种）
+**Key points**:
+- Use `grid-2-7-5` (7 parts left, 5 parts right); `align-items:start` is preset in the template
+- **Left column**: flex column + `justify-content:space-between` — title sits at the top, callout naturally at the bottom
+- **Right-column image**: **do not add `align-self:end`**. It slides the image down to the bottom of the cell, where the browser toolbar covers it on low-res screens
+- Images must use the **standard ratio classes `.r-16x10` or `.r-4x3`**, not the original image's odd ratio (like `2592/1798`)
 
 ---
 
-## Layout 5: 图片网格（多图对比）
+## Layout 5: Image Grid (multi-image comparison)
 
 ```html
 <section class="slide light">
   <div class="chrome">
-    <div>平台粉丝实证</div>
+    <div>Follower Evidence</div>
     <div>Act I / Ops · 05 / 27</div>
   </div>
   <div class="frame" style="padding-top:3vh">
-    <div class="kicker" data-anim>Proof · 粉丝实证</div>
-    <h2 class="h-xl" data-anim>10 个平台 · 6 张截图</h2>
+    <div class="kicker" data-anim>Proof · Follower Evidence</div>
+    <h2 class="h-xl" data-anim>10 Platforms · 6 Screenshots</h2>
 
     <div class="grid-3-3" style="margin-top:3vh">
       <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="images/weibo.png" alt="微博 289K">
-        <figcaption class="img-cap">微博 · 289K</figcaption>
+        <img src="images/weibo.png" alt="Weibo 289K">
+        <figcaption class="img-cap">Weibo · 289K</figcaption>
       </figure>
       <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="images/twitter.png" alt="推特 137K">
-        <figcaption class="img-cap">推特 · 137K</figcaption>
+        <img src="images/twitter.png" alt="Twitter 137K">
+        <figcaption class="img-cap">Twitter · 137K</figcaption>
       </figure>
       <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="images/wechat.png" alt="公众号 96K">
-        <figcaption class="img-cap">公众号 · 96K</figcaption>
+        <img src="images/wechat.png" alt="WeChat Official 96K">
+        <figcaption class="img-cap">WeChat Official · 96K</figcaption>
       </figure>
       <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="images/jike.png" alt="即刻 26K">
-        <figcaption class="img-cap">即刻 · 26K</figcaption>
+        <img src="images/jike.png" alt="Jike 26K">
+        <figcaption class="img-cap">Jike · 26K</figcaption>
       </figure>
       <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="images/xhs.png" alt="小红书 19K">
-        <figcaption class="img-cap">小红书 · 19K</figcaption>
+        <img src="images/xhs.png" alt="Xiaohongshu 19K">
+        <figcaption class="img-cap">Xiaohongshu · 19K</figcaption>
       </figure>
       <figure class="frame-img" style="height:26vh" data-anim>
-        <img src="images/douyin.png" alt="抖音 10K">
-        <figcaption class="img-cap">抖音 · 10K</figcaption>
+        <img src="images/douyin.png" alt="Douyin 10K">
+        <figcaption class="img-cap">Douyin · 10K</figcaption>
       </figure>
     </div>
   </div>
   <div class="foot">
-    <div>截图时间 · 2026.04</div>
-    <div>Page 05 · 粉丝实证</div>
+    <div>Screenshot Date · 2026.04</div>
+    <div>Page 05 · Follower Evidence</div>
   </div>
 </section>
 ```
 
-**要点**：
-- 关键：每个 `frame-img` 必须写死 `height:NNvh`（不要用 `aspect-ratio`），否则网格会撑破
-- 图片会自动 `object-fit:cover + object-position:top`，只裁底部
-- **图注在框内**:`figcaption.img-cap` 会显示在固定高度框的内部底边(模板已处理弹性收缩),不额外占外部高度;有图注时图片实际展示高度 ≈ NNvh − 4vh
-- 用 `.grid-3-3`（3×2）或 `.grid-3`（3×1）承载
-- 3×2 双行 + 图注时,`height:26vh` 是不压 foot 的上限;标题更长或加说明行时降到 `22vh`
+**Key points**:
+- Critical: every `frame-img` must hard-code `height:NNvh` (not `aspect-ratio`), or the grid breaks
+- Images get `object-fit:cover + object-position:top` automatically, cropping only the bottom
+- **Captions live inside the frame**: `figcaption.img-cap` renders along the inner bottom edge of the fixed-height frame (the template handles the elastic shrink) and adds no outside height; with a caption, the image actually shows at ≈ NNvh − 4vh
+- Use `.grid-3-3` (3×2) or `.grid-3` (3×1) to carry them
+- For a 3×2 two-row grid with captions, `height:26vh` is the upper limit before pressing the foot; drop to `22vh` when the title is longer or a description line is added
 
 ---
 
-## Layout 6: 两列流水线（Pipeline）
+## Layout 6: Two-Column Pipeline
 
 ```html
 <section class="slide light" data-animate="pipeline">
   <div class="chrome">
-    <div>我的工作流 · Workflow</div>
+    <div>My Workflow</div>
     <div>Act II · 15 / 27</div>
   </div>
   <div class="frame">
-    <div class="kicker">Pipeline · 流水线</div>
-    <h2 class="h-xl">两条流水线</h2>
+    <div class="kicker">Pipeline</div>
+    <h2 class="h-xl">Two Pipelines</h2>
 
-    <!-- 第一组：文本侧 -->
+    <!-- Group 1: text side -->
     <div class="pipeline-section">
-      <div class="pipeline-label">文本侧 · Text Pipeline</div>
+      <div class="pipeline-label">Text · Text Pipeline</div>
       <div class="pipeline">
         <div class="step" data-anim="step">
           <div class="step-nb">01</div>
           <div class="step-title">Draft</div>
-          <div class="step-desc">AI 帮我起草初稿</div>
+          <div class="step-desc">AI drafts my first draft</div>
         </div>
         <div class="step" data-anim="step">
           <div class="step-nb">02</div>
           <div class="step-title">Polish</div>
-          <div class="step-desc">AI 润色去 AI 味</div>
+          <div class="step-desc">AI polishes the AI flavor out</div>
         </div>
         <div class="step" data-anim="step">
           <div class="step-nb">03</div>
           <div class="step-title">Morph</div>
-          <div class="step-desc">AI 变形成推特 / 小红书</div>
+          <div class="step-desc">AI morphs into Twitter / Xiaohongshu posts</div>
         </div>
         <div class="step" data-anim="step">
           <div class="step-nb">04</div>
           <div class="step-title">Illustrate</div>
-          <div class="step-desc">AI 生成信息图</div>
+          <div class="step-desc">AI generates infographics</div>
         </div>
         <div class="step" data-anim="step">
           <div class="step-nb">05</div>
           <div class="step-title">Distribute</div>
-          <div class="step-desc">一键分发 9 平台</div>
+          <div class="step-desc">One-click distribution to 9 platforms</div>
         </div>
       </div>
     </div>
 
-    <!-- 第二组：视频侧 -->
+    <!-- Group 2: video side -->
     <div class="pipeline-section">
-      <div class="pipeline-label">视觉 · 视频侧 · Video Pipeline</div>
+      <div class="pipeline-label">Visual · Video Side · Video Pipeline</div>
       <div class="pipeline">
         <div class="step" data-anim="step">
           <div class="step-nb">06</div>
           <div class="step-title">Cut</div>
-          <div class="step-desc">AI 帮我剪辑</div>
+          <div class="step-desc">AI helps me edit</div>
         </div>
         <div class="step" data-anim="step">
           <div class="step-nb">07</div>
           <div class="step-title">Wrap</div>
-          <div class="step-desc">AI 帮我包装</div>
+          <div class="step-desc">AI helps me package</div>
         </div>
         <div class="step" data-anim="step">
           <div class="step-nb">08</div>
           <div class="step-title">Cover</div>
-          <div class="step-desc">AI 生成封面</div>
+          <div class="step-desc">AI generates the cover</div>
         </div>
       </div>
     </div>
   </div>
   <div class="foot">
-    <div>Page 15 · 我的内容工厂</div>
+    <div>Page 15 · My Content Factory</div>
     <div>Workflow</div>
   </div>
 </section>
 ```
 
-**要点**：
-- 用 `.pipeline-section` 分组 + `.pipeline-label` 作组标题
-- 两组之间用 3.6vh 的间距 + 顶部细分隔线（已在 CSS 中预设）
-- 每个 step 是固定的 nb → title → desc 结构
-- 步骤数不限但单行最好 ≤5 个，否则换到第二 pipeline
-- **动效**:`<section>` 加 `data-animate="pipeline"`,每个 `.step` 加 `data-anim="step"`。翻到此页时步骤默认 `opacity:.15`,按 →/空格/滚轮下滑时一次点亮一个 step;**所有 step 点亮完才会翻到下一页**,可制造演讲互动感
+**Key points**:
+- Group with `.pipeline-section` + `.pipeline-label` as the group title
+- Between groups: 3.6vh spacing + a thin top divider (already preset in CSS)
+- Each step has the fixed nb → title → desc structure
+- Step count is unlimited, but keep a single row at ≤5; otherwise split into a second pipeline
+- **Motion**: add `data-animate="pipeline"` to `<section>` and `data-anim="step"` to each `.step`. On this page, steps default to `opacity:.15`; each →/Space/scroll-down lights up one step; **only when every step is lit does the deck advance to the next page**, which creates presentation interactivity
 
 ---
 
-## Layout 7: 悬念收束 / 问题页（Hero Question）
+## Layout 7: Suspense Closer / Question Page (Hero Question)
 
 ```html
 <section class="slide hero dark">
   <div class="chrome">
-    <div>留给你的问题</div>
+    <div>A Question Left for You</div>
     <div>24 / 27</div>
   </div>
   <div class="frame" style="display:grid; gap:8vh; align-content:center; min-height:80vh">
     <div class="kicker" data-anim>The Question</div>
     <h1 class="h-hero" style="font-size:7vw; line-height:1.15">
-      <span data-anim style="display:block">你的公司里，</span>
-      <span data-anim style="display:block">哪些岗位本来就</span>
-      <span data-anim style="display:block">不该由人来做？</span>
+      <span data-anim style="display:block">In your company,</span>
+      <span data-anim style="display:block">which roles were never</span>
+      <span data-anim style="display:block">meant for humans?</span>
     </h1>
     <p class="lead" style="max-width:50vw" data-anim>
-      这个问题，不是技术问题，是架构问题。
+      This isn't a technical question — it's an architecture question.
     </p>
   </div>
   <div class="foot">
@@ -493,27 +493,27 @@ layouts.md 使用的所有类（`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / 
 </section>
 ```
 
-**要点**：
-- Hero 页留白越多越好，只放一个问题
-- `h-hero` 字号视长度调整（7vw 适合 3 行，10vw 适合 1 行）
-- 用 `<br>` 手工断行，确保断点在语义处
-- 尾巴可以再给一行 `lead` 作为点破
+**Key points**:
+- The more whitespace on a hero page the better — just one question
+- Adjust the `h-hero` size by length (7vw suits 3 lines, 10vw suits 1 line)
+- Use `<br>` for manual line breaks so breakpoints land at semantic points
+- Optionally end with one `lead` line as the reveal
 
 ---
 
-## Layout 8: 大引用页（Big Quote · 衬线金句）
+## Layout 8: Big Quote Page (Big Quote · serif golden line)
 
 ```html
 <section class="slide light" data-animate="quote">
   <div class="chrome">
-    <div>The Takeaway · 核心金句</div>
+    <div>The Takeaway · Core Wisdom</div>
     <div>18 / 25</div>
   </div>
   <div class="frame" style="display:grid; gap:5vh; align-content:center; min-height:80vh">
-    <div class="kicker" data-anim>Quote · 金句</div>
+    <div class="kicker" data-anim>Quote</div>
     <blockquote style="font-family:var(--serif-zh); font-weight:700; font-size:5.8vw; line-height:1.2; letter-spacing:-.01em; max-width:72vw">
-      <span data-anim="line" style="display:block">"没有交接,</span>
-      <span data-anim="line" style="display:block">所有人都在构建。"</span>
+      <span data-anim="line" style="display:block">"No handoff,</span>
+      <span data-anim="line" style="display:block">everyone builds."</span>
     </blockquote>
     <p class="lead" style="max-width:55vw; opacity:.65" data-anim>
       Without the handoff, everyone builds.<br>
@@ -524,92 +524,92 @@ layouts.md 使用的所有类（`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / 
     </div>
   </div>
   <div class="foot">
-    <div>Page 18 · 金句</div>
+    <div>Page 18 · Golden Line</div>
     <div>— · —</div>
   </div>
 </section>
 ```
 
-**要点**：
-- 整页留白,只放一个大引用 + 出处
-- `<blockquote>` 用 inline style 单独放大（5-6vw）,不要用 `h-hero`（那是页面主标题的命名）
-- 下面跟随英文原文（lead · opacity:.65）制造层级
-- 配 `meta-row` 写出处 · 日期
+**Key points**:
+- Full-page whitespace, just one big quote + attribution
+- Enlarge `<blockquote>` alone via inline style (5-6vw); don't use `h-hero` (that name is reserved for the page's main title)
+- Follow below with the English original (lead · opacity:.65) to create hierarchy
+- Pair with `meta-row` for attribution · date
 
 ---
 
-## Layout 9: 并列对比（A vs B · 旧 vs 新）
+## Layout 9: Side-by-Side Comparison (A vs B · Old vs New)
 
 ```html
 <section class="slide light" data-animate="directional">
   <div class="chrome">
-    <div>旧 vs 新 · The Shift</div>
+    <div>Old vs New · The Shift</div>
     <div>12 / 25</div>
   </div>
   <div class="frame" style="padding-top:5vh">
-    <div class="kicker" data-anim>Before / After · 范式转变</div>
-    <h2 class="h-xl" style="margin-bottom:4vh" data-anim>从交接到共建</h2>
+    <div class="kicker" data-anim>Before / After · Paradigm Shift</div>
+    <h2 class="h-xl" style="margin-bottom:4vh" data-anim>From Handoff to Co-building</h2>
 
     <div class="grid-2-6-6" style="gap:5vw 4vh">
-      <!-- 左列：旧 -->
+      <!-- Left column: old -->
       <div data-anim="left" style="padding:3vh 2vw; border-left:3px solid currentColor; opacity:.55">
-        <div class="kicker" style="opacity:.9">Before · 旧模式</div>
-        <h3 class="h-md" style="margin-top:2vh">设计 → 开发 → 交接</h3>
+        <div class="kicker" style="opacity:.9">Before · Old Mode</div>
+        <h3 class="h-md" style="margin-top:2vh">Design → Dev → Handoff</h3>
         <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
-          <li>设计师在 Figma 做稿</li>
-          <li>开发者盯着文件翻译像素</li>
-          <li>反复 PR 沟通对齐</li>
-          <li>非技术人员无法触碰代码</li>
+          <li>Designers mock up in Figma</li>
+          <li>Devs translate pixels from the file</li>
+          <li>PR ping-pong to align</li>
+          <li>Non-technical people can't touch code</li>
         </ul>
       </div>
-      <!-- 右列:新 -->
+      <!-- Right column: new -->
       <div data-anim="right" style="padding:3vh 2vw; border-left:3px solid currentColor">
-        <div class="kicker" style="opacity:.9">After · 新模式</div>
-        <h3 class="h-md" style="margin-top:2vh">同工具 · 并行 · 共建</h3>
+        <div class="kicker" style="opacity:.9">After · New Mode</div>
+        <h3 class="h-md" style="margin-top:2vh">Same Tools · Parallel · Co-building</h3>
         <ul style="margin-top:3vh; padding-left:1.2em; display:flex; flex-direction:column; gap:1.4vh; font-family:var(--sans-zh); font-size:max(14px,1.1vw); line-height:1.55">
-          <li>三个角色同时在 Intent 工作</li>
-          <li>agents.md 作为共享上下文</li>
-          <li>代理处理对齐 / 冲突 / 动画</li>
-          <li>任何人都能安全贡献代码</li>
+          <li>Three roles work in Intent at once</li>
+          <li>agents.md as shared context</li>
+          <li>Agents handle alignment / conflicts / animation</li>
+          <li>Anyone can safely contribute code</li>
         </ul>
       </div>
     </div>
   </div>
   <div class="foot">
-    <div>Page 12 · 范式转变</div>
+    <div>Page 12 · Paradigm Shift</div>
     <div>Before / After</div>
   </div>
 </section>
 ```
 
-**要点**：
-- 用 `.grid-2-6-6`（1:1）左右分半
-- 左列 `opacity:.55` 做"旧"的视觉弱化,右列满亮度做"新"的突出
-- 两列都用 `border-left:3px solid` + `padding-left` 做引用块感
-- 每列结构统一:`kicker` → `h-md` → `<ul>` 要点,节奏一致
+**Key points**:
+- Use `.grid-2-6-6` (1:1) to split left/right in half
+- Left column's `opacity:.55` visually de-emphasizes "old"; the full-brightness right column highlights "new"
+- Both columns use `border-left:3px solid` + `padding-left` for a blockquote feel
+- Keep each column's structure uniform: `kicker` → `h-md` → `<ul>` bullet list, consistent rhythm
 
 ---
 
-## Layout 10: 图文混排（Lead Image + Side Text）
+## Layout 10: Mixed Text + Image (Lead Image + Side Text)
 
 ```html
 <section class="slide light">
   <div class="chrome">
-    <div>Design First · 设计先行</div>
+    <div>Design First</div>
     <div>08 / 16</div>
   </div>
   <div class="frame grid-2-8-4" style="padding-top:6vh">
-    <!-- 左列:大段正文 + 引用 -->
+    <!-- Left column: long body text + quote -->
     <div>
-      <div class="kicker" data-anim>Phase 01 · 设计阶段</div>
-      <h2 class="h-xl" style="margin-top:1vh; margin-bottom:3vh" data-anim>设计先行 · 2 周</h2>
+      <div class="kicker" data-anim>Phase 01 · Design Phase</div>
+      <h2 class="h-xl" style="margin-top:1vh; margin-bottom:3vh" data-anim>Design First · 2 Weeks</h2>
 
       <p class="lead" style="margin-bottom:3vh" data-anim>
-        在 Figma 中完成视觉探索与设计系统,网格 / 排版 / 颜色变量 / 可复用组件,桌面和移动端稿件几轮反馈迭代。
+        Visual exploration and a design system in Figma — grids / typography / color variables / reusable components, a few feedback rounds on desktop and mobile mocks.
       </p>
 
       <p data-anim style="font-family:var(--sans-zh); font-size:max(14px,1.15vw); line-height:1.75; opacity:.78; margin-bottom:2.4vh">
-        两周之内,视觉风格、粗略结构、方向性内容全部稳定。这是扎实的传统设计流程——在这里还没什么新鲜事。
+        Within two weeks the visual style, rough structure, and directional content all stabilized. A solid traditional design process — nothing new here yet.
       </p>
 
       <div class="callout" style="margin-top:3vh" data-anim>
@@ -617,7 +617,7 @@ layouts.md 使用的所有类（`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / 
         <div class="callout-src">— Luke Wroblewski</div>
       </div>
     </div>
-    <!-- 右列:辅助图 · 竖版或方形 -->
+    <!-- Right column: supporting image · portrait or square -->
     <figure class="frame-img r-3x4" data-anim>
       <img src="images/figma.png" alt="Figma design system">
       <figcaption class="img-cap">Figma · Design System</figcaption>
@@ -625,45 +625,45 @@ layouts.md 使用的所有类（`h-hero` / `h-xl` / `h-sub` / `h-md` / `lead` / 
   </div>
   <div class="foot">
     <div>Page 08 · Design First</div>
-    <div>约 2 周</div>
+    <div>About 2 Weeks</div>
   </div>
 </section>
 ```
 
-**要点**：
-- `.grid-2-8-4`(8:4) 让正文占主导,图片作辅助
-- 左列包含多种信息层级:kicker → 大标题 → lead → 正文段落 → callout(引用)
-- 右列图片用 **竖版 3:4** 或方形 1:1,避免和左列文本竞争注意力
-- 这种布局适合**页面信息量偏大**的场景(不像 Layout 4 只有一句金句)
+**Key points**:
+- `.grid-2-8-4` (8:4) makes body text dominant, with the image as support
+- The left column holds several information levels: kicker → big title → lead → body paragraph → callout (quote)
+- The right-column image uses **portrait 3:4** or square 1:1, so it doesn't compete with the left text for attention
+- This layout suits **information-dense pages** (unlike Layout 4, which holds a single golden line)
 
 ---
 
-## 附录：常用网格模板
+## Appendix: Common grid templates
 
-| 类名 | 配比 | 用途 |
+| Class | Ratio | Use |
 |---|---|---|
-| `.grid-2-6-6` | 6:6（1:1） | 对半分 |
-| `.grid-2-7-5` | 7:5 | 文字为主 + 辅助图 |
-| `.grid-2-8-4` | 8:4（2:1） | 大段文字 + 小图/数据 |
-| `.grid-3` | 1:1:1 | 3 项并列（案例/截图） |
-| `.grid-3-3` | 3×2 | 6 图矩阵 |
-| `.grid-6` | 3×2 | 6 个数据卡片 |
+| `.grid-2-6-6` | 6:6 (1:1) | split in half |
+| `.grid-2-7-5` | 7:5 | text-primary + supporting image |
+| `.grid-2-8-4` | 8:4 (2:1) | long text + small image/data |
+| `.grid-3` | 1:1:1 | 3 items side by side (cases/screenshots) |
+| `.grid-3-3` | 3×2 | 6-image matrix |
+| `.grid-6` | 3×2 | 6 data cards |
 
-所有网格都预留 `gap: 3vw 4vh`（水平 3vw、竖直 4vh），可以单独覆写。
+All grids reserve `gap: 3vw 4vh` (3vw horizontal, 4vh vertical), overridable individually.
 
 ---
 
-## 页面节奏建议
+## Page rhythm suggestions
 
-一场 25-30 页的分享，推荐以下节奏：
+For a 25-30 page talk, the following rhythm is recommended:
 
-1. **Hero Cover**（第 1 页）
-2. **Act Divider**（第一幕开场，hero light 或 hero dark）
-3. **Big Numbers**（抛硬数据制造冲击）
-4. **Quote + Image**（讲身份反差/挂钩）
-5. **Image Grid**（证据支撑）
-6. **Hero Question**（幕收束，留悬念）
-7. ... 第二幕、第三幕同样节奏 ...
-8. **Hero Close**（最后一页，问题或致谢）
+1. **Hero Cover** (page 1)
+2. **Act Divider** (opens Act I, hero light or hero dark)
+3. **Big Numbers** (throw hard data for impact)
+4. **Quote + Image** (identity contrast / hook)
+5. **Image Grid** (evidence support)
+6. **Hero Question** (closes the act, leaves suspense)
+7. ... Acts II, III follow the same rhythm ...
+8. **Hero Close** (final page, question or thanks)
 
-hero 页与 non-hero 页应该 **2-3 : 1 比例交错**，不要连续超过 3 页 non-hero，也不要连续超过 2 页 hero。
+Hero and non-hero pages should interleave at roughly **2-3 : 1**; never run more than 3 consecutive non-hero pages, and never more than 2 consecutive hero pages.
