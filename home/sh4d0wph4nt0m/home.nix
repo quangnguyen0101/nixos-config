@@ -21,6 +21,7 @@
     ../../modules/home/rclone-gdrive.nix
     ../../modules/home/brt.nix
     ../../modules/home/jupyter.nix
+    ../../modules/home/firefox.nix
   ];
 
   home.username = "sh4d0wph4nt0m";
