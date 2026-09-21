@@ -19,6 +19,10 @@ in
     # Archify (vendored tt-a1i/archify, MIT): renderer JSON-IR -> HTML/SVG diagrams.
     # Can node >=18 (da co tren he thong). Rut gon: bo test/ va examples/*.html (proof artifacts).
     ".config/opencode/skills/archify".source = ./../../pkgs/opencode/skills/archify;
+    # Guizang PPT (vendored op7418/guizang-ppt-skill, AGPLv3): single-file HTML
+    # horizontal-swipe PPT + image prompts + social covers. Rut gon: bo
+    # ppt-skill-showcase.png (demo) va docs/ (unused by SKILL.md).
+    ".config/opencode/skills/guizang-ppt-skill".source = ./../../pkgs/opencode/skills/guizang-ppt-skill;
   };
 
   programs.opencode = {
