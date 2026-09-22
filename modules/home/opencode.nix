@@ -160,31 +160,29 @@ in
             "nemotron-3-super:cloud" = {
               name = "Nemotron 3 Super";
               modalities = {
-                input = [
-                  "text"
-                  "image"
-                ];
+                input = [ "text" "image" ];
                 output = [ "text" ];
               };
             };
             "gpt-oss:120b-cloud" = {
               name = "GPT-OSS 120B";
               modalities = {
-                input = [
-                  "text"
-                  "image"
-                ];
+                input = [ "text" "image" ];
                 output = [ "text" ];
               };
             };
-            "gemma4:31b-cloud" = {
-              name = "Gemma 4 31B";
+            "gemma4:cloud" = {
+              name = "Gemma 4";
               modalities = {
-                input = [
-                  "text"
-                  "image"
-                ];
+                input = [ "text" "image" ];
                 output = [ "text" ];
+              };
+            };
+            "nomic-embed-text:latest" = {
+              name = "Nomic Embed Text";
+              modalities = {
+                input = [ "text" ];
+                output = [ "embedding" ];
               };
             };
           };
