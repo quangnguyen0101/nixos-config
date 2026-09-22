@@ -52,6 +52,7 @@
     rclone
     wpsoffice
     poppler-utils # pdftotext/pdfinfo
+    (pkgs.tesseract5.override { extraLanguages = [ "vie" ]; }) # OCR eng+vie, fallback cho vision
     impression
     drawio # ERD/Chen diagrams, UML
     cmake # C/C++ build system
