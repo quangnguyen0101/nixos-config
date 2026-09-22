@@ -31,12 +31,20 @@ let
     p.scikit-learn
     p.jinja2 # latex-document-skill mail_merge.py (deps python duoc cung cap boi env python duy nhat nay)
     p.trafilatura # lấy nội dung bài báo/trang web -> markdown (CLI: trafilatura --URL)
+    p.python-docx # docx read/write
+    p.openpyxl # xlsx read/write
+    p.python-pptx # pptx read/write
   ]);
 in
 {
   # JupyterLab cho data science — MCP server (opencode) connect tới 127.0.0.1:8888
   # qua JUPYTER_URL/JUPYTER_TOKEN (xem modules/home/opencode.nix).
-  home.packages = [ jupyterEnv ];
+  # markitdown CLI riêng: docx/xlsx/pptx/pdf -> markdown (không nằm trong python env
+  # vì ở đây markitdown là top-level package, dùng như binary độc lập).
+  home.packages = [
+    jupyterEnv
+    pkgs.markitdown
+  ];
 
   systemd.user.services.jupyterlab = {
     Unit = {
