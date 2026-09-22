@@ -30,6 +30,7 @@ let
     p.scipy
     p.scikit-learn
     p.jinja2 # latex-document-skill mail_merge.py (deps python duoc cung cap boi env python duy nhat nay)
+    p.trafilatura # lấy nội dung bài báo/trang web -> markdown (CLI: trafilatura --URL)
   ]);
 in
 {
