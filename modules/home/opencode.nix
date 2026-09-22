@@ -15,7 +15,8 @@ in
   # copy ra ~/.config/opencode/ de opencode doc duoc.
   home.file = {
     ".config/opencode/shell_strategy.md".source = ./../../pkgs/opencode/shell_strategy.md;
-    ".config/opencode/skills/data-science/SKILL.md".source = ./../../pkgs/opencode/skills/data-science/SKILL.md;
+    ".config/opencode/skills/data-science/SKILL.md".source =
+      ./../../pkgs/opencode/skills/data-science/SKILL.md;
     # Archify (vendored tt-a1i/archify, MIT): renderer JSON-IR -> HTML/SVG diagrams.
     # Can node >=18 (da co tren he thong). Rut gon: bo test/ va examples/*.html (proof artifacts).
     ".config/opencode/skills/archify".source = ./../../pkgs/opencode/skills/archify;
@@ -27,7 +28,8 @@ in
     # LaTeX to PDF + PNG previews, 28 templates + ATS resumes, charts/mermaid/
     # graphviz, mail merge, pdf fill/extract. Rut gon: bo examples (giu 3 ieee
     # refs), mascot png, tests/, stats/. Pi deps: matplotlib numpy pandas jinja2.
-    ".config/opencode/skills/latex-document-skill".source = ./../../pkgs/opencode/skills/latex-document-skill;
+    ".config/opencode/skills/latex-document-skill".source =
+      ./../../pkgs/opencode/skills/latex-document-skill;
     # Obsidian skills (vendored kepano/obsidian-skills, MIT): 6 skills doc-tooling.
     # Moi skill self-contained (refs tuong doi trong chinh folder no). Bo .claude-plugin/ va README.
     ".config/opencode/skills/defuddle".source = ./../../pkgs/opencode/skills/defuddle;
@@ -80,8 +82,14 @@ in
           type = "local";
           enabled = true;
           command = [
-            "uvx" "--from" "ouroboros-ai[mcp]==0.54.4" # pin version MCP server
-            "ouroboros" "mcp" "serve" "--runtime" "opencode"
+            "uvx"
+            "--from"
+            "ouroboros-ai[mcp]==0.54.4" # pin version MCP server
+            "ouroboros"
+            "mcp"
+            "serve"
+            "--runtime"
+            "opencode"
           ];
           environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
         };
@@ -89,7 +97,9 @@ in
           type = "local";
           enabled = true;
           command = [
-            "npx" "-y" "@hypnosis/docker-mcp-server@2.0.1"
+            "npx"
+            "-y"
+            "@hypnosis/docker-mcp-server@2.0.1"
           ];
           environment.DOCKER_HOST = "unix:///var/run/docker.sock";
         };
@@ -97,8 +107,13 @@ in
           type = "local";
           enabled = true;
           command = [
-            "uvx" "--from" "postgres-mcp==0.3.0" "--with" "mcp<2"
-            "postgres-mcp" "postgresql://dsuser:dssecret@127.0.0.1:5432/datascience"
+            "uvx"
+            "--from"
+            "postgres-mcp==0.3.0"
+            "--with"
+            "mcp<2"
+            "postgres-mcp"
+            "postgresql://dsuser:dssecret@127.0.0.1:5432/datascience"
           ];
           environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
         };
@@ -107,7 +122,9 @@ in
           enabled = true;
           timeout = 120000; # arXiv rate-limit (429): retry budget 62s > default 30s
           command = [
-            "uvx" "--from" "arxiv-mcp-server[pdf]==0.7.2" # pin version, [pdf] de dang roi PDF fallback
+            "uvx"
+            "--from"
+            "arxiv-mcp-server[pdf]==0.7.2" # pin version, [pdf] de dang roi PDF fallback
             "arxiv-mcp-server"
           ];
           environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
@@ -116,7 +133,9 @@ in
           type = "local";
           enabled = true;
           command = [
-            "uvx" "--from" "jupyter-mcp-server==2.1.15" # pin version (npm cung ten, dung uvx)
+            "uvx"
+            "--from"
+            "jupyter-mcp-server==2.1.15" # pin version (npm cung ten, dung uvx)
             "jupyter-mcp-server"
           ];
           environment = {
@@ -131,8 +150,11 @@ in
           enabled = true;
           timeout = 120000; # cold download paddleocr (paddle extra) ~2min
           command = [
-            "uvx" "--from" "opencode-vision[paddle]==2.1.0" # PaddleOCR local + Gemini free fallback
-            "python3" "${./../../pkgs/opencode/vision-mcp-wrapper.py}" # patch: newline framing + protocolVersion
+            "uvx"
+            "--from"
+            "opencode-vision[paddle]==2.1.0" # PaddleOCR local + Gemini free fallback
+            "python3"
+            "${./../../pkgs/opencode/vision-mcp-wrapper.py}" # patch: newline framing + protocolVersion
           ];
           environment = {
             # Gemini API key: file ngoai repo (600), khong commit len public github
@@ -160,21 +182,30 @@ in
             "nemotron-3-super:cloud" = {
               name = "Nemotron 3 Super";
               modalities = {
-                input = [ "text" "image" ];
+                input = [
+                  "text"
+                  "image"
+                ];
                 output = [ "text" ];
               };
             };
             "gpt-oss:120b-cloud" = {
               name = "GPT-OSS 120B";
               modalities = {
-                input = [ "text" "image" ];
+                input = [
+                  "text"
+                  "image"
+                ];
                 output = [ "text" ];
               };
             };
             "gemma4:cloud" = {
               name = "Gemma 4";
               modalities = {
-                input = [ "text" "image" ];
+                input = [
+                  "text"
+                  "image"
+                ];
                 output = [ "text" ];
               };
             };
@@ -182,7 +213,7 @@ in
               name = "Nomic Embed Text";
               modalities = {
                 input = [ "text" ];
-                output = [ "embedding" ];
+                output = [ "text" ];
               };
             };
           };
