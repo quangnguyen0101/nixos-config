@@ -46,6 +46,10 @@ in
     pkgs.markitdown
   ];
 
+  # Numpy/pandas wheels (manylinux) build bằng GCC cần libstdc++ & zlib từ nix
+  # store; NixOS không có /usr/lib nên phải chỉ LD_LIBRARY_PATH thủ công.
+  home.sessionVariables.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.zlib.out}/lib";
+
   systemd.user.services.jupyterlab = {
     Unit = {
       Description = "JupyterLab server (data science, 127.0.0.1:8888)";
