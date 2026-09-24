@@ -11,6 +11,18 @@ let
   jupyterPython = pkgs.python314.override {
     packageOverrides = self: super: {
       inherit jupyter-collaboration;
+      # bmipy: dep của bmi-topography, chưa có trong nixpkgs — build từ PyPI
+      bmipy = pkgs.callPackage ../../pkgs/bmi-topography/bmipy.nix {
+        inherit (self) buildPythonPackage click jinja2 numpy black;
+        lib = pkgs.lib;
+        fetchurl = pkgs.fetchurl;
+      };
+      # bmi-topography: fetch elevation từ OpenTopography, chưa có trong nixpkgs
+      bmi-topography = pkgs.callPackage ../../pkgs/bmi-topography/default.nix {
+        inherit (self) buildPythonPackage setuptools requests numpy click pyyaml xarray rioxarray bmipy;
+        lib = pkgs.lib;
+        fetchurl = pkgs.fetchurl;
+      };
     };
   };
 
@@ -34,6 +46,8 @@ let
     p.python-docx # docx read/write
     p.openpyxl # xlsx read/write
     p.python-pptx # pptx read/write
+    p.rasterio # raster data I/O — chuyên dùng cho GIS/geotiff
+    p.bmi-topography # fetch land elevation từ OpenTopography
   ]);
 in
 {
