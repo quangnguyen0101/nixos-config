@@ -23,7 +23,10 @@
 
   # NVIDIA Optimus (Intel UHD 630 + GeForce MX150) — PRIME offload:
   # desktop render bằng Intel, game dùng NVIDIA qua `nvidia-offload %command%`.
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
+    # MX150 (Pascal/Turing trở về trước) → closed-source kernel modules
+    open = false;
     prime = {
       offload.enable = true;
       offload.enableOffloadCmd = true;
