@@ -17,6 +17,8 @@
     roboto # font Android/Material
     open-sans # font web phổ biến
     dejavu_fonts # font base cổ điển
+    corefonts # Microsoft: Times New Roman, Arial, Courier New, Verdana,...
+    google-fonts # toàn bộ Google Fonts (Montserrat, Lato, Poppins,...)
     font-awesome # icons app/bar
     material-icons # icons Material
   ];
