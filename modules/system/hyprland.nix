@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   programs.hyprland = {
@@ -20,6 +20,20 @@
   # Add env cho systemd unit (dbus service → SystemdService) trỏ libstdc++ GCC 16.
   systemd.user.services.xdg-desktop-portal-hyprland = {
     environment.LD_LIBRARY_PATH = "${pkgs.gcc16.cc.lib}/lib";
+  };
+
+  # No display manager → Hyprland tự launch từ tty → graphical-session.target không được
+  # start → portal chính fail khi D-Bus activation ("startup job failed").
+  # Portal implementation chỉ cần dbus, không cần graphical-session.target.
+  systemd.user.services.xdg-desktop-portal = {
+    after = lib.mkForce [ "dbus.service" ];
+    partOf = lib.mkForce [ ];
+  };
+  systemd.user.services.xdg-document-portal = {
+    partOf = lib.mkForce [ ];
+  };
+  systemd.user.services.xdg-desktop-portal-rewrite-launchers = {
+    partOf = lib.mkForce [ ];
   };
 
   # GTK themes using dconf
