@@ -23,6 +23,7 @@ in
   home.packages = [
     opencode-desktop # AI coding agent GUI client
     llmAgentPkgs.freebuff # AI coding agent CLI
+    llmAgentPkgs.codex # OpenAI Codex CLI (binary prebuilt, khong compile nhu nixpkgs)
   ];
 
   # OpenCode TUI: dung CLI tu llm-agents.nix (config thuoc ve opencode.nix)
