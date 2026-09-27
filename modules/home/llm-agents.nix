@@ -48,7 +48,9 @@ in
   home.packages = [
     opencode-desktop # AI coding agent GUI client
     llmAgentPkgs.freebuff # AI coding agent CLI
-    codexPinned # OpenAI Codex CLI (pin 0.155.1, xem comment o tren)
+    # Tam thoi off: codex build tu source ~30-60 phut (V8 + LLVM + Rust) va
+    # khong co san trong binary cache. Bat lai khi san nha.
+    # codexPinned # OpenAI Codex CLI (pin 0.155.1, xem comment o tren)
     llmAgentPkgs.chatgpt # ChatGPT desktop app (GUI, unpack .deb chinh thuc; nixpkgs khong co)
   ];
 
