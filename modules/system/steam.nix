@@ -25,6 +25,9 @@
   # desktop render bằng Intel, game dùng NVIDIA qua `nvidia-offload %command%`.
   services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia = {
+    # MX150 là Pascal. Driver mặc định (595.x) đã bỏ hỗ trợ Pascal và
+    # in "NVRM: No NVIDIA GPU found" — phải dùng nhánh 580 LTSB.
+    branch = "legacy_580";
     # MX150 (Pascal/Turing trở về trước) → closed-source kernel modules
     open = false;
     prime = {
