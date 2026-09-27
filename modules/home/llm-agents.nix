@@ -32,8 +32,9 @@ let
     version = "0.155.1";
     hash = "sha256-iFW66odceRNBsVG5bD9SdcQGxhpm/QIZwYjGCrfMXiI=";
     cargoVendor.cargoHash = "sha256-6IAX/SFSSgSKKFxKsUXoZ9nNQaHJ+EjZ5a4bJwyDdF0=";
-    # mkRustyV8Archive doc hashes.${system} nen chi can x86_64-linux.
-    librusty_v8 = {
+    # `librusty_v8` la DERIVATION (fetchurl), nen phai boi mkRustyV8Archive
+    # truoc khi truyen vao. Doc hashes.${system} nen chi can x86_64-linux.
+    librusty_v8 = llmAgentPkgs.codex.mkRustyV8Archive {
       version = "150.4.0";
       profile = "ptrcomp_sandbox_release";
       baseUrl = "https://github.com/openai/codex/releases/download/rusty-v8-v150.4.0";
