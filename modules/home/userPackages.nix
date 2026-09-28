@@ -1,19 +1,5 @@
 { config, pkgs, ... }:
 
-let
-  # WPS 11.1.0.11723 bundle Qt 5.12.10 (2018) va chi kem platform plugin xcb
-  # (khong co libqwayland.so). WPS tu hardcode QT_QPA_PLATFORM=wayland khi thay
-  # session Wayland -> crash "Could not find the Qt platform plugin wayland",
-  # va bin/wps chay "> /dev/null 2>&1" nen nuot het stderr.
-  # Giu DISPLAY=:0 (XWayland) + che bien session Wayland de WPS fallback xcb.
-  # Bọc ca 5 entry point vi wps/et/wpp/wpspdf deu hardcode giong nhau.
-  wps = name:
-    pkgs.writeShellScriptBin name ''
-      unset WAYLAND_DISPLAY XDG_SESSION_TYPE XDG_SESSION_DESKTOP
-      export XDG_SESSION_TYPE=x11
-      exec ${pkgs.wpsoffice}/bin/${name} "$@"
-    '';
-in
 {
   home.packages = with pkgs; [
     ydotool # giả lập bàn phím cho keep-awake
@@ -64,11 +50,7 @@ in
     defuddle # HTML->markdown CLI, runtime cho obsidian-skills/defuddle
     chromium
     rclone
-    (wps "wpsoffice")
-    (wps "wps")
-    (wps "et")
-    (wps "wpp")
-    (wps "wpspdf")
+    libreoffice # office suite: native Wayland, binary cache, docx/xlsx/odt
     poppler-utils # pdftotext/pdfinfo
     (pkgs.tesseract5.override { enableLanguages = [ "eng" "vie" ]; }) # OCR eng+vie, fallback cho vision
     impression
