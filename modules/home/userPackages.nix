@@ -51,6 +51,7 @@
     chromium
     rclone
     libreoffice # office suite: native Wayland, binary cache, docx/xlsx/odt
+    codex # OpenAI Codex CLI — nixpkgs co san trong binary cache (fetch 146MB, khong build source)
     poppler-utils # pdftotext/pdfinfo
     (pkgs.tesseract5.override { enableLanguages = [ "eng" "vie" ]; }) # OCR eng+vie, fallback cho vision
     impression

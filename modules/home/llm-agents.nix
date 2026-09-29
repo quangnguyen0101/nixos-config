@@ -22,35 +22,14 @@ let
     };
   });
 
-  # Pin codex. Ca llm-agents lan nixpkgs deu build codex tu source
-  # (buildRustPackage + librusty_v8): ton V8 download + LLVM toolchain +
-  # compile 2 binary Rust => ~30-60 phut moi lan. llm-agents chi expose ban
-  # latest (khong co legacyPackages/versioned attrs), nen phai override
-  # version + hash de giu nguyen. Hash lay tu hashes.json luc pin.
-  # `nix flake update llm-agents` van update agent khac binh thuong.
-  codexPinned = llmAgentPkgs.codex.override {
-    version = "0.155.1";
-    hash = "sha256-iFW66odceRNBsVG5bD9SdcQGxhpm/QIZwYjGCrfMXiI=";
-    cargoVendor.cargoHash = "sha256-6IAX/SFSSgSKKFxKsUXoZ9nNQaHJ+EjZ5a4bJwyDdF0=";
-    # `librusty_v8` la DERIVATION (fetchurl), nen phai boi mkRustyV8Archive
-    # truoc khi truyen vao. Doc hashes.${system} nen chi can x86_64-linux.
-    librusty_v8 = llmAgentPkgs.codex.mkRustyV8Archive {
-      version = "150.4.0";
-      profile = "ptrcomp_sandbox_release";
-      baseUrl = "https://github.com/openai/codex/releases/download/rusty-v8-v150.4.0";
-      hashes.x86_64-linux = "sha256-o1x10fJuapg4haRbM0kKTr5U8FBQVosyuJz7QhswtYM=";
-      srcBindingHashes.x86_64-linux = "sha256-dyeCauR5vbZF6Acjn7EtH44uI956bPFvXuWSaQ0dhQY=";
-    };
-  };
 in
 
 {
   home.packages = [
     opencode-desktop # AI coding agent GUI client
     llmAgentPkgs.freebuff # AI coding agent CLI
-    # Tam thoi off: codex build tu source ~30-60 phut (V8 + LLVM + Rust) va
-    # khong co san trong binary cache. Bat lai khi san nha.
-    # codexPinned # OpenAI Codex CLI (pin 0.155.1, xem comment o tren)
+    # codex: dung ban nixpkgs (home.packages, co san trong binary cache).
+    # Ban llm-agents build tu source V8+rust ~30-60 phut, khong dung.
     llmAgentPkgs.chatgpt # ChatGPT desktop app (GUI, unpack .deb chinh thuc; nixpkgs khong co)
   ];
 
