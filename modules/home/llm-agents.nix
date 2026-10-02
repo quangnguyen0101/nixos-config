@@ -28,9 +28,8 @@ in
   home.packages = [
     opencode-desktop # AI coding agent GUI client
     llmAgentPkgs.freebuff # AI coding agent CLI
-    # codex: dung ban nixpkgs (home.packages, co san trong binary cache).
+    # codex: dung ban nixpkgs (modules/home/userPackages.nix, co san trong binary cache).
     # Ban llm-agents build tu source V8+rust ~30-60 phut, khong dung.
-    llmAgentPkgs.chatgpt # ChatGPT desktop app (GUI, unpack .deb chinh thuc; nixpkgs khong co)
   ];
 
   # OpenCode TUI: dung CLI tu llm-agents.nix (config thuoc ve opencode.nix)
