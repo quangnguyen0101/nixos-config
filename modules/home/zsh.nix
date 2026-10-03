@@ -55,12 +55,12 @@
 
       # Quét virus: tự cập nhật DB trước, rồi quét. DB path đọc từ
       # /etc/clamav/freshclam.conf nên không cần -d.
-      # `command` để không tự gọi lại chính function này.
+      # Tên khác binary (cs vs clamscan) nên không đệ quy, khỏi cần `command`.
       # freshclam lỗi (mất mạng) vẫn quét bằng DB cũ, và exit code là
       # của clamscan: 0 sạch, 1 có virus, 2 lỗi.
-      clamscan() {
+      cs() {
         freshclam --quiet
-        command clamscan "$@"
+        clamscan "$@"
       }
 
       # Icon ⚡ bên phải prompt khi keep-awake đang giữ máy
