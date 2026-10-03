@@ -11,8 +11,8 @@
   # cua ClamAV nam trong /nix/store (read-only) nen -d la bat buoc neu
   # khong co config nay.
   environment.etc."clamav/freshclam.conf".text = ''
-    DatabaseDirectory /var/lib/clamav
-    UpdateLogFile /var/lib/clamav/freshclam.log
+    DatabaseDirectory /home/sh4d0wph4nt0m/.local/share/clamav
+    UpdateLogFile /home/sh4d0wph4nt0m/.local/share/clamav/freshclam.log
     LogTime yes
     DatabaseMirror database.clamav.net
     DatabaseMirror db.local.clamav.net
