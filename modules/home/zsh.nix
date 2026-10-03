@@ -59,7 +59,7 @@
       # freshclam lỗi (mất mạng) vẫn quét bằng DB cũ, và exit code là
       # của clamscan: 0 sạch, 1 có virus, 2 lỗi.
       cs() {
-        freshclam --quiet
+        freshclam
         clamscan "$@"
       }
 
