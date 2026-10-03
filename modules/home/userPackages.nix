@@ -62,18 +62,6 @@
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
 
-  # NixOS khong co /etc/clamav/*.conf (freshclam hardcode path do, parse fail),
-  # nên cap config rieng. Datadir o XDG dataHome, freshclam tu tai DB ve day.
-  # KHONG dat "NotifyClamd no" — freshclam parse nham "no" thanh ten file
-  # va error. Mac dinh (khai bao clamd) thi khong loi.
-  home.file.".config/clamav/freshclam.conf".text = ''
-    DatabaseDirectory ${config.xdg.dataHome}/clamav
-    UpdateLogFile ${config.xdg.dataHome}/clamav/freshclam.log
-    LogTime yes
-    DatabaseMirror database.clamav.net
-    DatabaseMirror db.local.clamav.net
-  '';
-
   # Config fastfetch
   home.file.".config/fastfetch/config.jsonc".source =
     "${pkgs.fastfetch}/share/fastfetch/presets/examples/7.jsonc";
