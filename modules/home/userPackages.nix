@@ -50,6 +50,7 @@
     defuddle # HTML->markdown CLI, runtime cho obsidian-skills/defuddle
     chromium
     rclone
+    clamav # antivirus: clamscan (quét một lần) + freshclam (cập nhật DB)
     libreoffice # office suite: native Wayland, binary cache, docx/xlsx/odt
     codex # OpenAI Codex CLI — nixpkgs co san trong binary cache (fetch 146MB, khong build source)
     poppler-utils # pdftotext/pdfinfo
@@ -60,6 +61,18 @@
     gcc # C/C++ compiler (cc = gcc)
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
+
+  # NixOS khong co /etc/clamav/*.conf (freshclam hardcode path do, parse fail),
+  # nên cap config rieng. Datadir o XDG dataHome, freshclam tu tai DB ve day.
+  # KHONG dat "NotifyClamd no" — freshclam parse nham "no" thanh ten file
+  # va error. Mac dinh (khai bao clamd) thi khong loi.
+  home.file.".config/clamav/freshclam.conf".text = ''
+    DatabaseDirectory ${config.xdg.dataHome}/clamav
+    UpdateLogFile ${config.xdg.dataHome}/clamav/freshclam.log
+    LogTime yes
+    DatabaseMirror database.clamav.net
+    DatabaseMirror db.local.clamav.net
+  '';
 
   # Config fastfetch
   home.file.".config/fastfetch/config.jsonc".source =
