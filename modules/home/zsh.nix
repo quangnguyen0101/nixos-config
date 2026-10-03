@@ -53,6 +53,16 @@
         rmpc
       }
 
+      # Quét virus: tự cập nhật DB trước, rồi quét. DB path đọc từ
+      # /etc/clamav/freshclam.conf nên không cần -d.
+      # `command` để không tự gọi lại chính function này.
+      # freshclam lỗi (mất mạng) vẫn quét bằng DB cũ, và exit code là
+      # của clamscan: 0 sạch, 1 có virus, 2 lỗi.
+      clamscan() {
+        freshclam --quiet
+        command clamscan "$@"
+      }
+
       # Icon ⚡ bên phải prompt khi keep-awake đang giữ máy
       _keep_awake_prompt() {
         if systemctl --user is-active --quiet keep-awake 2>/dev/null; then
