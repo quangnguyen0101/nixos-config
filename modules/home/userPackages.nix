@@ -52,6 +52,9 @@
     rclone
     clamav # antivirus: clamscan (quét một lần) + freshclam (cập nhật DB)
     libreoffice # office suite: native Wayland, binary cache, docx/xlsx/odt
+    blender # 3D modeler/renderer + video sequence editor
+    meshlab # mesh processing/cleaning
+    f3d # fast 3D model viewer (STL/OBJ/glTF/USD...)
     codex # OpenAI Codex CLI — nixpkgs co san trong binary cache (fetch 146MB, khong build source)
     poppler-utils # pdftotext/pdfinfo
     (pkgs.tesseract5.override { enableLanguages = [ "eng" "vie" ]; }) # OCR eng+vie, fallback cho vision
