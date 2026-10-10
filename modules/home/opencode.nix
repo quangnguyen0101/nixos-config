@@ -46,6 +46,10 @@ in
     extraPackages = [ pkgs.nixd ]; # LSP server cho .nix (còn lại opencode tự cài)
 
     settings = {
+      # Default model: can cho headless `opencode run` (ouroboros adapter spawn CLI
+      # khong kem --model) de khong roi vao embed model. Format provider/model.
+      model = "ollama/gpt-oss:120b-cloud";
+
       lsp = true;
 
       # Shell non-interactive strategy (vendored tu JRedeker/opencode-shell-strategy).
