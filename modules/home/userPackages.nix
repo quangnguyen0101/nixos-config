@@ -60,6 +60,7 @@
     (pkgs.tesseract5.override { enableLanguages = [ "eng" "vie" ]; }) # OCR eng+vie, fallback cho vision
     impression
     drawio # ERD/Chen diagrams, UML
+    imagemagick # CLI convert/magick — xử lý ảnh, webp/gif, contact sheet
     cmake # C/C++ build system
     gcc # C/C++ compiler (cc = gcc)
     (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI

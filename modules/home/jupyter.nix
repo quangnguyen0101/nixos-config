@@ -28,6 +28,7 @@ let
     p.mutagen
     p.matplotlib
     p.tkinter # GUI backend matplotlib (TkAgg) — tk.
+    p.pillow # image processing (PIL)
     p.scipy
     p.scikit-learn
     p.jinja2 # latex-document-skill mail_merge.py (deps python duoc cung cap boi env python duy nhat nay)
