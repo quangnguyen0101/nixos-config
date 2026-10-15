@@ -37,6 +37,8 @@ let
     p.python-docx # docx read/write
     p.openpyxl # xlsx read/write
     p.python-pptx # pptx read/write
+    p.kokoro # TTS local (hexgrad/Kokoro-82M) — skill manim-skill voiceover + project khac
+    p.soundfile # ghi wav/mp3 cho kokoro / manim-skill
   ]);
 in
 {
@@ -52,6 +54,12 @@ in
   # Numpy/pandas wheels (manylinux) build bằng GCC cần libstdc++ & zlib từ nix
   # store; NixOS không có /usr/lib nên phải chỉ LD_LIBRARY_PATH thủ công.
   home.sessionVariables.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib:${pkgs.zlib.out}/lib";
+
+  # Prepends jupyterEnv/bin lên trước PATH kế thừa từ GUI session: `python`/`python3`/
+  # `manim`/`jupyter` toàn cục resolve về env python DUY NHẤT (numpy/manim/kokoro...)
+  # thay vì python trần trong biglist PATH của session. HM sinh dòng prepend trong
+  # hm-session-vars.sh (được .zshenv/.zprofile source).
+  home.sessionPath = [ "${jupyterEnv}/bin" ];
 
   systemd.user.services.jupyterlab = {
     Unit = {
