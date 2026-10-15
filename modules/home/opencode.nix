@@ -38,6 +38,14 @@ in
     ".config/opencode/skills/obsidian-bases".source = ./../../pkgs/opencode/skills/obsidian-bases;
     ".config/opencode/skills/obsidian-cli".source = ./../../pkgs/opencode/skills/obsidian-cli;
     ".config/opencode/skills/obsidian-markdown".source = ./../../pkgs/opencode/skills/obsidian-markdown;
+    # Manim skills (vendored): adithya-s-k/manim_skill (MIT) — manim-composer (lap
+    # ke hoach video) + manimce-best-practices (24 rule + example + template, thuan
+    # markdown, khong dep). Yusuke710/manim-skill (MIT) — workflow render + TTS
+    # voiceover; tools/ goi `python` can kokoro+soundfile (co trong jupyterEnv).
+    ".config/opencode/skills/manim-composer".source = ./../../pkgs/opencode/skills/manim-composer;
+    ".config/opencode/skills/manimce-best-practices".source =
+      ./../../pkgs/opencode/skills/manimce-best-practices;
+    ".config/opencode/skills/manim-skill".source = ./../../pkgs/opencode/skills/manim-skill;
   };
 
   programs.opencode = {
