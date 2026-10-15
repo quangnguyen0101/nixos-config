@@ -61,7 +61,7 @@ DESC_MAP = {
     "latex-document-skill": "Compile LaTeX → PDF + preview PNG, 28 template + CV ATS, chart/mermaid/graphviz, mail-merge, fill/extract PDF",
     "manim-composer": "Lập kế hoạch scene-by-scene cho video Manim (ra `scenes.md`) trước khi viết code",
     "manimce-best-practices": "Best practices ManimCE: 24 rule + example + template (Scene, MathTex, 3D, camera, …)",
-    "manim-skill": "Render video ManimCE + TTS voiceover (Kokoro local) + subtitle đồng bộ; tools gọi `python` (kokoro/soundfile nằm trong `jupyterEnv`)",
+    "manim-skill": "Render video ManimCE + TTS voiceover (Kokoro local, hoặc `edge-tts` online) + subtitle đồng bộ; tools gọi `python` (kokoro/soundfile/edge-tts nằm trong `jupyterEnv`)",
     "defuddle": "Trích Markdown sạch từ trang HTML",
     "json-canvas": "Tạo/sửa file `.canvas` (node / edge / group)",
     "knap": "Render Markdown từ template + data (JSON/CSV)",

@@ -42,7 +42,8 @@ Script phụ: `scripts/check-update.mjs`, `scripts/render-examples.mjs`, `delta/
 ### manim-skill
 
 ```bash
-python "<TOOLS_DIR>/tts-generate.py"   --narration narration.txt   # TTS Kokoro local + subtitle
+python "<TOOLS_DIR>/tts-generate.py" --narration narration.txt   # TTS Kokoro local (default) + subtitle
+python "<TOOLS_DIR>/tts-generate.py" --narration narration.txt --engine edge-tts --voice vi-VN-HoaiMyNeural   # TTS online (cần mạng)
 python "<TOOLS_DIR>/lint-subtitles.py" script.py
 python3 <TOOLS_DIR>/video_viewer.py    video.mp4 --order concat.txt --script script.py
 manim script.py Scene1 Scene2 ...

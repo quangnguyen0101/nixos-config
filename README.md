@@ -140,7 +140,7 @@ Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.
 | `latex-document-skill` | vendored `ndpvt-web/latex-document-skill` (MIT) | Compile LaTeX → PDF + preview PNG, 28 template + CV ATS, chart/mermaid/graphviz, mail-merge, fill/extract PDF |
 | `manim-composer` | vendored `adithya-s-k/manim_skill` (MIT) | Lập kế hoạch scene-by-scene cho video Manim (ra `scenes.md`) trước khi viết code |
 | `manimce-best-practices` | vendored `adithya-s-k/manim_skill` (MIT) | Best practices ManimCE: 24 rule + example + template (Scene, MathTex, 3D, camera, …) |
-| `manim-skill` | vendored `Yusuke710/manim-skill` (MIT) | Render video ManimCE + TTS voiceover (Kokoro local) + subtitle đồng bộ; tools gọi `python` (kokoro/soundfile nằm trong `jupyterEnv`) |
+| `manim-skill` | vendored `Yusuke710/manim-skill` (MIT) | Render video ManimCE + TTS voiceover (Kokoro local, hoặc `edge-tts` online) + subtitle đồng bộ; tools gọi `python` (kokoro/soundfile/edge-tts nằm trong `jupyterEnv`) |
 | `defuddle` | vendored `kepano/obsidian-skills` (MIT) | Trích Markdown sạch từ trang HTML |
 | `json-canvas` | vendored `kepano/obsidian-skills` (MIT) | Tạo/sửa file `.canvas` (node / edge / group) |
 | `knap` | vendored `kepano/obsidian-skills` (MIT) | Render Markdown từ template + data (JSON/CSV) |
