@@ -56,7 +56,11 @@ subtitles:
 python "<TOOLS_DIR>/tts-generate.py" --narration narration.txt
 ```
 
-Local Kokoro voice `af_heart` by default; `--voice <name>` (e.g. `am_adam`, `bf_emma`) for another. Unchanged lines are served from `.tts-cache/`.
+Two engines (default `kokoro`):
+- `--engine kokoro` — local, offline (`hexgrad/Kokoro-82M`). Voice `af_heart` by default; `--voice <name>` (e.g. `am_adam`, `bf_emma`).
+- `--engine edge-tts` — online (Microsoft Edge voices, needs the `edge-tts` binary). `--voice <name>` (e.g. `en-US-AriaNeural`, `vi-VN-HoaiMyNeural`). No local model; each line is fetched over the network.
+
+Unchanged lines are served from `.tts-cache/` (keyed by engine + voice, so switching engines does not collide).
 
 Produces `voiceover.mp3` and `timestamps.json`. The run prints how many clips it found — confirm it matches your narration line count (a mismatch means the block didn't parse; fix the format in `narration.txt`). **Read `timestamps.json` before writing code** — each `duration_s` is the exact time budget for that subtitle's segment.
 

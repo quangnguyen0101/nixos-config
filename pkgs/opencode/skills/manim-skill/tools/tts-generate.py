@@ -1,19 +1,26 @@
 #!/usr/bin/env python3
 """
-TTS generator for the Manim voiceover pipeline (Kokoro, local).
+TTS generator for the Manim voiceover pipeline (Kokoro local, or edge-tts online).
 
-Reads the SubtitleSpec from narration.txt, synthesizes one MP3 per subtitle with
-Kokoro, measures exact durations with ffprobe, concatenates them into
-voiceover.mp3, and writes per-subtitle timings to timestamps.json.
+Reads the SubtitleSpec from narration.txt, synthesizes one MP3 per subtitle,
+measures exact durations with ffprobe, concatenates them into voiceover.mp3, and
+writes per-subtitle timings to timestamps.json.
 
-    python tts-generate.py --narration narration.txt            # default voice af_heart
-    python tts-generate.py --narration narration.txt --voice am_adam
-    python tts-generate.py --narration narration.txt --bust 2   # drop one cached clip, then exit
+    python tts-generate.py --narration narration.txt                     # Kokoro, af_heart
+    python tts-generate.py --narration narration.txt --voice am_adam      # Kokoro voice
+    python tts-generate.py --narration narration.txt --engine edge-tts --voice vi-VN-HoaiMyNeural
+    python tts-generate.py --narration narration.txt --bust 2            # drop one cached clip, exit
 
-Per-line audio is cached in .tts-cache/, so re-runs only regenerate changed
-lines. The Kokoro model is loaded once per run (in-process); if every line is a
-cache hit it is not loaded at all. Requires ffmpeg/ffprobe and:
-    uv add "kokoro>=0.9.4" soundfile
+Engines:
+  - kokoro   : local, offline (hexgrad/Kokoro-82M). Needs kokoro + soundfile.
+  - edge-tts : online (Microsoft Edge voices). Needs the `edge-tts` binary on PATH.
+
+Per-line audio is cached in .tts-cache/ (keyed by engine + voice), so re-runs
+only regenerate changed lines. The Kokoro model is loaded once per run
+(in-process); if every line is a cache hit it is not loaded at all.
+Requires ffmpeg/ffprobe and, per engine:
+    uv add "kokoro>=0.9.4" soundfile     # kokoro
+    pip install edge-tts                 # edge-tts
 """
 
 import argparse
@@ -21,22 +28,25 @@ import hashlib
 import json
 import os
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
 import time
 from pathlib import Path
 
-DEFAULT_VOICE = "af_heart"
+DEFAULT_VOICES = {"kokoro": "af_heart", "edge-tts": "en-US-AriaNeural"}
 KOKORO_MODEL_ID = "hexgrad/Kokoro-82M"
 KOKORO_LANG_CODES = {"a", "b", "e", "f", "h", "i", "j", "p", "z"}
 CACHE_DIR = Path(".tts-cache")
 _PIPELINES = {}
 
 
-def cache_path(text: str, voice_id: str, cache_dir: Path = CACHE_DIR) -> Path:
-    obj = {"model_id": KOKORO_MODEL_ID, "text": text, "voice_id": voice_id,
-           "speed": os.environ.get("KOKORO_SPEED", "1")}
+def cache_path(text: str, voice_id: str, engine: str = "kokoro", cache_dir: Path = CACHE_DIR) -> Path:
+    obj = {"engine": engine, "text": text, "voice_id": voice_id}
+    if engine == "kokoro":
+        obj["model_id"] = KOKORO_MODEL_ID
+        obj["speed"] = os.environ.get("KOKORO_SPEED", "1")
     key = hashlib.sha256(json.dumps(obj, sort_keys=True, separators=(",", ":")).encode()).hexdigest()
     return cache_dir / f"{key}.mp3"
 
@@ -104,7 +114,26 @@ def write_mp3(audio_chunks, out_path: Path) -> None:
             os.unlink(wav_path)
 
 
-def synthesize(items: list[tuple[int, str, Path]], voice_id: str) -> dict[int, str]:
+def synthesize_edge_tts(items: list[tuple[int, str, Path]], voice_id: str) -> dict[int, str]:
+    """Synthesize each (index, text, out_path) via the edge-tts CLI (online)."""
+    if not items:
+        return {}
+    if shutil.which("edge-tts") is None:
+        raise RuntimeError("edge-tts binary not found. Install it with: pip install edge-tts")
+    paths = {}
+    for index, text, out_path in items:
+        out_path.parent.mkdir(parents=True, exist_ok=True)
+        result = subprocess.run(
+            ["edge-tts", "--voice", voice_id, "--text", text, "--write-media", str(out_path)],
+            capture_output=True, text=True,
+        )
+        if result.returncode != 0:
+            raise RuntimeError(f"edge-tts failed for {text!r}: {result.stderr.strip()[-300:]}")
+        paths[index] = str(out_path)
+    return paths
+
+
+def synthesize_kokoro(items: list[tuple[int, str, Path]], voice_id: str) -> dict[int, str]:
     """Synthesize each (index, text, out_path) with a single shared pipeline pass."""
     if not items:
         return {}
@@ -120,6 +149,12 @@ def synthesize(items: list[tuple[int, str, Path]], voice_id: str) -> dict[int, s
         write_mp3(audio_by_pos[pos], out_path)
         paths[index] = str(out_path)
     return paths
+
+
+def synthesize(items: list[tuple[int, str, Path]], voice_id: str, engine: str = "kokoro") -> dict[int, str]:
+    if engine == "edge-tts":
+        return synthesize_edge_tts(items, voice_id)
+    return synthesize_kokoro(items, voice_id)
 
 
 def ffprobe_duration(mp3_path: str) -> float:
@@ -149,7 +184,7 @@ def concat_mp3s(parts: list[str], out_path: str) -> None:
     )
 
 
-def bust_cache(subtitles: list[str], target_arg: str, voice_id: str) -> None:
+def bust_cache(subtitles: list[str], target_arg: str, voice_id: str, engine: str) -> None:
     try:
         target = subtitles[int(target_arg)]
     except (ValueError, IndexError):
@@ -157,7 +192,7 @@ def bust_cache(subtitles: list[str], target_arg: str, voice_id: str) -> None:
         if not matches:
             sys.exit(f"Error: no subtitle matching {target_arg!r}")
         target = matches[0]
-    cp = cache_path(target, voice_id)
+    cp = cache_path(target, voice_id, engine)
     if cp.exists():
         cp.unlink()
         print(f"Busted cache for: {target!r}")
@@ -166,29 +201,33 @@ def bust_cache(subtitles: list[str], target_arg: str, voice_id: str) -> None:
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Generate Kokoro TTS voiceover from narration.txt SubtitleSpec")
+    parser = argparse.ArgumentParser(description="Generate TTS voiceover from narration.txt SubtitleSpec (Kokoro or edge-tts)")
     parser.add_argument("--narration", "--plan", dest="narration", default="narration.txt",
                         help="Spoken-line input (default: narration.txt; --plan is a compatibility alias)")
-    parser.add_argument("--voice", default=DEFAULT_VOICE, help="Kokoro voice name (default: af_heart)")
+    parser.add_argument("--engine", choices=["kokoro", "edge-tts"], default="kokoro",
+                        help="TTS engine (default: kokoro)")
+    parser.add_argument("--voice", default=None,
+                        help="Voice name (kokoro: af_heart; edge-tts: en-US-AriaNeural)")
     parser.add_argument("--out-audio", default="voiceover.mp3")
     parser.add_argument("--out-timestamps", default="timestamps.json")
     parser.add_argument("--bust", metavar="INDEX_OR_TEXT",
                         help="Drop the cached clip for a subtitle by 0-based index or text match, then exit")
     args = parser.parse_args()
 
-    voice_id = args.voice
+    engine = args.engine
+    voice_id = args.voice or DEFAULT_VOICES[engine]
     subtitles = parse_subtitles(args.narration)
 
     if args.bust is not None:
-        bust_cache(subtitles, args.bust, voice_id)
+        bust_cache(subtitles, args.bust, voice_id, engine)
         return
 
-    print(f"Found {len(subtitles)} subtitle(s). Voice: {voice_id}. Generating TTS...")
+    print(f"Found {len(subtitles)} subtitle(s). Engine: {engine}. Voice: {voice_id}. Generating TTS...")
     parts = [""] * len(subtitles)
     missing: list[tuple[int, str, Path]] = []
     hits = 0
     for i, text in enumerate(subtitles):
-        cached = cache_path(text, voice_id)
+        cached = cache_path(text, voice_id, engine)
         if cached.exists():
             parts[i] = str(cached)
             hits += 1
@@ -197,7 +236,7 @@ def main() -> None:
             missing.append((i, text, cached))
 
     started = time.perf_counter()
-    for idx, path in synthesize(missing, voice_id).items():
+    for idx, path in synthesize(missing, voice_id, engine).items():
         parts[idx] = path
         print(f"  [{idx}] done")
     print(f"  {hits} cached, {len(missing)} generated in {time.perf_counter() - started:.1f}s")

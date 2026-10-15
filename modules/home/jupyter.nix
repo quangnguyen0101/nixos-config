@@ -39,6 +39,7 @@ let
     p.python-pptx # pptx read/write
     p.kokoro # TTS local (hexgrad/Kokoro-82M) — skill manim-skill voiceover + project khac
     p.soundfile # ghi wav/mp3 cho kokoro / manim-skill
+    p.edge-tts # TTS online (Microsoft Edge voices) — engine thay the cho manim-skill voiceover
   ]);
 in
 {
