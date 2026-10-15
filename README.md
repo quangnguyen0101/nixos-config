@@ -12,6 +12,7 @@
 - [`docs/USAGE.md`](docs/USAGE.md) — cheatsheet cách dùng từng công cụ hằng ngày (update, tmux, keep-awake, brt, rmpc, autoskills, …)
 - [`docs/INVENTORY.md`](docs/INVENTORY.md) — trạng thái từng module (đang chạy / đã tắt) + cách bật/tắt, đỡ cài phí không dùng
 - [`docs/tools/_index.md`](docs/tools/_index.md) — **Map of Content**: 1 note/tool click-nhảy (9 MCP servers + autoskills, keep-awake, brt, rmpc)
+- [`docs/SKILLS.md`](docs/SKILLS.md) — danh sách **lệnh cụ thể** của từng skill opencode (archify, manim, latex, obsidian-cli, …)
 
 ## 🗂️ Cấu trúc dự án
 
@@ -24,7 +25,7 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
     ├─ modules/system/                # Các module NixOS tái sử dụng
     ├─ modules/home/ → home/          # Home Manager – cấu hình người dùng
     ├─ pkgs/                          # Package & asset tùy chỉnh (opencode skills, openviking, ouroboros, ponytail)
-    ├─ docs/                          # Tài liệu (USAGE, INVENTORY, sơ đồ kiến trúc, note từng tool)
+    ├─ docs/                          # Tài liệu (USAGE, INVENTORY, SKILLS, sơ đồ kiến trúc, note từng tool)
     └─ (Secure Boot)                  # lanzaboote bật trực tiếp trong flake.nix, không có module riêng
 ```
 
@@ -152,7 +153,7 @@ Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.
 
 **Instructions**: `shell-strategy` (`pkgs/opencode/shell_strategy.md` → `~/.config/opencode/shell_strategy.md`, vendored JRedeker/opencode-shell-strategy) — shell non-interactive: fail-fast `sudo -n`, cấm pager/editor, tránh treo TTY.
 
-**CLI liên quan**: `autoskills` (`modules/home/autoskills.nix` → `pkgs.autoskills`, CC-BY-NC-4.0) — cài skill AI vào `.agents/skills/` theo từng project (xem `docs/USAGE.md`).
+**CLI liên quan**: `autoskills` (`modules/home/autoskills.nix` → `pkgs.autoskills`, CC-BY-NC-4.0) — cài skill AI vào `.agents/skills/` theo từng project (xem `docs/USAGE.md`). Lệnh cụ thể của từng skill: [`docs/SKILLS.md`](docs/SKILLS.md).
 
 **Plugins** (khai báo trong `opencode.nix`): `ouroboros-bridge.ts` (dispatch subagent của MCP ouroboros ra Task pane) và **ponytail** (vendored `DietrichGebert/ponytail`, MIT — chế độ "lazy senior dev", inject ruleset vào system prompt mỗi turn).
 
