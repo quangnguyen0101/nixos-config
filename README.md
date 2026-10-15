@@ -62,7 +62,7 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | `ghostty.nix` | Terminal GPU-accelerated Ghostty, theme Catppuccin |
 | `firefox.nix` | Firefox — tinh chỉnh giảm RAM (giới hạn content-process, unload tab nền), tắt telemetry |
 | `caelestia.nix` | Caelestia shell (Wayland Hyprland shell) |
-| `opencode.nix` | Opencode declarative + Ollama AI stack (systemd-user) + 9 MCP servers + 10 global skills |
+| `opencode.nix` | Opencode declarative + Ollama AI stack (systemd-user) + 9 MCP servers + 13 global skills |
 | `llm-agents.nix` | Agent từ `numtide/llm-agents.nix` — OpenCode desktop GUI, `freebuff` CLI; OpenCode TUI dùng CLI ở đây |
 | `jupyter.nix` | Python 3.14 unified env (JupyterLab + scripting/libs: pip, requests, mutagen, matplotlib) — kernel cho MCP `jupyter` |
 | `openviking-server.nix` | OpenViking context database server + CLI (systemd-user) |
@@ -124,22 +124,39 @@ Khai báo trong `modules/home/opencode.nix`. Provider mặc định là Ollama (
 
 Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.cc.cc.lib` (greenlet/biopython trên NixOS cần libstdc++) — cấu hình trong `opencode.nix`. Jupyter MCP server kết nối tới JupyterLab đang chạy nền (`systemctl --user status jupyterlab`).
 
-#### Skills & instructions
+#### Skills
 
-| Item | Vị trí | Mô tả |
-|------|--------|-------|
-| `data-science` skill | `pkgs/opencode/skills/data-science/` → `~/.config/opencode/skills/` | Workflow data science chuẩn: notebook trên Jupyter MCP, compute server-side, Postgres/Docker, tra cứu arXiv, xuất plot + BibTeX |
-| `archify` skill | `pkgs/opencode/skills/archify/` → `~/.config/opencode/skills/` | (vendored `tt-a1i/archify`, MIT) Render mô hình hệ thống dạng HTML/SVG tương tác từ JSON IR — `archify`, `workflow`, `sequence`, `dataflow`, `lifecycle`. Cần `node >=18` (có sẵn trên hệ thống). Cắt `test/` + `examples/*.html` |
-| `guizang-ppt-skill` | `pkgs/opencode/skills/guizang-ppt-skill/` | (vendored `op7418/guizang-ppt-skill`, AGPLv3) PPT HTML 1-file dạng swipe ngang + image prompt + cover mạng xã hội |
-| `latex-document-skill` | `pkgs/opencode/skills/latex-document-skill/` | (vendored `ndpvt-web/latex-document-skill`, MIT) Compile LaTeX → PDF + preview PNG, 28 template + CV ATS, chart/mermaid/graphviz, mail-merge, fill/extract PDF |
-| `obsidian-skills` (6) | `pkgs/opencode/skills/{defuddle,json-canvas,knap,obsidian-bases,obsidian-cli,obsidian-markdown}` | (vendored `kepano/obsidian-skills`, MIT) Đọc HTML→markdown, `.canvas`, template Markdown, `.base`, CLI vault, Obsidian Markdown |
-| `nixos-config` skill | `.opencode/skills/nixos-config/` | Repo-scope: rebuild/check, nixfmt, module layout, secrets, tích hợp opencode |
-| `autoskills` CLI | `modules/home/autoskills.nix` → `pkgs.autoskills` | Cài skill vào `.agents/skills/` per-project — chạy `autoskills` trong root project (xem `docs/USAGE.md`) |
-| `shell-strategy` instructions | `pkgs/opencode/shell_strategy.md` → `~/.config/opencode/shell_strategy.md` | Vendored từ JRedeker/opencode-shell-strategy — shell non-interactive: fail-fast `sudo -n`, cấm pager/editor, no TTY hang |
+**Global skills** — symlink từ `pkgs/opencode/skills/` ra `~/.config/opencode/skills/`:
+
+> Bảng dưới **sinh tự động** từ frontmatter `SKILL.md` — sửa bằng `python3 scripts/gen-skills-table.py` (đừng sửa tay; `--check` để phát hiện lệch).
+
+<!-- BEGIN SKILLS-TABLE -->
+| Skill | Nguồn | Mô tả |
+|-------|-------|-------|
+| `data-science` | repo | Workflow data science: notebook trên Jupyter MCP, compute server-side, Postgres/Docker, tra cứu arXiv, xuất plot + BibTeX |
+| `archify` | vendored `tt-a1i/archify` (MIT) | Render mô hình hệ thống (architecture/workflow/sequence/dataflow/lifecycle) → HTML/SVG tương tác từ JSON IR; cần `node >=18` |
+| `guizang-ppt-skill` | vendored `op7418/guizang-ppt-skill` (AGPLv3) | Web PPT 1-file dạng swipe ngang (2 style: *Magazine x E-Ink* / *Swiss*) + image prompt + cover mạng xã hội |
+| `latex-document-skill` | vendored `ndpvt-web/latex-document-skill` (MIT) | Compile LaTeX → PDF + preview PNG, 28 template + CV ATS, chart/mermaid/graphviz, mail-merge, fill/extract PDF |
+| `manim-composer` | vendored `adithya-s-k/manim_skill` (MIT) | Lập kế hoạch scene-by-scene cho video Manim (ra `scenes.md`) trước khi viết code |
+| `manimce-best-practices` | vendored `adithya-s-k/manim_skill` (MIT) | Best practices ManimCE: 24 rule + example + template (Scene, MathTex, 3D, camera, …) |
+| `manim-skill` | vendored `Yusuke710/manim-skill` (MIT) | Render video ManimCE + TTS voiceover (Kokoro local) + subtitle đồng bộ; tools gọi `python` (kokoro/soundfile nằm trong `jupyterEnv`) |
+| `defuddle` | vendored `kepano/obsidian-skills` (MIT) | Trích Markdown sạch từ trang HTML |
+| `json-canvas` | vendored `kepano/obsidian-skills` (MIT) | Tạo/sửa file `.canvas` (node / edge / group) |
+| `knap` | vendored `kepano/obsidian-skills` (MIT) | Render Markdown từ template + data (JSON/CSV) |
+| `obsidian-bases` | vendored `kepano/obsidian-skills` (MIT) | Tạo/sửa file `.base` (view / filter / formula) |
+| `obsidian-cli` | vendored `kepano/obsidian-skills` (MIT) | Thao tác vault Obsidian qua CLI (đọc/tạo/search note, plugin & theme dev) |
+| `obsidian-markdown` | vendored `kepano/obsidian-skills` (MIT) | Obsidian Flavored Markdown (wikilink, callout, embed, frontmatter) |
+<!-- END SKILLS-TABLE -->
+
+**Repo-scope skill**: `nixos-config` (`.opencode/skills/nixos-config/`) — rebuild/check, module layout, secrets, tích hợp opencode; chỉ active khi làm việc trong repo này.
+
+**Instructions**: `shell-strategy` (`pkgs/opencode/shell_strategy.md` → `~/.config/opencode/shell_strategy.md`, vendored JRedeker/opencode-shell-strategy) — shell non-interactive: fail-fast `sudo -n`, cấm pager/editor, tránh treo TTY.
+
+**CLI liên quan**: `autoskills` (`modules/home/autoskills.nix` → `pkgs.autoskills`, CC-BY-NC-4.0) — cài skill AI vào `.agents/skills/` theo từng project (xem `docs/USAGE.md`).
 
 **Plugins** (khai báo trong `opencode.nix`): `ouroboros-bridge.ts` (dispatch subagent của MCP ouroboros ra Task pane) và **ponytail** (vendored `DietrichGebert/ponytail`, MIT — chế độ "lazy senior dev", inject ruleset vào system prompt mỗi turn).
 
-Config/skills chỉ có hiệu lực sau khi **thoát & mở lại opencode** (không hot-reload).
+Config/skills/plugins chỉ có hiệu lực sau khi **thoát & mở lại opencode** (không hot-reload).
 
 #### Sơ đồ kiến trúc
 
