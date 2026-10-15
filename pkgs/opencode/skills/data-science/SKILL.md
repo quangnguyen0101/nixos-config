@@ -1,6 +1,7 @@
 ---
 name: data-science
-description: Use when the user asks for data analysis, notebooks, pandas/numpy/scipy computations, machine learning, data visualization, ETL, or anything running Python against datasets. Covers the full workflow: creating an analysis notebook on the Jupyter MCP server, computing server-side, exploring data via the Postgres MCP, looking up literature on arXiv, and producing reproducible plots and artifacts.
+description: >-
+  Use when the user asks for data analysis, notebooks, pandas/numpy/scipy computations, machine learning, data visualization, ETL, or anything running Python against datasets. Covers the full workflow: creating an analysis notebook on the Jupyter MCP server, computing server-side, exploring data via the Postgres MCP, looking up literature on arXiv, and producing reproducible plots and artifacts.
 license: MIT
 compatibility:
   - opencode

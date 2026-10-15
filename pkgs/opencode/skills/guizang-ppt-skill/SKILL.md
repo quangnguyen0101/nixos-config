@@ -1,6 +1,7 @@
 ---
 name: guizang-ppt-skill
-description: Generate horizontal flip-page web PPTs (a single self-contained HTML file) with WebGL backgrounds, presenter view, audience screen sync, speaker notes, chapter dividers, data heroes, image grids and more. Two visual styles: (1) "Editorial Magazine x E-Ink" (serif + fluid background + warm palette) (2) "Swiss International" (sans-serif + grid/dot-matrix + IKB/Lemon Yellow/Lemon Green/Safety Orange accents). Use when the user wants a share / talk / launch-style web PPT, or mentions "magazine-style PPT", "Swiss-style PPT", "Swiss Style", or "horizontal swipe deck".
+description: >-
+  Generate horizontal flip-page web PPTs (a single self-contained HTML file) with WebGL backgrounds, presenter view, audience screen sync, speaker notes, chapter dividers, data heroes, image grids and more. Two visual styles: (1) "Editorial Magazine x E-Ink" (serif + fluid background + warm palette) (2) "Swiss International" (sans-serif + grid/dot-matrix + IKB/Lemon Yellow/Lemon Green/Safety Orange accents). Use when the user wants a share / talk / launch-style web PPT, or mentions "magazine-style PPT", "Swiss-style PPT", "Swiss Style", or "horizontal swipe deck".
 ---
 
 # Magazine Web Ppt
