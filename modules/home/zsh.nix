@@ -18,7 +18,9 @@
 
     oh-my-zsh = {
       enable = true;
-      theme = "robbyrussell";
+      # Prompt do oh-my-posh lo; theme rỗng = OMZ không load theme nào
+      # (oh-my-zsh.sh chỉ source theme khi ZSH_THEME khác rỗng).
+      theme = "";
       plugins = [
         "git"
         "sudo"
@@ -62,16 +64,15 @@
         freshclam
         clamscan "$@"
       }
-
-      # Icon ⚡ bên phải prompt khi keep-awake đang giữ máy
-      _keep_awake_prompt() {
-        if systemctl --user is-active --quiet keep-awake 2>/dev/null; then
-          RPROMPT='%F{green}⚡%f'
-        else
-          RPROMPT=
-        fi
-      }
-      precmd_functions+=(_keep_awake_prompt)
     '';
+  };
+
+  # Prompt kiểu atomic (oh-my-posh), đổi màu sang Catppuccin Frappe cho khớp
+  # Ghostty. Chỉ báo keep-awake ⚡ nằm trong theme (segment command), không
+  # dùng RPROMPT nữa để khỏi đè right-block của oh-my-posh.
+  programs.oh-my-posh = {
+    enable = true;
+    enableZshIntegration = true;
+    configFile = ./oh-my-posh/frappe.omp.json;
   };
 }
