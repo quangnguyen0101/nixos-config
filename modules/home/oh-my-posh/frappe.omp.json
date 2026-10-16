@@ -237,19 +237,9 @@
             "time_format": "15:04"
           },
           "style": "diamond",
-          "template": " \uf073 {{ .CurrentDate | date .Format }} ",
+          "template": " \uf073 {{ .CurrentDate | date .Format }}{{ if .Env.KEEP_AWAKE }} <#232634>\u26a1</>{{ end }} ",
           "trailing_diamond": "\ue0b4",
           "type": "time"
-        },
-        {
-          "foreground": "#a6d189",
-          "style": "plain",
-          "template": "{{ .Output }}",
-          "options": {
-            "shell": "zsh",
-            "command": "systemctl --user is-active --quiet keep-awake 2>/dev/null && printf '\u26a1' || true"
-          },
-          "type": "command"
         }
       ],
       "type": "prompt"

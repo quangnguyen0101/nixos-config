@@ -64,6 +64,19 @@
         freshclam
         clamscan "$@"
       }
+
+      # ⚡ báo keep-awake đang giữ máy. oh-my-posh đọc biến này bằng .Env.KEEP_AWAKE
+      # trong template của segment time (nằm chung pill với giờ). Hook khai ở
+      # initContent nên chạy trước hook render của oh-my-posh (dòng eval nằm sau)
+      # → không trễ một prompt. Không dùng RPROMPT vì sẽ đè mất right-block.
+      _keep_awake() {
+        if systemctl --user is-active --quiet keep-awake 2>/dev/null; then
+          export KEEP_AWAKE=1
+        else
+          unset KEEP_AWAKE
+        fi
+      }
+      precmd_functions+=(_keep_awake)
     '';
   };
 
