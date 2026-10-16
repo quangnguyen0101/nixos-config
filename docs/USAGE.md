@@ -36,9 +36,9 @@ tags: [nixos, cheatsheet, docs]
 | Nghe nhạc | `rmpc` / `rmpc update` / `ru` | [[rmpc]] |
 | Gắn skill AI lên project | `cd <project> && autoskills` | [[autoskills]] |
 
-## AI stack — 8 MCP servers
+## AI stack — 9 MCP servers
 
-Danh sách + cách dùng từng server: xem **[[_index]]** (hoặc từng note):
+Danh sách + cách dùng từng server: xem **[[_index]]**; bảng đầy đủ + wiring/bật-tắt: **[[MCP]]** (hoặc từng note):
 
 | MCP | Khi nào dùng | Note |
 |-----|--------------|------|
@@ -50,6 +50,7 @@ Danh sách + cách dùng từng server: xem **[[_index]]** (hoặc từng note):
 | [[openviking]] | Long-term memory, virtual FS `viking://` | cũng có CLI `ov` |
 | [[ouroboros]] | Task end-to-end: interview→seed→execute | theo dõi bằng job_status/job_wait |
 | [[postgres]] | SQL data science trên `postgres-ds` | DS nằm ở /data/postgres |
+| [[vision]] | OCR / mô tả ảnh | PaddleOCR local, Gemini free fallback |
 
 ## Terminal / Editor
 

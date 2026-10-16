@@ -12,6 +12,7 @@
 - [`docs/USAGE.md`](docs/USAGE.md) — cheatsheet cách dùng từng công cụ hằng ngày (update, tmux, keep-awake, brt, rmpc, autoskills, …)
 - [`docs/INVENTORY.md`](docs/INVENTORY.md) — trạng thái từng module (đang chạy / đã tắt) + cách bật/tắt, đỡ cài phí không dùng
 - [`docs/tools/_index.md`](docs/tools/_index.md) — **Map of Content**: 1 note/tool click-nhảy (9 MCP servers + autoskills, keep-awake, brt, rmpc)
+- [`docs/MCP.md`](docs/MCP.md) — 9 MCP server: bảng đầy đủ (transport, lệnh chạy), wiring chung + cách bật/tắt
 - [`docs/SKILLS.md`](docs/SKILLS.md) — danh sách **lệnh cụ thể** của từng skill opencode (archify, manim, latex, obsidian-cli, …)
 
 ## 🗂️ Cấu trúc dự án
@@ -110,6 +111,8 @@ Lệnh này đọc `flake.nix`, biên dịch lại toàn bộ hệ thống và H
 Khai báo trong `modules/home/opencode.nix`. Provider mặc định là Ollama (`http://localhost:11434/v1`), model mặc định `ollama/gpt-oss:120b-cloud` (bắt buộc cho headless `opencode run`). Ngoài Ollama còn dùng được các model free của **OpenCode Zen** (ID dạng `opencode/<model>`). Config/skill do `modules/home/opencode.nix` + `modules/home/llm-agents.nix` cung cấp. Chạy dưới `systemd --user`.
 
 #### MCP servers (9)
+
+Bảng đầy đủ (transport, lệnh chạy thật, wiring chung + cách bật/tắt): [`docs/MCP.md`](docs/MCP.md).
 
 | MCP server | Loại | Mô tả |
 |-----------|------|-------|
