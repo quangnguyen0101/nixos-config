@@ -43,7 +43,9 @@
           "foreground": "#232634",
           "powerline_symbol": "\ue0b0",
           "options": {
-            "branch_icon": "\ue725 "
+            "branch_icon": "\ue725 ",
+            "fetch_status": true,
+            "fetch_upstream_icon": true
           },
           "style": "powerline",
           "template": " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }} \uf044 {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}<#e78284> \uf046 {{ .Staging.String }}</>{{ end }} ",
