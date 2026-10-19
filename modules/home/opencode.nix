@@ -120,6 +120,10 @@ in
           enabled = true;
           command = [
             "uvx"
+            "--overrides"
+            # postgres-mcp ghim pglast==7.2.0 (không tồn tại trên PyPI) →
+            # override sang 7.21. Xem file để biết chi tiết.
+            ./../../pkgs/opencode/postgres-mcp-overrides.txt
             "--from"
             "postgres-mcp==0.3.0"
             "--with"

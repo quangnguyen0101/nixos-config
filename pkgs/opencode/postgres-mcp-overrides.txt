@@ -1,0 +1,8 @@
+# Ghi đè dependency cho MCP postgres.
+#
+# postgres-mcp 0.2.0/0.2.1/0.3.0 đều ghim `pglast==7.2.0`, nhưng bản đó
+# KHÔNG tồn tại trên PyPI (có 7.20, 7.21, 8.x) → uv không resolve được,
+# MCP fail với "MCP error -32000: Connection closed".
+#
+# Ghim sang 7.21 (cùng nhánh 7.x) cho tới khi upstream sửa pin.
+pglast==7.21
