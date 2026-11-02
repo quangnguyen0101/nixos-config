@@ -11,6 +11,9 @@ let
   jupyterPython = pkgs.python314.override {
     packageOverrides = self: super: {
       inherit jupyter-collaboration;
+      manim = super.manim.overridePythonAttrs (old: {
+        doCheck = false;
+      });
     };
   };
 
@@ -18,6 +21,7 @@ let
   # mutagen): tránh ngay buildEnv conflict khi home.packages có hai python env
   # cùng install lib/pkgconfig/python3.pc.
   jupyterEnv = jupyterPython.withPackages (p: [
+    p.pygame
     p.jupyterlab
     p.jupyter-collaboration # realtime autosave — jupyter-mcp-server cần để phát hiện thay đổi
     p.ipykernel

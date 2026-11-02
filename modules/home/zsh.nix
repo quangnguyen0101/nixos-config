@@ -11,9 +11,12 @@
       tr = "tree";
       clr = "clear";
       shut = "shutdown -h now";
-      op = "opencode";
+      op = "opencode2";
       nx = "cd ~/nixos-config";
-      rebuild = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw";
+      rb = "sudo nixos-rebuild build --flake ~/nixos-config#nixos-btw";
+      rbs = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw";
+      fu = "nix flake update";
+      ful = "nix flake update llm-agents";
     };
 
     oh-my-zsh = {

@@ -9,16 +9,12 @@ let
 
   # Hash node_modules FOD cua llm-agents dang stale (got != specified).
   # Override bang hash thuc te de build duoc.
-  opencode-desktop = llmAgentPkgs.opencode-desktop.overrideAttrs (old: {
-    node_modules = old.node_modules.overrideAttrs (inner: {
-      outputHash = "sha256-qWZuOpolZAr7EZlAgfVx8nw8axoOMauoXwcqiJUGu24=";
-    });
-
+  opencode-desktop = llmAgentPkgs.opencode2-desktop.overrideAttrs (old: {
     # Desktop build cua llm-agents thieu OPENCODE_VERSION (chi set channel=prod)
     # -> core embedded bake "0.0.0-prod-<builddate>" -> gateway free tier reject
     # ("OpenCode 1.18.0 or newer is required"). Set version de bake dung.
-    env = old.env // {
-      OPENCODE_VERSION = old.version;
+    env = (old.env or { }) // {
+      OPENCODE_VERSION = old.version or "2.1.4";
     };
   });
 
@@ -27,11 +23,12 @@ in
 {
   home.packages = [
     opencode-desktop # AI coding agent GUI client
+    llmAgentPkgs.pi
     llmAgentPkgs.freebuff # AI coding agent CLI
     # codex: dung ban nixpkgs (modules/home/userPackages.nix, co san trong binary cache).
     # Ban llm-agents build tu source V8+rust ~30-60 phut, khong dung.
   ];
 
   # OpenCode TUI: dung CLI tu llm-agents.nix (config thuoc ve opencode.nix)
-  programs.opencode.package = llmAgentPkgs.opencode;
+  programs.opencode.package = llmAgentPkgs.opencode2;
 }
