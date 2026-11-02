@@ -60,6 +60,7 @@
         docker = {
           type = "local";
           enabled = true;
+          timeout = 120000; # npx cold start (tai package lan dau)
           command = [
             "npx"
             "-y"
@@ -70,6 +71,7 @@
         postgres = {
           type = "local";
           enabled = true;
+          timeout = 120000; # uvx cold start sau khi clean cache
           command = [
             "uvx"
             "--overrides"
@@ -88,6 +90,7 @@
         jupyter = {
           type = "local";
           enabled = true;
+          timeout = 120000; # uvx cold start + JupyterLab kernel discovery
           command = [
             "uvx"
             "--from"
