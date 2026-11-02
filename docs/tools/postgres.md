@@ -31,5 +31,4 @@ MCP server local (`uvx postgres-mcp`) kết nối database `datascience` trên c
 ## Liên quan
 
 - [[jupyter]] — pandas đọc số liệu từ DB này
-- [[arxiv]] — lấy dataset/paper kèm số liệu
 - [[_index]] — map of content

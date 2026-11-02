@@ -7,11 +7,11 @@ tags: [nixos, docs, moc]
 > [!info] Obsidian
 > Vault này chính là repo `~/nixos-config` — mở nó trong **Obsidian** để dùng wikilink `[[...]]`, graph view và backlinks. GitHub vẫn render được phần lớn (chỉ wikilink hiện dạng text thường).
 
-## 🧠 AI stack — 9 MCP servers
+## 🧠 AI stack — 5 MCP servers
 
 Bảng đầy đủ (transport, lệnh chạy, wiring + bật/tắt): **[[MCP]]**.
 
-Note chi tiết từng server: [[arxiv]], [[context7]], [[docker]], [[github]], [[jupyter]], [[openviking]], [[ouroboros]], [[postgres]], [[vision]].
+Note chi tiết từng server: [[context7]], [[docker]], [[github]], [[jupyter]], [[postgres]].
 
 ## 🛠️ Tool nhỏ gắn system
 
@@ -24,6 +24,6 @@ Note chi tiết từng server: [[arxiv]], [[context7]], [[docker]], [[github]], 
 
 ## Tổng quan
 
-- [[MCP]] — 9 MCP server: transport, lệnh chạy, wiring
+- [[MCP]] — 5 MCP server: transport, lệnh chạy, wiring
 - [[USAGE]] — cheatsheet hằng ngày
 - [[INVENTORY]] — trạng thái bật/tắt từng module

@@ -8,11 +8,11 @@ tags: [nixos, docs, skills]
 > Vault này = repo `~/nixos-config`. Mở trong **Obsidian** để dùng wikilink `[[...]]`, graph view, backlinks — GitHub render phần lớn (chỉ wikilink thành text).
 
 > [!note]
-> Bề mặt lệnh của 13 skill opencode đang cài (vendored trong `pkgs/opencode/skills/`). Bảng name/nguồn/mô tả ở [[README|README § Opencode]]; note này bổ sung **lệnh cụ thể**. Trạng thái module: [[INVENTORY]]. Cheatsheet tool khác: [[USAGE]].
+> Bề mặt lệnh của 7 skill opencode đang cài (vendored trong `pkgs/opencode/skills/`). Bảng name/nguồn/mô tả ở [[README|README § Opencode]]; note này bổ sung **lệnh cụ thể**. Trạng thái module: [[INVENTORY]]. Cheatsheet tool khác: [[USAGE]].
 
 - `<SKILL_ROOT>` / `<skill>` = thư mục skill, vd `pkgs/opencode/skills/<name>/`.
 - `<TOOLS_DIR>` = `pkgs/opencode/skills/manim-skill/tools`.
-- Các CLI `defuddle`, `knap`, `obsidian` (và `manim`, `ffmpeg`, `bash`, `python3`) phải có sẵn trong `PATH`.
+- Các CLI `defuddle` (và `manim`, `ffmpeg`, `bash`, `python3`) phải có sẵn trong `PATH`.
 
 ## Nhóm 1 — skill có lệnh chạy
 
@@ -59,14 +59,6 @@ manim -pqh scene.py Scene     # preview high quality
 manim --format gif scene.py
 manim checkhealth
 manim plugins -l
-```
-
-### guizang-ppt-skill
-
-```bash
-node <SKILL_ROOT>/scripts/validate-presenter-mode.mjs index.html [--target-minutes 30]
-node <SKILL_ROOT>/scripts/check-presenter-runtime-sync.mjs
-node <SKILL_ROOT>/scripts/validate-swiss-deck.mjs index.html
 ```
 
 ### latex-document-skill
@@ -117,48 +109,9 @@ defuddle parse <url> -p title|description|domain
 # flag: --md | --json | (none = HTML) | -p <name>
 ```
 
-### knap
-
-```bash
-knap help syntax|filters|filter date|tags|tag for
-knap render template.md --data article.json -o note.md
-knap render -t '# {{ title | trim }}' --data-json '{"title":"Hello"}'
-knap render template.md --data article.json --set 'title=Custom title'
-knap validate template.md
-knap batch template.md --data articles.csv --output-dir notes
-```
-
-### obsidian-cli
-`obsidian <cmd>`:
-
-```bash
-obsidian create name="My Note" content="Hello" [silent] [overwrite] [template="T"]
-obsidian read file="My Note"
-obsidian append file="My Note" content="New line"
-obsidian search query="term" [limit=10]
-obsidian vault="My Vault" search query="term"
-obsidian daily:read
-obsidian daily:append content="- [ ] New task"
-obsidian property:set name="status" value="done" file="My Note"
-obsidian tasks daily todo
-obsidian tags sort=count counts
-obsidian backlinks file="My Note"
-obsidian plugin:reload id=my-plugin
-obsidian dev:errors
-obsidian dev:console level=error
-obsidian dev:screenshot path=screenshot.png
-obsidian dev:dom selector=".workspace-leaf" text
-obsidian dev:css selector=".workspace-leaf" prop=background-color
-obsidian eval code="app.vault.getFiles().length"
-obsidian dev:mobile on
-```
-
 ## Nhóm 2 — không có CLI (thuần hướng dẫn / workflow)
 
 | Skill | Cách dùng |
 |-------|-----------|
 | `data-science` | Chạy notebook trên Jupyter MCP, compute server-side, Postgres/Docker, tra arXiv, xuất plot/BibTeX |
-| `json-canvas` | Tạo/sửa `.canvas` (node / edge / group) — không có lệnh |
-| `obsidian-bases` | Tạo/sửa `.base` (view / filter / formula) — không có lệnh |
-| `obsidian-markdown` | Viết Obsidian Flavored Markdown (wikilink, callout, embed, frontmatter) |
 | `manim-composer` | Lập kế hoạch scene-by-scene ra `scenes.md` trước khi viết code — không chạy gì |

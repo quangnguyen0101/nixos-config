@@ -57,13 +57,17 @@
     f3d # fast 3D model viewer (STL/OBJ/glTF/USD...)
     codex # OpenAI Codex CLI — nixpkgs co san trong binary cache (fetch 146MB, khong build source)
     poppler-utils # pdftotext/pdfinfo
-    (pkgs.tesseract5.override { enableLanguages = [ "eng" "vie" ]; }) # OCR eng+vie, fallback cho vision
+    (pkgs.tesseract5.override {
+      enableLanguages = [
+        "eng"
+        "vie"
+      ];
+    }) # OCR eng+vie, fallback cho vision
     impression
     drawio # ERD/Chen diagrams, UML
     imagemagick # CLI convert/magick — xử lý ảnh, webp/gif, contact sheet
     cmake # C/C++ build system
     gcc # C/C++ compiler (cc = gcc)
-    (pkgs.callPackage ../../pkgs/openviking { }) # context database server + CLI
   ];
 
   # Config fastfetch

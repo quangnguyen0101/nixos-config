@@ -36,21 +36,17 @@ tags: [nixos, cheatsheet, docs]
 | Nghe nhạc | `rmpc` / `rmpc update` / `ru` | [[rmpc]] |
 | Gắn skill AI lên project | `cd <project> && autoskills` | [[autoskills]] |
 
-## AI stack — 9 MCP servers
+## AI stack — 5 MCP servers
 
 Danh sách + cách dùng từng server: xem **[[_index]]**; bảng đầy đủ + wiring/bật-tắt: **[[MCP]]** (hoặc từng note):
 
 | MCP | Khi nào dùng | Note |
 |-----|--------------|------|
-| [[arxiv]] | Tra/đọc paper, trích dẫn BibTeX | tìm → abstract → download → section |
 | [[context7]] | Tra docs thư viện, cho code mẫu | tối đa 3 lần/câu hỏi |
 | [[docker]] | Containers/compose/DB containers | destructive cần `# CONFIRMED-DESTRUCTIVE` |
 | [[github]] | Repos/issues/PRs/code search | PAT ở `~/.config/opencode/github.token` |
 | [[jupyter]] | Notebook + kernel data science | luồng chuẩn: [data-science skill](../../pkgs/opencode/skills/data-science/SKILL.md) |
-| [[openviking]] | Long-term memory, virtual FS `viking://` | cũng có CLI `ov` |
-| [[ouroboros]] | Task end-to-end: interview→seed→execute | theo dõi bằng job_status/job_wait |
 | [[postgres]] | SQL data science trên `postgres-ds` | DS nằm ở /data/postgres |
-| [[vision]] | OCR / mô tả ảnh | PaddleOCR local, Gemini free fallback |
 
 ## Terminal / Editor
 
@@ -62,7 +58,7 @@ Danh sách + cách dùng từng server: xem **[[_index]]**; bảng đầy đủ 
 
 - Sau rebuild phải **thoát & mở lại** opencode để nạp config/skill mới (không hot-reload).
 - `opencode mcp list` — kiểm tra MCP. Ngay sau reboot lần chạy đầu có thể báo fail transient (cold start `uvx`) — chạy lần 2 là OK.
-- Services nền: `systemctl --user status` (jupyterlab, openviking-server, rclone-gdrive, keep-awake…) — chi tiết khai báo ở `modules/home/opencode.nix`, `modules/system/postgres-docker.nix`.
+- Services nền: `systemctl --user status` (jupyterlab, ollama, rclone-gdrive, keep-awake…) — chi tiết khai báo ở `modules/home/opencode.nix`, `modules/system/postgres-docker.nix`.
 
 ## Ổ đĩa / Cloud
 

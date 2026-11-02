@@ -36,9 +36,7 @@ Môi trường data science của máy này là **hỗn hợp MCP trên NixOS**:
 
 ## 4. Tài liệu tham khảo
 
-- Tra cứu paper: arXiv MCP `arxiv_search_papers` theo `ti:`/`abs:`/`cat:`; đọc abstract với `arxiv_get_abstract` trước khi download.
-- Đọc sâu: `arxiv_download_paper` → `arxiv_get_paper_outline` → `arxiv_read_paper_section`.
-- Trích dẫn: `arxiv_export_citations` để lấy BibTeX chuẩn từ metadata.
+- MCP `arxiv` đã gỡ (2026-11). Nếu cần paper, dùng web search hoặc `defuddle parse <url> --md` để lấy nội dung; không giả định có tool `arxiv_*`.
 
 ## 5. Output & tái hiện
 

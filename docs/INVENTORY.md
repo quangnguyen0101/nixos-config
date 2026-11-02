@@ -27,13 +27,12 @@ tags: [nixos, docs, inventory]
 | `nvim.nix` + `nvim-config/` | 🟢 | import; config là git submodule | LazyVim >30 plugin |
 | `cava.nix` | 🟢 | import | audio visualizer |
 | `ghostty.nix` | 🟢 | import | terminal mặc định |
-| `opencode.nix` | 🟢 | import | MCP servers, skills, plugin |
+| `opencode.nix` | 🟢 | import | 5 MCP servers + skills (plugins đã gỡ 2026-11) |
 | `autoskills.nix` | 🟢 | import | **không chạy service** — cài theo project, để nguyên cũng không tốn gì |
 | `caelestia.nix` | 🟢 | import | Wayland shell |
 | `userPackages.nix` | 🟢 | import | giỏ packages chung — **nơi muốn gỡ bớt thì sửa danh sách ở đây** |
 | `rmpc-config/rmpc.nix` | 🟢 | import | MPD client + config/themes |
 | `easyeffects.nix` | 🟢 | import | audio processing |
-| `openviking-server.nix` | 🟢 | import | context database server (MCP) |
 | `keep-awake/keep-awake.nix` | 🟢 | import | 2 systemd-user service: `ydotoold`, `keep-awake` |
 | `rclone-gdrive.nix` | 🟢 | import | systemd-user `rclone-gdrive` → `~/GoogleDrive` |
 | `brt.nix` | 🟢 | import | menu độ sáng (brightnessctl/ddcutil) |
@@ -69,11 +68,22 @@ tags: [nixos, docs, inventory]
 | Package | Trạng thái | Ghi chú |
 |---------|:----------:|---------|
 | `deepseek-harness` | ⏸️ | binary `dsh` vẫn cài (ở `userPackages.nix`) nhưng không có service/plugin — xem README |
-| `openviking` | 🟢 | server + CLI — nền MCP `openviking` |
-| `ouroboros` | 🟢 | bridge plugin `.ts` cho MCP `ouroboros` |
-| `ponytail` | 🟢 | opencode plugin "lazy senior dev mode" (vendored v4.10.0, MIT) — inject ruleset mỗi turn, mode default `full`; thêm `/ponytail`, `-review`, `-audit`, `-debt`, `-gain`, `-help` |
+| `ouroboros` | ❌ | bridge plugin `.ts` — đã xoá cùng MCP `ouroboros` (2026-11) |
+| `ponytail` | ❌ | opencode plugin — đã xoá 2026-11 |
 | `opencode/autoskills` | 🟢 | CLI cài skill theo project (CC-BY-NC-4.0) |
-| `opencode/skills/*` | 🟢 | skill copy vào `~/.config/opencode/skills/` |
+| `opencode/skills/*` | 🟢 | 7 skill copy vào `~/.config/opencode/skills/` |
+
+## Đã gỡ (2026-11)
+
+| Thứ | Ghi chú |
+|-----|---------|
+| MCP `openviking`, `ouroboros`, `arxiv`, `vision` | bỏ khỏi `modules/home/opencode.nix` |
+| OpenViking | xoá `pkgs/openviking/`, `modules/home/openviking-server.nix`, bỏ khỏi `userPackages.nix` + `home.nix` |
+| Plugin `ouroboros-bridge`, `ponytail` | xoá khỏi `settings.plugin`, xoá `pkgs/ouroboros`, `pkgs/ponytail` |
+| Skills `guizang-ppt-skill`, `knap`, `json-canvas`, `obsidian-bases`, `obsidian-cli`, `obsidian-markdown` | xoá khỏi `pkgs/opencode/skills/` + `home.file` |
+| `pkgs/opencode/vision-mcp-wrapper.py` | xoá cùng MCP `vision` |
+
+> Giữ lại: `jupyter` MCP + `jupyterEnv` (6.1G), `postgres` + `docker` + container `postgres-ds`, `context7`, `github`, `ollama`.
 
 ## Gợi ý giảm nặng máy
 

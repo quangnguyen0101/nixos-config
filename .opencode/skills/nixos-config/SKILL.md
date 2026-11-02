@@ -29,10 +29,9 @@ Repo này là **flake NixOS + home-manager** (host `nixos-btw`). Mọi config ph
 
 ## Cấu trúc module
 
-- `modules/home/` — home-manager: `opencode.nix` (MCP servers, plugins, instructions, skills), `jupyter.nix` (python314 env, service jupyterlab), `autoskills.nix` (cài skill AI per-project), ...
+- `modules/home/` — home-manager: `opencode.nix` (MCP servers, instructions, skills), `jupyter.nix` (python314 env, service jupyterlab), `autoskills.nix` (cài skill AI per-project), ...
 - `docs/` — tài liệu hướng người dùng: `docs/USAGE.md` (cheatsheet dùng tool), `docs/INVENTORY.md` (trạng thái module + cách bật/tắt). Cập nhật khi thêm/bớt module.
 - `home/<user>/home.nix` — imports module home-manager vào host.
-- `pkgs/ouroboros/ouroboros-bridge.ts` — opencode plugin (referenced qua `./...` path → Nix copy vào `/nix/store`, store path thay đổi mỗi lần sửa → phải rebuild để opencode thấy bản mới).
 - Thay đổi ở module chỉ có hiệu lực sau khi user chạy `nixos-rebuild switch`. Config opencode không hot-reload → sau rebuild phải **thoát & mở lại opencode**.
 
 ## Git
@@ -44,7 +43,7 @@ Repo này là **flake NixOS + home-manager** (host `nixos-btw`). Mọi config ph
 ## opencode integration
 
 - Config mở rộng qua `modules/home/opencode.nix` → `programs.opencode.settings`.
-- 8 MCP servers khai báo ở đó (arxiv, context7, docker, github, jupyter, openviking, ouroboros, postgres).
+- 5 MCP servers khai báo ở đó (context7, docker, github, jupyter, postgres).
 - Skills trong repo:
   - project skill (repo-scope): `.opencode/skills/nixos-config/SKILL.md` — tự dùng khi đang ở repo.
   - global skill `data-science`: source ở `pkgs/opencode/skills/data-science/SKILL.md`, home-manager copy sang `~/.config/opencode/skills/`.

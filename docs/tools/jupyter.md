@@ -31,5 +31,4 @@ Luồng chuẩn (chi tiết trong skill [[data-science]]):
 
 - [data-science skill](../../pkgs/opencode/skills/data-science/SKILL.md) — workflow đầy đủ
 - [[postgres]] — nguồn dữ liệu quan hệ
-- [[arxiv]] — literature review trước khi phân tích
 - [[_index]] — map of content

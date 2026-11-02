@@ -1,12 +1,5 @@
 { pkgs, config, ... }:
 
-let
-  # Ponytail (vendored DietrichGebert/ponytail v4.10.0, MIT): lazy senior dev mode.
-  # Interpolate CAI CAY (khong phai file le) de giu relative require '../../hooks',
-  # '../../skills' cua plugin; Nix copy toan bo dir vao store.
-  ponytail = "${./../../pkgs/ponytail}";
-in
-
 {
   # Agents tu llm-agents.nix (opencode-desktop, freebuff, opencode CLI...)
   # duoc cai trong modules/home/llm-agents.nix
@@ -20,24 +13,14 @@ in
     # Archify (vendored tt-a1i/archify, MIT): renderer JSON-IR -> HTML/SVG diagrams.
     # Can node >=18 (da co tren he thong). Rut gon: bo test/ va examples/*.html (proof artifacts).
     ".config/opencode/skills/archify".source = ./../../pkgs/opencode/skills/archify;
-    # Guizang PPT (vendored op7418/guizang-ppt-skill, AGPLv3): single-file HTML
-    # horizontal-swipe PPT + image prompts + social covers. Rut gon: bo
-    # ppt-skill-showcase.png (demo) va docs/ (unused by SKILL.md).
-    ".config/opencode/skills/guizang-ppt-skill".source = ./../../pkgs/opencode/skills/guizang-ppt-skill;
     # LaTeX documents (vendored ndpvt-web/latex-document-skill, MIT): compile any
     # LaTeX to PDF + PNG previews, 28 templates + ATS resumes, charts/mermaid/
     # graphviz, mail merge, pdf fill/extract. Rut gon: bo examples (giu 3 ieee
     # refs), mascot png, tests/, stats/. Pi deps: matplotlib numpy pandas jinja2.
     ".config/opencode/skills/latex-document-skill".source =
       ./../../pkgs/opencode/skills/latex-document-skill;
-    # Obsidian skills (vendored kepano/obsidian-skills, MIT): 6 skills doc-tooling.
-    # Moi skill self-contained (refs tuong doi trong chinh folder no). Bo .claude-plugin/ va README.
+    # Defuddle (vendored kepano/obsidian-skills, MIT): HTML -> Markdown, dung CLI defuddle.
     ".config/opencode/skills/defuddle".source = ./../../pkgs/opencode/skills/defuddle;
-    ".config/opencode/skills/json-canvas".source = ./../../pkgs/opencode/skills/json-canvas;
-    ".config/opencode/skills/knap".source = ./../../pkgs/opencode/skills/knap;
-    ".config/opencode/skills/obsidian-bases".source = ./../../pkgs/opencode/skills/obsidian-bases;
-    ".config/opencode/skills/obsidian-cli".source = ./../../pkgs/opencode/skills/obsidian-cli;
-    ".config/opencode/skills/obsidian-markdown".source = ./../../pkgs/opencode/skills/obsidian-markdown;
     # Manim skills (vendored): adithya-s-k/manim_skill (MIT) — manim-composer (lap
     # ke hoach video) + manimce-best-practices (24 rule + example + template, thuan
     # markdown, khong dep). Yusuke710/manim-skill (MIT) — workflow render + TTS
@@ -54,8 +37,7 @@ in
     extraPackages = [ pkgs.nixd ]; # LSP server cho .nix (còn lại opencode tự cài)
 
     settings = {
-      # Default model: can cho headless `opencode run` (ouroboros adapter spawn CLI
-      # khong kem --model) de khong roi vao embed model. Format provider/model.
+      # Default model cho ca TUI lan headless `opencode run`. Format provider/model.
       model = "ollama/gpt-oss:120b-cloud";
 
       lsp = true;
@@ -64,22 +46,7 @@ in
       # Tai ke khi mở session -> chấm dứt shell command hang vi cho TTY.
       instructions = [ "${config.home.homeDirectory}/.config/opencode/shell_strategy.md" ];
 
-      # Ouroboros bridge plugin: chặn _subagent envelope từ MCP ouroboros, dispatch
-      # ra Task panes của opencode. File tĩnh từ wheel ouroboros-ai 0.54.4
-      # (version-agnostic, chi doc cap version MCP args). sync khi nang version.
-      # Ponytail: lazy senior dev ruleset, inject vao system prompt moi turn.
-      # Mode mac dinh = full (DEFAULT_MODE trong ponytail-config.js). Mac dinh global
-      # cho moi workspace vi load nhu server plugin.
-      plugin = [
-        "${./../../pkgs/ouroboros/ouroboros-bridge.ts}"
-        "${ponytail}/.opencode/plugins/ponytail.mjs"
-      ];
-
       mcp = {
-        openviking = {
-          type = "remote";
-          url = "http://127.0.0.1:1933/mcp";
-        };
         context7 = {
           type = "remote";
           url = "https://mcp.context7.com/mcp";
@@ -89,21 +56,6 @@ in
           url = "https://api.githubcopilot.com/mcp/";
           oauth = false; # GitHub khong ho tro DCR -> dung PAT trong header
           headers.Authorization = "Bearer {file:~/.config/opencode/github.token}";
-        };
-        ouroboros = {
-          type = "local";
-          enabled = true;
-          command = [
-            "uvx"
-            "--from"
-            "ouroboros-ai[mcp]==0.54.4" # pin version MCP server
-            "ouroboros"
-            "mcp"
-            "serve"
-            "--runtime"
-            "opencode"
-          ];
-          environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
         };
         docker = {
           type = "local";
@@ -133,18 +85,6 @@ in
           ];
           environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
         };
-        arxiv = {
-          type = "local";
-          enabled = true;
-          timeout = 120000; # arXiv rate-limit (429): retry budget 62s > default 30s
-          command = [
-            "uvx"
-            "--from"
-            "arxiv-mcp-server[pdf]==0.7.2" # pin version, [pdf] de dang roi PDF fallback
-            "arxiv-mcp-server"
-          ];
-          environment.LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
-        };
         jupyter = {
           type = "local";
           enabled = true;
@@ -158,23 +98,6 @@ in
             JUPYTER_URL = "http://127.0.0.1:8888";
             JUPYTER_TOKEN = "jupylocal-ds";
             ALLOW_IMG_OUTPUT = "true";
-            LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
-          };
-        };
-        vision = {
-          type = "local";
-          enabled = true;
-          timeout = 120000; # cold download paddleocr (paddle extra) ~2min
-          command = [
-            "uvx"
-            "--from"
-            "opencode-vision[paddle]==2.1.0" # PaddleOCR local + Gemini free fallback
-            "python3"
-            "${./../../pkgs/opencode/vision-mcp-wrapper.py}" # patch: newline framing + protocolVersion
-          ];
-          environment = {
-            # Gemini API key: file ngoai repo (600), khong commit len public github
-            GOOGLE_API_KEY = "{file:~/.config/opencode/gemini.key}";
             LD_LIBRARY_PATH = "${pkgs.stdenv.cc.cc.lib}/lib";
           };
         };
@@ -237,7 +160,6 @@ in
       };
     };
 
-    tui.display_thinking = true;
   };
 
   systemd.user.services.ollama = {

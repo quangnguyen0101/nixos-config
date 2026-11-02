@@ -22,34 +22,22 @@ END = "<!-- END SKILLS-TABLE -->"
 ORDER = [
     "data-science",
     "archify",
-    "guizang-ppt-skill",
     "latex-document-skill",
     "manim-composer",
     "manimce-best-practices",
     "manim-skill",
     "defuddle",
-    "json-canvas",
-    "knap",
-    "obsidian-bases",
-    "obsidian-cli",
-    "obsidian-markdown",
 ]
 
 # Cot "Nguon": xuat xu / license cua tung skill (khong suy ra duoc tu SKILL.md).
 PROVENANCE = {
     "data-science": "repo",
     "archify": "vendored `tt-a1i/archify` (MIT)",
-    "guizang-ppt-skill": "vendored `op7418/guizang-ppt-skill` (AGPLv3)",
     "latex-document-skill": "vendored `ndpvt-web/latex-document-skill` (MIT)",
     "manim-composer": "vendored `adithya-s-k/manim_skill` (MIT)",
     "manimce-best-practices": "vendored `adithya-s-k/manim_skill` (MIT)",
     "manim-skill": "vendored `Yusuke710/manim-skill` (MIT)",
     "defuddle": "vendored `kepano/obsidian-skills` (MIT)",
-    "json-canvas": "vendored `kepano/obsidian-skills` (MIT)",
-    "knap": "vendored `kepano/obsidian-skills` (MIT)",
-    "obsidian-bases": "vendored `kepano/obsidian-skills` (MIT)",
-    "obsidian-cli": "vendored `kepano/obsidian-skills` (MIT)",
-    "obsidian-markdown": "vendored `kepano/obsidian-skills` (MIT)",
 }
 
 # Mo ta tieng Viet cho cot "Mo ta". Skill khong co o day -> lay cau dau

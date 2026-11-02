@@ -11,9 +11,9 @@
 
 - [`docs/USAGE.md`](docs/USAGE.md) — cheatsheet cách dùng từng công cụ hằng ngày (update, tmux, keep-awake, brt, rmpc, autoskills, …)
 - [`docs/INVENTORY.md`](docs/INVENTORY.md) — trạng thái từng module (đang chạy / đã tắt) + cách bật/tắt, đỡ cài phí không dùng
-- [`docs/tools/_index.md`](docs/tools/_index.md) — **Map of Content**: 1 note/tool click-nhảy (9 MCP servers + autoskills, keep-awake, brt, rmpc)
-- [`docs/MCP.md`](docs/MCP.md) — 9 MCP server: bảng đầy đủ (transport, lệnh chạy), wiring chung + cách bật/tắt
-- [`docs/SKILLS.md`](docs/SKILLS.md) — danh sách **lệnh cụ thể** của từng skill opencode (archify, manim, latex, obsidian-cli, …)
+- [`docs/tools/_index.md`](docs/tools/_index.md) — **Map of Content**: 1 note/tool click-nhảy (5 MCP servers + autoskills, keep-awake, brt, rmpc)
+- [`docs/MCP.md`](docs/MCP.md) — 5 MCP server: bảng đầy đủ (transport, lệnh chạy), wiring chung + cách bật/tắt
+- [`docs/SKILLS.md`](docs/SKILLS.md) — danh sách **lệnh cụ thể** của từng skill opencode (archify, manim, latex, …)
 
 ## 🗂️ Cấu trúc dự án
 
@@ -25,7 +25,7 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
     │   └─ hardware-configuration.nix # Tự động sinh bởi nixos-generate-config
     ├─ modules/system/                # Các module NixOS tái sử dụng
     ├─ modules/home/ → home/          # Home Manager – cấu hình người dùng
-    ├─ pkgs/                          # Package & asset tùy chỉnh (opencode skills, openviking, ouroboros, ponytail)
+    ├─ pkgs/                          # Package & asset tùy chỉnh (opencode skills, autoskills)
     ├─ docs/                          # Tài liệu (USAGE, INVENTORY, SKILLS, sơ đồ kiến trúc, note từng tool)
     └─ (Secure Boot)                  # lanzaboote bật trực tiếp trong flake.nix, không có module riêng
 ```
@@ -64,10 +64,9 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | `ghostty.nix` | Terminal GPU-accelerated Ghostty, theme Catppuccin |
 | `firefox.nix` | Firefox — tinh chỉnh giảm RAM (giới hạn content-process, unload tab nền), tắt telemetry |
 | `caelestia.nix` | Caelestia shell (Wayland Hyprland shell) |
-| `opencode.nix` | Opencode declarative + Ollama AI stack (systemd-user) + 9 MCP servers + 13 global skills |
+| `opencode.nix` | Opencode declarative + Ollama AI stack (systemd-user) + 5 MCP servers + 7 global skills |
 | `llm-agents.nix` | Agent từ `numtide/llm-agents.nix` — OpenCode desktop GUI, `freebuff` CLI; OpenCode TUI dùng CLI ở đây |
 | `jupyter.nix` | Python 3.14 unified env (JupyterLab + scripting/libs: pip, requests, mutagen, matplotlib) — kernel cho MCP `jupyter` |
-| `openviking-server.nix` | OpenViking context database server + CLI (systemd-user) |
 | `cava.nix` | CAVA (audio visualizer) |
 | `easyeffects.nix` | EasyEffects presets (audio processing) |
 | `rmpc-config/` | Music Player Client (rmpc) — config + themes |
@@ -90,7 +89,7 @@ flake.nix                     # Entry point – khai báo inputs, outputs và c�
 | **Multiplexer** | Tmux với `resurrect/continuum` |
 | **Login** | greetd + regreet (Rosé Pine) |
 | **Input** | fcitx5-lotus + bamboo (Vietnamese) |
-| **AI stack** | Opencode (Ollama + OpenCode Zen free) + 9 MCP servers (arxiv, context7, docker, github, jupyter, openviking, ouroboros, postgres, vision) |
+| **AI stack** | Opencode (Ollama + OpenCode Zen free) + 5 MCP servers (context7, docker, github, jupyter, postgres) |
 | **Browser** | Firefox (tối ưu RAM) + Brave/Chromium |
 | **Văn phòng & 3D** | LibreOffice, Blender, MeshLab, f3d |
 | **LaTeX** | TeX Live + Zathura + TeXstudio (vimtex) |
@@ -110,7 +109,7 @@ Lệnh này đọc `flake.nix`, biên dịch lại toàn bộ hệ thống và H
 ### Opencode
 Khai báo trong `modules/home/opencode.nix`. Provider mặc định là Ollama (`http://localhost:11434/v1`), model mặc định `ollama/gpt-oss:120b-cloud` (bắt buộc cho headless `opencode run`). Ngoài Ollama còn dùng được các model free của **OpenCode Zen** (ID dạng `opencode/<model>`). Config/skill do `modules/home/opencode.nix` + `modules/home/llm-agents.nix` cung cấp. Chạy dưới `systemd --user`.
 
-#### MCP servers (9)
+#### MCP servers (5)
 
 Bảng đầy đủ (transport, lệnh chạy thật, wiring chung + cách bật/tắt): [`docs/MCP.md`](docs/MCP.md).
 
@@ -119,12 +118,8 @@ Bảng đầy đủ (transport, lệnh chạy thật, wiring chung + cách bật
 | `context7` | remote | Tra cứu docs/code examples của thư viện (Context7) |
 | `docker` | local (`npx @hypnosis/docker-mcp-server`) | Quản lý containers, images, volumes, logs qua `DOCKER_HOST=unix:///var/run/docker.sock` |
 | `github` | remote | GitHub repos, issues, PRs, code search |
-| `openviking` | local | OpenViking context database — Xem `pkgs/openviking/README.md` |
-| `ouroboros` | local (`uvx ouroboros-ai[mcp]==0.54.4`) | Agent OS — Xem `pkgs/ouroboros/README.md` |
 | `postgres` | local (`uvx postgres-mcp==0.3.0`) | SQL data science trên container `postgres-ds` (PostgreSQL 17) |
-| `arxiv` | local (`uvx arxiv-mcp-server[pdf]==0.7.2`) | Tìm kiếm / đọc paper arXiv (bao gồm fallback PDF→markdown qua pymupdf) |
 | `jupyter` | local (`uvx jupyter-mcp-server==2.1.15`) | Chạy notebook / Python code trên JupyterLab (127.0.0.1:8888) — kernel data science: pandas, numpy, matplotlib, scikit-learn |
-| `vision` | local (`uvx opencode-vision[paddle]==2.1.0`) | OCR/vision: PaddleOCR local + Gemini free fallback (`gemini.key`); wrapper `pkgs/opencode/vision-mcp-wrapper.py` |
 
 Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.cc.cc.lib` (greenlet/biopython trên NixOS cần libstdc++) — cấu hình trong `opencode.nix`. Jupyter MCP server kết nối tới JupyterLab đang chạy nền (`systemctl --user status jupyterlab`).
 
@@ -139,17 +134,11 @@ Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.
 |-------|-------|-------|
 | `data-science` | repo | Workflow data science: notebook trên Jupyter MCP, compute server-side, Postgres/Docker, tra cứu arXiv, xuất plot + BibTeX |
 | `archify` | vendored `tt-a1i/archify` (MIT) | Render mô hình hệ thống (architecture/workflow/sequence/dataflow/lifecycle) → HTML/SVG tương tác từ JSON IR; cần `node >=18` |
-| `guizang-ppt-skill` | vendored `op7418/guizang-ppt-skill` (AGPLv3) | Web PPT 1-file dạng swipe ngang (2 style: *Magazine x E-Ink* / *Swiss*) + image prompt + cover mạng xã hội |
 | `latex-document-skill` | vendored `ndpvt-web/latex-document-skill` (MIT) | Compile LaTeX → PDF + preview PNG, 28 template + CV ATS, chart/mermaid/graphviz, mail-merge, fill/extract PDF |
 | `manim-composer` | vendored `adithya-s-k/manim_skill` (MIT) | Lập kế hoạch scene-by-scene cho video Manim (ra `scenes.md`) trước khi viết code |
 | `manimce-best-practices` | vendored `adithya-s-k/manim_skill` (MIT) | Best practices ManimCE: 24 rule + example + template (Scene, MathTex, 3D, camera, …) |
 | `manim-skill` | vendored `Yusuke710/manim-skill` (MIT) | Render video ManimCE + TTS voiceover (Kokoro local, hoặc `edge-tts` online) + subtitle đồng bộ; tools gọi `python` (kokoro/soundfile/edge-tts nằm trong `jupyterEnv`) |
 | `defuddle` | vendored `kepano/obsidian-skills` (MIT) | Trích Markdown sạch từ trang HTML |
-| `json-canvas` | vendored `kepano/obsidian-skills` (MIT) | Tạo/sửa file `.canvas` (node / edge / group) |
-| `knap` | vendored `kepano/obsidian-skills` (MIT) | Render Markdown từ template + data (JSON/CSV) |
-| `obsidian-bases` | vendored `kepano/obsidian-skills` (MIT) | Tạo/sửa file `.base` (view / filter / formula) |
-| `obsidian-cli` | vendored `kepano/obsidian-skills` (MIT) | Thao tác vault Obsidian qua CLI (đọc/tạo/search note, plugin & theme dev) |
-| `obsidian-markdown` | vendored `kepano/obsidian-skills` (MIT) | Obsidian Flavored Markdown (wikilink, callout, embed, frontmatter) |
 <!-- END SKILLS-TABLE -->
 
 **Repo-scope skill**: `nixos-config` (`.opencode/skills/nixos-config/`) — rebuild/check, module layout, secrets, tích hợp opencode; chỉ active khi làm việc trong repo này.
@@ -158,15 +147,15 @@ Các server local dùng `uvx`/`npx` cần `LD_LIBRARY_PATH` trỏ tới `stdenv.
 
 **CLI liên quan**: `autoskills` (`modules/home/autoskills.nix` → `pkgs.autoskills`, CC-BY-NC-4.0) — cài skill AI vào `.agents/skills/` theo từng project (xem `docs/USAGE.md`). Lệnh cụ thể của từng skill: [`docs/SKILLS.md`](docs/SKILLS.md).
 
-**Plugins** (khai báo trong `opencode.nix`): `ouroboros-bridge.ts` (dispatch subagent của MCP ouroboros ra Task pane) và **ponytail** (vendored `DietrichGebert/ponytail`, MIT — chế độ "lazy senior dev", inject ruleset vào system prompt mỗi turn).
+**Plugins**: không còn plugin nào (ouroboros-bridge và ponytail đã gỡ 2026-11).
 
-Config/skills/plugins chỉ có hiệu lực sau khi **thoát & mở lại opencode** (không hot-reload).
+Config/skills chỉ có hiệu lực sau khi **thoát & mở lại opencode** (không hot-reload).
 
 #### Sơ đồ kiến trúc
 
-Sơ đồ kiến trúc AI stack (opencode + 9 MCP servers + backend) render bằng skill `archify`: mở [`docs/nixos-config-architecture.html`](docs/nixos-config-architecture.html).
+Sơ đồ kiến trúc AI stack (opencode + 5 MCP servers + backend) render bằng skill `archify`: mở [`docs/nixos-config-architecture.html`](docs/nixos-config-architecture.html).
 
-- Source JSON: `docs/nixos-config.architecture.json` (12 nodes, 3 boundaries, 4 cards)
+- Source JSON: `docs/nixos-config.architecture.json`
 - Re-render lại (cần `node >= 18`):
   ```bash
   node ~/.config/opencode/skills/archify/bin/archify.mjs render architecture \
@@ -184,10 +173,7 @@ Plugin Neovim để tương tác với các model AI trong editor.
 
 | Package | Đường dẫn | Mô tả |
 |---------|-----------|-------|
-| `openviking` | `pkgs/openviking/` | Context database server + CLI — nền cho MCP `openviking`. Xem README.md trong thư mục. |
-| `ouroboros` | `pkgs/ouroboros/` | 🧩 Không phải package — vendor bridge plugin `.ts` cho MCP `ouroboros`. Xem README.md trong thư mục. |
-| `opencode` (assets) | `pkgs/opencode/` | 🧩 Không phải package — vendored skills, `shell_strategy.md`, `vision-mcp-wrapper.py`, autoskills. |
-| `ponytail` | `pkgs/ponytail/` | 🧩 Plugin opencode (vendored `DietrichGebert/ponytail`, MIT) — lazy senior dev ruleset. |
+| `opencode` (assets) | `pkgs/opencode/` | 🧩 Không phải package — vendored skills, `shell_strategy.md`, autoskills. |
 
 ### nix-ld
 `modules/system/nix-ld.nix` kích hoạt `programs.nix-ld` với `libstdc++`, `zlib`, `openssl` — cần thiết cho C-extension wheels (pillow, numpy, greenlet, …) dựng ngoài nix.
@@ -203,5 +189,3 @@ Không thay đổi giá trị này trừ khi bạn đã chuẩn bị migration d
 - https://nixos.org/manual/home-manager/stable/ (Home Manager)
 - https://github.com/folke/lazy.nvim (LazyVim)
 - https://github.com/nix-community/lanzaboote (Lanzaboote)
-- https://ouroboros.ai (Ouroboros — Agent OS MCP)
-- https://openviking.dev (OpenViking — context database)
