@@ -47,7 +47,7 @@ tags: [nixos, docs, inventory]
 |--------|:----------:|--------------|---------|
 | `hyprland.nix` | 🟢 | import trong `configuration.nix` hoặc comment | compositor + XDG portal |
 | `steam.nix` | 🟢 | import | Steam 32-bit + RemotePlay — nặng, ko chơi thì comment |
-| `fonts.nix` | 🟢 | import | Nerd Fonts (4 bộ) |
+| `fonts.nix` | 🟢 | import | Nerd Fonts (4 bộ) + `vista-fonts` (Calibri, Cambria/Cambria Math, Consolas — unfree, đã bật `allowUnfree`) |
 | `networking.nix` | 🟢 | import | NetworkManager, Wi-Fi, VPN |
 | `bluetooth.nix` | 🟢 | import | bluetooth stack |
 | `i18n.nix` | 🟢 | import | locale + fcitx5-lotus (Tiếng Việt) |

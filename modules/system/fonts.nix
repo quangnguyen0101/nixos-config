@@ -12,6 +12,7 @@
     # Các font phổ biến hay dùng hằng ngày
     carlito # metric-compatible Calibri (tài liệu Word)
     caladea # metric-compatible Cambria (tài liệu Word)
+    vista-fonts # Microsoft thật: Calibri, Cambria (kèm Cambria Math), Candara, Consolas, Constantia, Corbel (unfree)
     ubuntu-classic # hệ font Ubuntu
     inter # UI font hiện đại
     roboto # font Android/Material
