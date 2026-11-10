@@ -2,6 +2,8 @@
 
 {
   home.packages = with pkgs; [
+    mysql-workbench
+    mysql84
     ydotool # giả lập bàn phím cho keep-awake
     p7zip
     btop
