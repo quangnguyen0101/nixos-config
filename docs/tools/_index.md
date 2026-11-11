@@ -25,5 +25,6 @@ Note chi tiết từng server: [[context7]], [[docker]], [[github]], [[jupyter]]
 ## Tổng quan
 
 - [[MCP]] — 5 MCP server: transport, lệnh chạy, wiring
+- [[VM]] — máy ảo Ubuntu/Windows (KVM + virt-manager)
 - [[USAGE]] — cheatsheet hằng ngày
 - [[INVENTORY]] — trạng thái bật/tắt từng module

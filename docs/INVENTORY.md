@@ -60,6 +60,7 @@ tags: [nixos, docs, inventory]
 | `postgres-docker.nix` | 🟢 | import | container PostgreSQL 17 (`postgres-ds`, bind `/data/postgres`) |
 | `backlight.nix` | 🟢 | import | udev rule backlight |
 | `rclone-fuse.nix` | 🟢 | import | fuse/rclone hệ thống |
+| `virtualisation.nix` | 🟢 | import | libvirtd + virt-manager (KVM), TPM 2.0, OVMF, virtiofs — hướng dẫn: [[VM]] |
 
 > lanzaboote (Secure Boot) khai báo inline trong `flake.nix`, không phải file module.
 

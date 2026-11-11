@@ -29,6 +29,7 @@
     ../../modules/system/rclone-fuse.nix
     ../../modules/system/backlight.nix
     ../../modules/system/postgres-docker.nix
+    ../../modules/system/virtualisation.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
