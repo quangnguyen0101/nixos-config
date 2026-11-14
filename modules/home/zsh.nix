@@ -13,6 +13,7 @@
       shut = "shutdown -h now";
       op = "opencode2";
       nx = "cd ~/nixos-config";
+      data = "cd /mnt/data"; # ổ dữ liệu chia sẻ Windows/Linux (automount)
       rb = "sudo nixos-rebuild build --flake ~/nixos-config#nixos-btw";
       rbs = "sudo nixos-rebuild switch --flake ~/nixos-config#nixos-btw";
       fu = "nix flake update";

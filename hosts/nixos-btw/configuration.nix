@@ -36,6 +36,26 @@
   boot.loader.systemd-boot.enable = lib.mkForce false;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  # Ổ dữ liệu chia sẻ Windows/Linux (Samsung 256G, NTFS, label DATA).
+  # ntfs3 là driver in-kernel: nhanh hơn ntfs-3g, không cần gói phụ để mount.
+  # Bên Windows phải tắt Fast Startup + hibernation (powercfg /h off), nếu không
+  # volume bị đánh dấu dirty và ntfs3 sẽ mount read-only.
+  fileSystems."/mnt/data" = {
+    device = "/dev/disk/by-uuid/359EAACD486DD668";
+    fsType = "ntfs3";
+    options = [
+      "rw"
+      "uid=1000" # sh4d0wph4nt0m
+      "gid=100" # users
+      "umask=022"
+      "noatime"
+      "windows_names" # chặn tên file Windows không hợp lệ
+      "nofail" # ổ hỏng/rút ra không treo boot
+      "x-systemd.automount" # chỉ mount khi có truy cập
+      "x-systemd.idle-timeout=60"
+    ];
+  };
+
   networking.hostName = "nixos-btw"; # Define your hostname.
 
   # Set your time zone.
